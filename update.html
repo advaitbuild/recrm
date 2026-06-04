@@ -1,212 +1,10 @@
-
-tally · current session
-100%
-0% headroom
-resets in 4h 22m
-weekly · all models
-10% · Mon 4:30
-Claude finished the response
-Screenshot 2026-06-04 at 20.03.50.png
-
-<!DOCTYPE html> <html> <head> <title>Royal Enfield CRM - Offline Ready</title> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <style> body { margin:0; padding:20px; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg
-
-pasted
-
-I have a responsive CRM website hosted on GitHub Pages.
-I am sharing my complete HTML, CSS and JavaScript code below.
-Current Problems:
-1. Hero background image is fixed.
-   - When scrolling, the image remains visible behind the footer.
-   - I do NOT want a fixed background.
-2. Footer behavior is incorrect.
-   - On smaller screen heights, the footer becomes visible on the first screen.
-   - Footer should never be visible on initial page load.
-   - User must scroll down to reach the footer.
-   - Footer should exist as a completely separate section after the main content.
-3. Desired Layout:
-   Section 1:
-   - Hero Section
-   - Full-screen (100vh)
-   - Contains CRM form
-   - Contains background image
-   Section 2:
-   - Footer Section
-   - Separate section below Hero
-   - Own background color/gradient
-   - No background image behind it
-4. Scrolling Behavior:
-   - When user scrolls down, Hero Section and background image should move upward naturally.
-   - Footer should appear only after scrolling.
-   - No overlap between Hero and Footer.
-5. Responsive Background Image:
-   - Must automatically adapt to all screen sizes.
-   - Desktop, Tablet and Mobile.
-   - Use:
-       background-size: cover;
-       background-position: center;
-       background-repeat: no-repeat;
-   - Image should not remain fixed when screen size changes.
-6. CRM Form Responsiveness:
-   - Form should remain centered.
-   - Width should adapt automatically.
-   - No horizontal scrolling.
-   - Mobile-friendly.
-   - Tablet-friendly.
-   - Desktop-friendly.
-7. Footer Requirements:
-   - Always stay after content.
-   - Never overlap Hero Section.
-   - Never appear on first screen unless page content is too small.
-   - Use normal document flow.
-   - Remove any position: fixed, absolute or sticky behavior causing issues.
-8. IMPORTANT:
-   - Analyze my existing code.
-   - Do not rewrite everything from scratch unless necessary.
-   - Return exact code changes.
-   - Explain which lines should be removed and which should be added.
-Here is my code:
-code gets pasted too
-
-Show more
-20:57
-Looking at your code, I can identify exactly what needs to change. Here are the targeted fixes:
-
-Problems Found
-background-attachment: fixed on body — causes the bg image to stay fixed behind footer
-body has min-height: 100vh but no proper section separation — footer bleeds into first screen
-No wrapper creating a true "Hero = 100vh" section
-Exact Changes
-1. Replace the body styles
-Remove this from body:
-
-css
-background-attachment: fixed;
-min-height: 100vh;
-position: relative;
-Replace the entire body block with:
-
-css
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-}
-2. Add a new .hero-section wrapper (after the body rule)
-css
-.hero-section {
-  min-height: 100vh;
-  padding: clamp(10px, 2vw, 20px);
-  background: linear-gradient(135deg, rgba(15,15,15,0.35), rgba(28,28,28,0.35), rgba(43,43,43,0.35)),
-              url('himalayan-bg.jpg') center/cover no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box;
-}
-3. Remove the old responsive body padding override
-Find and remove these lines (they're near the bottom of your CSS, after the @keyframes fadeDown block):
-
-css
-body { padding:clamp(10px,2vw,20px); }
-4. Update .box responsive styles
-Find:
-
-css
-.box { width:min(90vw,500px); padding:clamp(16px,2vw,25px); margin:auto; margin-top:clamp(20px,4vh,40px); transition: width .2s ease, padding .2s ease; }
-Replace with:
-
-css
-.box { width: min(90vw, 500px); padding: clamp(16px, 2vw, 25px); margin: auto; transition: width .2s ease, padding .2s ease; }
-(Remove margin-top — the flex centering on .hero-section handles vertical centering now)
-
-5. Wrap the HTML content in a .hero-section div
-Find in your HTML:
-
-html
-<body>
-
-<!-- tooltip -->
-<div id="crm-tooltip">
-Change to:
-
-html
-<body>
-<div class="hero-section">
-
-<!-- tooltip -->
-<div id="crm-tooltip">
-Then find the closing tag before the footer:
-
-Find:
-
-html
-<!-- ===== PREMIUM FOOTER ===== -->
-<footer class="re-footer">
-Add a closing div just before it:
-
-html
-</div><!-- end .hero-section -->
-
-<!-- ===== PREMIUM FOOTER ===== -->
-<footer class="re-footer">
-6. Fix the footer background
-Find:
-
-css
-.re-footer {
-  width: 100%;
-  margin-top: 60px;
-  background: rgba(10,10,10,0.97);
-Replace margin-top: 60px with margin-top: 0 (the section separation now handles spacing):
-
-css
-.re-footer {
-  width: 100%;
-  margin-top: 0;
-  background: rgba(10,10,10,0.97);
-Summary of What Each Fix Does
-Fix	What it solves
-Remove background-attachment: fixed	Stops bg image from showing behind footer
-New .hero-section div	Creates true 100vh first section with bg image
-display: flex; justify-content: center on hero	Keeps form vertically centered on all screen sizes
-No padding on body	Prevents layout bleed
-margin-top: 0 on footer	Footer stays in normal document flow, no overlap
-After these changes: the hero section will be exactly one full screen with the background image contained within it, and the footer will only appear when the user scrolls down.
-
-can you provide me a final code with all the above changes made
-
-21:01
-
-Viewed a file, created a file
-Viewed a file, created a file
-
-Reading the frontend design skill
-
-Royal Enfield CRM with all layout fixes applied
-index.html
-Done
-
-You are out of free messages until 1:50 AM
-Upgrade
-
-
-
-
-Claude is AI and can make mistakes. Please double-check responses.
-
-
-raw
-Index · HTML
 <!DOCTYPE html>
 <html>
 <head>
 <title>Royal Enfield CRM - Offline Ready</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
+
 <style>
 /* ── RESET ── */
 body {
@@ -214,12 +12,12 @@ body {
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
 }
- 
+
 * {
   position: relative;
   z-index: 1;
 }
- 
+
 /* ── HERO SECTION ── */
 .hero-section {
   min-height: 100vh;
@@ -234,7 +32,7 @@ body {
   justify-content: center;
   box-sizing: border-box;
 }
- 
+
 .box {
   width: min(90vw, 500px);
   margin: auto;
@@ -246,14 +44,14 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   transition: width .2s ease, padding .2s ease;
 }
- 
+
 h2 {
   text-align: center;
   color: #FFD700;
   margin-bottom: 20px;
   font-size: clamp(22px, 2vw, 30px);
 }
- 
+
 input, select {
   width: 100%;
   padding: 10px;
@@ -267,7 +65,7 @@ input, select {
   font-size: clamp(13px, 1vw, 15px);
   box-sizing: border-box;
 }
- 
+
 select {
   padding-right: 30px;
   appearance: none;
@@ -276,15 +74,15 @@ select {
   background-position: right 8px center;
   background-size: 16px;
 }
- 
+
 input::placeholder { color: #ccc; }
- 
+
 input:focus, select:focus {
   outline: none;
   box-shadow: 0 0 10px #34a552, 0 0 5px #FFD700 inset;
   transform: scale(1.03);
 }
- 
+
 button {
   padding: 10px;
   margin: 6px 0;
@@ -295,19 +93,19 @@ button {
   font-size: clamp(12px, 1vw, 14px);
   font-weight: 500;
 }
- 
+
 .topBtn  { width: 32%; background: #222; color: white; font-size: clamp(10px, 1vw, 14px); white-space: nowrap; }
 .copyBtn { width: 49%; background: #51d789; color: white; }
 .resetBtn{ width: 49%; background: #FF7F7F; color: white; }
 .hide    { display: none; }
- 
+
 /* ── CUSTOM DROPDOWN ── */
 .csw {
   position: relative;
   margin: 8px 0;
   z-index: 200;
 }
- 
+
 .cst {
   width: 100%;
   height: 40px;
@@ -323,9 +121,9 @@ button {
   transition: box-shadow 0.2s, transform 0.2s;
   user-select: none;
 }
- 
+
 .cst.has-value { color: white; }
- 
+
 .cst::after {
   content: '';
   position: absolute;
@@ -339,15 +137,15 @@ button {
   background-size: 16px;
   transition: transform 0.2s;
 }
- 
+
 .csw.open .cst::after { transform: translateY(-50%) rotate(180deg); }
- 
+
 .csw.open .cst,
 .cst:focus {
   outline: none;
   box-shadow: 0 0 10px #34a552, 0 0 5px #FFD700 inset;
 }
- 
+
 .cdrop {
   display: none;
   position: absolute;
@@ -364,20 +162,20 @@ button {
   scrollbar-width: thin;
   scrollbar-color: #444 transparent;
 }
- 
+
 .cdrop::-webkit-scrollbar { width: 5px; }
 .cdrop::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
- 
+
 .csw.open .cdrop {
   display: block;
   animation: fadeDown 0.15s ease;
 }
- 
+
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
- 
+
 .di {
   padding: 10px 14px;
   cursor: pointer;
@@ -390,10 +188,10 @@ button {
   border-bottom: 1px solid rgba(255,255,255,0.05);
   transition: background 0.12s;
 }
- 
+
 .di:last-child { border-bottom: none; }
 .di:hover { background: rgba(255,215,0,0.07); color: #FFD700; }
- 
+
 /* ── TOOLTIP ── */
 #crm-tooltip {
   position: fixed;
@@ -408,7 +206,7 @@ button {
   z-index: 99999;
   pointer-events: none;
 }
- 
+
 #crm-tooltip .tt-head {
   font-size: 13px;
   font-weight: 700;
@@ -417,14 +215,14 @@ button {
   padding-bottom: 6px;
   border-bottom: 1px solid rgba(255,215,0,0.2);
 }
- 
+
 #crm-tooltip .tt-row {
   display: flex;
   justify-content: space-between;
   gap: 8px;
   margin: 4px 0;
 }
- 
+
 #crm-tooltip .tt-lbl {
   font-size: 11px;
   color: #888;
@@ -432,14 +230,14 @@ button {
   letter-spacing: 0.5px;
   white-space: nowrap;
 }
- 
+
 #crm-tooltip .tt-val {
   font-size: 12px;
   color: #eee;
   text-align: right;
   line-height: 1.4;
 }
- 
+
 /* ===== PREMIUM FOOTER ===== */
 .re-footer {
   width: 100%;
@@ -453,12 +251,12 @@ button {
   transform: translateY(40px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
- 
+
 .re-footer.visible {
   opacity: 1;
   transform: translateY(0);
 }
- 
+
 .re-footer-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -467,7 +265,7 @@ button {
   grid-template-columns: repeat(4, 1fr);
   gap: 36px;
 }
- 
+
 .re-footer-col h3 {
   color: #FFD700;
   font-size: 10px;
@@ -478,7 +276,7 @@ button {
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(255,215,0,0.18);
 }
- 
+
 .re-footer-col .brand-name {
   color: #fff;
   font-size: 15px;
@@ -486,7 +284,7 @@ button {
   margin: 0 0 14px;
   letter-spacing: 0.3px;
 }
- 
+
 .re-footer-col a {
   display: flex;
   align-items: center;
@@ -499,9 +297,9 @@ button {
   border: none;
   background: none;
 }
- 
+
 .re-footer-col a:hover { color: #FFD700; gap: 11px; }
- 
+
 .re-footer-col a svg {
   width: 13px;
   height: 13px;
@@ -512,9 +310,9 @@ button {
   opacity: 0.6;
   transition: opacity 0.2s;
 }
- 
+
 .re-footer-col a:hover svg { opacity: 1; }
- 
+
 /* clock */
 .clock-box {
   background: rgba(255,215,0,0.04);
@@ -523,19 +321,19 @@ button {
   padding: 16px 14px;
   position: relative;
 }
- 
+
 .clock-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
- 
+
 .clock-time {
   display: flex;
   align-items: baseline;
   gap: 2px;
 }
- 
+
 .clock-num {
   font-size: 22px;
   font-weight: 300;
@@ -544,14 +342,14 @@ button {
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }
- 
+
 .clock-sep {
   font-size: 18px;
   font-weight: 200;
   color: rgba(255,215,0,0.25);
   padding: 0 1px;
 }
- 
+
 .clock-ampm {
   font-size: 11px;
   font-weight: 500;
@@ -560,19 +358,19 @@ button {
   align-self: flex-end;
   padding-bottom: 2px;
 }
- 
+
 .clock-divider {
   border: none;
   border-top: 1px solid rgba(255,215,0,0.08);
   margin: 10px 0;
 }
- 
+
 .clock-date-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
- 
+
 .clock-date {
   font-size: 11px;
   color: rgba(255,255,255,0.35);
@@ -582,19 +380,19 @@ button {
   transition: color 0.15s, background 0.15s;
   user-select: none;
 }
- 
+
 .clock-date:hover {
   color: #FFD700;
   background: rgba(255,215,0,0.08);
 }
- 
+
 .clock-day {
   font-size: 10px;
   color: rgba(255,215,0,0.35);
   letter-spacing: 1px;
   text-transform: uppercase;
 }
- 
+
 /* calendar popup */
 .cal-popup {
   display: none;
@@ -610,28 +408,28 @@ button {
   box-shadow: 0 8px 28px rgba(0,0,0,0.8);
   animation: fadeUp 0.15s ease;
 }
- 
+
 .cal-popup.open { display: block; }
- 
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
- 
+
 .cal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
 }
- 
+
 .cal-month-label {
   font-size: 12px;
   font-weight: 600;
   color: #FFD700;
   letter-spacing: 0.4px;
 }
- 
+
 .cal-nav {
   background: none;
   border: none;
@@ -643,18 +441,18 @@ button {
   line-height: 1;
   transition: color 0.15s, background 0.15s;
 }
- 
+
 .cal-nav:hover {
   color: #FFD700;
   background: rgba(255,215,0,0.08);
 }
- 
+
 .cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
 }
- 
+
 .cal-dname {
   font-size: 9px;
   color: rgba(255,215,0,0.3);
@@ -662,7 +460,7 @@ button {
   padding: 3px 0;
   letter-spacing: 0.3px;
 }
- 
+
 .cal-cell {
   font-size: 11px;
   color: rgba(255,255,255,0.38);
@@ -671,15 +469,15 @@ button {
   border-radius: 4px;
   cursor: default;
 }
- 
+
 .cal-cell.today {
   background: rgba(255,215,0,0.15);
   color: #FFD700;
   font-weight: 600;
 }
- 
+
 .cal-cell.empty { opacity: 0; pointer-events: none; }
- 
+
 /* copyright bar */
 .re-footer-bar {
   border-top: 1px solid rgba(255,255,255,0.06);
@@ -689,9 +487,9 @@ button {
   font-size: 11px;
   letter-spacing: 0.4px;
 }
- 
+
 .re-footer-bar span { color: rgba(255,215,0,0.4); }
- 
+
 @media (max-width: 860px) {
   .re-footer-inner { grid-template-columns: repeat(2,1fr); padding: 32px 24px 24px; }
 }
@@ -701,24 +499,24 @@ button {
 </style>
 </head>
 <body>
- 
+
 <!-- ===== HERO SECTION ===== -->
 <div class="hero-section">
- 
+
   <!-- tooltip -->
   <div id="crm-tooltip">
     <div class="tt-head" id="tt-name"></div>
     <div class="tt-row"><span class="tt-lbl">Engine</span><span class="tt-val" id="tt-usp"></span></div>
     <div class="tt-row"><span class="tt-lbl">Mileage</span><span class="tt-val" id="tt-mileage"></span></div>
   </div>
- 
+
   <div class="box">
     <h2>Royal Enfield CRM</h2>
- 
+
     <button class="topBtn" onclick="setMode('default')">TRR / BRTL1 / INT2M</button>
     <button class="topBtn" onclick="setMode('booked')">Booked</button>
     <button class="topBtn" onclick="setMode('purchased')">Purchased</button>
- 
+
     <!-- DEFAULT -->
     <div id="defaultSection">
       <input id="keyEnquiry" placeholder="Key enquiry">
@@ -737,7 +535,7 @@ button {
         <option>Cash</option><option>Finance</option><option>Both</option><option>Will decide later</option>
       </select>
     </div>
- 
+
     <!-- BOOKED -->
     <div id="bookedSection" class="hide">
       <input id="b_keyEnquiry"   placeholder="Key enquiry">
@@ -753,7 +551,7 @@ button {
         <option>Cash</option><option>Finance</option><option>Both</option><option>Will decide later</option>
       </select>
     </div>
- 
+
     <!-- PURCHASED -->
     <div id="purchasedSection" class="hide">
       <input id="p_keyEnquiry"         placeholder="Key enquiry">
@@ -772,19 +570,19 @@ button {
         <option>Cash</option><option>Finance</option><option>Both</option><option>Will decide later</option>
       </select>
     </div>
- 
+
     <div style="display:flex; justify-content:space-between;">
       <button class="copyBtn"  onclick="copyData()">Copy</button>
       <button class="resetBtn" onclick="resetForm()">Reset</button>
     </div>
   </div>
- 
+
 </div><!-- end .hero-section -->
- 
+
 <!-- ===== PREMIUM FOOTER ===== -->
 <footer class="re-footer">
   <div class="re-footer-inner">
- 
+
     <!-- Col 1: Made By -->
     <div class="re-footer-col">
       <h3>Made By</h3>
@@ -802,7 +600,7 @@ button {
         LinkedIn
       </a>
     </div>
- 
+
     <!-- Col 2: Royal Enfield Links -->
     <div class="re-footer-col">
       <h3>Royal Enfield</h3>
@@ -819,7 +617,7 @@ button {
         RE Finance
       </a>
     </div>
- 
+
     <!-- Col 3: Resources -->
     <div class="re-footer-col">
       <h3>Resources</h3>
@@ -836,7 +634,7 @@ button {
         South sheet
       </a>
     </div>
- 
+
     <!-- Col 4: Date & Time -->
     <div class="re-footer-col">
       <h3>Date &amp; Time</h3>
@@ -867,13 +665,13 @@ button {
         </div>
       </div>
     </div>
- 
+
   </div>
   <div class="re-footer-bar">
     © 2026 <span>Priyansh Sharma</span>. All Rights Reserved. &nbsp;·&nbsp; Royal Enfield CRM
   </div>
 </footer>
- 
+
 <script>
 const bikeData = {
   "Hunter 350":        {"Tokyo Black":169804,"London Red":169804,"Rebel Blue":169804,"Moonshot White":169804,"Mumbai Yellow":169804,"Dapper Grey":165133,"Rio White":165133,"Graphite Gray":165133,"Tarmac Black":149900,"Factory Black":137640},
@@ -891,7 +689,7 @@ const bikeData = {
   "Bear 650":          {"Boardwalk White":375393,"Petrol Green":380933,"Wild Honey":380933,"Golden Shadow":388683,"White Two Four Nine":397538},
   "Super Meteor 650":  {"Celestial Red":436685,"Celestial Blue":436685,"Interstellar Green":419824,"Interstellar Grey":419824,"Astral Black":402965,"Astral Green":402965}
 };
- 
+
 const bikeInfo = {
   "Hunter 350":        { usp:"349cc, single-cylinder, air cooled engine", mileage:"36.2 KM/L" },
   "Bullet 350":        { usp:"349cc, single-cylinder, air cooled engine", mileage:"37 KM/L" },
@@ -908,13 +706,13 @@ const bikeInfo = {
   "Bear 650":          { usp:"648cc Inline Twin / Air Oil Cooled Engine", mileage:"22 KM/L" },
   "Classic 650":       { usp:"648cc Inline Twin / Air Oil Cooled Engine", mileage:"21.45 KM/L" }
 };
- 
+
 /* tooltip */
 const tooltip   = document.getElementById('crm-tooltip');
 const ttName    = document.getElementById('tt-name');
 const ttUsp     = document.getElementById('tt-usp');
 const ttMileage = document.getElementById('tt-mileage');
- 
+
 function showTooltip(e, modelName) {
   const info = bikeInfo[modelName] || {};
   ttName.textContent    = modelName;
@@ -923,7 +721,7 @@ function showTooltip(e, modelName) {
   positionTooltip(e);
   tooltip.style.display = 'block';
 }
- 
+
 function positionTooltip(e) {
   const TW = tooltip.offsetWidth  || 230;
   const TH = tooltip.offsetHeight || 80;
@@ -937,9 +735,9 @@ function positionTooltip(e) {
   tooltip.style.left = x + 'px';
   tooltip.style.top  = y + 'px';
 }
- 
+
 function hideTooltip() { tooltip.style.display = 'none'; }
- 
+
 /* custom dropdown */
 function buildCustomDropdown() {
   const wrapper  = document.getElementById('wrap_model');
@@ -947,7 +745,7 @@ function buildCustomDropdown() {
   const drop     = document.getElementById('drop_model');
   const hidden   = document.getElementById('model');
   const colorSel = document.getElementById('color');
- 
+
   Object.keys(bikeData).forEach(name => {
     const item = document.createElement('div');
     item.className = 'di';
@@ -966,26 +764,26 @@ function buildCustomDropdown() {
     });
     drop.appendChild(item);
   });
- 
+
   trigger.addEventListener('click', e => {
     e.stopPropagation();
     const wasOpen = wrapper.classList.contains('open');
     closeAllDropdowns();
     if (!wasOpen) wrapper.classList.add('open');
   });
- 
+
   trigger.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
   });
 }
- 
+
 function closeAllDropdowns() {
   document.querySelectorAll('.csw.open').forEach(w => w.classList.remove('open'));
   hideTooltip();
 }
- 
+
 document.addEventListener('click', closeAllDropdowns);
- 
+
 function fillNormalSelect(modelSelId, colorSelId) {
   const modelSel = document.getElementById(modelSelId);
   const colorSel = document.getElementById(colorSelId);
@@ -997,7 +795,7 @@ function fillNormalSelect(modelSelId, colorSelId) {
   });
   modelSel.addEventListener('change', () => populateColor(colorSel, modelSel.value));
 }
- 
+
 function populateColor(colorSel, modelName) {
   colorSel.innerHTML = '<option>Select Color</option>';
   if (!bikeData[modelName]) return;
@@ -1008,12 +806,12 @@ function populateColor(colorSel, modelName) {
     colorSel.appendChild(o);
   });
 }
- 
+
 document.addEventListener('DOMContentLoaded', () => {
   buildCustomDropdown();
   fillNormalSelect('b_model', 'b_color');
   fillNormalSelect('p_model', 'p_color');
- 
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       const active  = document.activeElement;
@@ -1025,7 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
- 
+
 let currentMode = 'default';
 function setMode(m) {
   currentMode = m;
@@ -1034,7 +832,7 @@ function setMode(m) {
   document.getElementById(m+'Section').classList.remove('hide');
   closeAllDropdowns();
 }
- 
+
 function copyData() {
   let text = '';
   if (currentMode === 'default') {
@@ -1078,7 +876,7 @@ function copyData() {
   navigator.clipboard.writeText(text);
   alert('Copied ✅');
 }
- 
+
 function resetForm() {
   const confirmReset = confirm('⚠️ Are you sure?\n\nAll entered data will be cleared.');
   if (!confirmReset) return;
@@ -1091,7 +889,7 @@ function resetForm() {
   trig.classList.remove('has-value');
   closeAllDropdowns();
 }
- 
+
 /* ===== FOOTER CLOCK + CALENDAR ===== */
 (function(){
   const monthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1099,11 +897,11 @@ function resetForm() {
   const daysShort   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const dnames      = ['S','M','T','W','T','F','S'];
   function pad(n){ return String(n).padStart(2,'0'); }
- 
+
   let calY = new Date().getFullYear();
   let calM = new Date().getMonth();
   const popup = document.getElementById('re-cal-popup');
- 
+
   function tick(){
     const n = new Date();
     let h = n.getHours();
@@ -1118,7 +916,7 @@ function resetForm() {
   }
   tick();
   setInterval(tick, 1000);
- 
+
   function buildCalendar(){
     const grid = document.getElementById('re-cal-grid');
     document.getElementById('re-cal-month').textContent = monthsFull[calM] + ' ' + calY;
@@ -1147,29 +945,29 @@ function resetForm() {
       grid.appendChild(el);
     }
   }
- 
+
   document.getElementById('re-date').addEventListener('click', function(e){
     e.stopPropagation();
     const isOpen = popup.classList.contains('open');
     popup.classList.toggle('open', !isOpen);
     if(!isOpen){ calY = new Date().getFullYear(); calM = new Date().getMonth(); buildCalendar(); }
   });
- 
+
   document.getElementById('re-cal-prev').addEventListener('click', function(e){
     e.stopPropagation();
     calM--; if(calM < 0){ calM = 11; calY--; } buildCalendar();
   });
- 
+
   document.getElementById('re-cal-next').addEventListener('click', function(e){
     e.stopPropagation();
     calM++; if(calM > 11){ calM = 0; calY++; } buildCalendar();
   });
- 
+
   document.addEventListener('click', function(){ popup.classList.remove('open'); });
- 
+
   document.getElementById('re-clock-box').addEventListener('click', function(e){ e.stopPropagation(); });
 })();
- 
+
 /* ===== FOOTER SCROLL REVEAL ===== */
 const _footer = document.querySelector('.re-footer');
 const _footerObs = new IntersectionObserver(([entry]) => {
@@ -1182,6 +980,3 @@ _footerObs.observe(_footer);
 </script>
 </body>
 </html>
- 
-
-
