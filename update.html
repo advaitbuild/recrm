@@ -17,8 +17,8 @@ body {
 }
 
 body.light-theme {
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: #ffffff;
+  color: #1a1a1a;
 }
 
 * {
@@ -30,7 +30,7 @@ body.light-theme {
 .hero-section {
   min-height: 100vh;
   padding: clamp(10px, 2vw, 20px);
-  background: linear-gradient(135deg, rgba(15,15,15,0.35), rgba(28,28,28,0.35), rgba(43,43,43,0.35)),
+  background: linear-gradient(135deg, rgba(15,15,15,0.45), rgba(28,28,28,0.45), rgba(43,43,43,0.45)),
               url('himalayan-bg.jpg') center/cover no-repeat;
   background-size: cover;
   background-position: center;
@@ -44,7 +44,7 @@ body.light-theme {
 }
 
 body.light-theme .hero-section {
-  background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(240,240,240,0.25), rgba(230,230,230,0.25)),
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(245,245,245,0.35), rgba(235,235,235,0.35)),
               url('himalayan-bg.jpg') center/cover no-repeat;
   background-size: cover;
   background-position: center;
@@ -56,18 +56,18 @@ body.light-theme .hero-section {
   width: min(90vw, 500px);
   margin: auto;
   padding: clamp(16px, 2vw, 25px);
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
   border-radius: 15px;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   transition: width .2s ease, padding .2s ease, background .3s ease, border .3s ease;
 }
 
 body.light-theme .box {
-  background: rgba(255,255,255,0.92);
-  border: 1px solid rgba(200,160,50,0.3);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.95);
+  border: 2px solid #DAA520;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 h2 {
@@ -79,8 +79,8 @@ h2 {
 }
 
 body.light-theme h2 {
-  color: #D4A500;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #B8860B;
+  text-shadow: none;
 }
 
 input, select {
@@ -88,8 +88,8 @@ input, select {
   padding: 10px;
   margin: 8px 0;
   border-radius: 8px;
-  border: none;
-  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.12);
   color: white;
   transition: all 0.2s ease;
   height: clamp(38px, 4vw, 42px);
@@ -99,36 +99,23 @@ input, select {
 
 body.light-theme input, 
 body.light-theme select {
-  background: rgba(100,100,100,0.1);
-  color: #333;
-  border: 1px solid rgba(200,160,50,0.2);
+  background: rgba(218, 165, 32, 0.08);
+  color: #1a1a1a;
+  border: 1px solid #DAA520;
 }
 
 body.light-theme input::placeholder,
 body.light-theme select::placeholder {
-  color: #999;
+  color: #666;
 }
 
 input::placeholder { 
-  color: #aaa; 
-}
-
-select {
-  padding-right: 30px;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  background-size: 16px;
-}
-
-body.light-theme select {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  color: #999; 
 }
 
 input:focus, select:focus {
   outline: none;
-  box-shadow: 0 0 10px #34a552, 0 0 5px #FFD700 inset;
+  box-shadow: 0 0 12px #34a552, 0 0 6px #FFD700 inset;
   transform: scale(1.03);
 }
 
@@ -140,52 +127,75 @@ button {
   border-radius: 8px;
   height: 38px;
   font-size: clamp(12px, 1vw, 14px);
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.2s ease;
 }
 
 .topBtn { 
   width: 32%; 
-  background: #222; 
-  color: white; 
+  background: #1a1a1a; 
+  color: #FFD700; 
   font-size: clamp(10px, 1vw, 14px); 
   white-space: nowrap;
   transition: all 0.2s ease;
+  border: 1px solid rgba(255,215,0,0.3);
 }
 
 body.light-theme .topBtn { 
-  background: #e8e8e8; 
-  color: #333;
-  border: 1px solid rgba(200,160,50,0.2);
+  background: #f0f0f0; 
+  color: #B8860B;
+  border: 2px solid #DAA520;
 }
 
 body.light-theme .topBtn:hover {
-  background: #d0d0d0;
-  border: 1px solid #D4A500;
+  background: #DAA520;
+  color: white;
+  transform: scale(1.05);
+}
+
+.topBtn:hover {
+  background: rgba(255,215,0,0.15);
+  border-color: #FFD700;
 }
 
 .copyBtn { 
   width: 49%; 
-  background: #51d789; 
+  background: #28a745; 
   color: white;
   transition: all 0.2s ease;
+  border: none;
+}
+
+.copyBtn:hover {
+  background: #218838;
 }
 
 body.light-theme .copyBtn { 
-  background: #2d8659;
-  color: white;
+  background: #1e7e34;
+}
+
+body.light-theme .copyBtn:hover {
+  background: #145a27;
 }
 
 .resetBtn{ 
   width: 49%; 
-  background: #FF7F7F; 
+  background: #dc3545; 
   color: white;
   transition: all 0.2s ease;
+  border: none;
+}
+
+.resetBtn:hover {
+  background: #c82333;
 }
 
 body.light-theme .resetBtn { 
-  background: #cc3333;
-  color: white;
+  background: #bb2d3b;
+}
+
+body.light-theme .resetBtn:hover {
+  background: #a01f2e;
 }
 
 .hide { 
@@ -203,7 +213,7 @@ body.light-theme .resetBtn {
   width: 100%;
   height: 40px;
   padding: 0 36px 0 10px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.12);
   border-radius: 8px;
   color: #ccc;
   font-size: 15px;
@@ -213,21 +223,21 @@ body.light-theme .resetBtn {
   box-sizing: border-box;
   transition: box-shadow 0.2s, transform 0.2s, background 0.3s ease, color 0.3s ease;
   user-select: none;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 body.light-theme .cst {
-  background: rgba(100,100,100,0.1);
-  color: #666;
-  border: 1px solid rgba(200,160,50,0.2);
+  background: rgba(218, 165, 32, 0.08);
+  color: #1a1a1a;
+  border: 1px solid #DAA520;
 }
 
 .cst.has-value { 
-  color: white; 
+  color: #FFD700; 
 }
 
 body.light-theme .cst.has-value { 
-  color: #333; 
+  color: #B8860B; 
 }
 
 .cst::after {
@@ -245,7 +255,7 @@ body.light-theme .cst.has-value {
 }
 
 body.light-theme .cst::after {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
 }
 
 .csw.open .cst::after { 
@@ -255,7 +265,7 @@ body.light-theme .cst::after {
 .csw.open .cst,
 .cst:focus {
   outline: none;
-  box-shadow: 0 0 10px #34a552, 0 0 5px #FFD700 inset;
+  box-shadow: 0 0 12px #34a552, 0 0 6px #FFD700 inset;
 }
 
 .cdrop {
@@ -265,29 +275,29 @@ body.light-theme .cst::after {
   left: 0;
   width: 100%;
   background: #1c1c1c;
-  border: 1px solid rgba(255,255,255,0.13);
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 10px;
   max-height: 260px;
   overflow-y: auto;
   z-index: 9999;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.7);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.8);
   scrollbar-width: thin;
-  scrollbar-color: #444 transparent;
+  scrollbar-color: #555 transparent;
   transition: background 0.3s ease, border 0.3s ease;
 }
 
 body.light-theme .cdrop {
-  background: #f9f9f9;
-  border: 1px solid rgba(200,160,50,0.2);
+  background: #fafafa;
+  border: 1px solid #DAA520;
   scrollbar-color: #ddd transparent;
 }
 
 .cdrop::-webkit-scrollbar { 
-  width: 5px; 
+  width: 6px; 
 }
 
 .cdrop::-webkit-scrollbar-thumb { 
-  background: #444; 
+  background: #555; 
   border-radius: 4px; 
 }
 
@@ -306,7 +316,7 @@ body.light-theme .cdrop::-webkit-scrollbar-thumb {
 }
 
 .di {
-  padding: 10px 14px;
+  padding: 12px 14px;
   cursor: pointer;
   color: #ddd;
   font-size: 14px;
@@ -314,13 +324,13 @@ body.light-theme .cdrop::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   transition: background 0.12s, color 0.3s ease;
 }
 
 body.light-theme .di {
-  color: #666;
-  border-bottom: 1px solid rgba(200,160,50,0.1);
+  color: #1a1a1a;
+  border-bottom: 1px solid #DAA520;
 }
 
 .di:last-child { 
@@ -328,55 +338,55 @@ body.light-theme .di {
 }
 
 .di:hover { 
-  background: rgba(255,215,0,0.07); 
+  background: rgba(255,215,0,0.15); 
   color: #FFD700; 
 }
 
 body.light-theme .di:hover { 
-  background: rgba(255,215,0,0.15); 
-  color: #D4A500;
+  background: #DAA520;
+  color: white;
 }
 
 /* ── TOOLTIP ── */
 #crm-tooltip {
   position: fixed;
   display: none;
-  background: #111;
-  border: 1px solid rgba(255,215,0,0.35);
+  background: #1a1a1a;
+  border: 2px solid #FFD700;
   border-radius: 9px;
-  padding: 11px 14px;
+  padding: 12px 16px;
   min-width: 215px;
   max-width: 240px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.75);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.8);
   z-index: 99999;
   pointer-events: none;
   transition: background 0.3s ease, border 0.3s ease;
 }
 
 body.light-theme #crm-tooltip {
-  background: #fef9f0;
-  border: 1px solid rgba(200,160,50,0.4);
+  background: #fffef0;
+  border: 2px solid #DAA520;
 }
 
 #crm-tooltip .tt-head {
   font-size: 13px;
   font-weight: 700;
   color: #FFD700;
-  margin-bottom: 7px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(255,215,0,0.2);
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,215,0,0.4);
 }
 
 body.light-theme #crm-tooltip .tt-head {
-  color: #D4A500;
-  border-bottom: 1px solid rgba(200,160,50,0.3);
+  color: #B8860B;
+  border-bottom: 1px solid #DAA520;
 }
 
 #crm-tooltip .tt-row {
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  margin: 4px 0;
+  margin: 5px 0;
 }
 
 #crm-tooltip .tt-lbl {
@@ -385,31 +395,29 @@ body.light-theme #crm-tooltip .tt-head {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
-  transition: color 0.3s ease;
 }
 
 body.light-theme #crm-tooltip .tt-lbl {
-  color: #999;
+  color: #666;
 }
 
 #crm-tooltip .tt-val {
   font-size: 12px;
-  color: #eee;
+  color: #fff;
   text-align: right;
   line-height: 1.4;
-  transition: color 0.3s ease;
 }
 
 body.light-theme #crm-tooltip .tt-val {
-  color: #555;
+  color: #1a1a1a;
 }
 
 /* ===== PREMIUM FOOTER ===== */
 .re-footer {
   width: 100%;
   margin-top: 0;
-  background: rgba(10,10,10,0.97);
-  border-top: 1px solid rgba(255,215,0,0.2);
+  background: rgba(10,10,10,0.98);
+  border-top: 2px solid #FFD700;
   box-sizing: border-box;
   position: relative;
   z-index: 10;
@@ -419,8 +427,8 @@ body.light-theme #crm-tooltip .tt-val {
 }
 
 body.light-theme .re-footer {
-  background: rgba(248,248,248,0.98);
-  border-top: 1px solid rgba(200,160,50,0.25);
+  background: #f8f8f8;
+  border-top: 2px solid #DAA520;
 }
 
 .re-footer.visible {
@@ -439,69 +447,65 @@ body.light-theme .re-footer {
 
 .re-footer-col h3 {
   color: #FFD700;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin: 0 0 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255,215,0,0.18);
-  transition: all 0.3s ease;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #FFD700;
 }
 
 body.light-theme .re-footer-col h3 {
-  color: #D4A500;
-  border-bottom: 1px solid rgba(200,160,50,0.3);
+  color: #B8860B;
+  border-bottom: 2px solid #DAA520;
 }
 
 .re-footer-col .brand-name {
   color: #fff;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   margin: 0 0 14px;
   letter-spacing: 0.3px;
-  transition: color 0.3s ease;
 }
 
 body.light-theme .re-footer-col .brand-name {
-  color: #333;
+  color: #1a1a1a;
 }
 
 .re-footer-col a {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: rgba(255,255,255,0.45);
+  gap: 10px;
+  color: rgba(255,255,255,0.6);
   text-decoration: none;
-  font-size: 12.5px;
-  padding: 5px 0;
+  font-size: 13px;
+  padding: 6px 0;
   transition: color 0.2s, gap 0.2s;
-  border: none;
-  background: none;
+  font-weight: 500;
 }
 
 body.light-theme .re-footer-col a {
-  color: rgba(80,80,80,0.7);
+  color: #333;
 }
 
 .re-footer-col a:hover { 
   color: #FFD700; 
-  gap: 11px; 
+  gap: 14px; 
 }
 
 body.light-theme .re-footer-col a:hover { 
-  color: #D4A500; 
+  color: #B8860B; 
 }
 
 .re-footer-col a svg {
-  width: 13px;
-  height: 13px;
+  width: 15px;
+  height: 15px;
   flex-shrink: 0;
   stroke: currentColor;
   fill: none;
   stroke-width: 1.8;
-  opacity: 0.6;
-  transition: opacity 0.2s;
+  opacity: 0.7;
 }
 
 .re-footer-col a:hover svg { 
@@ -510,17 +514,16 @@ body.light-theme .re-footer-col a:hover {
 
 /* clock */
 .clock-box {
-  background: rgba(255,215,0,0.04);
-  border: 1px solid rgba(255,215,0,0.12);
+  background: rgba(255,215,0,0.08);
+  border: 2px solid #FFD700;
   border-radius: 11px;
   padding: 16px 14px;
   position: relative;
-  transition: background 0.3s ease, border 0.3s ease;
 }
 
 body.light-theme .clock-box {
-  background: rgba(255,215,0,0.08);
-  border: 1px solid rgba(200,160,50,0.25);
+  background: rgba(218,165,32,0.12);
+  border: 2px solid #DAA520;
 }
 
 .clock-top {
@@ -536,8 +539,8 @@ body.light-theme .clock-box {
 }
 
 .clock-num {
-  font-size: 22px;
-  font-weight: 300;
+  font-size: 24px;
+  font-weight: 400;
   color: #FFD700;
   letter-spacing: 1px;
   font-variant-numeric: tabular-nums;
@@ -545,42 +548,41 @@ body.light-theme .clock-box {
 }
 
 body.light-theme .clock-num {
-  color: #D4A500;
+  color: #B8860B;
 }
 
 .clock-sep {
   font-size: 18px;
-  font-weight: 200;
-  color: rgba(255,215,0,0.25);
-  padding: 0 1px;
+  font-weight: 300;
+  color: rgba(255,215,0,0.5);
+  padding: 0 2px;
 }
 
 body.light-theme .clock-sep {
-  color: rgba(200,160,50,0.4);
+  color: rgba(184,134,11,0.6);
 }
 
 .clock-ampm {
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255,215,0,0.5);
-  letter-spacing: 1.5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,215,0,0.7);
+  letter-spacing: 1px;
   align-self: flex-end;
-  padding-bottom: 2px;
+  padding-bottom: 3px;
 }
 
 body.light-theme .clock-ampm {
-  color: rgba(200,160,50,0.6);
+  color: rgba(184,134,11,0.8);
 }
 
 .clock-divider {
   border: none;
-  border-top: 1px solid rgba(255,215,0,0.08);
+  border-top: 1px solid rgba(255,215,0,0.2);
   margin: 10px 0;
-  transition: border 0.3s ease;
 }
 
 body.light-theme .clock-divider {
-  border-top: 1px solid rgba(200,160,50,0.15);
+  border-top: 1px solid #DAA520;
 }
 
 .clock-date-row {
@@ -590,38 +592,40 @@ body.light-theme .clock-divider {
 }
 
 .clock-date {
-  font-size: 11px;
-  color: rgba(255,255,255,0.35);
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
   cursor: pointer;
-  padding: 2px 5px;
+  padding: 4px 8px;
   border-radius: 4px;
   transition: color 0.15s, background 0.15s;
   user-select: none;
+  font-weight: 600;
 }
 
 body.light-theme .clock-date {
-  color: rgba(80,80,80,0.6);
+  color: #666;
 }
 
 .clock-date:hover {
   color: #FFD700;
-  background: rgba(255,215,0,0.08);
+  background: rgba(255,215,0,0.15);
 }
 
 body.light-theme .clock-date:hover {
-  color: #D4A500;
-  background: rgba(200,160,50,0.12);
+  color: #B8860B;
+  background: rgba(218,165,32,0.2);
 }
 
 .clock-day {
-  font-size: 10px;
-  color: rgba(255,215,0,0.35);
+  font-size: 11px;
+  color: rgba(255,215,0,0.5);
   letter-spacing: 1px;
   text-transform: uppercase;
+  font-weight: 700;
 }
 
 body.light-theme .clock-day {
-  color: rgba(200,160,50,0.5);
+  color: rgba(184,134,11,0.7);
 }
 
 /* calendar popup */
@@ -630,20 +634,19 @@ body.light-theme .clock-day {
   position: absolute;
   bottom: calc(100% + 8px);
   right: 0;
-  width: 216px;
+  width: 220px;
   background: #1a1a1a;
-  border: 1px solid rgba(255,215,0,0.2);
+  border: 2px solid #FFD700;
   border-radius: 10px;
-  padding: 13px;
+  padding: 14px;
   z-index: 99999;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.8);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.9);
   animation: fadeUp 0.15s ease;
-  transition: background 0.3s ease, border 0.3s ease;
 }
 
 body.light-theme .cal-popup {
-  background: #f9f5f0;
-  border: 1px solid rgba(200,160,50,0.25);
+  background: #fffef0;
+  border: 2px solid #DAA520;
 }
 
 .cal-popup.open { 
@@ -659,87 +662,89 @@ body.light-theme .cal-popup {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .cal-month-label {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   color: #FFD700;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.5px;
 }
 
 body.light-theme .cal-month-label {
-  color: #D4A500;
+  color: #B8860B;
 }
 
 .cal-nav {
   background: none;
   border: none;
-  color: rgba(255,215,0,0.5);
+  color: #FFD700;
   cursor: pointer;
-  font-size: 18px;
-  padding: 0 5px;
+  font-size: 20px;
+  padding: 2px 8px;
   border-radius: 4px;
   line-height: 1;
   transition: color 0.15s, background 0.15s;
+  font-weight: bold;
 }
 
 body.light-theme .cal-nav {
-  color: rgba(200,160,50,0.6);
+  color: #B8860B;
 }
 
 .cal-nav:hover {
-  color: #FFD700;
-  background: rgba(255,215,0,0.08);
+  color: #fff;
+  background: rgba(255,215,0,0.2);
 }
 
 body.light-theme .cal-nav:hover {
-  color: #D4A500;
-  background: rgba(200,160,50,0.12);
+  color: #fff;
+  background: #B8860B;
 }
 
 .cal-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+  gap: 3px;
 }
 
 .cal-dname {
-  font-size: 9px;
-  color: rgba(255,215,0,0.3);
+  font-size: 10px;
+  color: rgba(255,215,0,0.5);
   text-align: center;
-  padding: 3px 0;
-  letter-spacing: 0.3px;
-}
-
-body.light-theme .cal-dname {
-  color: rgba(200,160,50,0.5);
-}
-
-.cal-cell {
-  font-size: 11px;
-  color: rgba(255,255,255,0.38);
-  text-align: center;
-  padding: 5px 2px;
-  border-radius: 4px;
-  cursor: default;
-  transition: color 0.3s ease;
-}
-
-body.light-theme .cal-cell {
-  color: rgba(80,80,80,0.6);
-}
-
-.cal-cell.today {
-  background: rgba(255,215,0,0.15);
-  color: #FFD700;
+  padding: 4px 0;
+  letter-spacing: 0.5px;
   font-weight: 600;
 }
 
+body.light-theme .cal-dname {
+  color: #B8860B;
+}
+
+.cal-cell {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 6px 4px;
+  border-radius: 4px;
+  cursor: default;
+  font-weight: 500;
+}
+
+body.light-theme .cal-cell {
+  color: #666;
+}
+
+.cal-cell.today {
+  background: #FFD700;
+  color: #000;
+  font-weight: 700;
+}
+
 body.light-theme .cal-cell.today {
-  background: rgba(200,160,50,0.2);
-  color: #D4A500;
+  background: #DAA520;
+  color: white;
 }
 
 .cal-cell.empty { 
@@ -749,86 +754,86 @@ body.light-theme .cal-cell.today {
 
 /* copyright bar */
 .re-footer-bar {
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255,255,255,0.1);
   text-align: center;
   padding: 14px 16px;
-  color: rgba(255,255,255,0.22);
-  font-size: 11px;
-  letter-spacing: 0.4px;
-  transition: border 0.3s ease, color 0.3s ease;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
 }
 
 body.light-theme .re-footer-bar {
-  border-top: 1px solid rgba(200,160,50,0.1);
-  color: rgba(80,80,80,0.4);
+  border-top: 1px solid #DAA520;
+  color: #666;
 }
 
 .re-footer-bar span { 
-  color: rgba(255,215,0,0.4); 
+  color: #FFD700;
+  font-weight: 600;
 }
 
 body.light-theme .re-footer-bar span { 
-  color: rgba(200,160,50,0.5); 
+  color: #B8860B; 
 }
 
 /* ── PREMIUM HAMBURGER MENU ── */
 .hamburger-container {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   z-index: 1001;
 }
 
 .hamburger-btn {
-  width: 56px;
-  height: 56px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255, 215, 0, 0.3);
-  border-radius: 16px;
+  border: 2px solid #FFD700;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  padding: 12px;
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
+  padding: 8px;
 }
 
 body.light-theme .hamburger-btn {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1.5px solid rgba(200,160,50,0.5);
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #DAA520;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .hamburger-btn:hover {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: #FFD700;
-  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.2);
-  transform: translateY(-2px);
+  background: rgba(255, 215, 0, 0.2);
+  box-shadow: 0 12px 40px rgba(255, 215, 0, 0.4);
+  transform: scale(1.08);
 }
 
 body.light-theme .hamburger-btn:hover {
-  background: rgba(255, 215, 0, 0.15);
-  border-color: #D4A500;
+  background: #DAA520;
+  box-shadow: 0 12px 40px rgba(218, 165, 32, 0.4);
 }
 
 .hamburger-line {
-  width: 24px;
-  height: 2.5px;
+  width: 20px;
+  height: 2px;
   background-color: #FFD700;
   border-radius: 2px;
   transition: all 0.3s ease;
 }
 
 body.light-theme .hamburger-line {
-  background-color: #D4A500;
+  background-color: #B8860B;
 }
 
 .hamburger-btn.active .hamburger-line:nth-child(1) {
-  transform: rotate(45deg) translate(8px, 8px);
+  transform: rotate(45deg) translate(7px, 7px);
 }
 
 .hamburger-btn.active .hamburger-line:nth-child(2) {
@@ -836,7 +841,7 @@ body.light-theme .hamburger-line {
 }
 
 .hamburger-btn.active .hamburger-line:nth-child(3) {
-  transform: rotate(-45deg) translate(8px, -8px);
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* ── DRAWER OVERLAY ── */
@@ -847,14 +852,13 @@ body.light-theme .hamburger-line {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 998;
   backdrop-filter: blur(4px);
-  transition: background 0.3s ease;
 }
 
 body.light-theme .drawer-overlay {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .drawer-overlay.active {
@@ -867,21 +871,21 @@ body.light-theme .drawer-overlay {
   top: 0;
   right: -100%;
   width: 100%;
-  max-width: 360px;
+  max-width: 340px;
   height: 100vh;
-  background: rgba(26, 26, 26, 0.95);
+  background: rgba(20, 20, 20, 0.98);
   backdrop-filter: blur(12px);
-  border-left: 1px solid rgba(255, 215, 0, 0.2);
+  border-left: 3px solid #FFD700;
   z-index: 999;
-  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, border 0.3s ease;
-  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.3);
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.5);
   overflow-y: auto;
   padding-bottom: 40px;
 }
 
 body.light-theme .drawer {
-  background: rgba(248, 248, 248, 0.98);
-  border-left: 1px solid rgba(200,160,50,0.25);
+  background: rgba(248, 248, 248, 0.99);
+  border-left: 3px solid #DAA520;
 }
 
 .drawer.active {
@@ -890,32 +894,31 @@ body.light-theme .drawer {
 
 .drawer-header {
   padding: 24px 20px;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  border-bottom: 2px solid #FFD700;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: border 0.3s ease;
 }
 
 body.light-theme .drawer-header {
-  border-bottom: 1px solid rgba(200,160,50,0.2);
+  border-bottom: 2px solid #DAA520;
 }
 
 .drawer-title {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
   color: #FFD700;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 body.light-theme .drawer-title {
-  color: #D4A500;
+  color: #B8860B;
 }
 
 .drawer-close {
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: 32px;
   color: #FFD700;
   cursor: pointer;
   padding: 0;
@@ -926,19 +929,21 @@ body.light-theme .drawer-title {
   justify-content: center;
   border-radius: 50%;
   transition: all 0.3s ease;
+  font-weight: bold;
 }
 
 body.light-theme .drawer-close {
-  color: #D4A500;
+  color: #B8860B;
 }
 
 .drawer-close:hover {
-  background: rgba(255, 215, 0, 0.1);
-  transform: scale(1.1);
+  background: rgba(255, 215, 0, 0.2);
+  transform: scale(1.2);
 }
 
 body.light-theme .drawer-close:hover {
-  background: rgba(200,160,50,0.15);
+  background: #DAA520;
+  color: white;
 }
 
 .drawer-menu {
@@ -948,12 +953,11 @@ body.light-theme .drawer-close:hover {
 }
 
 .drawer-menu li {
-  border-bottom: 1px solid rgba(255, 215, 0, 0.05);
-  transition: border 0.3s ease;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
 }
 
 body.light-theme .drawer-menu li {
-  border-bottom: 1px solid rgba(200,160,50,0.1);
+  border-bottom: 1px solid #DAA520;
 }
 
 .drawer-menu a,
@@ -962,11 +966,11 @@ body.light-theme .drawer-menu li {
   align-items: center;
   gap: 14px;
   padding: 16px 20px;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   transition: all 0.2s ease;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   width: 100%;
   background: none;
   border: none;
@@ -976,25 +980,25 @@ body.light-theme .drawer-menu li {
 
 body.light-theme .drawer-menu a,
 body.light-theme .drawer-menu button {
-  color: rgba(80, 80, 80, 0.8);
+  color: #1a1a1a;
 }
 
 .drawer-menu a:hover,
 .drawer-menu button:hover {
-  background: rgba(255, 215, 0, 0.08);
+  background: rgba(255, 215, 0, 0.2);
   color: #FFD700;
   padding-left: 28px;
 }
 
 body.light-theme .drawer-menu a:hover,
 body.light-theme .drawer-menu button:hover {
-  background: rgba(200,160,50,0.12);
-  color: #D4A500;
+  background: #DAA520;
+  color: white;
 }
 
 .drawer-menu svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   stroke: currentColor;
   fill: none;
   stroke-width: 2;
@@ -1005,16 +1009,15 @@ body.light-theme .drawer-menu button:hover {
   display: flex;
   align-items: center;
   padding: 12px 20px;
-  color: rgba(255, 215, 0, 0.6);
+  color: #FFD700;
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: 800;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  transition: all 0.3s ease;
 }
 
 body.light-theme .theme-section-label {
-  color: rgba(200,160,50,0.7);
+  color: #B8860B;
 }
 
 /* ── CONTACT MODAL ── */
@@ -1029,7 +1032,6 @@ body.light-theme .theme-section-label {
   z-index: 1002;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
 }
 
 #contactModal.show {
@@ -1041,29 +1043,28 @@ body.light-theme #contactModal {
 }
 
 #contactModal > div {
-  background: rgba(15, 15, 15, 0.95);
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  background: rgba(15, 15, 15, 0.98);
+  border: 2px solid #FFD700;
   border-radius: 15px;
   padding: 40px;
   max-width: 500px;
   width: 90%;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 body.light-theme #contactModal > div {
-  background: rgba(248, 248, 248, 0.98);
-  border: 1px solid rgba(200,160,50,0.2);
+  background: rgba(255, 255, 255, 0.98);
+  border: 2px solid #DAA520;
 }
 
 #contactModal h2 {
   color: #FFD700;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  margin: 0 0 20px;
+  font-size: 26px;
 }
 
 body.light-theme #contactModal h2 {
-  color: #D4A500;
-  text-shadow: none;
+  color: #B8860B;
 }
 
 #contactModal button {
@@ -1071,55 +1072,52 @@ body.light-theme #contactModal h2 {
 }
 
 body.light-theme #contactModal button {
-  color: #D4A500;
+  color: #B8860B;
 }
 
 .contact-info-box {
   margin: 18px 0;
   padding: 15px;
-  background: rgba(255, 215, 0, 0.05);
-  border-left: 3px solid #FFD700;
-  border-radius: 5px;
-  transition: all 0.3s ease;
+  background: rgba(255, 215, 0, 0.1);
+  border-left: 4px solid #FFD700;
+  border-radius: 6px;
 }
 
 body.light-theme .contact-info-box {
-  background: rgba(200,160,50,0.08);
-  border-left: 3px solid #D4A500;
+  background: rgba(218,165,32,0.12);
+  border-left: 4px solid #DAA520;
 }
 
 .contact-info-label {
-  font-size: 12px;
-  color: rgba(255, 215, 0, 0.6);
+  font-size: 11px;
+  color: rgba(255, 215, 0, 0.8);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 5px;
-  transition: color 0.3s ease;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  font-weight: 700;
 }
 
 body.light-theme .contact-info-label {
-  color: rgba(200,160,50,0.7);
+  color: #B8860B;
 }
 
 .contact-info-value {
   font-size: 15px;
   color: #fff;
   font-weight: 500;
-  transition: color 0.3s ease;
 }
 
 body.light-theme .contact-info-value {
-  color: #333;
+  color: #1a1a1a;
 }
 
 .contact-info-value a {
   color: #FFD700;
   text-decoration: none;
-  transition: color 0.3s ease;
 }
 
 body.light-theme .contact-info-value a {
-  color: #D4A500;
+  color: #B8860B;
 }
 
 /* ── RESPONSIVE ── */
@@ -1154,7 +1152,7 @@ body.light-theme .contact-info-value a {
 <!-- ===== DRAWER MENU ===== -->
 <nav class="drawer" id="drawer">
   <div class="drawer-header">
-    <span class="drawer-title">Menu</span>
+    <span class="drawer-title">MENU</span>
     <button class="drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
   </div>
   <ul class="drawer-menu">
@@ -1164,12 +1162,12 @@ body.light-theme .contact-info-value a {
         Contact Us
       </a>
     </li>
-    <li style="border-bottom: 2px solid rgba(255, 215, 0, 0.2); margin: 8px 0;">
-      <span class="theme-section-label">Theme Settings</span>
+    <li style="border-bottom: 2px solid rgba(255, 215, 0, 0.3); margin: 8px 0;">
+      <span class="theme-section-label">⚙️ Theme</span>
     </li>
     <li>
       <button id="themeToggle" title="Toggle Dark/Light Mode">
-        <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg viewBox="0 0 24 24" style="width: 22px; height: 22px;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         <span id="themeLabelText">Light Mode</span>
       </button>
     </li>
@@ -1180,23 +1178,23 @@ body.light-theme .contact-info-value a {
 <div id="contactModal">
   <div>
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-      <h2 style="margin: 0; font-size: 26px;">Contact Information</h2>
-      <button id="closeContact" style="background: none; border: none; font-size: 28px; cursor: pointer; padding: 0;">&times;</button>
+      <h2 style="margin: 0; font-size: 26px;">📞 Contact Info</h2>
+      <button id="closeContact" style="background: none; border: none; font-size: 32px; cursor: pointer; padding: 0; font-weight: bold;">&times;</button>
     </div>
     <div class="contact-info-box">
-      <div class="contact-info-label">Email</div>
+      <div class="contact-info-label">✉️ Email</div>
       <div class="contact-info-value"><a href="mailto:support@royalenfield.com">support@royalenfield.com</a></div>
     </div>
     <div class="contact-info-box">
-      <div class="contact-info-label">Phone</div>
+      <div class="contact-info-label">📱 Phone</div>
       <div class="contact-info-value"><a href="tel:+91-9876543210">+91-9876543210</a></div>
     </div>
     <div class="contact-info-box">
-      <div class="contact-info-label">Support Hours</div>
+      <div class="contact-info-label">🕐 Support Hours</div>
       <div class="contact-info-value">Monday - Friday, 9 AM - 6 PM IST</div>
     </div>
     <div class="contact-info-box">
-      <div class="contact-info-label">Website</div>
+      <div class="contact-info-label">🌐 Website</div>
       <div class="contact-info-value"><a href="https://www.royalenfield.com/in/en/" target="_blank" rel="noopener">Visit Official Website</a></div>
     </div>
   </div>
@@ -1208,12 +1206,12 @@ body.light-theme .contact-info-value a {
   <!-- tooltip -->
   <div id="crm-tooltip">
     <div class="tt-head" id="tt-name"></div>
-    <div class="tt-row"><span class="tt-lbl">Engine</span><span class="tt-val" id="tt-usp"></span></div>
-    <div class="tt-row"><span class="tt-lbl">Mileage</span><span class="tt-val" id="tt-mileage"></span></div>
+    <div class="tt-row"><span class="tt-lbl">🔧 Engine</span><span class="tt-val" id="tt-usp"></span></div>
+    <div class="tt-row"><span class="tt-lbl">⛽ Mileage</span><span class="tt-val" id="tt-mileage"></span></div>
   </div>
 
   <div class="box">
-    <h2>Royal Enfield CRM</h2>
+    <h2>🏍️ Royal Enfield CRM</h2>
 
     <button class="topBtn" onclick="setMode('default')">TRR / BRTL1 / INT2M</button>
     <button class="topBtn" onclick="setMode('booked')">Booked</button>
@@ -1225,15 +1223,15 @@ body.light-theme .contact-info-value a {
       <input id="buyingTime" placeholder="Buying time">
       <input id="testRide"   placeholder="Test ride date and time / NA / Already taken">
       <div class="csw" id="wrap_model">
-        <div class="cst" id="trig_model" tabindex="0">Select Model</div>
+        <div class="cst" id="trig_model" tabindex="0">🏍️ Select Model</div>
         <div class="cdrop" id="drop_model"></div>
       </div>
       <input type="hidden" id="model">
-      <select id="color"><option>Select Color</option></select>
-      <input id="dealership" placeholder="Dealership">
-      <input id="altNumber"  placeholder="Alternate Number">
+      <select id="color"><option>🎨 Select Color</option></select>
+      <input id="dealership" placeholder="🏪 Dealership">
+      <input id="altNumber"  placeholder="☎️ Alternate Number">
       <select id="paymentMode">
-        <option value="">Select Payment Mode</option>
+        <option value="">💳 Select Payment Mode</option>
         <option>Cash</option><option>Finance</option><option>Both</option><option>Will decide later</option>
       </select>
     </div>
@@ -1241,15 +1239,15 @@ body.light-theme .contact-info-value a {
     <!-- BOOKED -->
     <div id="bookedSection" class="hide">
       <input id="b_keyEnquiry"   placeholder="Key enquiry">
-      <select id="b_model"><option value="">Select Model</option></select>
-      <select id="b_color"><option>Select Color</option></select>
+      <select id="b_model"><option value="">🏍️ Select Model</option></select>
+      <select id="b_color"><option>🎨 Select Color</option></select>
       <input id="b_bookingtime"  placeholder="Booking date">
-      <input id="b_dealership"   placeholder="Dealership">
-      <input id="b_BookingName"  placeholder="Booking Name">
-      <input id="b_bookingnumber" placeholder="Booking Number">
-      <input id="b_altNumber"    placeholder="Alternate Number">
+      <input id="b_dealership"   placeholder="🏪 Dealership">
+      <input id="b_BookingName"  placeholder="👤 Booking Name">
+      <input id="b_bookingnumber" placeholder="# Booking Number">
+      <input id="b_altNumber"    placeholder="☎️ Alternate Number">
       <select id="b_paymentMode">
-        <option value="">Select Payment Mode</option>
+        <option value="">💳 Select Payment Mode</option>
         <option>Cash</option><option>Finance</option><option>Both</option><option>Will decide later</option>
       </select>
     </div>
@@ -1257,25 +1255,25 @@ body.light-theme .contact-info-value a {
     <!-- PURCHASED -->
     <div id="purchasedSection" class="hide">
       <input id="p_keyEnquiry"         placeholder="Key enquiry">
-      <select id="p_model"><option value="">Select Model</option></select>
-      <select id="p_color"><option>Select Color</option></select>
-      <input id="p_Purchasedate"        placeholder="Purchased date">
-      <input id="p_Registrationnumber"  placeholder="Registration number">
-      <input id="p_dealership"          placeholder="Dealership">
-      <input id="p_BookingName"         placeholder="Booking Name">
-      <input id="p_bookingnumber"       placeholder="Booking Number">
-      <input id="p_Chassisnumber"       placeholder="Chassis number">
-      <input id="p_Enginenumber"        placeholder="Engine number">
-      <input id="p_altNumber"           placeholder="Alternate Number">
+      <select id="p_model"><option value="">🏍️ Select Model</option></select>
+      <select id="p_color"><option>🎨 Select Color</option></select>
+      <input id="p_Purchasedate"        placeholder="📅 Purchased date">
+      <input id="p_Registrationnumber"  placeholder="🔖 Registration number">
+      <input id="p_dealership"          placeholder="🏪 Dealership">
+      <input id="p_BookingName"         placeholder="👤 Booking Name">
+      <input id="p_bookingnumber"       placeholder="# Booking Number">
+      <input id="p_Chassisnumber"       placeholder="🔩 Chassis number">
+      <input id="p_Enginenumber"        placeholder="⚙️ Engine number">
+      <input id="p_altNumber"           placeholder="☎️ Alternate Number">
       <select id="p_paymentMode">
-        <option value="">Select Payment Mode</option>
+        <option value="">💳 Select Payment Mode</option>
         <option>Cash</option><option>Finance</option><option>Both</option><option>Will decide later</option>
       </select>
     </div>
 
     <div style="display:flex; justify-content:space-between;">
-      <button class="copyBtn"  onclick="copyData()">Copy</button>
-      <button class="resetBtn" onclick="resetForm()">Reset</button>
+      <button class="copyBtn"  onclick="copyData()">📋 Copy</button>
+      <button class="resetBtn" onclick="resetForm()">🔄 Reset</button>
     </div>
   </div>
 
@@ -1287,7 +1285,7 @@ body.light-theme .contact-info-value a {
 
     <!-- Col 1: Made By -->
     <div class="re-footer-col">
-      <h3>Made By</h3>
+      <h3>👨‍💻 Made By</h3>
       <p class="brand-name">Priyansh Sharma</p>
       <a href="https://your-portfolio-link.com" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
@@ -1305,7 +1303,7 @@ body.light-theme .contact-info-value a {
 
     <!-- Col 2: Royal Enfield Links -->
     <div class="re-footer-col">
-      <h3>Royal Enfield</h3>
+      <h3>🏍️ Royal Enfield</h3>
       <a href="https://www.royalenfield.com/in/en/" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
         Official Website
@@ -1322,7 +1320,7 @@ body.light-theme .contact-info-value a {
 
     <!-- Col 3: Resources -->
     <div class="re-footer-col">
-      <h3>Resources</h3>
+      <h3>📊 Resources</h3>
       <a href="https://docs.google.com/spreadsheets/d/1_BkMNSiLcSZzHqpGc4RG1_CUgeBug-FtSaPCg2X2vAs/edit?gid=1115009747#gid=1115009747" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         Team Trikz
@@ -1339,7 +1337,7 @@ body.light-theme .contact-info-value a {
 
     <!-- Col 4: Date & Time -->
     <div class="re-footer-col">
-      <h3>Date &amp; Time</h3>
+      <h3>⏰ Date & Time</h3>
       <div class="clock-box" id="re-clock-box">
         <div class="clock-top">
           <div class="clock-time">
@@ -1359,9 +1357,9 @@ body.light-theme .contact-info-value a {
         <!-- calendar popup -->
         <div class="cal-popup" id="re-cal-popup">
           <div class="cal-header">
-            <button class="cal-nav" id="re-cal-prev">&#8249;</button>
+            <button class="cal-nav" id="re-cal-prev">❮</button>
             <div class="cal-month-label" id="re-cal-month"></div>
-            <button class="cal-nav" id="re-cal-next">&#8250;</button>
+            <button class="cal-nav" id="re-cal-next">❯</button>
           </div>
           <div class="cal-grid" id="re-cal-grid"></div>
         </div>
@@ -1370,7 +1368,7 @@ body.light-theme .contact-info-value a {
 
   </div>
   <div class="re-footer-bar">
-    © 2026 <span>Priyansh Sharma</span>. All Rights Reserved. &nbsp;·&nbsp; Royal Enfield CRM
+    © 2026 <span>Priyansh Sharma</span>. All Rights Reserved. · Royal Enfield CRM
   </div>
 </footer>
 
@@ -1409,7 +1407,6 @@ const bikeInfo = {
   "Classic 650":       { usp:"648cc Inline Twin / Air Oil Cooled Engine", mileage:"21.45 KM/L" }
 };
 
-/* ===== DRAWER MENU ===== */
 const hamburgerBtn = document.getElementById('hamburgerBtn');
 const drawer = document.getElementById('drawer');
 const drawerOverlay = document.getElementById('drawerOverlay');
@@ -1446,35 +1443,30 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* ===== THEME TOGGLE IN MENU ===== */
 const themeToggle = document.getElementById('themeToggle');
 const themeLabelText = document.getElementById('themeLabelText');
-const html = document.documentElement;
 const savedTheme = localStorage.getItem('theme') || 'dark';
 
 function applyTheme(theme) {
   if (theme === 'light') {
     document.documentElement.classList.add('light-theme');
-    themeLabelText.textContent = 'Dark Mode';
+    themeLabelText.textContent = '🌙 Dark Mode';
     localStorage.setItem('theme', 'light');
   } else {
     document.documentElement.classList.remove('light-theme');
-    themeLabelText.textContent = 'Light Mode';
+    themeLabelText.textContent = '☀️ Light Mode';
     localStorage.setItem('theme', 'dark');
   }
 }
 
-// Apply saved theme on page load
 applyTheme(savedTheme);
 
-// Theme toggle event listener
 themeToggle.addEventListener('click', () => {
   const currentTheme = localStorage.getItem('theme') || 'dark';
   const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
   applyTheme(newTheme);
 });
 
-// Contact modal handlers
 const contactModal = document.getElementById('contactModal');
 const contactLink = document.getElementById('contactLink');
 const closeContactBtn = document.getElementById('closeContact');
@@ -1494,7 +1486,6 @@ contactModal.addEventListener('click', (e) => {
   }
 });
 
-// Rest of the script...
 function setMode(mode) {
   document.getElementById('defaultSection').classList.toggle('hide', mode !== 'default');
   document.getElementById('bookedSection').classList.toggle('hide', mode !== 'booked');
@@ -1509,13 +1500,11 @@ function resetForm() {
   document.querySelectorAll('input, select').forEach(el => el.value = '');
 }
 
-// Footer visibility on scroll
 window.addEventListener('scroll', () => {
   const footer = document.querySelector('.re-footer');
   footer.classList.add('visible');
 });
 
-// Clock functionality
 function updateClock() {
   const now = new Date();
   document.getElementById('re-hh').textContent = String(now.getHours()).padStart(2, '0');
@@ -1529,7 +1518,6 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Model dropdown functionality
 const trigModel = document.getElementById('trig_model');
 const dropModel = document.getElementById('drop_model');
 const modelInput = document.getElementById('model');
@@ -1549,9 +1537,8 @@ Object.keys(bikeData).forEach(model => {
     trigModel.classList.add('has-value');
     wrapModel.classList.remove('open');
     
-    // Update color dropdown
     const colorSelect = document.getElementById('color');
-    colorSelect.innerHTML = '<option>Select Color</option>';
+    colorSelect.innerHTML = '<option>🎨 Select Color</option>';
     Object.keys(bikeData[model]).forEach(color => {
       const opt = document.createElement('option');
       opt.value = color;
