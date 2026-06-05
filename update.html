@@ -15,7 +15,6 @@ body {
 
 * {
   position: relative;
-  z-index: 1;
 }
 
 /* ── HERO SECTION ── */
@@ -94,16 +93,16 @@ button {
   font-weight: 500;
 }
 
-.topBtn  { width: 32%; background: #222; color: white; font-size: clamp(10px, 1vw, 14px); white-space: nowrap; }
-.copyBtn { width: 49%; background: #51d789; color: white; }
-.resetBtn{ width: 49%; background: #FF7F7F; color: white; }
+.topBtn  { width: 32%; background: #222; color: white; font-size: clamp(10px, 1vw, 14px); white-space: nowrap; z-index: 1; }
+.copyBtn { width: 49%; background: #51d789; color: white; z-index: 1; }
+.resetBtn{ width: 49%; background: #FF7F7F; color: white; z-index: 1; }
 .hide    { display: none; }
 
 /* ── CUSTOM DROPDOWN ── */
 .csw {
   position: relative;
   margin: 8px 0;
-  z-index: 200;
+  z-index: 10000;
 }
 
 .cst {
@@ -158,7 +157,7 @@ button {
   /* FIX: enough height to show all 15 bikes without clipping */
   max-height: 300px;
   overflow-y: auto;
-  z-index: 9999;
+  z-index: 99999;
   box-shadow: 0 8px 28px rgba(0,0,0,0.7);
   scrollbar-width: thin;
   scrollbar-color: #444 transparent;
@@ -573,7 +572,7 @@ button {
       <input id="p_altNumber"           placeholder="Alternate Number">
     </div>
 
-    <div style="display:flex; justify-content:space-between;">
+    <div style="display:flex; justify-content:space-between; position:relative; z-index:1;">
       <button class="copyBtn"  onclick="copyData()">Copy</button>
       <button class="resetBtn" onclick="resetForm()">Reset</button>
     </div>
@@ -777,8 +776,9 @@ function buildCustomDropdown() {
     hideTooltip();
     clearKbFocus();
     populateColor(colorSel, name);
-    // auto-advance focus to color select
+    // auto-advance focus to color select and open it
     colorSel.focus();
+    try { colorSel.showPicker(); } catch(e) { /* fallback: browser will open on interaction */ }
   }
 
   // ── FIX 2: keyboard navigation inside custom dropdown ──
@@ -859,7 +859,10 @@ function fillNormalSelect(modelSelId, colorSelId) {
   // When model changes, populate colors AND move focus to color select
   modelSel.addEventListener('change', () => {
     populateColor(colorSel, modelSel.value);
-    if (modelSel.value) colorSel.focus();
+    if (modelSel.value) {
+      colorSel.focus();
+      try { colorSel.showPicker(); } catch(e) {}
+    }
   });
 }
 
@@ -881,32 +884,8 @@ document.addEventListener('DOMContentLoaded', () => {
   fillNormalSelect('b_model', 'b_color');
   fillNormalSelect('p_model', 'p_color');
 
-  // ── Enter key logic:
-  //    - custom dropdown trigger (.cst): handled in buildCustomDropdown
-  //    - native <select>: if placeholder → browser opens it; if value chosen → advance to next field
-  //    - inputs: advance to next field
-  document.addEventListener('keydown', e => {
-    if (e.key !== 'Enter') return;
-
-    const active = document.activeElement;
-
-    // Custom dropdown handles its own Enter
-    if (active.classList.contains('cst')) return;
-
-    if (active.tagName === 'SELECT') {
-      // Let browser commit the selection first, then decide
-      setTimeout(() => {
-        if (active.selectedIndex === 0) return; // still on placeholder, do nothing
-        advanceToNext(active);
-      }, 0);
-      return;
-    }
-
-    // Inputs: advance immediately
-    e.preventDefault();
-    advanceToNext(active);
-  });
-
+  // Color selects: the moment any color is picked (mouse OR keyboard),
+  // auto-advance to the next field -- same behaviour as the custom model dropdown
   function advanceToNext(el) {
     const section = el.closest('[id$="Section"]') || el.closest('.box');
     if (!section) return;
@@ -918,6 +897,43 @@ document.addEventListener('DOMContentLoaded', () => {
       fields[idx + 1].focus();
     }
   }
+
+  ['color', 'b_color', 'p_color'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    sel.addEventListener('change', () => {
+      if (sel.selectedIndex === 0) return;
+      setTimeout(() => advanceToNext(sel), 0);
+    });
+  });
+
+  // Enter key logic:
+  // - .cst custom dropdown: handled inside buildCustomDropdown
+  // - native <select> (model, payment mode): Enter on placeholder = browser handles natively;
+  //   Enter after picking a value = advance to next field
+  // - inputs: advance immediately
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+
+    const active = document.activeElement;
+
+    // Custom dropdown trigger handles its own Enter
+    if (active.classList.contains('cst')) return;
+
+    if (active.tagName === 'SELECT') {
+      // Color selects already advance via 'change' event above -- skip them here
+      if (active.id === 'color' || active.id === 'b_color' || active.id === 'p_color') return;
+      setTimeout(() => {
+        if (active.selectedIndex === 0) return;
+        advanceToNext(active);
+      }, 0);
+      return;
+    }
+
+    // Inputs: advance immediately
+    e.preventDefault();
+    advanceToNext(active);
+  });
 });
 
 // ─── MODE SWITCHER ───────────────────────────────────────────────────────────
