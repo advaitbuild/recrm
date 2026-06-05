@@ -111,7 +111,8 @@ button {
 
 .cst {
   width: 100%;
-  height: 40px;
+  /* FIX 1: match input height exactly */
+  height: clamp(38px, 4vw, 42px);
   padding: 0 36px 0 10px;
   background: rgba(255,255,255,0.1);
   border-radius: 8px;
@@ -158,15 +159,20 @@ button {
   background: #1c1c1c;
   border: 1px solid rgba(255,255,255,0.13);
   border-radius: 10px;
-  /* FIX: enough height to show all 15 bikes without clipping */
   max-height: 300px;
   overflow-y: auto;
   z-index: 99999;
   box-shadow: 0 8px 28px rgba(0,0,0,0.7);
   scrollbar-width: thin;
   scrollbar-color: #444 transparent;
-  /* ensure last item border-radius is visible */
   padding-bottom: 2px;
+}
+
+/* FIX 2: drop-up variant */
+.cdrop.drop-up {
+  top: auto;
+  bottom: calc(100% + 4px);
+  animation-name: fadeUp !important;
 }
 
 .cdrop::-webkit-scrollbar { width: 5px; }
@@ -179,6 +185,11 @@ button {
 
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -198,7 +209,6 @@ button {
 .di:last-child { border-bottom: none; }
 .di:hover { background: rgba(255,215,0,0.07); color: #FFD700; }
 
-/* keyboard-focused item inside dropdown */
 .di.kb-focus {
   background: rgba(255,215,0,0.13);
   color: #FFD700;
@@ -213,8 +223,8 @@ button {
   border: 1px solid rgba(255,215,0,0.35);
   border-radius: 9px;
   padding: 11px 14px;
-  min-width: 215px;
-  max-width: 240px;
+  min-width: 230px;
+  max-width: 260px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.75);
   z-index: 99999;
   pointer-events: none;
@@ -242,6 +252,7 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 #crm-tooltip .tt-val {
@@ -249,6 +260,26 @@ button {
   color: #eee;
   text-align: right;
   line-height: 1.4;
+}
+
+/* About tags inside tooltip */
+#crm-tooltip .tt-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-end;
+  max-width: 160px;
+}
+
+#crm-tooltip .tt-tag {
+  font-size: 10px;
+  color: #FFD700;
+  background: rgba(255,215,0,0.1);
+  border: 1px solid rgba(255,215,0,0.25);
+  border-radius: 4px;
+  padding: 2px 6px;
+  line-height: 1.4;
+  white-space: nowrap;
 }
 
 /* ===== PREMIUM FOOTER ===== */
@@ -424,11 +455,6 @@ button {
 
 .cal-popup.open { display: block; }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
 .cal-header {
   display: flex;
   align-items: center;
@@ -516,9 +542,13 @@ button {
 <!-- ===== HERO SECTION ===== -->
 <div class="hero-section">
 
-  <!-- tooltip -->
+  <!-- tooltip: About → Engine → Mileage -->
   <div id="crm-tooltip">
     <div class="tt-head" id="tt-name"></div>
+    <div class="tt-row">
+      <span class="tt-lbl">About</span>
+      <span class="tt-val" id="tt-about"><span class="tt-tags" id="tt-tags"></span></span>
+    </div>
     <div class="tt-row"><span class="tt-lbl">Engine</span><span class="tt-val" id="tt-usp"></span></div>
     <div class="tt-row"><span class="tt-lbl">Mileage</span><span class="tt-val" id="tt-mileage"></span></div>
   </div>
@@ -723,33 +753,43 @@ const bikeData = {
 };
 
 const bikeInfo = {
-  "Hunter 350":        { usp:"349cc, single-cylinder, air cooled engine",          mileage:"36.2 KM/L" },
-  "Bullet 350":        { usp:"349cc, single-cylinder, air cooled engine",          mileage:"37 KM/L"   },
-  "Classic 350":       { usp:"349cc, single-cylinder, air cooled engine",          mileage:"41.5 KM/L" },
-  "Meteor 350":        { usp:"349cc, single-cylinder, air cooled engine",          mileage:"41.9 KM/L" },
-  "Goan Classic 350":  { usp:"349cc, single-cylinder, air cooled engine",          mileage:"36.2 KM/L" },
-  "Scram 440":         { usp:"452cc Single Cylinder / Air oiled cooled engine",    mileage:"29.5 KM/L" },
-  "Himalayan 450":     { usp:"452cc Single Cylinder / Air oil cooled engine",      mileage:"30 KM/L"   },
-  "Guerrilla 450":     { usp:"452cc Single Cylinder / Air oil cooled engine",      mileage:"29.5 KM/L" },
-  "Interceptor 650":   { usp:"648cc Inline Twin / Air Oil Cooled Engine",          mileage:"25 KM/L"   },
-  "Continental GT 650":{ usp:"648cc Inline Twin / Air Oil Cooled Engine",          mileage:"27 KM/L"   },
-  "Super Meteor 650":  { usp:"648cc parallel Twin / Air Oil Cooled Engine",        mileage:"25 KM/L"   },
-  "Shotgun 650":       { usp:"648cc parallel Twin / Air Oil Cooled Engine",        mileage:"22 KM/L"   },
-  "Bear 650":          { usp:"648cc Inline Twin / Air Oil Cooled Engine",          mileage:"22 KM/L"   },
-  "Classic 650":       { usp:"648cc Inline Twin / Air Oil Cooled Engine",          mileage:"21.45 KM/L"},
-  // ── FIX 1: Bullet 650 tooltip ──
-  "Bullet 650":        { usp:"648cc parallel Twin / Air Oil Cooled Engine",        mileage:"NA"        }
+  "Hunter 350":         { about: ["Roadster","Daily Riding","City Riding"],           usp:"349cc, single-cylinder, air cooled engine",       mileage:"36.2 KM/L" },
+  "Bullet 350":         { about: ["Heritage","Daily Riding","City Commute"],          usp:"349cc, single-cylinder, air cooled engine",       mileage:"37 KM/L"   },
+  "Classic 350":        { about: ["Vintage","Daily Riding","City Commute"],           usp:"349cc, single-cylinder, air cooled engine",       mileage:"41.5 KM/L" },
+  "Meteor 350":         { about: ["Cruise","Long Distance","Highway Cruising"],       usp:"349cc, single-cylinder, air cooled engine",       mileage:"41.9 KM/L" },
+  "Goan Classic 350":   { about: ["Bobber","City Riding","Casual Commuting"],         usp:"349cc, single-cylinder, air cooled engine",       mileage:"36.2 KM/L" },
+  "Scram 440":          { about: ["Adventure","Casual","Urban Commuting"],            usp:"452cc Single Cylinder / Air oiled cooled engine", mileage:"29.5 KM/L" },
+  "Himalayan 450":      { about: ["Adventure","Adventure","Touring"],                 usp:"452cc Single Cylinder / Air oil cooled engine",   mileage:"30 KM/L"   },
+  "Guerrilla 450":      { about: ["Premium Roadster","Daily Riding","City Riding"],   usp:"452cc Single Cylinder / Air oil cooled engine",   mileage:"29.5 KM/L" },
+  "Interceptor 650":    { about: ["Premium Roadster","Daily Riding","City Riding"],   usp:"648cc Inline Twin / Air Oil Cooled Engine",       mileage:"25 KM/L"   },
+  "Continental GT 650": { about: ["Cafe Racer","Short Distance","City Commuting"],    usp:"648cc Inline Twin / Air Oil Cooled Engine",       mileage:"27 KM/L"   },
+  "Super Meteor 650":   { about: ["Cruise","Long Distance","Highway Cruising"],       usp:"648cc parallel Twin / Air Oil Cooled Engine",     mileage:"25 KM/L"   },
+  "Shotgun 650":        { about: ["Premium Roadster","Daily Riding","City Commuting"],usp:"648cc parallel Twin / Air Oil Cooled Engine",     mileage:"22 KM/L"   },
+  "Bear 650":           { about: ["Premium Roadster","Daily Riding","City Commuting"],usp:"648cc Inline Twin / Air Oil Cooled Engine",       mileage:"22 KM/L"   },
+  "Classic 650":        { about: ["Premium Tourer","Daily Riding","City Commuting"],  usp:"648cc Inline Twin / Air Oil Cooled Engine",       mileage:"21.45 KM/L"},
+  "Bullet 650":         { about: ["Premium Heritage","Daily Riding","City Commuting"],usp:"648cc parallel Twin / Air Oil Cooled Engine",     mileage:"NA"        }
 };
 
 // ─── TOOLTIP ──────────────────────────────────────────────────────────────────
 const tooltip   = document.getElementById('crm-tooltip');
 const ttName    = document.getElementById('tt-name');
+const ttTags    = document.getElementById('tt-tags');
 const ttUsp     = document.getElementById('tt-usp');
 const ttMileage = document.getElementById('tt-mileage');
 
 function showTooltip(e, modelName) {
   const info = bikeInfo[modelName] || {};
-  ttName.textContent    = modelName;
+  ttName.textContent = modelName;
+
+  // Build about tags
+  ttTags.innerHTML = '';
+  (info.about || []).forEach(tag => {
+    const span = document.createElement('span');
+    span.className = 'tt-tag';
+    span.textContent = tag;
+    ttTags.appendChild(span);
+  });
+
   ttUsp.textContent     = info.usp     || '—';
   ttMileage.textContent = info.mileage || '—';
   positionTooltip(e);
@@ -757,8 +797,8 @@ function showTooltip(e, modelName) {
 }
 
 function positionTooltip(e) {
-  const TW = tooltip.offsetWidth  || 230;
-  const TH = tooltip.offsetHeight || 80;
+  const TW = tooltip.offsetWidth  || 250;
+  const TH = tooltip.offsetHeight || 100;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   let x = e.clientX + 14;
@@ -772,10 +812,7 @@ function positionTooltip(e) {
 
 function hideTooltip() { tooltip.style.display = 'none'; }
 
-// ─── GENERIC CUSTOM DROPDOWN BUILDER ────────────────────────────────────────
-// Creates a fully keyboard + mouse navigable custom dropdown.
-// onSelect(value) is called when user picks an item.
-// items = [ { label, value } ]
+// ─── GENERIC CUSTOM DROPDOWN BUILDER ─────────────────────────────────────────
 function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placeholder) {
   const wrapper = document.getElementById(wrapperId);
   const trigger = document.getElementById(triggerId);
@@ -809,6 +846,17 @@ function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placehol
   function open() {
     closeAllDropdowns();
     wrapper.classList.add('open');
+
+    // FIX 2: smart direction — open upward if not enough space below
+    const rect       = wrapper.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const dropHeight = 300;
+    if (spaceBelow < dropHeight && rect.top > spaceBelow) {
+      drop.classList.add('drop-up');
+    } else {
+      drop.classList.remove('drop-up');
+    }
+
     setKb(0);
   }
 
@@ -822,7 +870,6 @@ function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placehol
     trigger.classList.add('has-value');
     close();
     onSelect(value);
-    // advance to next field
     setTimeout(() => advanceToNext(trigger), 0);
   }
 
@@ -843,7 +890,6 @@ function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placehol
     else if (e.key === 'Escape')    { close(); }
   });
 
-  // expose reset
   wrapper._reset = () => {
     trigger.textContent = placeholder || 'Select';
     trigger.classList.remove('has-value');
@@ -851,22 +897,17 @@ function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placehol
   };
 }
 
-// ─── TOOLTIP (model dropdown only) ───────────────────────────────────────────
+// ─── MODEL DROPDOWN (with tooltip) ───────────────────────────────────────────
 function buildModelDropdown() {
-  const hidden   = document.getElementById('model');
-  const colorWrap = document.getElementById('wrap_color');
+  const hidden    = document.getElementById('model');
   const colorTrig = document.getElementById('trig_color');
+  const drop      = document.getElementById('drop_model');
 
   const items = Object.keys(bikeData).map(name => ({ label: name, value: name }));
-
-  // Add tooltip support on the model items after building
-  const wrapper = document.getElementById('wrap_model');
-  const drop    = document.getElementById('drop_model');
 
   buildCustomDrop('wrap_model', 'trig_model', 'drop_model', items, (name) => {
     hidden.value = name;
     buildColorDrop('wrap_color', 'trig_color', 'drop_color', 'color', name);
-    // open color dropdown right after
     setTimeout(() => {
       colorTrig.focus();
       document.getElementById('wrap_color').querySelector('.cst').click();
@@ -903,21 +944,16 @@ function buildPaymentDrop() {
   }, 'Select Payment Mode');
 }
 
-// Booked & Purchased: model → color chain
 function buildSectionDrops(section) {
-  // section = 'b' or 'p'
   const modelHidden = document.getElementById(`${section}_model`);
-  const colorHidden = document.getElementById(`${section}_color`);
   const colorTrigId = `trig_${section}_color`;
-
-  const modelItems = Object.keys(bikeData).map(n => ({ label: n, value: n }));
+  const modelItems  = Object.keys(bikeData).map(n => ({ label: n, value: n }));
 
   buildCustomDrop(`wrap_${section}_model`, `trig_${section}_model`, `drop_${section}_model`,
     modelItems, (name) => {
       modelHidden.value = name;
       buildColorDrop(`wrap_${section}_color`, `trig_${section}_color`, `drop_${section}_color`,
         `${section}_color`, name);
-      // open color dropdown
       setTimeout(() => {
         document.getElementById(colorTrigId).focus();
         document.getElementById(`wrap_${section}_color`).querySelector('.cst').click();
@@ -948,11 +984,10 @@ document.addEventListener('DOMContentLoaded', () => {
   buildSectionDrops('b');
   buildSectionDrops('p');
 
-  // Enter on plain inputs → advance
   document.addEventListener('keydown', e => {
     if (e.key !== 'Enter') return;
     const active = document.activeElement;
-    if (active.classList.contains('cst')) return; // handled by each dropdown
+    if (active.classList.contains('cst')) return;
     if (active.tagName === 'INPUT' && active.type !== 'hidden') {
       e.preventDefault();
       advanceToNext(active);
@@ -1017,9 +1052,7 @@ function copyData() {
 function resetForm() {
   const confirmReset = confirm('⚠️ Are you sure?\n\nAll entered data will be cleared.');
   if (!confirmReset) return;
-  // clear all inputs
   document.querySelectorAll('input').forEach(el => el.value = '');
-  // reset all custom dropdown triggers
   const resets = [
     ['trig_model',    'Select Model'],
     ['trig_color',    'Select Color'],
@@ -1035,7 +1068,6 @@ function resetForm() {
     el.textContent = placeholder;
     el.classList.remove('has-value');
   });
-  // clear color dropdowns (they get rebuilt on model select)
   ['drop_color','drop_b_color','drop_p_color'].forEach(id => {
     const d = document.getElementById(id);
     if (d) d.innerHTML = '';
