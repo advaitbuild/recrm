@@ -804,9 +804,253 @@ button {
 }
 
 .hbg-footer span { color: rgba(255,215,0,0.3); }
+
+/* ═══════════════════════════════════════════
+   ENTRY PAGE
+═══════════════════════════════════════════ */
+#entry-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 200000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(135deg, rgba(8,8,8,0.82), rgba(18,18,18,0.78)),
+    url('himalayan-bg.jpg') center / cover no-repeat;
+  transition: opacity 0.55s ease, visibility 0.55s ease;
+  opacity: 1;
+  visibility: visible;
+  padding: 20px;
+  box-sizing: border-box;
+}
+#entry-gate.gate-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.entry-card {
+  width: min(100%, 440px);
+  background: rgba(255,255,255,0.035);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,215,0,0.13);
+  border-radius: 20px;
+  padding: clamp(28px,5vw,44px) clamp(24px,5vw,40px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,215,0,0.06);
+  animation: entry-rise 0.65s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes entry-rise {
+  from { opacity:0; transform:translateY(28px) scale(0.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.entry-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.entry-brand-line {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(to right, transparent, rgba(255,215,0,0.25));
+}
+.entry-brand-line.right {
+  background: linear-gradient(to left, transparent, rgba(255,215,0,0.25));
+}
+.entry-brand-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,215,0,0.6);
+  white-space: nowrap;
+}
+.entry-heading {
+  text-align: center;
+  color: #fff;
+  font-size: clamp(22px,4vw,30px);
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px;
+  line-height: 1.25;
+}
+.entry-heading strong { color: #FFD700; font-weight: 700; }
+.entry-sub {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.38);
+  margin: 0 0 32px;
+  letter-spacing: 0.3px;
+}
+.entry-field-wrap { position: relative; margin-bottom: 4px; }
+.entry-field-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,215,0,0.5);
+  margin-bottom: 8px;
+  padding-left: 2px;
+}
+.entry-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: 0.3px;
+  box-sizing: border-box;
+  outline: none;
+  /* override global input styles */
+  margin: 0 !important;
+  transition: border-color 0.22s, box-shadow 0.22s, background 0.22s !important;
+  transform: none !important;
+}
+.entry-input::placeholder { color: rgba(255,255,255,0.28); }
+.entry-input:focus {
+  border-color: rgba(255,215,0,0.5) !important;
+  background: rgba(255,255,255,0.1) !important;
+  box-shadow: 0 0 0 3px rgba(255,215,0,0.1), 0 0 14px rgba(52,165,82,0.18) !important;
+  transform: none !important;
+}
+.entry-input.has-error { border-color: rgba(255,127,127,0.6) !important; }
+.entry-error {
+  font-size: 12px;
+  color: #FF7F7F;
+  margin: 7px 0 0 2px;
+  min-height: 18px;
+  display: block;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.entry-error.visible { opacity: 1; transform: translateY(0); }
+.entry-btn {
+  width: 100%;
+  height: 50px;
+  margin-top: 22px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #FFD700 0%, #e6b800 100%);
+  color: #111;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  transition: transform 0.16s, box-shadow 0.22s, filter 0.18s;
+  box-shadow: 0 6px 24px rgba(255,215,0,0.25);
+}
+.entry-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.3) 50%, transparent 65%);
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
+}
+.entry-btn:hover::after { transform: translateX(100%); }
+.entry-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(255,215,0,0.35);
+  filter: brightness(1.05);
+}
+.entry-btn:active { transform: translateY(0) scale(0.98); }
+.entry-btn-arrow { font-size: 17px; line-height: 1; transition: transform 0.22s; }
+.entry-btn:hover .entry-btn-arrow { transform: translateX(4px); }
+.entry-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 26px 0 18px;
+}
+.entry-divider-line { flex:1; height:1px; background:rgba(255,255,255,0.07); }
+.entry-divider-text {
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.entry-note {
+  text-align: center;
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.22);
+  line-height: 1.6;
+}
+.entry-note strong { color: rgba(255,215,0,0.4); font-weight:600; }
+
+/* App root fades in after entry */
+#app-root {
+  opacity: 0;
+  transition: opacity 0.5s ease 0.1s;
+}
+#app-root.app-visible { opacity: 1; }
 </style>
 </head>
 <body>
+
+
+<!-- ===== ENTRY GATE ===== -->
+<div id="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title">
+  <div class="entry-card">
+
+    <!-- Brand strip -->
+    <div class="entry-brand">
+      <div class="entry-brand-line"></div>
+      <div class="entry-brand-badge">Royal Enfield CRM</div>
+      <div class="entry-brand-line right"></div>
+    </div>
+
+    <!-- Heading -->
+    <h1 class="entry-heading" id="entry-title">Welcome, <strong>Rider</strong></h1>
+    <p class="entry-sub">Enter your name to access the CRM dashboard</p>
+
+    <!-- Name field — add more fields here later for onboarding steps -->
+    <div class="entry-field-wrap">
+      <label class="entry-field-label" for="entryName">Full Name</label>
+      <input
+        id="entryName"
+        class="entry-input"
+        type="text"
+        placeholder="e.g. Priyansh Sharma"
+        autocomplete="name"
+        spellcheck="false"
+        maxlength="60"
+      >
+      <span class="entry-error" id="entryError" role="alert">Please enter your full name to continue.</span>
+    </div>
+
+    <!-- CTA -->
+    <button class="entry-btn" id="entryBtn" type="button">
+      Continue
+      <span class="entry-btn-arrow">→</span>
+    </button>
+
+    <!-- Footer note -->
+    <div class="entry-divider">
+      <div class="entry-divider-line"></div>
+      <div class="entry-divider-text">Secure &amp; Local</div>
+      <div class="entry-divider-line"></div>
+    </div>
+    <p class="entry-note">Your name is saved <strong>locally on this device</strong> only.<br>No data is sent anywhere.</p>
+
+  </div>
+</div>
+
+<!-- ===== APP ROOT (everything below fades in after entry) ===== -->
+<div id="app-root">
 
 <!-- ===== HAMBURGER BUTTON ===== -->
 <button class="hbg-btn" id="hbgBtn" aria-label="Open menu" aria-expanded="false" aria-controls="hbgPanel">
@@ -1066,6 +1310,8 @@ button {
     © 2026 <span>Priyansh Sharma</span>. All Rights Reserved. &nbsp;·&nbsp; Royal Enfield CRM
   </div>
 </footer>
+
+</div><!-- end #app-root -->
 
 <script>
 // ─── BIKE DATA ────────────────────────────────────────────────────────────────
@@ -1566,6 +1812,102 @@ _footerObs.observe(_footer);
   // Prevent panel clicks from closing via overlay logic
   panel.addEventListener('click', function (e) { e.stopPropagation(); });
 })();
+
+// ─── ENTRY GATE ──────────────────────────────────────────────────────────────
+(function () {
+  const gate    = document.getElementById('entry-gate');
+  const appRoot = document.getElementById('app-root');
+  const input   = document.getElementById('entryName');
+  const btn     = document.getElementById('entryBtn');
+  const errMsg  = document.getElementById('entryError');
+
+  // ── Check localStorage for a returning user ──
+  const saved = localStorage.getItem('crm_user_name');
+  if (saved && saved.trim().length > 0) {
+    // Known user — skip gate entirely, show app immediately
+    gate.classList.add('gate-hidden');
+    appRoot.classList.add('app-visible');
+    greetUser(saved.trim());
+    return;
+  }
+
+  // ── Show app-root placeholder while gate is visible ──
+  // (app-root stays invisible until gate dismisses)
+
+  function showError(msg) {
+    errMsg.textContent = msg || 'Please enter your full name to continue.';
+    errMsg.classList.add('visible');
+    input.classList.add('has-error');
+    input.focus();
+    // Shake animation
+    input.style.animation = 'none';
+    requestAnimationFrame(() => {
+      input.style.animation = 'entry-shake 0.38s ease';
+    });
+  }
+
+  function clearError() {
+    errMsg.classList.remove('visible');
+    input.classList.remove('has-error');
+  }
+
+  function greetUser(name) {
+    // Update hamburger panel footer with user name (if panel exists)
+    const footer = document.querySelector('.hbg-footer');
+    if (footer) {
+      footer.innerHTML = `Logged in as <span>${name}</span>`;
+    }
+    // Update menu logo text
+    const logoText = document.querySelector('.hbg-logo-text');
+    if (logoText) logoText.textContent = name.split(' ')[0];
+  }
+
+  function proceed() {
+    const name = input.value.trim().replace(/\s+/g, ' ');
+
+    if (!name) {
+      showError('Please enter your full name to continue.');
+      return;
+    }
+    if (name.length < 2) {
+      showError('Name must be at least 2 characters.');
+      return;
+    }
+
+    // Save to localStorage
+    localStorage.setItem('crm_user_name', name);
+
+    // Dismiss gate, reveal app
+    clearError();
+    gate.classList.add('gate-hidden');
+    appRoot.classList.add('app-visible');
+    greetUser(name);
+  }
+
+  btn.addEventListener('click', proceed);
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') proceed();
+  });
+
+  input.addEventListener('input', function () {
+    if (input.value.trim()) clearError();
+  });
+
+  // Auto-focus the input on load
+  window.addEventListener('load', function () { input.focus(); });
+})();
 </script>
 </body>
+
+<!-- entry-shake keyframe (injected inline so it doesn't interfere with global styles) -->
+<style>
+@keyframes entry-shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  40%      { transform: translateX(6px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+</style>
 </html>
