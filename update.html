@@ -54,6 +54,7 @@ h2 {
 input, select {
   width: 100%;
   padding: 10px;
+  /* FIX 3: unified margin matches .csw margin */
   margin: 8px 0;
   border-radius: 8px;
   border: none;
@@ -100,8 +101,10 @@ button {
 
 /* ── CUSTOM DROPDOWN ── */
 .csw {
-  position: relative;
+  /* FIX 3: exact same margin as input/select for uniform spacing */
   margin: 8px 0;
+  /* Use position relative only — NOT 'position:relative' via the global *{position:relative}
+     which is already there. We just need to ensure z-index stacking works. */
   z-index: 1;
 }
 
@@ -111,7 +114,7 @@ button {
 
 .cst {
   width: 100%;
-  /* FIX 1: match input height exactly */
+  /* FIX 3: height matches input height for visual consistency */
   height: clamp(38px, 4vw, 42px);
   padding: 0 36px 0 10px;
   background: rgba(255,255,255,0.1);
@@ -168,7 +171,7 @@ button {
   padding-bottom: 2px;
 }
 
-/* FIX 2: drop-up variant */
+/* FIX 2: drop-up variant — resets top and anchors to bottom of trigger */
 .cdrop.drop-up {
   top: auto;
   bottom: calc(100% + 4px);
@@ -181,6 +184,10 @@ button {
 .csw.open .cdrop {
   display: block;
   animation: fadeDown 0.15s ease;
+}
+
+.csw.open .cdrop.drop-up {
+  animation: fadeUp 0.15s ease;
 }
 
 @keyframes fadeDown {
@@ -262,16 +269,8 @@ button {
   line-height: 1.4;
 }
 
-/* About tags inside tooltip */
-.tt-tags{
-  display:inline;
-}
-#tt-about{
-  text-align:right;
-  color:#eee;
-  font-size:12px;
-  line-height:1.4;
-}
+.tt-tags { display: inline; }
+#tt-about { text-align: right; color: #eee; font-size: 12px; line-height: 1.4; }
 
 /* ===== PREMIUM FOOTER ===== */
 .re-footer {
@@ -533,7 +532,7 @@ button {
 <!-- ===== HERO SECTION ===== -->
 <div class="hero-section">
 
-  <!-- tooltip: About → Engine → Mileage -->
+  <!-- tooltip -->
   <div id="crm-tooltip">
     <div class="tt-head" id="tt-name"></div>
     <div class="tt-row">
@@ -771,10 +770,7 @@ const ttMileage = document.getElementById('tt-mileage');
 function showTooltip(e, modelName) {
   const info = bikeInfo[modelName] || {};
   ttName.textContent = modelName;
-
-  // Build about tags
- ttTags.textContent = (info.about || []).join(', ');
-
+  ttTags.textContent = (info.about || []).join(', ');
   ttUsp.textContent     = info.usp     || '—';
   ttMileage.textContent = info.mileage || '—';
   positionTooltip(e);
@@ -832,21 +828,28 @@ function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placehol
     closeAllDropdowns();
     wrapper.classList.add('open');
 
-    // FIX 2: smart direction — open upward if not enough space below
-    const rect       = wrapper.getBoundingClientRect();
-    const spaceBelow = window.innerHeight - rect.bottom;
-    const dropHeight = 300;
-    if (spaceBelow < dropHeight && rect.top > spaceBelow) {
-      drop.classList.add('drop-up');
-    } else {
-      drop.classList.remove('drop-up');
-    }
+    // FIX 2: Robust smart-direction — measure AFTER adding 'open' class so
+    // the dropdown is in the DOM flow. Use requestAnimationFrame to let
+    // the browser paint before measuring, guaranteeing accurate getBoundingClientRect.
+    requestAnimationFrame(() => {
+      const wrapRect   = wrapper.getBoundingClientRect();
+      const dropHeight = Math.min(drop.scrollHeight, 300); // capped by max-height
+      const spaceBelow = window.innerHeight - wrapRect.bottom;
+      const spaceAbove = wrapRect.top;
+
+      if (spaceBelow < dropHeight + 8 && spaceAbove > spaceBelow) {
+        drop.classList.add('drop-up');
+      } else {
+        drop.classList.remove('drop-up');
+      }
+    });
 
     setKb(0);
   }
 
   function close() {
     wrapper.classList.remove('open');
+    drop.classList.remove('drop-up');
     clearKb();
   }
 
@@ -947,7 +950,11 @@ function buildSectionDrops(section) {
 }
 
 function closeAllDropdowns() {
-  document.querySelectorAll('.csw.open').forEach(w => w.classList.remove('open'));
+  document.querySelectorAll('.csw.open').forEach(w => {
+    w.classList.remove('open');
+    const d = w.querySelector('.cdrop');
+    if (d) d.classList.remove('drop-up');
+  });
   hideTooltip();
 }
 
@@ -1064,8 +1071,10 @@ function resetForm() {
 (function(){
   const monthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const monthsFull  = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const daysShort   = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const dnames      = ['M','T','W','T','F','S','S'];
+  const daysShort   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  // FIX 1: Monday-start day name headers
+  const dnames      = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+
   function pad(n){ return String(n).padStart(2,'0'); }
 
   let calY = new Date().getFullYear();
@@ -1082,6 +1091,7 @@ function resetForm() {
     document.getElementById('re-ss').textContent   = pad(n.getSeconds());
     document.getElementById('re-ampm').textContent = ampm;
     document.getElementById('re-date').textContent = n.getDate() + ' ' + monthsShort[n.getMonth()] + ' ' + n.getFullYear();
+    // FIX 1: use the correct daysShort array with Sunday = index 0
     document.getElementById('re-day').textContent  = daysShort[n.getDay()];
   }
   tick();
@@ -1091,26 +1101,37 @@ function resetForm() {
     const grid = document.getElementById('re-cal-grid');
     document.getElementById('re-cal-month').textContent = monthsFull[calM] + ' ' + calY;
     grid.innerHTML = '';
+
+    // Monday-start day name headers
     dnames.forEach(d => {
       const el = document.createElement('div');
       el.className = 'cal-dname';
       el.textContent = d;
       grid.appendChild(el);
     });
-    const firstDay = new Date(calY, calM, 1).getDay();
-    const total    = new Date(calY, calM + 1, 0).getDate();
-    const today    = new Date();
-    for(let i = 0; i < firstDay; i++){
+
+    // FIX 1: Convert JS Sunday-based day (0=Sun) to Monday-based offset (0=Mon)
+    // getDay() → 0(Sun),1(Mon),2(Tue),3(Wed),4(Thu),5(Fri),6(Sat)
+    // Monday-start offset: Mon→0, Tue→1, Wed→2, Thu→3, Fri→4, Sat→5, Sun→6
+    const jsFirstDay    = new Date(calY, calM, 1).getDay(); // 0=Sun … 6=Sat
+    const mondayOffset  = (jsFirstDay + 6) % 7;             // Mon=0, Sun=6
+    const total         = new Date(calY, calM + 1, 0).getDate();
+    const today         = new Date();
+
+    // Empty cells before the 1st
+    for (let i = 0; i < mondayOffset; i++) {
       const el = document.createElement('div');
       el.className = 'cal-cell empty';
       el.textContent = '0';
       grid.appendChild(el);
     }
-    for(let d = 1; d <= total; d++){
+
+    // Day cells
+    for (let d = 1; d <= total; d++) {
       const el = document.createElement('div');
       el.className = 'cal-cell';
       el.textContent = d;
-      if(d === today.getDate() && calM === today.getMonth() && calY === today.getFullYear())
+      if (d === today.getDate() && calM === today.getMonth() && calY === today.getFullYear())
         el.classList.add('today');
       grid.appendChild(el);
     }
@@ -1120,17 +1141,17 @@ function resetForm() {
     e.stopPropagation();
     const isOpen = popup.classList.contains('open');
     popup.classList.toggle('open', !isOpen);
-    if(!isOpen){ calY = new Date().getFullYear(); calM = new Date().getMonth(); buildCalendar(); }
+    if (!isOpen){ calY = new Date().getFullYear(); calM = new Date().getMonth(); buildCalendar(); }
   });
 
   document.getElementById('re-cal-prev').addEventListener('click', function(e){
     e.stopPropagation();
-    calM--; if(calM < 0){ calM = 11; calY--; } buildCalendar();
+    calM--; if (calM < 0){ calM = 11; calY--; } buildCalendar();
   });
 
   document.getElementById('re-cal-next').addEventListener('click', function(e){
     e.stopPropagation();
-    calM++; if(calM > 11){ calM = 0; calY++; } buildCalendar();
+    calM++; if (calM > 11){ calM = 0; calY++; } buildCalendar();
   });
 
   document.addEventListener('click', function(){ popup.classList.remove('open'); });
