@@ -833,6 +833,9 @@ button {
   transform: rotate(90deg);
   color: #FFD700;
 }
+
+.bg-changer-card {
+  margin-top: 10px;
   background: rgba(255,215,0,0.03);
   border: 1px solid rgba(255,215,0,0.12);
   border-radius: 14px;
@@ -847,27 +850,6 @@ button {
   color: rgba(255,215,0,0.6);
   margin-bottom: 14px;
 }
-
-/* Preset color swatches */
-.bg-presets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.bg-swatch {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
-  flex-shrink: 0;
-}
-
-.bg-swatch:hover { transform: scale(1.12); box-shadow: 0 0 10px rgba(255,215,0,0.3); }
-.bg-swatch.active { border-color: #FFD700; box-shadow: 0 0 12px rgba(255,215,0,0.5); }
 
 /* Upload area */
 .bg-upload-area {
@@ -929,12 +911,6 @@ button {
   text-align: center;
   min-height: 15px;
   transition: color 0.2s;
-}
-
-.bg-divider {
-  border: none;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  margin: 10px 0;
 }
 
 /* ── Panel footer ── */
@@ -1427,7 +1403,6 @@ button {
 
     <!-- ── BACKGROUND CHANGER ── -->
     <div class="bg-changer-section">
-      <!-- Clickable row -->
       <button class="bg-toggle-btn" id="bgToggleBtn" aria-expanded="false">
         <span class="bg-toggle-left">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
@@ -1437,10 +1412,7 @@ button {
       </button>
 
       <!-- Collapsible panel -->
-      <div class="bg-changer-card" id="bgChangerCard" style="display:none; margin-top:10px;">
-        <div class="bg-changer-title">Choose a style</div>
-        <div class="bg-presets" id="bgPresets"></div>
-        <hr class="bg-divider">
+      <div class="bg-changer-card" id="bgChangerCard" style="display:none;">
         <div class="bg-upload-area" id="bgUploadArea">
           <label class="bg-upload-label" for="bgFileInput">
             📷 <span>Upload your own image</span>
@@ -1541,7 +1513,6 @@ button {
         <div class="cst" id="trig_payment" tabindex="0">Select Payment Mode</div>
         <div class="cdrop" id="drop_payment"></div>
       </div>
-      <!-- ── REASON FOR LOST CASE ── -->
       <input id="lostReason" placeholder="Reason for lost case (if applicable)">
     </div>
 
@@ -2032,14 +2003,16 @@ function resetForm() {
 
 // ─── BACKGROUND CHANGER ───────────────────────────────────────────────────────
 (function () {
-  const hero        = document.getElementById('heroSection');
-  const presetsEl   = document.getElementById('bgPresets');
-  const fileInput   = document.getElementById('bgFileInput');
-  const uploadArea  = document.getElementById('bgUploadArea');
-  const resetBtn    = document.getElementById('bgResetBtn');
-  const currentLbl  = document.getElementById('bgCurrentLabel');
-  const toggleBtn   = document.getElementById('bgToggleBtn');
-  const card        = document.getElementById('bgChangerCard');
+  const hero       = document.getElementById('heroSection');
+  const fileInput  = document.getElementById('bgFileInput');
+  const uploadArea = document.getElementById('bgUploadArea');
+  const resetBtn   = document.getElementById('bgResetBtn');
+  const currentLbl = document.getElementById('bgCurrentLabel');
+  const toggleBtn  = document.getElementById('bgToggleBtn');
+  const card       = document.getElementById('bgChangerCard');
+
+  const DEFAULT_BG  = "url('himalayan-bg.jpg')";
+  const STORAGE_KEY = 'crm_bg_config';
 
   // Toggle open/close
   toggleBtn.addEventListener('click', function () {
@@ -2048,111 +2021,45 @@ function resetForm() {
     toggleBtn.setAttribute('aria-expanded', String(!isOpen));
   });
 
-  const DEFAULT_BG  = "url('himalayan-bg.jpg')";
-  const STORAGE_KEY = 'crm_bg_config';
-
-  const presets = [
-    { name: 'Default',   color: null,      isDefault: true },
-    { name: 'Midnight',  color: '#0a0a1a'  },
-    { name: 'Onyx',      color: '#111111'  },
-    { name: 'Slate',     color: '#1a1a2e'  },
-    { name: 'Forest',    color: '#0d1f0f'  },
-    { name: 'Burgundy',  color: '#1a0a0a'  },
-    { name: 'Navy',      color: '#0a0f1a'  },
-    { name: 'Storm',     color: '#1c1c2e'  },
-    { name: 'Charcoal',  color: '#1a1a1a'  },
-    { name: 'Copper',    color: '#1a0f00'  },
-  ];
-
-  let activeSwatch = null;
-
-  function buildSwatches() {
-    presets.forEach((p, i) => {
-      const sw = document.createElement('div');
-      sw.className = 'bg-swatch';
-      sw.title = p.name;
-      if (p.isDefault) {
-        sw.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #FFD700 100%)';
-        sw.style.border = '2px solid rgba(255,215,0,0.4)';
-      } else {
-        sw.style.background = p.color;
-      }
-      sw.addEventListener('click', () => {
-        if (p.isDefault) {
-          applyDefault();
-        } else {
-          applyColor(p.color, p.name, sw);
-        }
-      });
-      presetsEl.appendChild(sw);
-      if (i === 0) activeSwatch = sw;
-    });
-  }
-
-  function clearSwatchActive() {
-    presetsEl.querySelectorAll('.bg-swatch').forEach(s => s.classList.remove('active'));
-  }
-
   function applyDefault() {
     hero.style.backgroundImage = DEFAULT_BG;
     hero.style.backgroundColor = '';
-    clearSwatchActive();
-    const first = presetsEl.querySelector('.bg-swatch');
-    if (first) first.classList.add('active');
     currentLbl.textContent = 'Default (Himalayan)';
     localStorage.removeItem(STORAGE_KEY);
-  }
-
-  function applyColor(color, name, swatchEl) {
-    hero.style.backgroundImage = 'none';
-    hero.style.backgroundColor = color;
-    clearSwatchActive();
-    if (swatchEl) swatchEl.classList.add('active');
-    currentLbl.textContent = name || color;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ type: 'color', value: color, name: name }));
   }
 
   function applyImage(dataUrl, name) {
     hero.style.backgroundImage = `url('${dataUrl}')`;
     hero.style.backgroundColor = '';
-    clearSwatchActive();
     currentLbl.textContent = name || 'Custom image';
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ type: 'image', value: dataUrl, name: name }));
   }
 
-  // File upload
+  // File upload via click
   fileInput.addEventListener('change', function () {
     const file = this.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = function (e) {
-      applyImage(e.target.result, file.name);
-    };
+    reader.onload = function (e) { applyImage(e.target.result, file.name); };
     reader.readAsDataURL(file);
     this.value = '';
   });
 
-  uploadArea.addEventListener('click', function () {
-    fileInput.click();
-  });
+  uploadArea.addEventListener('click', function () { fileInput.click(); });
 
-  // Drag-and-drop on upload area
+  // Drag-and-drop
   uploadArea.addEventListener('dragover', function (e) {
     e.preventDefault();
     this.style.borderColor = 'rgba(255,215,0,0.6)';
   });
-  uploadArea.addEventListener('dragleave', function () {
-    this.style.borderColor = '';
-  });
+  uploadArea.addEventListener('dragleave', function () { this.style.borderColor = ''; });
   uploadArea.addEventListener('drop', function (e) {
     e.preventDefault();
     this.style.borderColor = '';
     const file = e.dataTransfer.files[0];
     if (!file || !file.type.startsWith('image/')) return;
     const reader = new FileReader();
-    reader.onload = function (ev) {
-      applyImage(ev.target.result, file.name);
-    };
+    reader.onload = function (ev) { applyImage(ev.target.result, file.name); };
     reader.readAsDataURL(file);
   });
 
@@ -2164,27 +2071,12 @@ function resetForm() {
     if (saved) {
       try {
         const cfg = JSON.parse(saved);
-        if (cfg.type === 'color') {
-          // find matching swatch
-          const swatches = presetsEl.querySelectorAll('.bg-swatch');
-          let found = null;
-          presets.forEach((p, i) => {
-            if (!p.isDefault && p.color === cfg.value) found = swatches[i];
-          });
-          applyColor(cfg.value, cfg.name, found);
-        } else if (cfg.type === 'image') {
-          applyImage(cfg.value, cfg.name);
-        }
-        return;
+        if (cfg.type === 'image') { applyImage(cfg.value, cfg.name); return; }
       } catch(e) {}
     }
-    // default
-    const first = presetsEl.querySelector('.bg-swatch');
-    if (first) first.classList.add('active');
     currentLbl.textContent = 'Default (Himalayan)';
   }
 
-  buildSwatches();
   restore();
 })();
 
@@ -2279,9 +2171,9 @@ _footerObs.observe(_footer);
 
 // ─── HAMBURGER MENU ──────────────────────────────────────────────────────────
 (function () {
-  const btn     = document.getElementById('hbgBtn');
-  const panel   = document.getElementById('hbgPanel');
-  const overlay = document.getElementById('hbgOverlay');
+  const btn      = document.getElementById('hbgBtn');
+  const panel    = document.getElementById('hbgPanel');
+  const overlay  = document.getElementById('hbgOverlay');
   const closeBtn = document.getElementById('hbgClose');
 
   function openMenu() {
@@ -2308,27 +2200,18 @@ _footerObs.observe(_footer);
     btn.classList.contains('is-open') ? closeMenu() : openMenu();
   }
 
-  btn.addEventListener('click', function (e) {
-    e.stopPropagation();
-    toggleMenu();
-  });
-
+  btn.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
   overlay.addEventListener('click', closeMenu);
-  closeBtn.addEventListener('click', function (e) {
-    e.stopPropagation();
-    closeMenu();
-  });
-
+  closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closeMenu(); });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
   });
-
   panel.addEventListener('click', function (e) { e.stopPropagation(); });
 })();
 
 // ─── LOGOUT MODAL ────────────────────────────────────────────────────────────
 (function () {
-  const backdrop = document.getElementById('logout-modal-backdrop');
+  const backdrop   = document.getElementById('logout-modal-backdrop');
   const cancelBtn  = document.getElementById('lmCancel');
   const confirmBtn = document.getElementById('lmConfirm');
 
@@ -2345,15 +2228,11 @@ _footerObs.observe(_footer);
   };
 
   cancelBtn.addEventListener('click', function () { window.logoutModal.close(); });
-
   backdrop.addEventListener('click', function (e) {
     if (e.target === backdrop) window.logoutModal.close();
   });
-
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && backdrop.classList.contains('lm-open')) {
-      window.logoutModal.close();
-    }
+    if (e.key === 'Escape' && backdrop.classList.contains('lm-open')) window.logoutModal.close();
   });
 
   confirmBtn.addEventListener('click', function () {
@@ -2374,8 +2253,8 @@ _footerObs.observe(_footer);
       gate.classList.remove('gate-hidden');
       if (entryInput) { entryInput.value = ''; entryInput.classList.remove('has-error'); }
       if (errMsg)     errMsg.classList.remove('visible');
-      if (logoText) logoText.textContent = 'Menu';
-      if (nameEl)   nameEl.textContent   = '—';
+      if (logoText)   logoText.textContent = 'Menu';
+      if (nameEl)     nameEl.textContent   = '—';
 
       const hbgBtn     = document.getElementById('hbgBtn');
       const hbgPanel   = document.getElementById('hbgPanel');
@@ -2456,7 +2335,6 @@ function greetUser(name) {
   window.addEventListener('load',   () => { input.focus(); });
 })();
 </script>
-</body>
 
 <style>
 @keyframes entry-shake {
@@ -2467,4 +2345,5 @@ function greetUser(name) {
   80%      { transform: translateX(4px); }
 }
 </style>
+</body>
 </html>
