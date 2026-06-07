@@ -817,11 +817,28 @@ function copyData(){
 
   if(currentMode==='default'){
     // STRICT: Reason field MUST be filled — block copy entirely if empty
-    const reasonVal=document.getElementById('lostReason').value.trim();
-    if(!reasonVal){
-      showToast('Please enter reason before copying');
-      document.getElementById('lostReason').focus();
-      return; // hard block — no copy
+   function copyData(){
+  let text='';
+
+  if(currentMode==='default'){
+
+    const reasonVal = document.getElementById('lostReason').value.trim();
+
+    // build your normal text first
+    text += "Some other fields...\n"; // your existing data
+
+    // ✅ ONLY add reason if filled
+    if(reasonVal){
+      text += "Reason: " + reasonVal + "\n";
+    }
+
+    // continue rest of your copy logic...
+  }
+
+  // final copy
+  navigator.clipboard.writeText(text);
+  showToast('Copied successfully');
+}
     }
     text=[
       keyEnquiry.value&&`Key enquiry: ${keyEnquiry.value}`,
