@@ -22,7 +22,7 @@ body {
   min-height: 100vh;
   padding: clamp(10px, 2vw, 20px);
   background: linear-gradient(135deg, rgba(15,15,15,0.35), rgba(28,28,28,0.35), rgba(43,43,43,0.35)),
-              url('himalayan-bg.jpg') center/cover no-repeat;
+              var(--bg-image, url('himalayan-bg.jpg')) center/cover no-repeat;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -30,6 +30,7 @@ body {
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
+  transition: background-color 0.4s ease;
 }
 
 .box {
@@ -54,7 +55,6 @@ h2 {
 input, select {
   width: 100%;
   padding: 10px;
-  /* FIX 3: unified margin matches .csw margin */
   margin: 8px 0;
   border-radius: 8px;
   border: none;
@@ -101,10 +101,7 @@ button {
 
 /* ── CUSTOM DROPDOWN ── */
 .csw {
-  /* FIX 3: exact same margin as input/select for uniform spacing */
   margin: 8px 0;
-  /* Use position relative only — NOT 'position:relative' via the global *{position:relative}
-     which is already there. We just need to ensure z-index stacking works. */
   z-index: 1;
 }
 
@@ -114,7 +111,6 @@ button {
 
 .cst {
   width: 100%;
-  /* FIX 3: height matches input height for visual consistency */
   height: clamp(38px, 4vw, 42px);
   padding: 0 36px 0 10px;
   background: rgba(255,255,255,0.1);
@@ -171,7 +167,6 @@ button {
   padding-bottom: 2px;
 }
 
-/* FIX 2: drop-up variant — resets top and anchors to bottom of trigger */
 .cdrop.drop-up {
   top: auto;
   bottom: calc(100% + 4px);
@@ -530,7 +525,6 @@ button {
    HAMBURGER MENU
 ═══════════════════════════════════════════ */
 
-/* ── Hamburger button (fixed top-right) ── */
 .hbg-btn {
   position: fixed;
   top: 18px;
@@ -562,7 +556,6 @@ button {
 
 .hbg-btn:active { transform: scale(0.96); }
 
-/* The three bars */
 .hbg-bar {
   display: block;
   width: 24px;
@@ -575,7 +568,6 @@ button {
   transform-origin: center;
 }
 
-/* Open state — morph into × */
 .hbg-btn.is-open .hbg-bar:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
@@ -587,7 +579,6 @@ button {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* ── Backdrop overlay ── */
 .hbg-overlay {
   position: fixed;
   inset: 0;
@@ -602,7 +593,6 @@ button {
   pointer-events: all;
 }
 
-/* ── Slide-in panel ── */
 .hbg-panel {
   position: fixed;
   top: 0;
@@ -625,7 +615,6 @@ button {
   transform: translateX(0);
 }
 
-/* ── Panel header ── */
 .hbg-header {
   display: flex;
   align-items: center;
@@ -685,11 +674,10 @@ button {
   color: #FFD700;
 }
 
-/* ── Panel body (scrollable) ── */
 .hbg-body {
   flex: 1;
   overflow-y: auto;
-  padding: 36px 28px;
+  padding: 28px 28px 16px;
   scrollbar-width: thin;
   scrollbar-color: #333 transparent;
 }
@@ -704,7 +692,7 @@ button {
   border-radius: 16px;
   padding: 32px 26px;
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 28px;
 }
 
 .hbg-wip-icon {
@@ -766,7 +754,6 @@ button {
   user-select: none;
 }
 
-/* Items that are "coming soon" */
 .hbg-nav-item.coming {
   opacity: 0.45;
 }
@@ -792,6 +779,164 @@ button {
   opacity: 0.5;
 }
 
+/* ─────────────────────────────────────────
+   BACKGROUND CHANGER (in side panel)
+───────────────────────────────────────── */
+.bg-changer-section {
+  margin-bottom: 28px;
+}
+
+/* Clickable toggle row */
+.bg-toggle-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(255,215,0,0.04);
+  border: 1px solid rgba(255,215,0,0.14);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  height: auto;
+  margin: 0;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+
+.bg-toggle-btn:hover {
+  background: rgba(255,215,0,0.08);
+  border-color: rgba(255,215,0,0.3);
+  color: #FFD700;
+}
+
+.bg-toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.bg-toggle-left svg { flex-shrink: 0; opacity: 0.7; }
+.bg-toggle-btn:hover .bg-toggle-left svg { opacity: 1; }
+
+.bg-toggle-arrow {
+  font-size: 18px;
+  line-height: 1;
+  color: rgba(255,215,0,0.4);
+  transition: transform 0.25s ease, color 0.18s;
+  display: inline-block;
+}
+
+.bg-toggle-btn[aria-expanded="true"] .bg-toggle-arrow {
+  transform: rotate(90deg);
+  color: #FFD700;
+}
+  background: rgba(255,215,0,0.03);
+  border: 1px solid rgba(255,215,0,0.12);
+  border-radius: 14px;
+  padding: 18px 18px 14px;
+}
+
+.bg-changer-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,215,0,0.6);
+  margin-bottom: 14px;
+}
+
+/* Preset color swatches */
+.bg-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.bg-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  flex-shrink: 0;
+}
+
+.bg-swatch:hover { transform: scale(1.12); box-shadow: 0 0 10px rgba(255,215,0,0.3); }
+.bg-swatch.active { border-color: #FFD700; box-shadow: 0 0 12px rgba(255,215,0,0.5); }
+
+/* Upload area */
+.bg-upload-area {
+  border: 1px dashed rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 13px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  margin-bottom: 10px;
+}
+
+.bg-upload-area:hover {
+  border-color: rgba(255,215,0,0.45);
+  background: rgba(255,215,0,0.04);
+}
+
+.bg-upload-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  display: block;
+  cursor: pointer;
+}
+
+.bg-upload-label span {
+  color: rgba(255,215,0,0.65);
+}
+
+#bgFileInput {
+  display: none;
+}
+
+/* Reset button */
+.bg-reset-btn {
+  width: 100%;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(255,127,127,0.08);
+  border: 1px solid rgba(255,127,127,0.22);
+  color: rgba(255,127,127,0.7);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.bg-reset-btn:hover {
+  background: rgba(255,127,127,0.16);
+  border-color: rgba(255,127,127,0.5);
+  color: #FF7F7F;
+}
+
+/* Current bg label */
+.bg-current-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  margin-top: 9px;
+  text-align: center;
+  min-height: 15px;
+  transition: color 0.2s;
+}
+
+.bg-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin: 10px 0;
+}
+
 /* ── Panel footer ── */
 .hbg-footer {
   padding: 18px 28px;
@@ -805,7 +950,6 @@ button {
 
 .hbg-footer span { color: rgba(255,215,0,0.3); }
 
-/* ── User row in panel footer ── */
 .hbg-user-row {
   display: flex;
   align-items: center;
@@ -876,7 +1020,6 @@ button {
    LOGOUT CONFIRMATION MODAL
 ═══════════════════════════════════════════ */
 
-/* Backdrop */
 #logout-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -898,7 +1041,6 @@ button {
   pointer-events: all;
 }
 
-/* Modal card */
 .logout-modal {
   width: min(100%, 380px);
   background: #111;
@@ -917,7 +1059,6 @@ button {
   transform: scale(1) translateY(0);
 }
 
-/* Icon ring */
 .lm-icon-ring {
   width: 64px;
   height: 64px;
@@ -958,7 +1099,6 @@ button {
   font-weight: 600;
 }
 
-/* Button row */
 .lm-actions {
   display: flex;
   gap: 12px;
@@ -1016,6 +1156,7 @@ button {
 }
 
 .lm-btn-confirm:active { transform: scale(0.97); }
+
 #entry-gate {
   position: fixed;
   inset: 0;
@@ -1115,7 +1256,6 @@ button {
   letter-spacing: 0.3px;
   box-sizing: border-box;
   outline: none;
-  /* override global input styles */
   margin: 0 !important;
   transition: border-color 0.22s, box-shadow 0.22s, background 0.22s !important;
   transform: none !important;
@@ -1199,7 +1339,6 @@ button {
 }
 .entry-note strong { color: rgba(255,215,0,0.4); font-weight:600; }
 
-/* App root fades in after entry */
 #app-root {
   opacity: 0;
   transition: opacity 0.5s ease 0.1s;
@@ -1213,73 +1352,47 @@ button {
 <!-- ===== LOGOUT CONFIRMATION MODAL ===== -->
 <div id="logout-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="lm-title" aria-hidden="true">
   <div class="logout-modal" id="logoutModal">
-
-    <!-- Icon -->
     <div class="lm-icon-ring">
       <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
     </div>
-
-    <!-- Text -->
     <div class="lm-title" id="lm-title">Log Out?</div>
     <p class="lm-msg">Are you sure you want to log out?<br>You'll need to enter your name again to access the CRM.</p>
-
-    <!-- Actions -->
     <div class="lm-actions">
       <button class="lm-btn lm-btn-cancel" id="lmCancel">Cancel</button>
       <button class="lm-btn lm-btn-confirm" id="lmConfirm">Yes, Log Out</button>
     </div>
-
   </div>
 </div>
 
 <!-- ===== ENTRY GATE ===== -->
 <div id="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title">
   <div class="entry-card">
-
-    <!-- Brand strip -->
     <div class="entry-brand">
       <div class="entry-brand-line"></div>
       <div class="entry-brand-badge">Royal Enfield CRM</div>
       <div class="entry-brand-line right"></div>
     </div>
-
-    <!-- Heading -->
     <h1 class="entry-heading" id="entry-title">Welcome, <strong>Rider</strong></h1>
     <p class="entry-sub">Enter your name to access the CRM dashboard</p>
-
-    <!-- Name field — add more fields here later for onboarding steps -->
     <div class="entry-field-wrap">
       <label class="entry-field-label" for="entryName">Full Name</label>
-      <input
-        id="entryName"
-        class="entry-input"
-        type="text"
-        placeholder="e.g. Advait"
-        autocomplete="name"
-        spellcheck="false"
-        maxlength="60"
-      >
+      <input id="entryName" class="entry-input" type="text" placeholder="e.g. Advait" autocomplete="name" spellcheck="false" maxlength="60">
       <span class="entry-error" id="entryError" role="alert">Please enter your full name to continue.</span>
     </div>
-
-    <!-- CTA -->
     <button class="entry-btn" id="entryBtn" type="button">
       Continue
       <span class="entry-btn-arrow">→</span>
     </button>
-
-    <!-- Footer note -->
     <div class="entry-divider">
       <div class="entry-divider-line"></div>
       <div class="entry-divider-text">Secure &amp; Local</div>
       <div class="entry-divider-line"></div>
     </div>
     <p class="entry-note">Your name is saved <strong>locally on this device</strong> only.<br>No data is sent anywhere.</p>
-
   </div>
 </div>
 
-<!-- ===== APP ROOT (everything below fades in after entry) ===== -->
+<!-- ===== APP ROOT ===== -->
 <div id="app-root">
 
 <!-- ===== HAMBURGER BUTTON ===== -->
@@ -1295,7 +1408,6 @@ button {
 <!-- ===== SIDE PANEL ===== -->
 <nav class="hbg-panel" id="hbgPanel" aria-label="Main navigation" aria-hidden="true">
 
-  <!-- Header -->
   <div class="hbg-header">
     <div class="hbg-logo">
       <span class="hbg-logo-dot"></span>
@@ -1304,7 +1416,6 @@ button {
     <button class="hbg-close" id="hbgClose" aria-label="Close menu">✕</button>
   </div>
 
-  <!-- Scrollable body -->
   <div class="hbg-body">
 
     <!-- WIP message card -->
@@ -1314,7 +1425,34 @@ button {
       <p class="hbg-wip-msg">Hey! Work in progress. Keep checking for more updates. Thank you!</p>
     </div>
 
-    <!-- Future navigation slots — easy to expand -->
+    <!-- ── BACKGROUND CHANGER ── -->
+    <div class="bg-changer-section">
+      <!-- Clickable row -->
+      <button class="bg-toggle-btn" id="bgToggleBtn" aria-expanded="false">
+        <span class="bg-toggle-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Change Background
+        </span>
+        <span class="bg-toggle-arrow" id="bgToggleArrow">›</span>
+      </button>
+
+      <!-- Collapsible panel -->
+      <div class="bg-changer-card" id="bgChangerCard" style="display:none; margin-top:10px;">
+        <div class="bg-changer-title">Choose a style</div>
+        <div class="bg-presets" id="bgPresets"></div>
+        <hr class="bg-divider">
+        <div class="bg-upload-area" id="bgUploadArea">
+          <label class="bg-upload-label" for="bgFileInput">
+            📷 <span>Upload your own image</span>
+          </label>
+          <input type="file" id="bgFileInput" accept="image/*">
+        </div>
+        <button class="bg-reset-btn" id="bgResetBtn">↩ Reset to Default</button>
+        <div class="bg-current-label" id="bgCurrentLabel"></div>
+      </div>
+    </div>
+
+    <!-- Coming Soon nav -->
     <div class="hbg-section-label">Coming Soon</div>
     <ul class="hbg-nav-list">
       <li class="hbg-nav-item coming">
@@ -1361,7 +1499,7 @@ button {
 </nav>
 
 <!-- ===== HERO SECTION ===== -->
-<div class="hero-section">
+<div class="hero-section" id="heroSection">
 
   <!-- tooltip -->
   <div id="crm-tooltip">
@@ -1403,6 +1541,8 @@ button {
         <div class="cst" id="trig_payment" tabindex="0">Select Payment Mode</div>
         <div class="cdrop" id="drop_payment"></div>
       </div>
+      <!-- ── REASON FOR LOST CASE ── -->
+      <input id="lostReason" placeholder="Reason for lost case (if applicable)">
     </div>
 
     <!-- BOOKED -->
@@ -1460,7 +1600,6 @@ button {
 <footer class="re-footer">
   <div class="re-footer-inner">
 
-    <!-- Col 1: Made By -->
     <div class="re-footer-col">
       <h3>Made By</h3>
       <p class="brand-name">Advait</p>
@@ -1478,7 +1617,6 @@ button {
       </a>
     </div>
 
-    <!-- Col 2: Royal Enfield Links -->
     <div class="re-footer-col">
       <h3>Royal Enfield</h3>
       <a href="https://www.royalenfield.com/in/en/" target="_blank" rel="noopener">
@@ -1495,7 +1633,6 @@ button {
       </a>
     </div>
 
-    <!-- Col 3: Resources -->
     <div class="re-footer-col">
       <h3>Resources</h3>
       <a href="https://docs.google.com/spreadsheets/d/1_BkMNSiLcSZzHqpGc4RG1_CUgeBug-FtSaPCg2X2vAs/edit?gid=1115009747#gid=1115009747" target="_blank" rel="noopener">
@@ -1516,7 +1653,6 @@ button {
       </a>
     </div>
 
-    <!-- Col 4: Date & Time -->
     <div class="re-footer-col">
       <h3>Date &amp; Time</h3>
       <div class="clock-box" id="re-clock-box">
@@ -1535,7 +1671,6 @@ button {
           <div class="clock-date" id="re-date" title="Click to view calendar">-- --- ----</div>
           <div class="clock-day" id="re-day">---</div>
         </div>
-        <!-- calendar popup -->
         <div class="cal-popup" id="re-cal-popup">
           <div class="cal-header">
             <button class="cal-nav" id="re-cal-prev">&#8249;</button>
@@ -1660,23 +1795,17 @@ function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placehol
   function open() {
     closeAllDropdowns();
     wrapper.classList.add('open');
-
-    // FIX 2: Robust smart-direction — measure AFTER adding 'open' class so
-    // the dropdown is in the DOM flow. Use requestAnimationFrame to let
-    // the browser paint before measuring, guaranteeing accurate getBoundingClientRect.
     requestAnimationFrame(() => {
       const wrapRect   = wrapper.getBoundingClientRect();
-      const dropHeight = Math.min(drop.scrollHeight, 300); // capped by max-height
+      const dropHeight = Math.min(drop.scrollHeight, 300);
       const spaceBelow = window.innerHeight - wrapRect.bottom;
       const spaceAbove = wrapRect.top;
-
       if (spaceBelow < dropHeight + 8 && spaceAbove > spaceBelow) {
         drop.classList.add('drop-up');
       } else {
         drop.classList.remove('drop-up');
       }
     });
-
     setKb(0);
   }
 
@@ -1735,7 +1864,6 @@ function buildModelDropdown() {
     }, 50);
   }, 'Select Model');
 
-  // attach tooltips to model items
   drop.querySelectorAll('.di').forEach(item => {
     const name = item.textContent;
     item.addEventListener('mouseenter', e => showTooltip(e, name));
@@ -1842,7 +1970,8 @@ function copyData() {
       color.value && color.value !== 'Select Color' && `Color: ${color.value}`,
       dealership.value    && `Dealership: ${dealership.value}`,
       altNumber.value   && `Alternate number: ${altNumber.value}`,
-      paymentMode.value && `Payment mode: ${paymentMode.value}`
+      paymentMode.value && `Payment mode: ${paymentMode.value}`,
+      lostReason.value  && `Reason for lost case: ${lostReason.value}`
     ].filter(Boolean).join('\n');
   }
   if (currentMode === 'booked') {
@@ -1880,13 +2009,13 @@ function resetForm() {
   if (!confirmReset) return;
   document.querySelectorAll('input').forEach(el => el.value = '');
   const resets = [
-    ['trig_model',    'Select Model'],
-    ['trig_color',    'Select Color'],
-    ['trig_payment',  'Select Payment Mode'],
-    ['trig_b_model',  'Select Model'],
-    ['trig_b_color',  'Select Color'],
-    ['trig_p_model',  'Select Model'],
-    ['trig_p_color',  'Select Color'],
+    ['trig_model',       'Select Model'],
+    ['trig_color',       'Select Color'],
+    ['trig_payment',     'Select Payment Mode'],
+    ['trig_b_model',     'Select Model'],
+    ['trig_b_color',     'Select Color'],
+    ['trig_p_model',     'Select Model'],
+    ['trig_p_color',     'Select Color'],
   ];
   resets.forEach(([id, placeholder]) => {
     const el = document.getElementById(id);
@@ -1901,12 +2030,169 @@ function resetForm() {
   closeAllDropdowns();
 }
 
+// ─── BACKGROUND CHANGER ───────────────────────────────────────────────────────
+(function () {
+  const hero        = document.getElementById('heroSection');
+  const presetsEl   = document.getElementById('bgPresets');
+  const fileInput   = document.getElementById('bgFileInput');
+  const uploadArea  = document.getElementById('bgUploadArea');
+  const resetBtn    = document.getElementById('bgResetBtn');
+  const currentLbl  = document.getElementById('bgCurrentLabel');
+  const toggleBtn   = document.getElementById('bgToggleBtn');
+  const card        = document.getElementById('bgChangerCard');
+
+  // Toggle open/close
+  toggleBtn.addEventListener('click', function () {
+    const isOpen = card.style.display !== 'none';
+    card.style.display = isOpen ? 'none' : 'block';
+    toggleBtn.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  const DEFAULT_BG  = "url('himalayan-bg.jpg')";
+  const STORAGE_KEY = 'crm_bg_config';
+
+  const presets = [
+    { name: 'Default',   color: null,      isDefault: true },
+    { name: 'Midnight',  color: '#0a0a1a'  },
+    { name: 'Onyx',      color: '#111111'  },
+    { name: 'Slate',     color: '#1a1a2e'  },
+    { name: 'Forest',    color: '#0d1f0f'  },
+    { name: 'Burgundy',  color: '#1a0a0a'  },
+    { name: 'Navy',      color: '#0a0f1a'  },
+    { name: 'Storm',     color: '#1c1c2e'  },
+    { name: 'Charcoal',  color: '#1a1a1a'  },
+    { name: 'Copper',    color: '#1a0f00'  },
+  ];
+
+  let activeSwatch = null;
+
+  function buildSwatches() {
+    presets.forEach((p, i) => {
+      const sw = document.createElement('div');
+      sw.className = 'bg-swatch';
+      sw.title = p.name;
+      if (p.isDefault) {
+        sw.style.background = 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #FFD700 100%)';
+        sw.style.border = '2px solid rgba(255,215,0,0.4)';
+      } else {
+        sw.style.background = p.color;
+      }
+      sw.addEventListener('click', () => {
+        if (p.isDefault) {
+          applyDefault();
+        } else {
+          applyColor(p.color, p.name, sw);
+        }
+      });
+      presetsEl.appendChild(sw);
+      if (i === 0) activeSwatch = sw;
+    });
+  }
+
+  function clearSwatchActive() {
+    presetsEl.querySelectorAll('.bg-swatch').forEach(s => s.classList.remove('active'));
+  }
+
+  function applyDefault() {
+    hero.style.backgroundImage = DEFAULT_BG;
+    hero.style.backgroundColor = '';
+    clearSwatchActive();
+    const first = presetsEl.querySelector('.bg-swatch');
+    if (first) first.classList.add('active');
+    currentLbl.textContent = 'Default (Himalayan)';
+    localStorage.removeItem(STORAGE_KEY);
+  }
+
+  function applyColor(color, name, swatchEl) {
+    hero.style.backgroundImage = 'none';
+    hero.style.backgroundColor = color;
+    clearSwatchActive();
+    if (swatchEl) swatchEl.classList.add('active');
+    currentLbl.textContent = name || color;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ type: 'color', value: color, name: name }));
+  }
+
+  function applyImage(dataUrl, name) {
+    hero.style.backgroundImage = `url('${dataUrl}')`;
+    hero.style.backgroundColor = '';
+    clearSwatchActive();
+    currentLbl.textContent = name || 'Custom image';
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ type: 'image', value: dataUrl, name: name }));
+  }
+
+  // File upload
+  fileInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      applyImage(e.target.result, file.name);
+    };
+    reader.readAsDataURL(file);
+    this.value = '';
+  });
+
+  uploadArea.addEventListener('click', function () {
+    fileInput.click();
+  });
+
+  // Drag-and-drop on upload area
+  uploadArea.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    this.style.borderColor = 'rgba(255,215,0,0.6)';
+  });
+  uploadArea.addEventListener('dragleave', function () {
+    this.style.borderColor = '';
+  });
+  uploadArea.addEventListener('drop', function (e) {
+    e.preventDefault();
+    this.style.borderColor = '';
+    const file = e.dataTransfer.files[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = function (ev) {
+      applyImage(ev.target.result, file.name);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  resetBtn.addEventListener('click', applyDefault);
+
+  // Restore saved config
+  function restore() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const cfg = JSON.parse(saved);
+        if (cfg.type === 'color') {
+          // find matching swatch
+          const swatches = presetsEl.querySelectorAll('.bg-swatch');
+          let found = null;
+          presets.forEach((p, i) => {
+            if (!p.isDefault && p.color === cfg.value) found = swatches[i];
+          });
+          applyColor(cfg.value, cfg.name, found);
+        } else if (cfg.type === 'image') {
+          applyImage(cfg.value, cfg.name);
+        }
+        return;
+      } catch(e) {}
+    }
+    // default
+    const first = presetsEl.querySelector('.bg-swatch');
+    if (first) first.classList.add('active');
+    currentLbl.textContent = 'Default (Himalayan)';
+  }
+
+  buildSwatches();
+  restore();
+})();
+
 // ─── FOOTER CLOCK + CALENDAR ─────────────────────────────────────────────────
 (function(){
   const monthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const monthsFull  = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const daysShort   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  // FIX 1: Monday-start day name headers
   const dnames      = ['Mo','Tu','We','Th','Fr','Sa','Su'];
 
   function pad(n){ return String(n).padStart(2,'0'); }
@@ -1925,7 +2211,6 @@ function resetForm() {
     document.getElementById('re-ss').textContent   = pad(n.getSeconds());
     document.getElementById('re-ampm').textContent = ampm;
     document.getElementById('re-date').textContent = n.getDate() + ' ' + monthsShort[n.getMonth()] + ' ' + n.getFullYear();
-    // FIX 1: use the correct daysShort array with Sunday = index 0
     document.getElementById('re-day').textContent  = daysShort[n.getDay()];
   }
   tick();
@@ -1935,32 +2220,22 @@ function resetForm() {
     const grid = document.getElementById('re-cal-grid');
     document.getElementById('re-cal-month').textContent = monthsFull[calM] + ' ' + calY;
     grid.innerHTML = '';
-
-    // Monday-start day name headers
     dnames.forEach(d => {
       const el = document.createElement('div');
       el.className = 'cal-dname';
       el.textContent = d;
       grid.appendChild(el);
     });
-
-    // FIX 1: Convert JS Sunday-based day (0=Sun) to Monday-based offset (0=Mon)
-    // getDay() → 0(Sun),1(Mon),2(Tue),3(Wed),4(Thu),5(Fri),6(Sat)
-    // Monday-start offset: Mon→0, Tue→1, Wed→2, Thu→3, Fri→4, Sat→5, Sun→6
-    const jsFirstDay    = new Date(calY, calM, 1).getDay(); // 0=Sun … 6=Sat
-    const mondayOffset  = (jsFirstDay + 6) % 7;             // Mon=0, Sun=6
+    const jsFirstDay    = new Date(calY, calM, 1).getDay();
+    const mondayOffset  = (jsFirstDay + 6) % 7;
     const total         = new Date(calY, calM + 1, 0).getDate();
     const today         = new Date();
-
-    // Empty cells before the 1st
     for (let i = 0; i < mondayOffset; i++) {
       const el = document.createElement('div');
       el.className = 'cal-cell empty';
       el.textContent = '0';
       grid.appendChild(el);
     }
-
-    // Day cells
     for (let d = 1; d <= total; d++) {
       const el = document.createElement('div');
       el.className = 'cal-cell';
@@ -2016,7 +2291,7 @@ _footerObs.observe(_footer);
     btn.setAttribute('aria-expanded', 'true');
     panel.setAttribute('aria-hidden', 'false');
     overlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden'; // prevent background scroll
+    document.body.style.overflow = 'hidden';
   }
 
   function closeMenu() {
@@ -2038,21 +2313,16 @@ _footerObs.observe(_footer);
     toggleMenu();
   });
 
-  // Close on backdrop click
   overlay.addEventListener('click', closeMenu);
-
-  // Close button
   closeBtn.addEventListener('click', function (e) {
     e.stopPropagation();
     closeMenu();
   });
 
-  // Close on Escape key
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
   });
 
-  // Prevent panel clicks from closing via overlay logic
   panel.addEventListener('click', function (e) { e.stopPropagation(); });
 })();
 
@@ -2062,7 +2332,6 @@ _footerObs.observe(_footer);
   const cancelBtn  = document.getElementById('lmCancel');
   const confirmBtn = document.getElementById('lmConfirm');
 
-  // Expose open/close on window so greetUser can call them
   window.logoutModal = {
     open: function () {
       backdrop.classList.add('lm-open');
@@ -2075,31 +2344,23 @@ _footerObs.observe(_footer);
     }
   };
 
-  // Cancel — close modal
   cancelBtn.addEventListener('click', function () { window.logoutModal.close(); });
 
-  // Click outside modal card — close
   backdrop.addEventListener('click', function (e) {
     if (e.target === backdrop) window.logoutModal.close();
   });
 
-  // ESC key — close
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && backdrop.classList.contains('lm-open')) {
       window.logoutModal.close();
     }
   });
 
-  // Confirm — do the actual logout
   confirmBtn.addEventListener('click', function () {
-    // 1. Clear ALL storage
     localStorage.clear();
     sessionStorage.clear();
-
-    // 2. Close modal first
     window.logoutModal.close();
 
-    // 3. Fade out app, show entry gate
     const appRoot    = document.getElementById('app-root');
     const gate       = document.getElementById('entry-gate');
     const entryInput = document.getElementById('entryName');
@@ -2110,18 +2371,12 @@ _footerObs.observe(_footer);
     appRoot.classList.remove('app-visible');
 
     setTimeout(function () {
-      // Show entry gate
       gate.classList.remove('gate-hidden');
-
-      // Reset entry form
       if (entryInput) { entryInput.value = ''; entryInput.classList.remove('has-error'); }
       if (errMsg)     errMsg.classList.remove('visible');
-
-      // Reset panel labels
       if (logoText) logoText.textContent = 'Menu';
       if (nameEl)   nameEl.textContent   = '—';
 
-      // Close hamburger menu panel
       const hbgBtn     = document.getElementById('hbgBtn');
       const hbgPanel   = document.getElementById('hbgPanel');
       const hbgOverlay = document.getElementById('hbgOverlay');
@@ -2130,15 +2385,12 @@ _footerObs.observe(_footer);
       if (hbgOverlay) hbgOverlay.classList.remove('is-open');
       document.body.style.overflow = '';
 
-      // Focus entry input
       setTimeout(function () { if (entryInput) entryInput.focus(); }, 100);
     }, 280);
   });
 })();
 
 // ─── ENTRY GATE ──────────────────────────────────────────────────────────────
-
-// greetUser: sets display name + wires logout button to open the modal
 function greetUser(name) {
   const nameEl    = document.getElementById('hbgUserName');
   const logoText  = document.querySelector('.hbg-logo-text');
@@ -2148,11 +2400,10 @@ function greetUser(name) {
   if (logoText) logoText.textContent = name.split(' ')[0];
 
   if (logoutBtn) {
-    // Clone to wipe any stale listeners from previous sessions
     const fresh = logoutBtn.cloneNode(true);
     logoutBtn.parentNode.replaceChild(fresh, logoutBtn);
     fresh.addEventListener('click', function (e) {
-      e.stopPropagation(); // don't close hamburger panel
+      e.stopPropagation();
       window.logoutModal.open();
     });
   }
@@ -2165,7 +2416,6 @@ function greetUser(name) {
   const btn     = document.getElementById('entryBtn');
   const errMsg  = document.getElementById('entryError');
 
-  // ── Returning user: skip gate ──
   const saved = localStorage.getItem('crm_user_name');
   if (saved && saved.trim().length > 0) {
     gate.classList.add('gate-hidden');
@@ -2208,7 +2458,6 @@ function greetUser(name) {
 </script>
 </body>
 
-<!-- entry-shake keyframe (injected inline so it doesn't interfere with global styles) -->
 <style>
 @keyframes entry-shake {
   0%,100% { transform: translateX(0); }
