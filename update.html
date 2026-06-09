@@ -597,6 +597,172 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 @keyframes entry-shake {
   0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)}
 }
+
+/* ════════════════════════════════════════
+   ADMIN DASHBOARD MODAL
+════════════════════════════════════════ */
+#admin-dashboard {
+  position:fixed; inset:0; z-index:200002;
+  background:#0d0d0d; display:none; flex-direction:column;
+  opacity:0; transition:opacity .3s ease;
+}
+#admin-dashboard.dash-open { display:flex; }
+#admin-dashboard.dash-visible { opacity:1; }
+
+.dash-header {
+  padding:22px 32px; border-bottom:1px solid rgba(255,215,0,.1);
+  display:flex; align-items:center; justify-content:space-between;
+  flex-shrink:0; background:rgba(255,255,255,.015);
+}
+.dash-header-left { display:flex; align-items:center; gap:14px; }
+.dash-header-icon {
+  width:40px; height:40px; border-radius:12px;
+  background:rgba(255,215,0,.08); border:1px solid rgba(255,215,0,.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px;
+}
+.dash-header-title { font-size:18px; font-weight:700; color:#fff; letter-spacing:.3px; }
+.dash-header-sub   { font-size:11px; color:rgba(255,215,0,.4); letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+.dash-close-btn {
+  width:40px; height:40px; border-radius:10px;
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.5); font-size:20px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .18s,color .18s,border-color .18s;
+}
+.dash-close-btn:hover { background:rgba(255,215,0,.1); border-color:rgba(255,215,0,.3); color:#FFD700; }
+
+.dash-body {
+  flex:1; overflow-y:auto; padding:32px;
+  scrollbar-width:thin; scrollbar-color:#222 transparent;
+  max-width:900px; width:100%; margin:0 auto; box-sizing:border-box;
+}
+.dash-body::-webkit-scrollbar { width:4px; }
+.dash-body::-webkit-scrollbar-thumb { background:#222; border-radius:4px; }
+
+/* Stats row */
+.dash-stats {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px;
+}
+.dash-stat-card {
+  background:rgba(255,215,0,.03); border:1px solid rgba(255,215,0,.1);
+  border-radius:14px; padding:20px 18px; display:flex; align-items:center; gap:14px;
+}
+.dash-stat-icon {
+  width:42px; height:42px; border-radius:12px;
+  background:rgba(255,215,0,.08); border:1px solid rgba(255,215,0,.15);
+  display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;
+}
+.dash-stat-info {}
+.dash-stat-num { font-size:26px; font-weight:300; color:#FFD700; line-height:1; }
+.dash-stat-lbl { font-size:11px; color:rgba(255,255,255,.35); text-transform:uppercase; letter-spacing:1px; margin-top:4px; }
+
+/* Section header */
+.dash-section-hdr {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:16px; margin-top:8px;
+}
+.dash-section-title {
+  font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,215,0,.5);
+}
+.dash-tabs { display:flex; gap:8px; }
+.dash-tab {
+  height:30px; padding:0 16px; border-radius:8px;
+  border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04);
+  color:rgba(255,255,255,.4); font-size:11px; font-weight:600;
+  letter-spacing:.8px; text-transform:uppercase; cursor:pointer; transition:all .18s;
+}
+.dash-tab:hover  { background:rgba(255,215,0,.08); border-color:rgba(255,215,0,.2); color:rgba(255,215,0,.7); }
+.dash-tab.active { background:rgba(255,215,0,.12); border-color:rgba(255,215,0,.35); color:#FFD700; }
+
+/* Tab content */
+.dash-tab-content { display:none; }
+.dash-tab-content.show { display:block; }
+
+/* Add user button */
+.dash-add-btn {
+  display:inline-flex; align-items:center; gap:7px;
+  height:36px; padding:0 16px; border-radius:9px;
+  border:1px solid rgba(52,165,82,.35); background:rgba(52,165,82,.08);
+  color:rgba(52,165,82,.8); font-size:12px; font-weight:600;
+  letter-spacing:.5px; cursor:pointer;
+  transition:background .18s,border-color .18s,color .18s;
+}
+.dash-add-btn:hover { background:rgba(52,165,82,.16); border-color:rgba(52,165,82,.6); color:#51d789; }
+
+/* User table */
+.dash-user-table {
+  background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.06);
+  border-radius:14px; overflow:hidden;
+}
+.dash-user-row {
+  display:grid; grid-template-columns:42px 1fr auto auto auto;
+  align-items:center; gap:14px; padding:14px 18px;
+  border-bottom:1px solid rgba(255,255,255,.04); transition:background .12s;
+}
+.dash-user-row:last-child { border-bottom:none; }
+.dash-user-row:hover { background:rgba(255,255,255,.02); }
+.dash-user-row.header-row {
+  padding:10px 18px; background:rgba(255,255,255,.03);
+  border-bottom:1px solid rgba(255,255,255,.07); cursor:default;
+}
+.dash-user-row.header-row:hover { background:rgba(255,255,255,.03); }
+.dash-col-hdr { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,.3); }
+.dash-avatar {
+  width:36px; height:36px; border-radius:50%;
+  background:rgba(255,215,0,.1); border:1.5px solid rgba(255,215,0,.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:700; color:#FFD700; text-transform:uppercase; flex-shrink:0;
+}
+.dash-uname  { font-size:13px; font-weight:500; color:rgba(255,255,255,.8); }
+.dash-umeta  { font-size:11px; color:rgba(255,255,255,.3); margin-top:2px; }
+.dash-ubadge {
+  font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  padding:3px 9px; border-radius:20px;
+}
+.dash-ubadge.admin   { background:rgba(255,215,0,.12);  border:1px solid rgba(255,215,0,.3);   color:#FFD700; }
+.dash-ubadge.premium { background:rgba(100,200,255,.1); border:1px solid rgba(100,200,255,.25); color:#7dd3fc; }
+.dash-ubadge.user    { background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);  color:rgba(255,255,255,.4); }
+.dash-revoke-btn {
+  width:28px; height:28px; border-radius:7px;
+  border:1px solid rgba(255,127,127,.2); background:rgba(255,127,127,.06);
+  color:rgba(255,127,127,.6); font-size:13px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.dash-revoke-btn:hover { background:rgba(255,127,127,.18); border-color:rgba(255,127,127,.5); color:#FF7F7F; }
+.dash-revoke-btn[disabled] { opacity:.25; cursor:default; pointer-events:none; }
+
+/* Activity log */
+.dash-activity-list {
+  background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.06);
+  border-radius:14px; overflow:hidden;
+}
+.dash-act-row {
+  display:flex; align-items:flex-start; gap:14px; padding:13px 18px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.dash-act-row:last-child { border-bottom:none; }
+.dash-act-dot {
+  width:8px; height:8px; border-radius:50%; background:rgba(255,215,0,.4);
+  flex-shrink:0; margin-top:4px;
+}
+.dash-act-text { flex:1; font-size:12.5px; color:rgba(255,255,255,.55); line-height:1.5; }
+.dash-act-text strong { color:rgba(255,255,255,.75); font-weight:600; }
+.dash-act-time { font-size:10px; color:rgba(255,255,255,.25); text-align:right; flex-shrink:0; line-height:1.6; }
+.dash-empty { padding:40px; text-align:center; color:rgba(255,255,255,.25); font-size:13px; }
+
+@media(max-width:600px) {
+  .dash-stats { grid-template-columns:1fr 1fr; }
+  .dash-stats .dash-stat-card:last-child { grid-column:span 2; }
+  .dash-body { padding:20px 16px; }
+  .dash-user-row { grid-template-columns:36px 1fr auto auto; }
+}
+@media(max-width:420px) {
+  .dash-stats { grid-template-columns:1fr; }
+  .dash-stats .dash-stat-card:last-child { grid-column:span 1; }
+}
 </style>
 </head>
 <body>
@@ -740,39 +906,15 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
     <!-- ADMIN NAV -->
     <div id="admin-nav" class="hide">
       <div class="hbg-section-label">Administration</div>
-      <div class="admin-panel-wrap">
-        <div class="admin-panel-title">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
-          Control Panel
-        </div>
-        <!-- Stats -->
-        <div class="admin-stats">
-          <div class="admin-stat-card"><div class="admin-stat-num" id="stat-total">—</div><div class="admin-stat-lbl">Users</div></div>
-          <div class="admin-stat-card"><div class="admin-stat-num" id="stat-premium">—</div><div class="admin-stat-lbl">Premium</div></div>
-          <div class="admin-stat-card"><div class="admin-stat-num" id="stat-msgs">—</div><div class="admin-stat-lbl">Messages</div></div>
-        </div>
-        <!-- Tabs -->
-        <div class="admin-tabs">
-          <button class="admin-tab active" data-tab="users" id="adminTabUsers">Users</button>
-          <button class="admin-tab" data-tab="activity" id="adminTabActivity">Activity</button>
-        </div>
-        <!-- Users tab -->
-        <div class="admin-tab-content show" id="admin-tab-users">
-          <button class="admin-add-btn" id="adminAddUserBtn">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Premium User
-          </button>
-          <div class="admin-user-list" id="admin-user-list">
-            <div style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;padding:20px 0;">Loading…</div>
-          </div>
-        </div>
-        <!-- Activity tab -->
-        <div class="admin-tab-content" id="admin-tab-activity">
-          <div class="admin-activity-list" id="admin-activity-list">
-            <div style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;padding:20px 0;">No activity yet</div>
-          </div>
-        </div>
-      </div>
+      <ul class="hbg-nav-list" style="margin-bottom:20px;">
+        <li class="hbg-nav-item active-nav" id="dashNavBtn" role="button" tabindex="0">
+          <svg class="hbg-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          Manage Dashboard
+        </li>
+      </ul>
     </div>
 
     <!-- Coming Soon nav -->
@@ -912,6 +1054,85 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
     <div class="chat-input-area" id="chatInputArea" style="display:none;">
       <textarea id="chat-input" placeholder="Write a message… (Enter to send)" rows="1"></textarea>
       <button class="chat-send-btn" id="chatSendBtn" title="Send">➤</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN DASHBOARD MODAL ══ -->
+<div id="admin-dashboard" role="dialog" aria-modal="true" aria-label="Admin Dashboard">
+  <div class="dash-header">
+    <div class="dash-header-left">
+      <div class="dash-header-icon">⚙️</div>
+      <div>
+        <div class="dash-header-title">Manage Dashboard</div>
+        <div class="dash-header-sub">Admin Control Panel</div>
+      </div>
+    </div>
+    <button class="dash-close-btn" id="dashCloseBtn">✕</button>
+  </div>
+
+  <div class="dash-body">
+    <!-- Stats -->
+    <div class="dash-stats">
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">👥</div>
+        <div class="dash-stat-info">
+          <div class="dash-stat-num" id="dash-stat-total">—</div>
+          <div class="dash-stat-lbl">Total Users</div>
+        </div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">⭐</div>
+        <div class="dash-stat-info">
+          <div class="dash-stat-num" id="dash-stat-premium">—</div>
+          <div class="dash-stat-lbl">Premium</div>
+        </div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">💬</div>
+        <div class="dash-stat-info">
+          <div class="dash-stat-num" id="dash-stat-msgs">—</div>
+          <div class="dash-stat-lbl">Messages</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section header with tabs -->
+    <div class="dash-section-hdr">
+      <div class="dash-section-title">Overview</div>
+      <div class="dash-tabs">
+        <button class="dash-tab active" id="dashTabUsers">Users</button>
+        <button class="dash-tab" id="dashTabActivity">Activity</button>
+      </div>
+    </div>
+
+    <!-- Users tab -->
+    <div class="dash-tab-content show" id="dash-tab-users">
+      <div style="margin-bottom:14px;">
+        <button class="dash-add-btn" id="dashAddUserBtn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Premium User
+        </button>
+      </div>
+      <div class="dash-user-table">
+        <div class="dash-user-row header-row">
+          <div></div>
+          <div class="dash-col-hdr">User</div>
+          <div class="dash-col-hdr">Role</div>
+          <div class="dash-col-hdr">Status</div>
+          <div class="dash-col-hdr">Action</div>
+        </div>
+        <div id="dash-user-list">
+          <div class="dash-empty">Loading users…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity tab -->
+    <div class="dash-tab-content" id="dash-tab-activity">
+      <div class="dash-activity-list" id="dash-activity-list">
+        <div class="dash-empty">No activity yet</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1462,83 +1683,131 @@ const ChatUI = (() => {
 // ════════════════════════════════════════════════════════════
 const AdminPanel = {
   init() {
-    // Force tab visibility explicitly via JS — don't rely on CSS cascade
-    const uTab = document.getElementById('admin-tab-users');
-    const aTab = document.getElementById('admin-tab-activity');
-    if (uTab) uTab.style.display = 'block';
-    if (aTab) aTab.style.display = 'none';
+    // Wire the hamburger "Manage Dashboard" button
+    const navBtn = document.getElementById('dashNavBtn');
+    if (navBtn) {
+      navBtn.onclick = () => AdminPanel.open();
+      navBtn.onkeydown = e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); AdminPanel.open(); } };
+    }
+    // Wire dashboard internal buttons
+    const closeBtn  = document.getElementById('dashCloseBtn');
+    const addBtn    = document.getElementById('dashAddUserBtn');
+    const tabUsers  = document.getElementById('dashTabUsers');
+    const tabAct    = document.getElementById('dashTabActivity');
+    if (closeBtn) closeBtn.onclick = () => AdminPanel.close();
+    if (addBtn)   addBtn.onclick   = () => CreateUserModal.open();
+    if (tabUsers) tabUsers.onclick = () => AdminPanel.switchTab('users');
+    if (tabAct)   tabAct.onclick   = () => AdminPanel.switchTab('activity');
+  },
 
+  open() {
+    // Close hamburger first
+    const hbgBtn    = document.getElementById('hbgBtn');
+    const hbgPanel  = document.getElementById('hbgPanel');
+    const hbgOverlay= document.getElementById('hbgOverlay');
+    if (hbgBtn)     hbgBtn.classList.remove('is-open');
+    if (hbgPanel)   hbgPanel.classList.remove('is-open');
+    if (hbgOverlay) hbgOverlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+
+    const modal = document.getElementById('admin-dashboard');
+    modal.classList.add('dash-open');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => modal.classList.add('dash-visible'));
+    });
+    document.body.style.overflow = 'hidden';
     this.renderStats();
     this.renderUsers();
-    this.renderActivity();
-
-    // Use onclick (overwrites any previous binding — safe for multiple greetUser calls)
-    const tabU = document.getElementById('adminTabUsers');
-    const tabA = document.getElementById('adminTabActivity');
-    const addBtn = document.getElementById('adminAddUserBtn');
-
-    if (tabU)  tabU.onclick  = () => this.switchTab('users');
-    if (tabA)  tabA.onclick  = () => this.switchTab('activity');
-    if (addBtn) addBtn.onclick = () => CreateUserModal.open();
+    this.switchTab('users');
   },
-  switchTab(tab) {
-    const uTab = document.getElementById('admin-tab-users');
-    const aTab = document.getElementById('admin-tab-activity');
-    const tabU = document.getElementById('adminTabUsers');
-    const tabA = document.getElementById('adminTabActivity');
 
+  close() {
+    const modal = document.getElementById('admin-dashboard');
+    modal.classList.remove('dash-visible');
+    setTimeout(() => {
+      modal.classList.remove('dash-open');
+      document.body.style.overflow = '';
+    }, 300);
+  },
+
+  switchTab(tab) {
+    const uTab = document.getElementById('dash-tab-users');
+    const aTab = document.getElementById('dash-tab-activity');
+    const tU   = document.getElementById('dashTabUsers');
+    const tA   = document.getElementById('dashTabActivity');
     if (uTab) uTab.style.display = tab === 'users'    ? 'block' : 'none';
     if (aTab) aTab.style.display = tab === 'activity' ? 'block' : 'none';
-    if (tabU) tabU.classList.toggle('active', tab === 'users');
-    if (tabA) tabA.classList.toggle('active', tab === 'activity');
-
+    if (tU) tU.classList.toggle('active', tab === 'users');
+    if (tA) tA.classList.toggle('active', tab === 'activity');
     if (tab === 'activity') this.renderActivity();
     if (tab === 'users')    this.renderUsers();
   },
+
   renderStats() {
     const users   = UserManager.getAllUsers();
     const premium = users.filter(u => u.role === 'premium').length;
     const msgs    = ChatStore.totalCount();
-    document.getElementById('stat-total').textContent   = users.length;
-    document.getElementById('stat-premium').textContent = premium;
-    document.getElementById('stat-msgs').textContent    = msgs;
+    const s = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = v; };
+    s('dash-stat-total',   users.length);
+    s('dash-stat-premium', premium);
+    s('dash-stat-msgs',    msgs);
   },
+
   renderUsers() {
     const users = UserManager.getAllUsers();
-    const list  = document.getElementById('admin-user-list');
-    if (!users.length) { list.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;padding:20px 0;">No users</div>'; return; }
+    const list  = document.getElementById('dash-user-list');
+    if (!list) return;
+    if (!users.length) { list.innerHTML = '<div class="dash-empty">No users found</div>'; return; }
     list.innerHTML = users.map(u => {
       const initials = (u.displayName||u.username).slice(0,2).toUpperCase();
-      const badgeCls = u.role;
       const isStatic = u._type === 'static';
       const online   = Presence.isOnline(u.username);
-      const meta     = u.role === 'admin' ? 'System admin' : (u.createdAt ? `Joined ${new Date(u.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}` : 'Static user');
-      return `<div class="admin-user-row">
-        <div class="admin-user-avatar">${initials}${online?'<div class="online-dot" style="position:absolute;bottom:0;right:0;width:9px;height:9px;border-radius:50%;background:#34d399;border:2px solid #111;"></div>':''}</div>
-        <div class="admin-user-info"><div class="admin-user-name">${u.displayName}</div><div class="admin-user-meta">@${u.username} · ${meta}</div></div>
-        <div class="admin-user-badge ${badgeCls}">${u.role}</div>
-        <button class="admin-revoke-btn" title="Revoke access" data-uname="${u.username}" ${isStatic?'disabled':''}>✕</button>
+      const meta     = u.role === 'admin' ? 'System admin' :
+                       u.createdAt ? `Joined ${new Date(u.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}` :
+                       'Static user';
+      return `<div class="dash-user-row">
+        <div class="dash-avatar">${initials}</div>
+        <div>
+          <div class="dash-uname">${u.displayName}</div>
+          <div class="dash-umeta">@${u.username} · ${meta}</div>
+        </div>
+        <div><span class="dash-ubadge ${u.role}">${u.role}</span></div>
+        <div style="font-size:11px;color:${online?'#34d399':'rgba(255,255,255,.3)'}">
+          ${online ? '🟢 Online' : '⚪ Offline'}
+        </div>
+        <button class="dash-revoke-btn" title="Revoke access" data-uname="${u.username}" ${isStatic?'disabled':''}>✕</button>
       </div>`;
     }).join('');
-    list.querySelectorAll('.admin-revoke-btn:not([disabled])').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (!confirm(`Revoke access for @${btn.dataset.uname}? They will not be able to log in.`)) return;
-        try { UserManager.revokeUser(btn.dataset.uname); this.renderUsers(); this.renderStats(); } catch(e) { alert(e.message); }
-      });
+    list.querySelectorAll('.dash-revoke-btn:not([disabled])').forEach(btn => {
+      btn.onclick = () => {
+        if (!confirm(`Revoke access for @${btn.dataset.uname}?\nThey will not be able to log in.`)) return;
+        try { UserManager.revokeUser(btn.dataset.uname); this.renderUsers(); this.renderStats(); }
+        catch(e) { alert(e.message); }
+      };
     });
   },
+
   renderActivity() {
     const log  = Activity.get();
-    const list = document.getElementById('admin-activity-list');
-    if (!log.length) { list.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,.25);text-align:center;padding:20px 0;">No activity yet</div>'; return; }
-    list.innerHTML = log.slice(0, 50).map(e => {
-      const d   = new Date(e.ts);
-      const time= d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
-      const date= d.toLocaleDateString('en-IN',{day:'numeric',month:'short'});
-      const actionLabel = e.action.startsWith('chat_message') ? '💬 Sent encrypted message' : e.action === 'login' ? '🔐 Logged in' : e.action === 'logout' ? '🚪 Logged out' : e.action === 'form_copy' ? '📋 Copied form data' : e.action;
-      return `<div class="admin-act-row"><div class="admin-act-dot"></div><div class="admin-act-text"><strong style="color:rgba(255,255,255,.6)">${e.username}</strong> · ${actionLabel}</div><div class="admin-act-time">${time}<br>${date}</div></div>`;
+    const list = document.getElementById('dash-activity-list');
+    if (!list) return;
+    if (!log.length) { list.innerHTML = '<div class="dash-empty">No activity recorded yet</div>'; return; }
+    list.innerHTML = log.slice(0,60).map(e => {
+      const d    = new Date(e.ts);
+      const time = d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true});
+      const date = d.toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+      const label = e.action.startsWith('chat_message') ? '💬 Sent encrypted message' :
+                    e.action === 'login'     ? '🔐 Logged in' :
+                    e.action === 'logout'    ? '🚪 Logged out' :
+                    e.action === 'form_copy' ? '📋 Copied form data' : e.action;
+      return `<div class="dash-act-row">
+        <div class="dash-act-dot"></div>
+        <div class="dash-act-text"><strong>${e.username}</strong> · ${label}</div>
+        <div class="dash-act-time">${time}<br>${date}</div>
+      </div>`;
     }).join('');
   },
+
   refresh() { this.renderStats(); this.renderUsers(); this.renderActivity(); }
 };
 
@@ -1916,9 +2185,8 @@ _footerObs.observe(_footer);
     btn.classList.add('is-open'); panel.classList.add('is-open'); overlay.classList.add('is-open');
     btn.setAttribute('aria-expanded','true'); panel.setAttribute('aria-hidden','false'); overlay.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';
-    // Refresh admin panel if admin
+    // Refresh chat unread badge if premium
     const role = localStorage.getItem('crm_user_role');
-    if (role === 'admin') AdminPanel.refresh();
     if (role === 'premium') ChatUI.updateGlobalBadge();
   }
   function closeMenu() {
@@ -1990,6 +2258,9 @@ _footerObs.observe(_footer);
 
       // Close chat if open
       ChatUI.close();
+      // Close admin dashboard if open
+      const dash = document.getElementById('admin-dashboard');
+      if (dash) { dash.classList.remove('dash-open','dash-visible'); }
 
       setTimeout(() => { if(entryInput) entryInput.focus(); }, 100);
     }, 280);
