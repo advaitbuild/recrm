@@ -331,7 +331,7 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .admin-tab:hover { background:rgba(255,215,0,.08); border-color:rgba(255,215,0,.2); color:rgba(255,215,0,.7); }
 .admin-tab.active { background:rgba(255,215,0,.12); border-color:rgba(255,215,0,.35); color:#FFD700; }
 .admin-tab-content { display:none; }
-.admin-tab-content.active { display:block; }
+.admin-tab-content.show { display:block; }
 
 /* Stats row */
 .admin-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px; }
@@ -395,17 +395,15 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
    CREATE USER MODAL
 ════════════════════════════════════════ */
 #create-user-backdrop {
-  position:fixed; inset:0; z-index:300001; background:rgba(0,0,0,0); backdrop-filter:blur(0px);
-  display:flex; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;
-  pointer-events:none; transition:background .3s ease,backdrop-filter .3s ease;
+  position:fixed; inset:0; z-index:300001; background:rgba(0,0,0,.7); backdrop-filter:blur(8px);
+  display:none; align-items:center; justify-content:center; padding:20px; box-sizing:border-box;
+  pointer-events:all;
 }
-#create-user-backdrop.cu-open { background:rgba(0,0,0,.7); backdrop-filter:blur(8px); pointer-events:all; }
+#create-user-backdrop.cu-open { display:flex; }
 .create-user-modal {
   width:min(100%,380px); background:#111; border:1px solid rgba(255,215,0,.18); border-radius:20px;
-  padding:32px 28px; box-shadow:0 24px 64px rgba(0,0,0,.8); opacity:0;
-  transform:scale(.88) translateY(16px); transition:opacity .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1);
+  padding:32px 28px; box-shadow:0 24px 64px rgba(0,0,0,.8);
 }
-#create-user-backdrop.cu-open .create-user-modal { opacity:1; transform:scale(1) translateY(0); }
 .cu-title { font-size:16px; font-weight:700; color:#fff; margin:0 0 6px; }
 .cu-sub { font-size:12px; color:rgba(255,255,255,.35); margin:0 0 22px; }
 .cu-field { margin-bottom:14px; }
@@ -759,7 +757,7 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
           <button class="admin-tab" data-tab="activity" id="adminTabActivity">Activity</button>
         </div>
         <!-- Users tab -->
-        <div class="admin-tab-content active" id="admin-tab-users">
+        <div class="admin-tab-content show" id="admin-tab-users">
           <button class="admin-add-btn" id="adminAddUserBtn">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Add Premium User
@@ -1052,9 +1050,6 @@ const UserManager = (() => {
   const STATIC_USERS = {
     'advaitbuild': { role: 'admin',   displayName: 'Advait',  password: 'Isha99' },
     'pri08':       { role: 'premium', displayName: 'pri08',   password: 'Merc$7878' },
-    'nikz':       { role: 'premium', displayName: 'nikz',   password: 'nikita123' },
-    'shi24':       { role: 'premium', displayName: 'shi24',   password: 'shi123' },
-    'har27':       { role: 'premium', displayName: 'har27',   password: 'har123' },
   };
   const DYN_KEY = 'crm_dynamic_users_v2';
 
@@ -1467,20 +1462,36 @@ const ChatUI = (() => {
 // ════════════════════════════════════════════════════════════
 const AdminPanel = {
   init() {
+    // Force tab visibility explicitly via JS — don't rely on CSS cascade
+    const uTab = document.getElementById('admin-tab-users');
+    const aTab = document.getElementById('admin-tab-activity');
+    if (uTab) uTab.style.display = 'block';
+    if (aTab) aTab.style.display = 'none';
+
     this.renderStats();
     this.renderUsers();
     this.renderActivity();
-    // Tabs
-    document.getElementById('adminTabUsers').addEventListener('click', () => this.switchTab('users'));
-    document.getElementById('adminTabActivity').addEventListener('click', () => this.switchTab('activity'));
-    // Add user button
-    document.getElementById('adminAddUserBtn').addEventListener('click', () => CreateUserModal.open());
+
+    // Use onclick (overwrites any previous binding — safe for multiple greetUser calls)
+    const tabU = document.getElementById('adminTabUsers');
+    const tabA = document.getElementById('adminTabActivity');
+    const addBtn = document.getElementById('adminAddUserBtn');
+
+    if (tabU)  tabU.onclick  = () => this.switchTab('users');
+    if (tabA)  tabA.onclick  = () => this.switchTab('activity');
+    if (addBtn) addBtn.onclick = () => CreateUserModal.open();
   },
   switchTab(tab) {
-    ['users','activity'].forEach(t => {
-      document.getElementById(`adminTab${t.charAt(0).toUpperCase()+t.slice(1)}`).classList.toggle('active', t===tab);
-      document.getElementById(`admin-tab-${t}`).classList.toggle('active', t===tab);
-    });
+    const uTab = document.getElementById('admin-tab-users');
+    const aTab = document.getElementById('admin-tab-activity');
+    const tabU = document.getElementById('adminTabUsers');
+    const tabA = document.getElementById('adminTabActivity');
+
+    if (uTab) uTab.style.display = tab === 'users'    ? 'block' : 'none';
+    if (aTab) aTab.style.display = tab === 'activity' ? 'block' : 'none';
+    if (tabU) tabU.classList.toggle('active', tab === 'users');
+    if (tabA) tabA.classList.toggle('active', tab === 'activity');
+
     if (tab === 'activity') this.renderActivity();
     if (tab === 'users')    this.renderUsers();
   },
@@ -1537,14 +1548,14 @@ const AdminPanel = {
 const CreateUserModal = {
   open() {
     const bd = document.getElementById('create-user-backdrop');
-    bd.classList.add('cu-open');
+    bd.classList.add('cu-open');          // triggers display:flex via CSS
     bd.setAttribute('aria-hidden','false');
-    document.getElementById('cu-username').value = '';
+    document.getElementById('cu-username').value    = '';
     document.getElementById('cu-displayname').value = '';
-    document.getElementById('cu-password').value = '';
-    document.getElementById('cu-error').textContent = '';
+    document.getElementById('cu-password').value    = '';
+    document.getElementById('cu-error').textContent   = '';
     document.getElementById('cu-success').textContent = '';
-    document.getElementById('cu-username').focus();
+    setTimeout(() => document.getElementById('cu-username').focus(), 50);
   },
   close() {
     const bd = document.getElementById('create-user-backdrop');
