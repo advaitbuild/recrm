@@ -2055,7 +2055,7 @@ function copyData() {
       altNumber.value   && `Alternate number/ ${altNumber.value}`,
       paymentMode.value && `Payment mode/ ${paymentMode.value}`,
       lostReason.value  && `Reason/ ${lostReason.value}`
-    ].filter(Boolean).join('\n');
+    ].filter(Boolean).join(' ');
   }
   if (currentMode === 'booked') {
     text = [
@@ -2066,7 +2066,7 @@ function copyData() {
       b_BookingName.value   && `Booking name/ ${b_BookingName.value}`,
       b_bookingnumber.value && `Booking number/ ${b_bookingnumber.value}`,
       b_altNumber.value     && `Alternate number/ ${b_altNumber.value}`
-    ].filter(Boolean).join('\n');
+    ].filter(Boolean).join(' ');
   }
   if (currentMode === 'purchased') {
     text = [
@@ -2080,7 +2080,7 @@ function copyData() {
       p_Chassisnumber.value      && `Chassis number/ ${p_Chassisnumber.value}`,
       p_Enginenumber.value       && `Engine number/ ${p_Enginenumber.value}`,
       p_altNumber.value          && `Alternate number/ ${p_altNumber.value}`
-    ].filter(Boolean).join('\n');
+    ].filter(Boolean).join(' ');
   }
   navigator.clipboard.writeText(text);
   Activity.log(localStorage.getItem('crm_user_name') || 'unknown', 'form_copy');
