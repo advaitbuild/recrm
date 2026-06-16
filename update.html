@@ -1479,23 +1479,38 @@ button {
 <div id="app-root">
 
   <!-- ===== GLOBAL FIXED HEADER ===== -->
-  <header id="global-header" role="banner">
+<header id="global-header" role="banner">
 
-    <!-- Logo -->
-    <div class="gh-logo" id="ghLogo"
-         style="display:flex;align-items:center;gap:10px;">
+  <!-- LEFT: Logo -->
+  <div class="gh-logo" id="ghLogo">
+    <img src="relog.svg"
+         alt="Royal Enfield"
+         style="height:55px;width:auto;">
+  </div>
 
-      <img src="relog.svg"
-           alt="Royal Enfield"
-           style="
-             height:55px;
-             width:auto;
-             display:block;
-           ">
-
+  <!-- CENTER: NAV -->
+  <nav class="gh-nav">
+    <div class="gh-nav-item">
+      <span class="gh-nav-icon">💰</span> EMI Plans
     </div>
+    <div class="gh-nav-item">
+      <span class="gh-nav-icon">⚖️</span> Compare Models
+    </div>
+    <div class="gh-nav-item">
+      <span class="gh-nav-icon">📝</span> Notes
+    </div>
+  </nav>
 
-  </header>
+  <!-- RIGHT: HAMBURGER -->
+  <div class="gh-right">
+    <button class="hbg-btn">
+      <span class="hbg-bar"></span>
+      <span class="hbg-bar"></span>
+      <span class="hbg-bar"></span>
+    </button>
+  </div>
+
+</header>
 
 </div>
 
