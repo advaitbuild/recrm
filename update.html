@@ -85,9 +85,7 @@ body {
   display: flex;
   align-items: center;
   gap: 2px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-left: 18px;
 }
 
 .gh-nav-item {
@@ -134,27 +132,12 @@ body {
   position: relative;
 }
 
-.gh-nav-item.coming-soon:hover {
-  background: transparent;
-  color: rgba(255, 255, 255, 0.38);
+.gh-nav-item.coming-soon {
+  opacity: 0.55;
+  cursor: default;
 }
 
-.gh-nav-item.coming-soon::after {
-  content: 'Soon';
-  position: absolute;
-  top: -6px;
-  right: -2px;
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  color: rgba(255, 215, 0, 0.7);
-  background: rgba(255, 215, 0, 0.1);
-  border: 1px solid rgba(255, 215, 0, 0.25);
-  padding: 1px 4px;
-  border-radius: 4px;
-  line-height: 1.4;
-}
+
 
 /* ── Right side (hamburger) ── */
 .gh-right {
@@ -1499,52 +1482,31 @@ button {
 <header id="global-header" role="banner">
 
   <!-- Logo -->
-  <div class="gh-logo" id="ghLogo" title="Royal Enfield CRM">
-    <!-- RE Crest SVG -->
-    <svg class="gh-logo-crest" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Outer ring -->
-      <circle cx="40" cy="40" r="37" stroke="#FFD700" stroke-width="1.8" fill="none" opacity="0.9"/>
-      <!-- Inner ring -->
-      <circle cx="40" cy="40" r="31" stroke="#FFD700" stroke-width="0.8" fill="none" opacity="0.4"/>
-      <!-- Top arc label area -->
-      <path d="M 14 40 A 26 26 0 0 1 66 40" stroke="none" fill="none" id="topArc"/>
-      <!-- RE Monogram -->
-      <text x="40" y="38" text-anchor="middle" fill="#FFD700" font-family="'Segoe UI', sans-serif" font-size="18" font-weight="800" letter-spacing="3">RE</text>
-      <!-- Divider line -->
-      <line x1="22" y1="43" x2="58" y2="43" stroke="#FFD700" stroke-width="0.9" opacity="0.5"/>
-      <!-- Bottom tagline -->
-      <text x="40" y="54" text-anchor="middle" fill="#FFD700" font-family="'Segoe UI', sans-serif" font-size="5.5" font-weight="600" letter-spacing="2.5" opacity="0.65">PURE · MOTORCYCLING</text>
-      <!-- Top star decoration -->
-      <text x="40" y="20" text-anchor="middle" fill="#FFD700" font-family="serif" font-size="8" opacity="0.7">✦</text>
-      <!-- Side dots -->
-      <circle cx="18" cy="40" r="1.5" fill="#FFD700" opacity="0.5"/>
-      <circle cx="62" cy="40" r="1.5" fill="#FFD700" opacity="0.5"/>
-    </svg>
+  <div class="gh-logo" id="ghLogo" title="Royal Enfield CRM" style="display:flex;align-items:center;gap:9px;">
+    <img src="1781621413116_image.png" alt="Royal Enfield" style="height:34px;width:auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(180,0,0,0.4));">
     <div class="gh-logo-text">
-      <span class="gh-logo-re">Royal Enfield</span>
-      <span class="gh-logo-sub">CRM Dashboard</span>
+      <span class="gh-logo-sub" style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:2.5px;text-transform:uppercase;">CRM Dashboard</span>
     </div>
   </div>
 
-  <!-- Nav -->
+  <!-- Nav — left-aligned, after logo -->
   <nav class="gh-nav" aria-label="Main navigation">
-    <button class="gh-nav-item active" data-tab="dashboard" onclick="ghSetTab('dashboard')" aria-current="page">
-      <span class="gh-nav-icon">🏠</span>
-      <span class="gh-nav-label">Dashboard</span>
-    </button>
-    <button class="gh-nav-item coming-soon" data-tab="emi" title="Coming soon">
+    <button class="gh-nav-item coming-soon" data-tab="emi" title="EMI Calculator">
       <span class="gh-nav-icon">💰</span>
       <span class="gh-nav-label">EMI</span>
     </button>
-    <button class="gh-nav-item coming-soon" data-tab="compare" title="Coming soon">
+    <button class="gh-nav-item coming-soon" data-tab="compare" title="Compare Models">
       <span class="gh-nav-icon">⚖️</span>
       <span class="gh-nav-label">Compare</span>
     </button>
-    <button class="gh-nav-item coming-soon" data-tab="notes" title="Coming soon">
+    <button class="gh-nav-item coming-soon" data-tab="notes" title="Notes">
       <span class="gh-nav-icon">📝</span>
       <span class="gh-nav-label">Notes</span>
     </button>
   </nav>
+
+  <!-- Spacer pushes hamburger to far right -->
+  <div style="flex:1;"></div>
 
   <!-- Right: hamburger -->
   <div class="gh-right">
@@ -1556,7 +1518,6 @@ button {
   </div>
 
 </header>
-
 <!-- ===== BACKDROP ===== -->
 <div class="hbg-overlay" id="hbgOverlay" aria-hidden="true"></div>
 
