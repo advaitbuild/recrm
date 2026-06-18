@@ -1,99 +1,39 @@
 <!DOCTYPE html>
-<html>
 <html lang="en">
 <head>
 <title>Royal Enfield CRM - Offline Ready</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- ═══════════════════════════════════════
+     CACHE & PERFORMANCE META
+     ▶ HTML itself is not cached (always latest)
+     ▶ Static assets versioned via ?v=1.0.0
+     ▶ To force users onto a new build, bump APP_VERSION in window.APP_VERSION below
+     ═══════════════════════════════════════ -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Royal Enfield CRM by Advait — manage enquiries, EMI plans & rider notes locally on your device.">
+<script>window.APP_VERSION = "1.0.0";</script>
+
 <style>
 /* ── RESET ── */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-* {
-  position: relative;
-}
 body { margin:0; padding:0; font-family:'Segoe UI',sans-serif; }
 * { position:relative; }
 html { scroll-behavior:smooth; }
 
-/* ═══════════════════════════════════════════
+/* Fix stacking: entry gate and its siblings must never be buried under cookie UI */
+#entry-gate        { z-index:500000 !important; }
+#logout-modal-backdrop { z-index:490000 !important; }
+.cc-banner         { z-index:300000 !important; }
+.cc-overlay        { z-index:310000 !important; }
+
 /* ═══════════════════════════════════════
-  FIXED GLOBAL HEADER
-═══════════════════════════════════════════ */
+   FIXED GLOBAL HEADER
 ═══════════════════════════════════════ */
 #global-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 58px;
-  z-index: 150000;
-  background: rgba(10, 10, 10, 0.92);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255, 215, 0, 0.12);
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 18px 0 16px;
-  box-sizing: border-box;
-  gap: 0;
-}
-
-/* ── Logo ── */
-.gh-logo {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  text-decoration: none;
-  flex-shrink: 0;
-  cursor: pointer;
-  user-select: none;
-}
-
-.gh-logo-crest {
-  width: 34px;
-  height: 34px;
-  flex-shrink: 0;
-}
-
-.gh-logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-
-.gh-logo-re {
-  font-size: 15px;
-  font-weight: 800;
-  color: #FFD700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.gh-logo-sub {
-  font-size: 8px;
-  font-weight: 600;
-  color: rgba(255, 215, 0, 0.42);
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  margin-top: 2px;
-}
-
-/* ── Nav ── */
-.gh-nav {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin-left: 18px;
-}
-
   position:fixed; top:0; left:0; right:0; height:58px; z-index:150000;
   background:rgba(8,3,3,0.90); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(229,53,23,0.2);
@@ -104,65 +44,6 @@ html { scroll-behavior:smooth; }
 .gh-logo-svg { height:34px; width:auto; filter:drop-shadow(0 0 6px rgba(229,53,23,0.35)); }
 .gh-nav { display:flex; align-items:center; gap:2px; margin-left:20px; }
 .gh-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 13px;
-  border-radius: 9px;
-  color: rgba(255, 255, 255, 0.38);
-  font-size: 12.5px;
-  font-weight: 500;
-  letter-spacing: 0.2px;
-  cursor: pointer;
-  border: 1px solid transparent;
-  background: transparent;
-  transition: color 0.18s, background 0.18s, border-color 0.18s;
-  white-space: nowrap;
-  height: 36px;
-  box-sizing: border-box;
-  user-select: none;
-}
-
-.gh-nav-item .gh-nav-icon {
-  font-size: 14px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.gh-nav-item:hover {
-  color: rgba(255, 255, 255, 0.72);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.gh-nav-item.active {
-  color: #FFD700;
-  background: rgba(255, 215, 0, 0.08);
-  border-color: rgba(255, 215, 0, 0.2);
-  font-weight: 600;
-}
-
-.gh-nav-item.coming-soon {
-  opacity: 0.42;
-  cursor: default;
-  position: relative;
-}
-
-.gh-nav-item.coming-soon {
-  opacity: 0.55;
-  cursor: default;
-}
-
-
-
-/* ── Right side (hamburger) ── */
-.gh-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-/* ── Hamburger button (now lives in header) ── */
   display:flex; align-items:center; gap:7px; padding:7px 15px; border-radius:9px;
   color:rgba(255,255,255,0.35); font-size:14px; font-weight:500; letter-spacing:0.2px;
   cursor:pointer; border:1px solid transparent; background:transparent;
@@ -176,52 +57,6 @@ html { scroll-behavior:smooth; }
 .gh-nav-item.coming-soon:hover { color:#fff; background:rgba(255,255,255,0.07); border-color:rgba(255,255,255,0.12); }
 .gh-right { display:flex; align-items:center; gap:10px; flex-shrink:0; margin-left:auto; }
 .hbg-btn {
-  position: relative;  /* override fixed */
-  top: auto;
-  right: auto;
-  z-index: auto;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: none;
-  border: 1px solid rgba(255, 215, 0, 0.16);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 0;
-  transition: background 0.18s, border-color 0.18s, transform 0.14s;
-  box-shadow: none;
-  flex-shrink: 0;
-}
-
-.hbg-btn:hover {
-  background: rgba(255, 215, 0, 0.08);
-  border-color: rgba(255, 215, 0, 0.38);
-  transform: scale(1.05);
-  box-shadow: none;
-}
-
-.hbg-btn:active { transform: scale(0.95); }
-
-.hbg-bar {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: #FFD700;
-  border-radius: 2px;
-  transition: transform 0.3s cubic-bezier(.77,0,.18,1),
-              opacity   0.2s ease,
-              width     0.25s ease;
-  transform-origin: center;
-}
-
-.hbg-btn.is-open .hbg-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.hbg-btn.is-open .hbg-bar:nth-child(2) { opacity: 0; width: 0; }
-.hbg-btn.is-open .hbg-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
   position:relative; top:auto; right:auto; z-index:auto; width:40px; height:40px;
   border-radius:10px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09);
   cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -264,19 +99,6 @@ html { scroll-behavior:smooth; }
 
 /* ── HERO SECTION ── */
 .hero-section {
-  min-height: 100vh;
-  padding: clamp(10px, 2vw, 20px);
-  padding-top: calc(58px + clamp(10px, 2vw, 20px));
-  background: linear-gradient(135deg, rgba(15,15,15,0.35), rgba(28,28,28,0.35), rgba(43,43,43,0.35)),
-              var(--bg-image, url('himalayan-bg.jpg')) center/cover no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box;
-  transition: background-color 0.4s ease;
   min-height:100vh; padding:clamp(10px,2vw,20px);
   padding-top:calc(58px + clamp(10px,2vw,20px));
   background:linear-gradient(135deg,rgba(15,15,15,0.35),rgba(28,28,28,0.35),rgba(43,43,43,0.35)),
@@ -285,72 +107,7 @@ html { scroll-behavior:smooth; }
   display:flex; flex-direction:column; justify-content:center; box-sizing:border-box;
   transition:background-color .4s ease;
 }
-
 .box {
-  width: min(90vw, 500px);
-  margin: auto;
-  padding: clamp(16px, 2vw, 25px);
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(8px);
-  border-radius: 15px;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  transition: width .2s ease, padding .2s ease;
-}
-
-h2 {
-  text-align: center;
-  color: #FFD700;
-  margin-bottom: 20px;
-  font-size: clamp(22px, 2vw, 30px);
-}
-
-input, select {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: none;
-  background: rgba(255,255,255,0.1);
-  color: white;
-  transition: all 0.2s ease;
-  height: clamp(38px, 4vw, 42px);
-  font-size: clamp(13px, 1vw, 15px);
-  box-sizing: border-box;
-}
-
-select {
-  padding-right: 30px;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  background-size: 16px;
-}
-
-input::placeholder { color: #ccc; }
-
-input:focus, select:focus {
-  outline: none;
-  box-shadow: 0 0 10px #34a552, 0 0 5px #FFD700 inset;
-  transform: scale(1.03);
-}
-
-button {
-  padding: 10px;
-  margin: 6px 0;
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  height: 38px;
-  font-size: clamp(12px, 1vw, 14px);
-  font-weight: 500;
-}
-
-.topBtn  { width: 32%; background: #222; color: white; font-size: clamp(10px, 1vw, 14px); white-space: nowrap; z-index: 1; }
-.copyBtn { width: 49%; background: #51d789; color: white; z-index: 1; }
-.resetBtn{ width: 49%; background: #FF7F7F; color: white; z-index: 1; }
-.hide    { display: none; }
   width:min(90vw,500px); margin:auto; padding:clamp(16px,2vw,25px);
   background:rgba(255,255,255,0.04); backdrop-filter:blur(8px); border-radius:15px;
   border:1px solid rgba(255,255,255,0.1); box-shadow:0 10px 30px rgba(0,0,0,0.3);
@@ -374,59 +131,14 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .hide    { display:none; }
 
 /* ── CUSTOM DROPDOWN ── */
-.csw {
-  margin: 8px 0;
-  z-index: 1;
-}
-
-.csw.open {
-  z-index: 10000;
-}
-
 .csw { margin:8px 0; z-index:1; }
 .csw.open { z-index:10000; }
 .cst {
-  width: 100%;
-  height: clamp(38px, 4vw, 42px);
-  padding: 0 36px 0 10px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 8px;
-  color: #ccc;
-  font-size: 15px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  transition: box-shadow 0.2s, transform 0.2s;
-  user-select: none;
-}
-
-.cst.has-value { color: white; }
-
-.cst::after {
-  content: '';
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-size: 16px;
-  transition: transform 0.2s;
   width:100%; height:clamp(38px,4vw,42px); padding:0 36px 0 10px; background:rgba(255,255,255,0.1);
   border-radius:8px; color:#ccc; font-size:15px; cursor:pointer;
   display:flex; align-items:center; box-sizing:border-box;
   transition:box-shadow .2s,transform .2s; user-select:none;
 }
-
-.csw.open .cst::after { transform: translateY(-50%) rotate(180deg); }
-
-.csw.open .cst,
-.cst:focus {
-  outline: none;
-  box-shadow: 0 0 10px #34a552, 0 0 5px #FFD700 inset;
 .cst.has-value { color:white; }
 .cst::after {
   content:''; position:absolute; right:10px; top:50%; transform:translateY(-50%);
@@ -434,55 +146,9 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
   background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat:no-repeat; background-size:16px; transition:transform .2s;
 }
-
 .csw.open .cst::after { transform:translateY(-50%) rotate(180deg); }
 .csw.open .cst,.cst:focus { outline:none; box-shadow:0 0 10px #34a552,0 0 5px #FFD700 inset; }
 .cdrop {
-  display: none;
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  width: 100%;
-  background: #1c1c1c;
-  border: 1px solid rgba(255,255,255,0.13);
-  border-radius: 10px;
-  max-height: 300px;
-  overflow-y: auto;
-  z-index: 99999;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.7);
-  scrollbar-width: thin;
-  scrollbar-color: #444 transparent;
-  padding-bottom: 2px;
-}
-
-.cdrop.drop-up {
-  top: auto;
-  bottom: calc(100% + 4px);
-  animation-name: fadeUp !important;
-}
-
-.cdrop::-webkit-scrollbar { width: 5px; }
-.cdrop::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
-
-.csw.open .cdrop {
-  display: block;
-  animation: fadeDown 0.15s ease;
-}
-
-.csw.open .cdrop.drop-up {
-  animation: fadeUp 0.15s ease;
-}
-
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
   display:none; position:absolute; top:calc(100% + 4px); left:0; width:100%;
   background:#1c1c1c; border:1px solid rgba(255,255,255,0.13); border-radius:10px;
   max-height:300px; overflow-y:auto; z-index:99999; box-shadow:0 8px 28px rgba(0,0,0,0.7);
@@ -496,25 +162,6 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 @keyframes fadeDown { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
 @keyframes fadeUp   { from{opacity:0;transform:translateY(6px)}  to{opacity:1;transform:translateY(0)} }
 .di {
-  padding: 10px 14px;
-  cursor: pointer;
-  color: #ddd;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  transition: background 0.12s;
-}
-
-.di:last-child { border-bottom: none; }
-.di:hover { background: rgba(255,215,0,0.07); color: #FFD700; }
-
-.di.kb-focus {
-  background: rgba(255,215,0,0.13);
-  color: #FFD700;
-  outline: none;
   padding:10px 14px; cursor:pointer; color:#ddd; font-size:14px; font-weight:500;
   display:flex; align-items:center; justify-content:space-between;
   border-bottom:1px solid rgba(255,255,255,0.05); transition:background .12s;
@@ -525,55 +172,6 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 
 /* ── TOOLTIP ── */
 #crm-tooltip {
-  position: fixed;
-  display: none;
-  background: #111;
-  border: 1px solid rgba(255,215,0,0.35);
-  border-radius: 9px;
-  padding: 11px 14px;
-  min-width: 230px;
-  max-width: 260px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.75);
-  z-index: 99999;
-  pointer-events: none;
-}
-
-#crm-tooltip .tt-head {
-  font-size: 13px;
-  font-weight: 700;
-  color: #FFD700;
-  margin-bottom: 7px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(255,215,0,0.2);
-}
-
-#crm-tooltip .tt-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  margin: 4px 0;
-}
-
-#crm-tooltip .tt-lbl {
-  font-size: 11px;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-#crm-tooltip .tt-val {
-  font-size: 12px;
-  color: #eee;
-  text-align: right;
-  line-height: 1.4;
-}
-
-.tt-tags { display: inline; }
-#tt-about { text-align: right; color: #eee; font-size: 12px; line-height: 1.4; }
-
-/* ===== PREMIUM FOOTER ===== */
   position:fixed; display:none; background:#111; border:1px solid rgba(255,215,0,0.35);
   border-radius:9px; padding:11px 14px; min-width:230px; max-width:260px;
   box-shadow:0 6px 20px rgba(0,0,0,0.75); z-index:99999; pointer-events:none;
@@ -756,26 +354,19 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 }
 .edp-emi-card {
   background:rgba(229,53,23,0.05); border:1px solid rgba(229,53,23,0.14);
-  border-radius:14px; padding:18px 14px; text-align:center;
+  border-radius:14px; padding:20px 14px; text-align:center;
   transition:background .2s,border-color .2s,transform .2s;
 }
 .edp-emi-card:hover { background:rgba(229,53,23,0.09); border-color:rgba(229,53,23,0.25); transform:translateY(-2px); }
 .edp-emi-tenure {
-  font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
-  color:rgba(229,53,23,0.65); margin-bottom:8px;
+  font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,120,90,0.95); margin-bottom:10px;
 }
 .edp-emi-amount {
-  font-size:clamp(18px,2.5vw,24px); font-weight:700; color:#FFD700;
-  font-variant-numeric:tabular-nums; line-height:1; margin-bottom:4px;
+  font-size:clamp(20px,2.5vw,26px); font-weight:700; color:#FFD700;
+  font-variant-numeric:tabular-nums; line-height:1; margin-bottom:6px;
 }
-.edp-emi-mo { font-size:10px; color:rgba(255,255,255,0.28); margin-bottom:2px; }
-.edp-emi-perlakh {
-  font-size:10px; color:rgba(255,215,0,0.38); margin-top:8px; padding-top:8px;
-  border-top:1px solid rgba(255,255,255,0.06); line-height:1.5;
-}
-.edp-emi-total {
-  font-size:10px; color:rgba(255,255,255,0.18); margin-top:4px; line-height:1.4;
-}
+.edp-emi-mo { font-size:10px; color:rgba(255,255,255,0.35); }
 
 /* Plans coming soon */
 .edp-emi-soon {
@@ -959,293 +550,13 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
    PREMIUM FOOTER
 ═══════════════════════════════════════ */
 .re-footer {
-  width: 100%;
-  margin-top: 0;
-  background: rgba(10,10,10,0.97);
-  border-top: 1px solid rgba(255,215,0,0.2);
-  box-sizing: border-box;
-  position: relative;
-  z-index: 10;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
   width:100%; margin-top:0; background:rgba(10,10,10,0.97);
   border-top:1px solid rgba(255,215,0,0.2); box-sizing:border-box;
   position:relative; z-index:10; opacity:0; transform:translateY(40px);
   transition:opacity .7s ease,transform .7s ease;
 }
-
-.re-footer.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .re-footer.visible { opacity:1; transform:translateY(0); }
 .re-footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 44px 40px 32px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 36px;
-}
-
-.re-footer-col h3 {
-  color: #FFD700;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin: 0 0 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255,215,0,0.18);
-}
-
-.re-footer-col .brand-name {
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
-  margin: 0 0 14px;
-  letter-spacing: 0.3px;
-}
-
-.re-footer-col a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255,255,255,0.45);
-  text-decoration: none;
-  font-size: 12.5px;
-  padding: 5px 0;
-  transition: color 0.2s, gap 0.2s;
-  border: none;
-  background: none;
-}
-
-.re-footer-col a:hover { color: #FFD700; gap: 11px; }
-
-.re-footer-col a svg {
-  width: 13px;
-  height: 13px;
-  flex-shrink: 0;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.8;
-  opacity: 0.6;
-  transition: opacity 0.2s;
-}
-
-.re-footer-col a:hover svg { opacity: 1; }
-
-/* clock */
-.clock-box {
-  background: rgba(255,215,0,0.04);
-  border: 1px solid rgba(255,215,0,0.12);
-  border-radius: 11px;
-  padding: 16px 14px;
-  position: relative;
-}
-
-.clock-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.clock-time {
-  display: flex;
-  align-items: baseline;
-  gap: 2px;
-}
-
-.clock-num {
-  font-size: 22px;
-  font-weight: 300;
-  color: #FFD700;
-  letter-spacing: 1px;
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-}
-
-.clock-sep {
-  font-size: 18px;
-  font-weight: 200;
-  color: rgba(255,215,0,0.25);
-  padding: 0 1px;
-}
-
-.clock-ampm {
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255,215,0,0.5);
-  letter-spacing: 1.5px;
-  align-self: flex-end;
-  padding-bottom: 2px;
-}
-
-.clock-divider {
-  border: none;
-  border-top: 1px solid rgba(255,215,0,0.08);
-  margin: 10px 0;
-}
-
-.clock-date-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.clock-date {
-  font-size: 11px;
-  color: rgba(255,255,255,0.35);
-  cursor: pointer;
-  padding: 2px 5px;
-  border-radius: 4px;
-  transition: color 0.15s, background 0.15s;
-  user-select: none;
-}
-
-.clock-date:hover {
-  color: #FFD700;
-  background: rgba(255,215,0,0.08);
-}
-
-.clock-day {
-  font-size: 10px;
-  color: rgba(255,215,0,0.35);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* calendar popup */
-.cal-popup {
-  display: none;
-  position: absolute;
-  bottom: calc(100% + 8px);
-  right: 0;
-  width: 216px;
-  background: #1a1a1a;
-  border: 1px solid rgba(255,215,0,0.2);
-  border-radius: 10px;
-  padding: 13px;
-  z-index: 99999;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.8);
-  animation: fadeUp 0.15s ease;
-}
-
-.cal-popup.open { display: block; }
-
-.cal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.cal-month-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: #FFD700;
-  letter-spacing: 0.4px;
-}
-
-.cal-nav {
-  background: none;
-  border: none;
-  color: rgba(255,215,0,0.5);
-  cursor: pointer;
-  font-size: 18px;
-  padding: 0 5px;
-  border-radius: 4px;
-  line-height: 1;
-  transition: color 0.15s, background 0.15s;
-}
-
-.cal-nav:hover {
-  color: #FFD700;
-  background: rgba(255,215,0,0.08);
-}
-
-.cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
-}
-
-.cal-dname {
-  font-size: 9px;
-  color: rgba(255,215,0,0.3);
-  text-align: center;
-  padding: 3px 0;
-  letter-spacing: 0.3px;
-}
-
-.cal-cell {
-  font-size: 11px;
-  color: rgba(255,255,255,0.38);
-  text-align: center;
-  padding: 5px 2px;
-  border-radius: 4px;
-  cursor: default;
-}
-
-.cal-cell.today {
-  background: rgba(255,215,0,0.15);
-  color: #FFD700;
-  font-weight: 600;
-}
-
-.cal-cell.empty { opacity: 0; pointer-events: none; }
-
-/* copyright bar */
-.re-footer-bar {
-  border-top: 1px solid rgba(255,255,255,0.06);
-  text-align: center;
-  padding: 14px 16px;
-  color: rgba(255,255,255,0.22);
-  font-size: 11px;
-  letter-spacing: 0.4px;
-}
-
-.re-footer-bar span { color: rgba(255,215,0,0.4); }
-
-@media (max-width: 860px) {
-  .re-footer-inner { grid-template-columns: repeat(2,1fr); padding: 32px 24px 24px; }
-}
-@media (max-width: 480px) {
-  .re-footer-inner { grid-template-columns: 1fr; }
-}
-
-/* ── Responsive header nav ── */
-@media (max-width: 600px) {
-  .gh-nav-item span.gh-nav-label { display: none; }
-  .gh-nav-item { padding: 7px 10px; gap: 0; }
-  .gh-logo-text { display: none; }
-  .gh-logo-crest { width: 30px; height: 30px; }
-}
-
-@media (max-width: 400px) {
-  .gh-nav { gap: 0; }
-  .gh-nav-item { padding: 7px 7px; }
-}
-
-/* ═══════════════════════════════════════════
-   SIDE PANEL
-═══════════════════════════════════════════ */
-.hbg-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  z-index: 100000;
-  pointer-events: none;
-  transition: background 0.35s ease;
-}
-
-.hbg-overlay.is-open {
-  background: rgba(0, 0, 0, 0.55);
-  pointer-events: all;
-}
-
   max-width:1100px; margin:0 auto; padding:44px 40px 32px;
   display:grid; grid-template-columns:repeat(4,1fr); gap:36px;
 }
@@ -1278,8 +589,10 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .cal-cell { font-size:11px; color:rgba(255,255,255,0.38); text-align:center; padding:5px 2px; border-radius:4px; cursor:default; }
 .cal-cell.today { background:rgba(255,215,0,0.15); color:#FFD700; font-weight:600; }
 .cal-cell.empty { opacity:0; pointer-events:none; }
-.re-footer-bar { border-top:1px solid rgba(255,255,255,0.06); text-align:center; padding:14px 16px; color:rgba(255,255,255,0.22); font-size:11px; letter-spacing:0.4px; }
+.re-footer-bar { border-top:1px solid rgba(255,255,255,0.06); text-align:center; padding:10px 16px; color:rgba(255,255,255,0.22); font-size:11px; letter-spacing:0.4px; line-height:1.5; }
 .re-footer-bar span { color:rgba(255,215,0,0.4); }
+.re-footer-legal-btn { background:none; border:0; cursor:pointer; color:rgba(255,255,255,0.38); font:inherit; font-size:11px; letter-spacing:0.4px; padding:0 2px; transition:color .18s; }
+.re-footer-legal-btn:hover { color:#fff; }
 @media(max-width:860px){ .re-footer-inner{ grid-template-columns:repeat(2,1fr); padding:32px 24px 24px; } }
 @media(max-width:480px){ .re-footer-inner{ grid-template-columns:1fr; } }
 
@@ -1295,481 +608,6 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .hbg-overlay { position:fixed; inset:0; background:rgba(0,0,0,0); z-index:100000; pointer-events:none; transition:background .35s ease; }
 .hbg-overlay.is-open { background:rgba(0,0,0,0.55); pointer-events:all; }
 .hbg-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: min(480px, 92vw);
-  z-index: 200001;
-  background: rgba(12, 12, 12, 0.97);
-  backdrop-filter: blur(20px);
-  border-left: 1px solid rgba(255, 215, 0, 0.12);
-  display: flex;
-  flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.38s cubic-bezier(.77,0,.18,1);
-  box-shadow: -8px 0 40px rgba(0,0,0,0.6);
-  overflow: hidden;
-}
-
-.hbg-panel.is-open {
-  transform: translateX(0);
-}
-
-.hbg-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 26px 28px 22px;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-  flex-shrink: 0;
-}
-
-.hbg-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.hbg-logo-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #FFD700;
-  box-shadow: 0 0 10px rgba(255,215,0,0.6);
-  animation: hbg-pulse 2.2s ease-in-out infinite;
-}
-
-@keyframes hbg-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(0.75); }
-}
-
-.hbg-greeting-line {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.hbg-close {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.5);
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.18s, color 0.18s, border-color 0.18s;
-}
-
-.hbg-close:hover {
-  background: rgba(255,215,0,0.1);
-  border-color: rgba(255,215,0,0.3);
-  color: #FFD700;
-}
-
-.hbg-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 28px 28px 16px;
-  scrollbar-width: thin;
-  scrollbar-color: #333 transparent;
-}
-
-.hbg-body::-webkit-scrollbar { width: 4px; }
-.hbg-body::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-
-.hbg-section-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: rgba(255, 215, 0, 0.35);
-  margin-bottom: 12px;
-  padding-left: 2px;
-}
-
-.hbg-nav-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 28px;
-}
-
-.hbg-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 18px;
-  border-radius: 12px;
-  border: 1px solid transparent;
-  color: rgba(255,255,255,0.3);
-  font-size: 15px;
-  cursor: default;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
-  margin-bottom: 6px;
-  user-select: none;
-}
-
-.hbg-nav-item.coming {
-  opacity: 0.45;
-}
-
-.hbg-nav-item.coming::after {
-  content: 'Soon';
-  margin-left: auto;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  background: rgba(255,215,0,0.1);
-  border: 1px solid rgba(255,215,0,0.2);
-  color: rgba(255,215,0,0.6);
-  padding: 2px 7px;
-  border-radius: 20px;
-}
-
-.hbg-nav-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  opacity: 0.5;
-}
-
-/* ─────────────────────────────────────────
-   BACKGROUND CHANGER
-───────────────────────────────────────── */
-.bg-changer-section {
-  margin-bottom: 28px;
-}
-
-.bg-toggle-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: rgba(255,215,0,0.04);
-  border: 1px solid rgba(255,215,0,0.14);
-  border-radius: 12px;
-  color: rgba(255,255,255,0.65);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  cursor: pointer;
-  height: auto;
-  margin: 0;
-  transition: background 0.18s, border-color 0.18s, color 0.18s;
-}
-
-.bg-toggle-btn:hover {
-  background: rgba(255,215,0,0.08);
-  border-color: rgba(255,215,0,0.3);
-  color: #FFD700;
-}
-
-.bg-toggle-left {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.bg-toggle-left svg { flex-shrink: 0; opacity: 0.7; }
-.bg-toggle-btn:hover .bg-toggle-left svg { opacity: 1; }
-
-.bg-toggle-arrow {
-  font-size: 18px;
-  line-height: 1;
-  color: rgba(255,215,0,0.4);
-  transition: transform 0.25s ease, color 0.18s;
-  display: inline-block;
-}
-
-.bg-toggle-btn[aria-expanded="true"] .bg-toggle-arrow {
-  transform: rotate(90deg);
-  color: #FFD700;
-}
-
-.bg-changer-card {
-  margin-top: 10px;
-  background: rgba(255,215,0,0.03);
-  border: 1px solid rgba(255,215,0,0.12);
-  border-radius: 14px;
-  padding: 18px 18px 14px;
-}
-
-.bg-upload-area {
-  border: 1px dashed rgba(255,255,255,0.18);
-  border-radius: 10px;
-  padding: 13px 10px;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  margin-bottom: 10px;
-}
-
-.bg-upload-area:hover {
-  border-color: rgba(255,215,0,0.45);
-  background: rgba(255,215,0,0.04);
-}
-
-.bg-upload-label {
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
-  display: block;
-  cursor: pointer;
-}
-
-.bg-upload-label span { color: rgba(255,215,0,0.65); }
-
-#bgFileInput { display: none; }
-
-.bg-reset-btn {
-  width: 100%;
-  height: 34px;
-  border-radius: 8px;
-  background: rgba(255,127,127,0.08);
-  border: 1px solid rgba(255,127,127,0.22);
-  color: rgba(255,127,127,0.7);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: background 0.18s, color 0.18s, border-color 0.18s;
-}
-
-.bg-reset-btn:hover {
-  background: rgba(255,127,127,0.16);
-  border-color: rgba(255,127,127,0.5);
-  color: #FF7F7F;
-}
-
-.bg-current-label {
-  font-size: 11px;
-  color: rgba(255,255,255,0.25);
-  margin-top: 9px;
-  text-align: center;
-  min-height: 15px;
-  transition: color 0.2s;
-}
-
-/* ── Panel footer ── */
-.hbg-footer {
-  padding: 18px 28px;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  text-align: center;
-  font-size: 11px;
-  color: rgba(255,255,255,0.18);
-  letter-spacing: 0.5px;
-  flex-shrink: 0;
-}
-
-.hbg-footer span { color: rgba(255,215,0,0.3); }
-
-.hbg-user-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.hbg-user-info {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  min-width: 0;
-  flex: 1;
-}
-
-.hbg-user-icon {
-  display: flex;
-  align-items: center;
-  color: rgba(255,215,0,0.45);
-  flex-shrink: 0;
-}
-
-.hbg-user-label {
-  font-size: 10px;
-  color: rgba(255,255,255,0.28);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.hbg-user-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255,215,0,0.7);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 130px;
-}
-
-.hbg-logout-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,127,127,0.22);
-  background: rgba(255,127,127,0.07);
-  color: rgba(255,127,127,0.7);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.14s;
-}
-
-.hbg-logout-btn:hover {
-  background: rgba(255,127,127,0.16);
-  border-color: rgba(255,127,127,0.5);
-  color: #FF7F7F;
-  transform: translateY(-1px);
-}
-
-.hbg-logout-btn:active { transform: scale(0.96); }
-
-/* ═══════════════════════════════════════════
-   LOGOUT CONFIRMATION MODAL
-═══════════════════════════════════════════ */
-#logout-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 300000;
-  background: rgba(0,0,0,0);
-  backdrop-filter: blur(0px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
-  pointer-events: none;
-  transition: background 0.3s ease, backdrop-filter 0.3s ease;
-}
-
-#logout-modal-backdrop.lm-open {
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
-  pointer-events: all;
-}
-
-.logout-modal {
-  width: min(100%, 380px);
-  background: #111;
-  border: 1px solid rgba(255,215,0,0.15);
-  border-radius: 20px;
-  padding: 36px 32px 28px;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,215,0,0.06);
-  text-align: center;
-  opacity: 0;
-  transform: scale(0.88) translateY(16px);
-  transition: opacity 0.28s cubic-bezier(.22,1,.36,1), transform 0.28s cubic-bezier(.22,1,.36,1);
-}
-
-#logout-modal-backdrop.lm-open .logout-modal {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-}
-
-.lm-icon-ring {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: rgba(255,127,127,0.08);
-  border: 1.5px solid rgba(255,127,127,0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
-}
-
-.lm-icon-ring svg {
-  width: 28px;
-  height: 28px;
-  stroke: #FF7F7F;
-  fill: none;
-  stroke-width: 1.8;
-}
-
-.lm-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 10px;
-  letter-spacing: 0.2px;
-}
-
-.lm-msg {
-  font-size: 13.5px;
-  color: rgba(255,255,255,0.42);
-  line-height: 1.65;
-  margin: 0 0 28px;
-}
-
-.lm-msg strong { color: rgba(255,215,0,0.7); font-weight: 600; }
-
-.lm-actions { display: flex; gap: 12px; }
-
-.lm-btn {
-  flex: 1;
-  height: 46px;
-  border-radius: 11px;
-  border: none;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  cursor: pointer;
-  transition: transform 0.14s, box-shadow 0.18s, filter 0.16s, background 0.16s;
-}
-
-.lm-btn-cancel {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.6);
-}
-
-.lm-btn-cancel:hover {
-  background: rgba(255,255,255,0.11);
-  color: #fff;
-  transform: translateY(-1px);
-}
-
-.lm-btn-cancel:active { transform: scale(0.97); }
-
-.lm-btn-confirm {
-  background: linear-gradient(135deg, #FF6B6B, #e04040);
-  color: #fff;
-  box-shadow: 0 5px 18px rgba(255,80,80,0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.lm-btn-confirm::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.2) 50%, transparent 65%);
-  transform: translateX(-100%);
-  transition: transform 0.45s ease;
-}
-
-.lm-btn-confirm:hover::after { transform: translateX(100%); }
-
-.lm-btn-confirm:hover {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(255,80,80,0.4);
-}
-
-.lm-btn-confirm:active { transform: scale(0.97); }
   position:fixed; top:0; right:0; height:100%; width:min(480px,92vw); z-index:200001;
   background:rgba(12,12,12,0.97); backdrop-filter:blur(20px); border-left:1px solid rgba(255,215,0,0.12);
   display:flex; flex-direction:column; transform:translateX(100%);
@@ -1840,197 +678,6 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .lm-btn-confirm:active { transform:scale(0.97); }
 
 /* ── ENTRY GATE ── */
-#entry-gate {
-  position: fixed;
-  inset: 0;
-  z-index: 200000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background:
-    linear-gradient(135deg, rgba(8,8,8,0.82), rgba(18,18,18,0.78)),
-    url('himalayan-bg.jpg') center / cover no-repeat;
-  transition: opacity 0.55s ease, visibility 0.55s ease;
-  opacity: 1;
-  visibility: visible;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-#entry-gate.gate-hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.entry-card {
-  width: min(100%, 440px);
-  background: rgba(255,255,255,0.035);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,215,0,0.13);
-  border-radius: 20px;
-  padding: clamp(28px,5vw,44px) clamp(24px,5vw,40px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,215,0,0.06);
-  animation: entry-rise 0.65s cubic-bezier(.22,1,.36,1) both;
-}
-
-@keyframes entry-rise {
-  from { opacity:0; transform:translateY(28px) scale(0.97); }
-  to   { opacity:1; transform:translateY(0) scale(1); }
-}
-
-.entry-brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 32px;
-}
-
-.entry-brand-line {
-  height: 1px;
-  flex: 1;
-  background: linear-gradient(to right, transparent, rgba(255,215,0,0.25));
-}
-
-.entry-brand-line.right {
-  background: linear-gradient(to left, transparent, rgba(255,215,0,0.25));
-}
-
-.entry-brand-badge {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(255,215,0,0.6);
-  white-space: nowrap;
-}
-
-.entry-heading {
-  text-align: center;
-  color: #fff;
-  font-size: clamp(22px,4vw,30px);
-  font-weight: 300;
-  letter-spacing: 0.5px;
-  margin: 0 0 6px;
-  line-height: 1.25;
-}
-
-.entry-heading strong { color: #FFD700; font-weight: 700; }
-
-.entry-sub {
-  text-align: center;
-  font-size: 13px;
-  color: rgba(255,255,255,0.38);
-  margin: 0 0 32px;
-  letter-spacing: 0.3px;
-}
-
-.entry-field-wrap { position: relative; margin-bottom: 4px; }
-
-.entry-field-label {
-  display: block;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255,215,0,0.5);
-  margin-bottom: 8px;
-  padding-left: 2px;
-}
-
-.entry-input {
-  width: 100%;
-  height: 48px;
-  padding: 0 16px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  color: #fff;
-  font-size: 15px;
-  font-family: 'Segoe UI', sans-serif;
-  letter-spacing: 0.3px;
-  box-sizing: border-box;
-  outline: none;
-  margin: 0 !important;
-  transition: border-color 0.22s, box-shadow 0.22s, background 0.22s !important;
-  transform: none !important;
-}
-
-.entry-input::placeholder { color: rgba(255,255,255,0.28); }
-
-.entry-input:focus {
-  border-color: rgba(255,215,0,0.5) !important;
-  background: rgba(255,255,255,0.1) !important;
-  box-shadow: 0 0 0 3px rgba(255,215,0,0.1), 0 0 14px rgba(52,165,82,0.18) !important;
-  transform: none !important;
-}
-
-.entry-input.has-error { border-color: rgba(255,127,127,0.6) !important; }
-
-.entry-error {
-  font-size: 12px;
-  color: #FF7F7F;
-  margin: 7px 0 0 2px;
-  min-height: 18px;
-  display: block;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-.entry-error.visible { opacity: 1; transform: translateY(0); }
-
-.entry-btn {
-  width: 100%;
-  height: 50px;
-  margin-top: 22px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #FFD700 0%, #e6b800 100%);
-  color: #111;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  overflow: hidden;
-  transition: transform 0.16s, box-shadow 0.22s, filter 0.18s;
-  box-shadow: 0 6px 24px rgba(255,215,0,0.25);
-}
-
-.entry-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.3) 50%, transparent 65%);
-  transform: translateX(-100%);
-  transition: transform 0.55s ease;
-}
-
-.entry-btn:hover::after { transform: translateX(100%); }
-
-.entry-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(255,215,0,0.35);
-  filter: brightness(1.05);
-}
-
-.entry-btn:active { transform: translateY(0) scale(0.98); }
-.entry-btn-arrow { font-size: 17px; line-height: 1; transition: transform 0.22s; }
-.entry-btn:hover .entry-btn-arrow { transform: translateX(4px); }
-
-.entry-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 26px 0 18px;
-}
-
 #entry-gate { position:fixed; inset:0; z-index:200000; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,rgba(8,8,8,0.82),rgba(18,18,18,0.78)),url('himalayan-bg.jpg') center/cover no-repeat; transition:opacity .55s ease,visibility .55s ease; opacity:1; visibility:visible; padding:20px; box-sizing:border-box; }
 #entry-gate.gate-hidden { opacity:0; visibility:hidden; pointer-events:none; }
 .entry-card { width:min(100%,440px); background:rgba(255,255,255,0.035); backdrop-filter:blur(16px); border:1px solid rgba(255,215,0,0.13); border-radius:20px; padding:clamp(28px,5vw,44px) clamp(24px,5vw,40px); box-shadow:0 20px 60px rgba(0,0,0,0.55); animation:entry-rise .65s cubic-bezier(.22,1,.36,1) both; }
@@ -2063,98 +710,273 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .entry-note { text-align:center; font-size:11.5px; color:rgba(255,255,255,0.22); line-height:1.6; }
 .entry-note strong { color:rgba(255,215,0,0.4); font-weight:600; }
 
-.entry-divider-text {
-  font-size: 10px;
-  color: rgba(255,255,255,0.2);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.entry-note {
-  text-align: center;
-  font-size: 11.5px;
-  color: rgba(255,255,255,0.22);
-  line-height: 1.6;
-}
-
-.entry-note strong { color: rgba(255,215,0,0.4); font-weight:600; }
-
-#app-root {
-  opacity: 0;
-  transition: opacity 0.5s ease 0.1s;
-}
-
-#app-root.app-visible { opacity: 1; }
 #app-root { opacity:0; transition:opacity .5s ease .1s; }
 #app-root.app-visible { opacity:1; }
+
+/* ═══════════════════════════════════════════════════════════════
+   COOKIE CONSENT + LEGAL  (Apple-style glassmorphism)
+   • Font stack: SF Pro / system
+   • Radius: 18-20px · Soft shadows · Cubic-bezier iOS easing
+═══════════════════════════════════════════════════════════════ */
+:root{
+  --cc-font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --cc-ease:cubic-bezier(.22,1,.36,1);
+  --cc-ease-soft:cubic-bezier(.4,0,.2,1);
+  --cc-accent:#E53517;
+  --cc-accent-soft:rgba(229,53,23,.14);
+  --cc-text:#0a0a0a;
+  --cc-text-soft:#3a3a3c;
+  --cc-text-muted:#8e8e93;
+  --cc-divider:rgba(60,60,67,.12);
+  --cc-card:rgba(255,255,255,.78);
+  --cc-card-border:rgba(255,255,255,.55);
+  --cc-shadow:0 18px 50px rgba(0,0,0,.18), 0 6px 18px rgba(0,0,0,.08);
+}
+
+/* ─── Floating Cookie Banner (bottom-center) ─── */
+.cc-banner{
+  position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(140%);
+  width:min(540px, calc(100vw - 32px));
+  background:var(--cc-card);
+  -webkit-backdrop-filter:saturate(180%) blur(28px);
+  backdrop-filter:saturate(180%) blur(28px);
+  border:1px solid var(--cc-card-border);
+  border-radius:22px;
+  padding:22px 22px 18px;
+  box-shadow:var(--cc-shadow);
+  font-family:var(--cc-font);
+  color:var(--cc-text);
+  z-index:99998;
+  opacity:0;
+  transition:transform .65s var(--cc-ease), opacity .5s var(--cc-ease);
+  pointer-events:none;
+}
+.cc-banner.cc-visible{ transform:translateX(-50%) translateY(0); opacity:1; pointer-events:auto; }
+.cc-banner-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.cc-banner-icon{
+  width:34px; height:34px; border-radius:11px;
+  background:linear-gradient(135deg,#fff,#f2f2f7);
+  border:1px solid var(--cc-divider);
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; flex-shrink:0;
+}
+.cc-banner-title{ font-size:15.5px; font-weight:600; letter-spacing:-.01em; }
+.cc-banner-text{
+  font-size:13px; line-height:1.5; color:var(--cc-text-soft);
+  margin:0 0 16px;
+}
+.cc-banner-text a{ color:var(--cc-accent); text-decoration:none; font-weight:500; }
+.cc-banner-text a:hover{ text-decoration:underline; }
+.cc-banner-actions{ display:flex; gap:10px; }
+.cc-btn{
+  flex:1; appearance:none; border:0; cursor:pointer;
+  font-family:var(--cc-font); font-size:13.5px; font-weight:600; letter-spacing:-.005em;
+  padding:11px 14px; border-radius:13px;
+  transition:transform .25s var(--cc-ease-soft), background .25s var(--cc-ease-soft), box-shadow .25s var(--cc-ease-soft);
+}
+.cc-btn:active{ transform:scale(.97); }
+.cc-btn-primary{
+  background:var(--cc-text); color:#fff;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+.cc-btn-primary:hover{ background:#1c1c1e; }
+.cc-btn-secondary{
+  background:rgba(120,120,128,.12); color:var(--cc-text);
+}
+.cc-btn-secondary:hover{ background:rgba(120,120,128,.18); }
+
+/* ─── Modal overlay (preferences + legal) ─── */
+.cc-overlay{
+  position:fixed; inset:0; z-index:99999;
+  background:rgba(0,0,0,.32);
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+  opacity:0; visibility:hidden;
+  transition:opacity .45s var(--cc-ease), visibility .45s var(--cc-ease);
+}
+.cc-overlay.cc-open{ opacity:1; visibility:visible; }
+.cc-modal{
+  width:min(480px, 100%);
+  max-height:min(86vh, 720px);
+  background:rgba(252,252,253,.92);
+  -webkit-backdrop-filter:saturate(180%) blur(40px);
+  backdrop-filter:saturate(180%) blur(40px);
+  border:1px solid rgba(255,255,255,.6);
+  border-radius:22px;
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+  font-family:var(--cc-font); color:var(--cc-text);
+  display:flex; flex-direction:column; overflow:hidden;
+  transform:translateY(24px) scale(.96); opacity:0;
+  transition:transform .55s var(--cc-ease), opacity .4s var(--cc-ease);
+}
+.cc-overlay.cc-open .cc-modal{ transform:translateY(0) scale(1); opacity:1; }
+.cc-modal-head{
+  padding:22px 24px 14px;
+  display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+  border-bottom:1px solid var(--cc-divider);
+}
+.cc-modal-titles h3{
+  margin:0 0 4px; font-size:19px; font-weight:700; letter-spacing:-.02em;
+}
+.cc-modal-titles p{
+  margin:0; font-size:12.5px; color:var(--cc-text-muted); line-height:1.45;
+}
+.cc-modal-close{
+  width:30px; height:30px; border-radius:50%; border:0; cursor:pointer;
+  background:rgba(120,120,128,.16); color:var(--cc-text-soft);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; flex-shrink:0;
+  transition:background .2s var(--cc-ease-soft), transform .2s var(--cc-ease-soft);
+}
+.cc-modal-close:hover{ background:rgba(120,120,128,.26); transform:rotate(90deg); }
+.cc-modal-body{
+  padding:8px 8px 8px; overflow-y:auto; flex:1;
+}
+.cc-modal-body::-webkit-scrollbar{ width:6px; }
+.cc-modal-body::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.15); border-radius:6px; }
+
+/* Preference rows */
+.cc-pref{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+  padding:16px;
+  margin:6px 8px;
+  border-radius:14px;
+  background:rgba(255,255,255,.55);
+  border:1px solid var(--cc-divider);
+  transition:background .2s var(--cc-ease-soft);
+}
+.cc-pref:hover{ background:rgba(255,255,255,.85); }
+.cc-pref-info h4{
+  margin:0 0 4px; font-size:14.5px; font-weight:600; letter-spacing:-.01em;
+}
+.cc-pref-info p{
+  margin:0; font-size:12px; color:var(--cc-text-muted); line-height:1.5;
+}
+.cc-pref-badge{
+  display:inline-block; margin-left:6px; font-size:9.5px; font-weight:700;
+  background:var(--cc-accent-soft); color:var(--cc-accent);
+  padding:2px 7px; border-radius:6px; vertical-align:middle; letter-spacing:.04em;
+}
+
+/* iOS-style toggle */
+.cc-toggle{ position:relative; flex-shrink:0; }
+.cc-toggle input{ position:absolute; opacity:0; width:0; height:0; }
+.cc-toggle-slider{
+  display:block; width:44px; height:26px; border-radius:14px;
+  background:rgba(120,120,128,.32);
+  transition:background .3s var(--cc-ease-soft);
+  cursor:pointer; position:relative;
+}
+.cc-toggle-slider::after{
+  content:""; position:absolute; top:2px; left:2px;
+  width:22px; height:22px; border-radius:50%;
+  background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.18), 0 0 0 .5px rgba(0,0,0,.04);
+  transition:transform .3s var(--cc-ease);
+}
+.cc-toggle input:checked + .cc-toggle-slider{ background:#34c759; }
+.cc-toggle input:checked + .cc-toggle-slider::after{ transform:translateX(18px); }
+.cc-toggle input:disabled + .cc-toggle-slider{ opacity:.55; cursor:not-allowed; }
+.cc-toggle input:disabled:checked + .cc-toggle-slider{ background:#a7a7ac; }
+
+.cc-modal-foot{
+  padding:14px 16px 18px;
+  border-top:1px solid var(--cc-divider);
+  display:flex; gap:10px;
+  background:rgba(255,255,255,.4);
+}
+.cc-modal-foot .cc-btn{ padding:12px 14px; font-size:14px; border-radius:14px; }
+
+/* ─── Legal Pages Content ─── */
+.cc-legal-body{ padding:22px 24px 24px; }
+.cc-legal-body h4{
+  font-size:14.5px; font-weight:700; letter-spacing:-.01em;
+  margin:22px 0 8px; color:var(--cc-text);
+}
+.cc-legal-body h4:first-child{ margin-top:4px; }
+.cc-legal-body p, .cc-legal-body li{
+  font-size:13.5px; line-height:1.65; color:var(--cc-text-soft); margin:0 0 10px;
+}
+.cc-legal-body ul{ padding-left:18px; margin:0 0 12px; }
+.cc-legal-body .cc-disclaimer{
+  margin:14px 0; padding:14px 16px;
+  background:linear-gradient(135deg, rgba(229,53,23,.08), rgba(229,53,23,.04));
+  border:1px solid rgba(229,53,23,.18);
+  border-radius:14px;
+  font-size:13px; color:#7a1d0b; line-height:1.55;
+}
+.cc-legal-body .cc-disclaimer strong{ color:var(--cc-accent); }
+.cc-meta{
+  font-size:11px; color:var(--cc-text-muted); letter-spacing:.02em;
+  margin-top:18px; padding-top:14px; border-top:1px solid var(--cc-divider);
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 520px){
+  .cc-banner{ bottom:14px; padding:18px 18px 16px; border-radius:20px; }
+  .cc-banner-actions{ flex-direction:column; }
+  .cc-btn{ width:100%; }
+  .cc-modal{ border-radius:20px; max-height:90vh; }
+  .cc-modal-head{ padding:18px 18px 12px; }
+  .cc-modal-titles h3{ font-size:18px; }
+  .cc-pref{ padding:14px; margin:6px; }
+  .cc-modal-foot{ flex-direction:column-reverse; padding:12px 14px 16px; }
+  .cc-legal-body{ padding:18px 20px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .cc-banner, .cc-overlay, .cc-modal, .cc-toggle-slider, .cc-toggle-slider::after{
+    transition-duration:.01ms !important;
+  }
+}
 </style>
 </head>
 <body>
 
-<!-- ===== LOGOUT CONFIRMATION MODAL ===== -->
 <!-- ===== LOGOUT MODAL ===== -->
 <div id="logout-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="lm-title" aria-hidden="true">
-  <div class="logout-modal" id="logoutModal">
   <div class="logout-modal">
-<div class="lm-icon-ring">
-<svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-</div>
-@@ -1454,18 +726,12 @@
-</div>
-<h1 class="entry-heading" id="entry-title">Welcome, <strong>Rider</strong></h1>
-<p class="entry-sub">Enter your name to access the CRM dashboard</p>
-
-<div class="entry-field-wrap">
-<label class="entry-field-label" for="entryName">Your Name</label>
-<input id="entryName" class="entry-input" type="text" placeholder="e.g. Advait" autocomplete="off" spellcheck="false" maxlength="60">
-<span class="entry-error" id="entryError" role="alert"></span>
+    <div class="lm-icon-ring">
+      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    </div>
+    <div class="lm-title" id="lm-title">Log Out?</div>
+    <p class="lm-msg">Are you sure you want to log out?<br>You'll need to enter your name again to access the CRM.</p>
+    <div class="lm-actions">
+      <button class="lm-btn lm-btn-cancel" id="lmCancel">Cancel</button>
+      <button class="lm-btn lm-btn-confirm" id="lmConfirm">Yes, Log Out</button>
+    </div>
+  </div>
 </div>
 
-    <button class="entry-btn" id="entryBtn" type="button">
-      Continue
-      <span class="entry-btn-arrow">→</span>
-    </button>
-
+<!-- ===== ENTRY GATE ===== -->
+<div id="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title">
+  <div class="entry-card">
+    <div class="entry-brand">
+      <div class="entry-brand-line"></div>
+      <div class="entry-brand-badge">Royal Enfield CRM</div>
+      <div class="entry-brand-line right"></div>
+    </div>
+    <h1 class="entry-heading" id="entry-title">Welcome, <strong>Rider</strong></h1>
+    <p class="entry-sub">Enter your name to access the CRM dashboard</p>
+    <div class="entry-field-wrap">
+      <label class="entry-field-label" for="entryName">Your Name</label>
+      <input id="entryName" class="entry-input" type="text" placeholder="e.g. Advait" autocomplete="off" spellcheck="false" maxlength="60">
+      <span class="entry-error" id="entryError" role="alert"></span>
+    </div>
     <button class="entry-btn" id="entryBtn" type="button">Continue <span class="entry-btn-arrow">→</span></button>
-<div class="entry-divider">
-<div class="entry-divider-line"></div>
-<div class="entry-divider-text">Secure &amp; Local</div>
-@@ -1478,111 +744,75 @@ <h1 class="entry-heading" id="entry-title">Welcome, <strong>Rider</strong></h1>
+    <div class="entry-divider">
+      <div class="entry-divider-line"></div>
+      <div class="entry-divider-text">Secure &amp; Local</div>
+      <div class="entry-divider-line"></div>
+    </div>
+    <p class="entry-note">Your name is saved <strong>locally on this device</strong> only.<br>No data is sent anywhere.</p>
+  </div>
+</div>
+
 <!-- ===== APP ROOT ===== -->
 <div id="app-root">
 
-  <!-- ===== GLOBAL FIXED HEADER ===== -->
 <!-- ===== GLOBAL HEADER ===== -->
 <header id="global-header" role="banner">
-
-  <!-- LEFT: Logo -->
-  <div class="gh-logo" id="ghLogo">
-    <img src="relog.svg"
-         alt="Royal Enfield"
-         style="height:50px;width:auto;">
-  </div>
-
-  <!-- CENTER: NAV -->
-  <nav class="gh-nav">
-    <div class="gh-nav-item">
-      <span class="gh-nav-icon">💰</span> EMI Plans
-    </div>
-    <div class="gh-nav-item">
-      <span class="gh-nav-icon">⚖️</span> Compare Models
-    </div>
-    <div class="gh-nav-item">
-      <span class="gh-nav-icon">📝</span> Notes
-    </div>
-  </nav>
-
-  <!-- RIGHT: HAMBURGER -->
-  <div class="gh-right">
-    <button class="hbg-btn">
-      <span class="hbg-bar"></span>
-      <span class="hbg-bar"></span>
-      <span class="hbg-bar"></span>
-    </button>
   <div class="gh-logo" id="ghLogo" title="Royal Enfield CRM">
     <svg class="gh-logo-svg" viewBox="0 0 1500 312" xmlns="http://www.w3.org/2000/svg" aria-label="Royal Enfield">
       <g>
@@ -2170,103 +992,74 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
         <path fill="#E53517" d="M1500,161.169c0,46.832-34.454,84.034-92.067,84.034c-44.633,0-58.748-19.506-114.181-19.664h-22.945v-0.656c4.043-8.867,4.433-15.96,4.433-29.188v-77.757c0-15.959-1.525-22.467-4.433-28.975v-0.621h53.197v0.621c-3.139,6.561-4.451,16.668-4.451,29.401v83.591c33.125,0,47.347,10.001,76.445,10.001c40.253,0,59.6-22.166,59.6-53.481c0-26.847-13.85-46.885-37.966-46.885h-15.516v84.921c-14.789,0.728-31.635-1.276-44.332-5.674v-72.899c0-15.959-1.524-22.467-4.45-28.975v-0.621h62.063C1467.337,88.341,1500,119.923,1500,161.169z"/>
       </g>
     </svg>
-</div>
-
-</header>
-
-
-  <!-- Nav — left-aligned, after logo -->
-<nav class="gh-nav" aria-label="Main navigation">
-    <button class="gh-nav-item coming-soon" data-tab="emi" title="EMI Calculator">
+  </div>
+  <nav class="gh-nav" aria-label="Main navigation">
     <button class="gh-nav-item" data-tab="emi">
-<span class="gh-nav-icon">💰</span>
-<span class="gh-nav-label">EMI</span>
-</button>
-    <button class="gh-nav-item coming-soon" data-tab="compare" title="Compare Models">
+      <span class="gh-nav-icon">💰</span>
+      <span class="gh-nav-label">EMI</span>
+    </button>
     <button class="gh-nav-item coming-soon" data-tab="compare">
-<span class="gh-nav-icon">⚖️</span>
-<span class="gh-nav-label">Compare</span>
-</button>
-    <button class="gh-nav-item coming-soon" data-tab="notes" title="Notes">
+      <span class="gh-nav-icon">⚖️</span>
+      <span class="gh-nav-label">Compare</span>
+    </button>
     <button class="gh-nav-item" data-tab="notes">
-<span class="gh-nav-icon">📝</span>
-<span class="gh-nav-label">Notes</span>
-</button>
-</nav>
-
-  <!-- Spacer pushes hamburger to far right -->
-  <div style="flex:1;"></div>
-
-  <!-- Right: hamburger -->
-<div class="gh-right">
-<button class="hbg-btn" id="hbgBtn" aria-label="Open menu" aria-expanded="false" aria-controls="hbgPanel">
-      <span class="hbg-bar"></span>
-      <span class="hbg-bar"></span>
-      <span class="hbg-bar"></span>
+      <span class="gh-nav-icon">📝</span>
+      <span class="gh-nav-label">Notes</span>
+    </button>
+  </nav>
+  <div class="gh-right">
+    <button class="hbg-btn" id="hbgBtn" aria-label="Open menu" aria-expanded="false" aria-controls="hbgPanel">
       <span class="hbg-bar"></span><span class="hbg-bar"></span><span class="hbg-bar"></span>
-</button>
-</div>
-
+    </button>
+  </div>
 </header>
-<!-- ===== BACKDROP ===== -->
-<div class="hbg-overlay" id="hbgOverlay" aria-hidden="true"></div>
 
-<!-- ===== SIDE PANEL ===== -->
-<nav class="hbg-panel" id="hbgPanel" aria-label="Main navigation" aria-hidden="true">
 <div class="hbg-overlay" id="hbgOverlay" aria-hidden="true"></div>
 
 <nav class="hbg-panel" id="hbgPanel" aria-label="Settings panel" aria-hidden="true">
-<div class="hbg-header">
-<div class="hbg-logo">
-<span class="hbg-logo-dot"></span>
-<span class="hbg-greeting-line" id="hbgGreetingLine">Good Morning, Rider</span>
-</div>
-<button class="hbg-close" id="hbgClose" aria-label="Close menu">✕</button>
-</div>
-
-<div class="hbg-body">
-
-    <!-- ── BACKGROUND CHANGER ── -->
-<div class="bg-changer-section">
-<button class="bg-toggle-btn" id="bgToggleBtn" aria-expanded="false">
-<span class="bg-toggle-left">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          Change Background
+  <div class="hbg-header">
+    <div class="hbg-logo">
+      <span class="hbg-logo-dot"></span>
+      <span class="hbg-greeting-line" id="hbgGreetingLine">Good Morning, Rider</span>
+    </div>
+    <button class="hbg-close" id="hbgClose" aria-label="Close menu">✕</button>
+  </div>
+  <div class="hbg-body">
+    <div class="bg-changer-section">
+      <button class="bg-toggle-btn" id="bgToggleBtn" aria-expanded="false">
+        <span class="bg-toggle-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
           CRM Background
-</span>
-        <span class="bg-toggle-arrow" id="bgToggleArrow">›</span>
+        </span>
         <span class="bg-toggle-arrow">›</span>
-</button>
-
-<div class="bg-changer-card" id="bgChangerCard" style="display:none;">
-<div class="bg-upload-area" id="bgUploadArea">
-          <label class="bg-upload-label" for="bgFileInput">
-            📷 <span>Upload your own image</span>
-          </label>
+      </button>
+      <div class="bg-changer-card" id="bgChangerCard" style="display:none;">
+        <div class="bg-upload-area" id="bgUploadArea">
           <label class="bg-upload-label" for="bgFileInput">📷 <span>Upload your own image</span></label>
-<input type="file" id="bgFileInput" accept="image/*">
-</div>
-<button class="bg-reset-btn" id="bgResetBtn">↩ Reset to Default</button>
-<div class="bg-current-label" id="bgCurrentLabel"></div>
-</div>
-      <div class="hbg-section-note">EMI &amp; Journal sections have their own <span>Royal Enfield themed</span> backgrounds that change as you scroll.</div>
-</div>
-
-</div>
-
-  <!-- Panel footer -->
-<div class="hbg-footer" id="hbgFooter">
-<div class="hbg-user-row">
-<div class="hbg-user-info">
-@@ -1598,173 +828,229 @@ <h1 class="entry-heading" id="entry-title">Welcome, <strong>Rider</strong></h1>
-</button>
-</div>
-</div>
-
+          <input type="file" id="bgFileInput" accept="image/*">
+        </div>
+        <button class="bg-reset-btn" id="bgResetBtn">↩ Reset to Default</button>
+        <div class="bg-current-label" id="bgCurrentLabel"></div>
+      </div>
+    </div>
+  </div><!-- end hbg-body -->
+  <div class="hbg-footer" id="hbgFooter">
+    <div class="hbg-user-row">
+      <div class="hbg-user-info">
+        <span class="hbg-user-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </span>
+        <span class="hbg-user-label">Logged in as</span>
+        <span class="hbg-user-name" id="hbgUserName">—</span>
+      </div>
+      <button class="hbg-logout-btn" id="hbgLogoutBtn" title="Log out">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Logout
+      </button>
+    </div>
+  </div>
 </nav>
 
-<!-- ===== HERO SECTION ===== -->
-<div class="hero-section" id="heroSection">
 <!-- SCROLL NAV DOTS -->
 <div class="scroll-nav" id="scrollNav" aria-hidden="true">
   <div class="sn-dot active" data-section="heroSection" title="CRM"></div>
@@ -2274,107 +1067,55 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
   <div class="sn-dot" data-section="notesSection" title="Notes"></div>
 </div>
 
-  <!-- tooltip -->
 <!-- ===== HERO / CRM SECTION ===== -->
 <div class="hero-section" id="heroSection">
-<div id="crm-tooltip">
-<div class="tt-head" id="tt-name"></div>
-    <div class="tt-row">
-      <span class="tt-lbl">About</span>
-      <span class="tt-val" id="tt-about"><span class="tt-tags" id="tt-tags"></span></span>
-    </div>
+  <div id="crm-tooltip">
+    <div class="tt-head" id="tt-name"></div>
     <div class="tt-row"><span class="tt-lbl">About</span><span class="tt-val" id="tt-about"><span class="tt-tags" id="tt-tags"></span></span></div>
-<div class="tt-row"><span class="tt-lbl">Engine</span><span class="tt-val" id="tt-usp"></span></div>
-<div class="tt-row"><span class="tt-lbl">Mileage</span><span class="tt-val" id="tt-mileage"></span></div>
-</div>
+    <div class="tt-row"><span class="tt-lbl">Engine</span><span class="tt-val" id="tt-usp"></span></div>
+    <div class="tt-row"><span class="tt-lbl">Mileage</span><span class="tt-val" id="tt-mileage"></span></div>
+  </div>
 
-<div class="box">
-<h2>Royal Enfield CRM</h2>
+  <div class="box">
+    <h2>Royal Enfield CRM</h2>
+    <button class="topBtn" onclick="setMode('default')">TRR / BRTL1 / INT2M</button>
+    <button class="topBtn" onclick="setMode('booked')">Booked</button>
+    <button class="topBtn" onclick="setMode('purchased')">Purchased</button>
 
-<button class="topBtn" onclick="setMode('default')">TRR / BRTL1 / INT2M</button>
-<button class="topBtn" onclick="setMode('booked')">Booked</button>
-<button class="topBtn" onclick="setMode('purchased')">Purchased</button>
-
-    <!-- DEFAULT -->
-<div id="defaultSection">
-<input id="keyEnquiry" placeholder="Key enquiry">
-<input id="buyingTime" placeholder="Buying time">
-<input id="testRide"   placeholder="Test ride date and time / NA / Already taken">
-      <div class="csw" id="wrap_model">
-        <div class="cst" id="trig_model" tabindex="0">Select Model</div>
-        <div class="cdrop" id="drop_model"></div>
-      </div>
+    <div id="defaultSection">
+      <input id="keyEnquiry" placeholder="Key enquiry">
+      <input id="buyingTime" placeholder="Buying time">
+      <input id="testRide"   placeholder="Test ride date and time / NA / Already taken">
       <div class="csw" id="wrap_model"><div class="cst" id="trig_model" tabindex="0">Select Model</div><div class="cdrop" id="drop_model"></div></div>
-<input type="hidden" id="model">
-<input type="hidden" id="color">
-      <div class="csw" id="wrap_color">
-        <div class="cst" id="trig_color" tabindex="0">Select Color</div>
-        <div class="cdrop" id="drop_color"></div>
-      </div>
+      <input type="hidden" id="model">
+      <input type="hidden" id="color">
       <div class="csw" id="wrap_color"><div class="cst" id="trig_color" tabindex="0">Select Color</div><div class="cdrop" id="drop_color"></div></div>
-<input id="dealership" placeholder="Dealership">
-<input id="altNumber"  placeholder="Alternate Number">
-<input type="hidden" id="paymentMode">
-      <div class="csw" id="wrap_payment">
-        <div class="cst" id="trig_payment" tabindex="0">Select Payment Mode</div>
-        <div class="cdrop" id="drop_payment"></div>
-      </div>
+      <input id="dealership" placeholder="Dealership">
+      <input id="altNumber"  placeholder="Alternate Number">
+      <input type="hidden" id="paymentMode">
       <div class="csw" id="wrap_payment"><div class="cst" id="trig_payment" tabindex="0">Select Payment Mode</div><div class="cdrop" id="drop_payment"></div></div>
-<input id="CustomerName" placeholder="Customer Name (if applicable)">
-      <input id="lostReason" placeholder="Reason for lost case (if applicable)">
+      <input id="CustomerName" placeholder="Customer Name (if applicable)">
       <input id="lostReason"   placeholder="Reason for lost case (if applicable)">
-</div>
+    </div>
 
-    <!-- BOOKED -->
-<div id="bookedSection" class="hide">
-      <input id="b_keyEnquiry"   placeholder="Key enquiry">
+    <div id="bookedSection" class="hide">
       <input id="b_keyEnquiry" placeholder="Key enquiry">
-<input type="hidden" id="b_model">
-      <div class="csw" id="wrap_b_model">
-        <div class="cst" id="trig_b_model" tabindex="0">Select Model</div>
-        <div class="cdrop" id="drop_b_model"></div>
-      </div>
+      <input type="hidden" id="b_model">
       <div class="csw" id="wrap_b_model"><div class="cst" id="trig_b_model" tabindex="0">Select Model</div><div class="cdrop" id="drop_b_model"></div></div>
-<input type="hidden" id="b_color">
-      <div class="csw" id="wrap_b_color">
-        <div class="cst" id="trig_b_color" tabindex="0">Select Color</div>
-        <div class="cdrop" id="drop_b_color"></div>
-      </div>
-      <input id="b_bookingtime"  placeholder="Booking date">
-      <input id="b_dealership"   placeholder="Dealership">
-      <input id="b_BookingName"  placeholder="Booking Name">
+      <input type="hidden" id="b_color">
       <div class="csw" id="wrap_b_color"><div class="cst" id="trig_b_color" tabindex="0">Select Color</div><div class="cdrop" id="drop_b_color"></div></div>
       <input id="b_bookingtime"   placeholder="Booking date">
       <input id="b_dealership"    placeholder="Dealership">
       <input id="b_BookingName"   placeholder="Booking Name">
-<input id="b_bookingnumber" placeholder="Booking Number">
-      <input id="b_altNumber"    placeholder="Alternate Number">
+      <input id="b_bookingnumber" placeholder="Booking Number">
       <input id="b_altNumber"     placeholder="Alternate Number">
-</div>
+    </div>
 
-    <!-- PURCHASED -->
-<div id="purchasedSection" class="hide">
-      <input id="p_keyEnquiry"         placeholder="Key enquiry">
+    <div id="purchasedSection" class="hide">
       <input id="p_keyEnquiry"        placeholder="Key enquiry">
-<input type="hidden" id="p_model">
-      <div class="csw" id="wrap_p_model">
-        <div class="cst" id="trig_p_model" tabindex="0">Select Model</div>
-        <div class="cdrop" id="drop_p_model"></div>
-      </div>
+      <input type="hidden" id="p_model">
       <div class="csw" id="wrap_p_model"><div class="cst" id="trig_p_model" tabindex="0">Select Model</div><div class="cdrop" id="drop_p_model"></div></div>
-<input type="hidden" id="p_color">
-      <div class="csw" id="wrap_p_color">
-        <div class="cst" id="trig_p_color" tabindex="0">Select Color</div>
-        <div class="cdrop" id="drop_p_color"></div>
-      </div>
-      <input id="p_Purchasedate"        placeholder="Purchased date">
-      <input id="p_Registrationnumber"  placeholder="Registration number">
-      <input id="p_dealership"          placeholder="Dealership">
-      <input id="p_BookingName"         placeholder="Booking Name">
-      <input id="p_bookingnumber"       placeholder="Booking Number">
-      <input id="p_Chassisnumber"       placeholder="Chassis number">
-      <input id="p_Enginenumber"        placeholder="Engine number">
-      <input id="p_altNumber"           placeholder="Alternate Number">
+      <input type="hidden" id="p_color">
       <div class="csw" id="wrap_p_color"><div class="cst" id="trig_p_color" tabindex="0">Select Color</div><div class="cdrop" id="drop_p_color"></div></div>
       <input id="p_Purchasedate"       placeholder="Purchased date">
       <input id="p_Registrationnumber" placeholder="Registration number">
@@ -2384,17 +1125,15 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
       <input id="p_Chassisnumber"      placeholder="Chassis number">
       <input id="p_Enginenumber"       placeholder="Engine number">
       <input id="p_altNumber"          placeholder="Alternate Number">
-</div>
+    </div>
 
-    <div style="display:flex; justify-content:space-between; position:relative; z-index:1;">
     <div style="display:flex;justify-content:space-between;position:relative;z-index:1;">
-<button class="copyBtn"  onclick="copyData()">Copy</button>
-<button class="resetBtn" onclick="resetForm()">Reset</button>
-</div>
-</div>
+      <button class="copyBtn"  onclick="copyData()">Copy</button>
+      <button class="resetBtn" onclick="resetForm()">Reset</button>
+    </div>
+  </div>
 </div>
 
-</div><!-- end .hero-section -->
 <!-- ===== EMI SECTION ===== -->
 <section class="emi-section" id="emiSection">
   <div class="emi-wheel-wrap" aria-hidden="true">
@@ -2438,21 +1177,11 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
       <button class="efp" data-filter="650">650cc</button>
     </div>
 
-<!-- ===== PREMIUM FOOTER ===== -->
     <div class="emi-model-grid reveal-el" data-delay="3" id="emiModelGrid"></div>
 
     <div class="emi-detail-panel" id="emiDetailPanel" style="display:none">
       <div class="edp-top">
-        <div>
-          <div class="edp-model-name" id="edpModelName"></div>
-          <div class="edp-tags" id="edpTags"></div>
-        </div>
-        <div class="edp-specs" id="edpSpecs"></div>
-      </div>
-
-      <div class="edp-block">
-        <div class="edp-block-title">Variants &amp; Ex-showroom Prices</div>
-        <div class="edp-variant-grid" id="edpVariantGrid"></div>
+        <div class="edp-model-name" id="edpModelName"></div>
       </div>
 
       <div class="edp-block">
@@ -2515,138 +1244,89 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 
 <!-- ===== FOOTER ===== -->
 <footer class="re-footer">
-<div class="re-footer-inner">
-
-<div class="re-footer-col">
-<h3>Made By</h3>
-<p class="brand-name">Advait</p>
-      <a href="#" rel="noopener">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
-        Portfolio
-      </a>
-      <a href="https://github.com/your-username" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-        GitHub
-      </a>
-      <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        LinkedIn
-      </a>
+  <div class="re-footer-inner">
+    <div class="re-footer-col">
+      <h3>Made By</h3>
+      <p class="brand-name">Advait</p>
       <a href="#" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>Portfolio</a>
       <a href="https://github.com/advaitbuild" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>GitHub</a>
       <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
-</div>
-
-<div class="re-footer-col">
-<h3>Royal Enfield</h3>
-      <a href="https://www.royalenfield.com/in/en/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
-        Official Website
-      </a>
-      <a href="https://www.royalenfield.com/in/en/locate-us/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Dealer Locator
-      </a>
-      <a href="https://www.royalenfield.com/in/en/finance/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-        RE Finance
-      </a>
+    </div>
+    <div class="re-footer-col">
+      <h3>Royal Enfield</h3>
       <a href="https://www.royalenfield.com/in/en/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>Official Website</a>
       <a href="https://www.royalenfield.com/in/en/locate-us/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Dealer Locator</a>
       <a href="https://www.royalenfield.com/in/en/finance/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>RE Finance</a>
-</div>
-
-<div class="re-footer-col">
-<h3>Resources</h3>
-      <a href="https://docs.google.com/spreadsheets/d/1_BkMNSiLcSZzHqpGc4RG1_CUgeBug-FtSaPCg2X2vAs/edit?gid=1115009747#gid=1115009747" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        Team Trikz
-      </a>
-      <a href="https://docs.google.com/spreadsheets/d/1GPre_5Lng_yFSV4M0a_kyq7td_YPsCb4z5EvPiqN8IY/edit?pli=1&gid=1012588109#gid=1012588109" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        UP Bihar sheet
-      </a>
-      <a href="https://docs.google.com/spreadsheets/d/1BRWO_962v-PzjjZXUViroecsbYzS6mxuxkHfDji4G50/edit?gid=1012588109#gid=1012588109" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        South sheet
-      </a>
-      <a href="#" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        Advait Note
-      </a>
+    </div>
+    <div class="re-footer-col">
+      <h3>Resources</h3>
       <a href="https://docs.google.com/spreadsheets/d/1_BkMNSiLcSZzHqpGc4RG1_CUgeBug-FtSaPCg2X2vAs/edit?gid=1115009747#gid=1115009747" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Team Trikz</a>
       <a href="https://docs.google.com/spreadsheets/d/1GPre_5Lng_yFSV4M0a_kyq7td_YPsCb4z5EvPiqN8IY/edit?pli=1&gid=1012588109#gid=1012588109" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>UP Bihar Sheet</a>
       <a href="https://docs.google.com/spreadsheets/d/1BRWO_962v-PzjjZXUViroecsbYzS6mxuxkHfDji4G50/edit?gid=1012588109#gid=1012588109" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>South Sheet</a>
       <a href="#" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Advait Note</a>
-</div>
-
-<div class="re-footer-col">
-<h3>Date &amp; Time</h3>
-<div class="clock-box" id="re-clock-box">
-<div class="clock-top">
-<div class="clock-time">
-            <span class="clock-num" id="re-hh">--</span>
-            <span class="clock-sep">:</span>
-            <span class="clock-num" id="re-mm">--</span>
-            <span class="clock-sep">:</span>
+    </div>
+    <div class="re-footer-col">
+      <h3>Date &amp; Time</h3>
+      <div class="clock-box" id="re-clock-box">
+        <div class="clock-top">
+          <div class="clock-time">
             <span class="clock-num" id="re-hh">--</span><span class="clock-sep">:</span>
             <span class="clock-num" id="re-mm">--</span><span class="clock-sep">:</span>
-<span class="clock-num" id="re-ss">--</span>
-</div>
-<span class="clock-ampm" id="re-ampm">--</span>
-@@ -1784,31 +1070,14 @@ <h3>Date &amp; Time</h3>
-</div>
-</div>
-</div>
-
+            <span class="clock-num" id="re-ss">--</span>
+          </div>
+          <span class="clock-ampm" id="re-ampm">--</span>
+        </div>
+        <hr class="clock-divider">
+        <div class="clock-date-row">
+          <div class="clock-date" id="re-date" title="Click to view calendar">-- --- ----</div>
+          <div class="clock-day" id="re-day">---</div>
+        </div>
+        <div class="cal-popup" id="re-cal-popup">
+          <div class="cal-header">
+            <button class="cal-nav" id="re-cal-prev">&#8249;</button>
+            <div class="cal-month-label" id="re-cal-month"></div>
+            <button class="cal-nav" id="re-cal-next">&#8250;</button>
+          </div>
+          <div class="cal-grid" id="re-cal-grid"></div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="re-footer-bar">
-    © 2026 <span>Advait</span>. All Rights Reserved. &nbsp;·&nbsp; Royal Enfield CRM
-</div>
-  <div class="re-footer-bar">© 2026 <span>Advait</span>. All Rights Reserved. &nbsp;·&nbsp; Royal Enfield CRM</div>
+    <div>© 2026 <span>Advait</span>. All Rights Reserved. &nbsp;·&nbsp; Royal Enfield CRM</div>
+    <div style="margin-top:4px;">
+      <button type="button" class="re-footer-legal-btn" data-cc-open="terms">Terms &amp; Conditions</button>
+      <span style="opacity:.3">&nbsp;·&nbsp;</span>
+      <button type="button" class="re-footer-legal-btn" data-cc-open="privacy">Privacy Policy</button>
+      <span style="opacity:.3">&nbsp;·&nbsp;</span>
+      <button type="button" class="re-footer-legal-btn" data-cc-open="prefs">Cookie Preferences</button>
+    </div>
+  </div>
 </footer>
 
 </div><!-- end #app-root -->
 
 <script>
-// ─── HEADER NAV TAB SWITCHER ─────────────────────────────────────────────────
-function ghSetTab(tab) {
-  // Only 'dashboard' is active for now; others are coming soon
-  document.querySelectorAll('.gh-nav-item').forEach(el => {
-    el.classList.remove('active');
-    el.removeAttribute('aria-current');
-  });
-  const active = document.querySelector(`.gh-nav-item[data-tab="${tab}"]`);
-  if (active && !active.classList.contains('coming-soon')) {
-    active.classList.add('active');
-    active.setAttribute('aria-current', 'page');
-  }
-}
-
-// ─── BIKE DATA ────────────────────────────────────────────────────────────────
 // ─── BIKE DATA ─────────────────────────────────────────────────────────────
 const bikeData = {
-"Hunter 350":        {"Tokyo Black":169804,"London Red":169804,"Rebel Blue":169804,"Moonshot White":169804,"Mumbai Yellow":169804,"Dapper Grey":165133,"Rio White":165133,"Graphite Gray":165133,"Tarmac Black":149900,"Factory Black":137640},
-"Bullet 350":        {"Black Gold":208012,"Standard Black":190312,"Standard Maroon":190312,"Battalion Black":166650,"Military Black":164423},
-@@ -1828,24 +1097,45 @@ <h3>Date &amp; Time</h3>
+  "Hunter 350":        {"Tokyo Black":169804,"London Red":169804,"Rebel Blue":169804,"Moonshot White":169804,"Mumbai Yellow":169804,"Dapper Grey":165133,"Rio White":165133,"Graphite Gray":165133,"Tarmac Black":149900,"Factory Black":137640},
+  "Bullet 350":        {"Black Gold":208012,"Standard Black":190312,"Standard Maroon":190312,"Battalion Black":166650,"Military Black":164423},
+  "Classic 350":       {"Emerald":221393,"Stealth Black":216582,"Gun Grey":216582,"Commando Sand":207917,"Meddalion Bronze":196371,"Madras Red":192035,"Redditch Red":185854},
+  "Meteor 350":        {"Supernova Black":219660,"Aurora Retro Green":209901,"Aurora Red":209901,"Stellar Marine Blue":206979,"Stellar Matt Grey":206979,"Fireball Orange":199189,"Fireball Grey":199189},
+  "Goan Classic 350":  {"Rave Red":226489,"Trip Teal":226489,"Shack Black":223634,"Purple Haze":223634},
+  "Scram 440":         {"Force Grey":230641,"Force Teal":230641,"Force Blue":230641,"Trail Blue":223131,"Trail Green":223131},
+  "Himalayan 450":     {"Mana Black":337036,"Hanle Black":319682,"Kamet White":314319,"Slate Himalayan Salt":310028,"Slate Poppy Blue":310028,"Kaza Brown":305736},
+  "Guerrilla 450":     {"Brava Blue":272479,"Shadow Ash":267116,"Peix Bronze":267116,"Smoke Silver":267116,"Apex Black":256387,"Apex Green":256387,"Apex Red":249194,"Twilight Blue":249194},
+  "Shotgun 650":       {"Stencil White":413042,"Drill Green":409873,"Plasma Blue":409873,"Sheet metal Grey":398017},
+  "Interceptor 650":   {"Mark 2":366390,"Black Ray":355322,"Barcelona Blue":355322,"Sunset Strip":344254,"Canyon Red":335394,"Cali Green":335394},
+  "Continental GT 650":{"Mr Clean":381885,"Slipstream Blue":375245,"Apex Grey":375245,"British Racing Green":353105,"Rocker Red":353105},
+  "Classic 650":       {"Black Chrome":379252,"Teal":369655,"Bruntingthorpe Blue":364856,"Vallam Red":364856},
+  "Bear 650":          {"Boardwalk White":375393,"Petrol Green":380933,"Wild Honey":380933,"Golden Shadow":388683,"White Two Four Nine":397538},
+  "Super Meteor 650":  {"Celestial Red":436685,"Celestial Blue":436685,"Interstellar Green":419824,"Interstellar Grey":419824,"Astral Black":402965,"Astral Green":402965},
+  "Bullet 650":        {"Cannon Black":364856,"Battleship Blue":364856}
 };
 
 const bikeInfo = {
-  "Hunter 350":         { about: ["Roadster","Daily Riding","City Riding"],           usp:"349cc, single-cylinder, air cooled engine",       mileage:"36.2 KM/L" },
-  "Bullet 350":         { about: ["Heritage","Daily Riding","City Commute"],          usp:"349cc, single-cylinder, air cooled engine",       mileage:"37 KM/L"   },
-  "Classic 350":        { about: ["Vintage","Daily Riding","City Commute"],           usp:"349cc, single-cylinder, air cooled engine",       mileage:"41.5 KM/L" },
-  "Meteor 350":         { about: ["Cruise","Long Distance","Highway Cruising"],       usp:"349cc, single-cylinder, air cooled engine",       mileage:"41.9 KM/L" },
-  "Goan Classic 350":   { about: ["Bobber","City Riding","Casual Commuting"],         usp:"349cc, single-cylinder, air cooled engine",       mileage:"36.2 KM/L" },
-  "Scram 440":          { about: ["Adventure","Casual","Urban Commuting"],            usp:"452cc Single Cylinder / Air oiled cooled engine", mileage:"29.5 KM/L" },
-  "Himalayan 450":      { about: ["Adventure","Adventure","Touring"],                 usp:"452cc Single Cylinder / Air oil cooled engine",   mileage:"30 KM/L"   },
-  "Guerrilla 450":      { about: ["Premium Roadster","Daily Riding","City Riding"],   usp:"452cc Single Cylinder / Air oil cooled engine",   mileage:"29.5 KM/L" },
-  "Interceptor 650":    { about: ["Premium Roadster","Daily Riding","City Riding"],   usp:"648cc Inline Twin / Air Oil Cooled Engine",       mileage:"25 KM/L"   },
-  "Continental GT 650": { about: ["Cafe Racer","Short Distance","City Commuting"],    usp:"648cc Inline Twin / Air Oil Cooled Engine",       mileage:"27 KM/L"   },
-  "Super Meteor 650":   { about: ["Cruise","Long Distance","Highway Cruising"],       usp:"648cc parallel Twin / Air Oil Cooled Engine",     mileage:"25 KM/L"   },
-  "Shotgun 650":        { about: ["Premium Roadster","Daily Riding","City Commuting"],usp:"648cc parallel Twin / Air Oil Cooled Engine",     mileage:"22 KM/L"   },
-  "Bear 650":           { about: ["Premium Roadster","Daily Riding","City Commuting"],usp:"648cc Inline Twin / Air Oil Cooled Engine",       mileage:"22 KM/L"   },
-  "Classic 650":        { about: ["Premium Tourer","Daily Riding","City Commuting"],  usp:"648cc Inline Twin / Air Oil Cooled Engine",       mileage:"21.45 KM/L"},
-  "Bullet 650":         { about: ["Premium Heritage","Daily Riding","City Commuting"],usp:"648cc parallel Twin / Air Oil Cooled Engine",     mileage:"NA"        }
   "Hunter 350":         { about:["Roadster","Daily Riding","City Riding"],            usp:"349cc, single-cylinder, air cooled",     mileage:"36.2 KM/L" },
   "Bullet 350":         { about:["Heritage","Daily Riding","City Commute"],           usp:"349cc, single-cylinder, air cooled",     mileage:"37 KM/L"   },
   "Classic 350":        { about:["Vintage","Daily Riding","City Commute"],            usp:"349cc, single-cylinder, air cooled",     mileage:"41.5 KM/L" },
@@ -2664,7 +1344,6 @@ const bikeInfo = {
   "Bullet 650":         { about:["Premium Heritage","Daily Riding","City Commuting"], usp:"648cc Parallel Twin / Air Oil Cooled",   mileage:"NA"        }
 };
 
-// ─── TOOLTIP ──────────────────────────────────────────────────────────────────
 // ─── PER-LAKH EMI RATES (RE Finance) ──────────────────────────────────────
 // Rate = ₹ per month per ₹1,00,000 of loan taken
 // e.g. Bullet 350 on 36-month loan → customer pays ₹3,319/month per lakh borrowed
@@ -2690,348 +1369,222 @@ const perLakhRates = {
 const tooltip   = document.getElementById('crm-tooltip');
 const ttName    = document.getElementById('tt-name');
 const ttTags    = document.getElementById('tt-tags');
-@@ -1854,134 +1144,76 @@ <h3>Date &amp; Time</h3>
+const ttUsp     = document.getElementById('tt-usp');
+const ttMileage = document.getElementById('tt-mileage');
 
 function showTooltip(e, modelName) {
-const info = bikeInfo[modelName] || {};
-  ttName.textContent = modelName;
-  ttTags.textContent = (info.about || []).join(', ');
+  const info = bikeInfo[modelName] || {};
   ttName.textContent    = modelName;
   ttTags.textContent    = (info.about || []).join(', ');
-ttUsp.textContent     = info.usp     || '—';
-ttMileage.textContent = info.mileage || '—';
-positionTooltip(e);
-tooltip.style.display = 'block';
+  ttUsp.textContent     = info.usp     || '—';
+  ttMileage.textContent = info.mileage || '—';
+  positionTooltip(e);
+  tooltip.style.display = 'block';
 }
-
 function positionTooltip(e) {
-  const TW = tooltip.offsetWidth  || 250;
-  const TH = tooltip.offsetHeight || 100;
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  let x = e.clientX + 14;
-  let y = e.clientY - TH / 2;
   const TW = tooltip.offsetWidth || 250, TH = tooltip.offsetHeight || 100;
   const vw = window.innerWidth, vh = window.innerHeight;
   let x = e.clientX + 14, y = e.clientY - TH / 2;
-if (x + TW > vw - 8) x = e.clientX - TW - 14;
-  if (y < 8)           y = 8;
+  if (x + TW > vw - 8) x = e.clientX - TW - 14;
   if (y < 8) y = 8;
-if (y + TH > vh - 8) y = vh - TH - 8;
-  tooltip.style.left = x + 'px';
-  tooltip.style.top  = y + 'px';
+  if (y + TH > vh - 8) y = vh - TH - 8;
   tooltip.style.left = x + 'px'; tooltip.style.top = y + 'px';
 }
-
 function hideTooltip() { tooltip.style.display = 'none'; }
 
-// ─── GENERIC CUSTOM DROPDOWN BUILDER ─────────────────────────────────────────
 // ─── CUSTOM DROPDOWN ───────────────────────────────────────────────────────
 function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placeholder) {
-const wrapper = document.getElementById(wrapperId);
-const trigger = document.getElementById(triggerId);
-const drop    = document.getElementById(dropId);
-  const els     = [];
-  let kbIdx     = -1;
-
+  const wrapper = document.getElementById(wrapperId);
+  const trigger = document.getElementById(triggerId);
+  const drop    = document.getElementById(dropId);
   const els = []; let kbIdx = -1;
-drop.innerHTML = '';
-items.forEach(({ label, value }) => {
-const item = document.createElement('div');
-    item.className = 'di';
-    item.textContent = label;
-    item.dataset.val = value;
+  drop.innerHTML = '';
+  items.forEach(({ label, value }) => {
+    const item = document.createElement('div');
     item.className = 'di'; item.textContent = label; item.dataset.val = value;
-item.addEventListener('click', () => pick(label, value));
-    drop.appendChild(item);
-    els.push(item);
+    item.addEventListener('click', () => pick(label, value));
     drop.appendChild(item); els.push(item);
-});
-
-  function clearKb() {
-    els.forEach(i => i.classList.remove('kb-focus'));
-    kbIdx = -1;
-  }
-
+  });
   function clearKb() { els.forEach(i => i.classList.remove('kb-focus')); kbIdx = -1; }
-function setKb(idx) {
-els.forEach(i => i.classList.remove('kb-focus'));
-kbIdx = Math.max(0, Math.min(idx, els.length - 1));
-els[kbIdx].classList.add('kb-focus');
-    els[kbIdx].scrollIntoView({ block: 'nearest' });
+  function setKb(idx) {
+    els.forEach(i => i.classList.remove('kb-focus'));
+    kbIdx = Math.max(0, Math.min(idx, els.length - 1));
+    els[kbIdx].classList.add('kb-focus');
     els[kbIdx].scrollIntoView({ block:'nearest' });
-}
-
-function open() {
-    closeAllDropdowns();
-    wrapper.classList.add('open');
+  }
+  function open() {
     closeAllDropdowns(); wrapper.classList.add('open');
-requestAnimationFrame(() => {
-      const wrapRect   = wrapper.getBoundingClientRect();
-      const dropHeight = Math.min(drop.scrollHeight, 300);
-      const spaceBelow = window.innerHeight - wrapRect.bottom;
-      const spaceAbove = wrapRect.top;
-      if (spaceBelow < dropHeight + 8 && spaceAbove > spaceBelow) {
-        drop.classList.add('drop-up');
-      } else {
-        drop.classList.remove('drop-up');
-      }
+    requestAnimationFrame(() => {
       const r = wrapper.getBoundingClientRect(), dh = Math.min(drop.scrollHeight, 300);
       drop.classList.toggle('drop-up', window.innerHeight - r.bottom < dh + 8 && r.top > window.innerHeight - r.bottom);
-});
-setKb(0);
-}
-
-  function close() {
-    wrapper.classList.remove('open');
-    drop.classList.remove('drop-up');
-    clearKb();
+    });
+    setKb(0);
   }
-
   function close() { wrapper.classList.remove('open'); drop.classList.remove('drop-up'); clearKb(); }
-function pick(label, value) {
-    trigger.textContent = label;
-    trigger.classList.add('has-value');
-    close();
-    onSelect(value);
-    setTimeout(() => advanceToNext(trigger), 0);
+  function pick(label, value) {
     trigger.textContent = label; trigger.classList.add('has-value');
     close(); onSelect(value); setTimeout(() => advanceToNext(trigger), 0);
-}
+  }
 
-  trigger.addEventListener('click', e => {
-    e.stopPropagation();
-    wrapper.classList.contains('open') ? close() : open();
-  });
+  // Only attach click/keydown listeners ONCE per wrapper — prevent duplicate listeners on rebuild
+  if (!wrapper._listenersAttached) {
+    wrapper._listenersAttached = true;
+    trigger.addEventListener('click', e => { e.stopPropagation(); wrapper.classList.contains('open') ? close() : open(); });
+    trigger.addEventListener('keydown', e => {
+      const isOpen = wrapper.classList.contains('open');
+      if (e.key==='Enter'||e.key===' ') { e.preventDefault(); if(!isOpen) open(); else if(kbIdx>=0) pick(els[kbIdx].textContent,els[kbIdx].dataset.val); else close(); }
+      else if (e.key==='ArrowDown') { e.preventDefault(); isOpen ? setKb(kbIdx+1) : open(); }
+      else if (e.key==='ArrowUp')   { e.preventDefault(); isOpen ? setKb(kbIdx-1) : open(); }
+      else if (e.key==='Escape')    { close(); }
+    });
+  } else {
+    // Re-attach open/close/pick to use the fresh els array via wrapper stored refs
+    wrapper._open  = open;
+    wrapper._close = close;
+    wrapper._pick  = pick;
+  }
 
-  trigger.addEventListener('click', e => { e.stopPropagation(); wrapper.classList.contains('open') ? close() : open(); });
-trigger.addEventListener('keydown', e => {
-const isOpen = wrapper.classList.contains('open');
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      if (!isOpen) open();
-      else if (kbIdx >= 0) pick(els[kbIdx].textContent, els[kbIdx].dataset.val);
-      else close();
-    } else if (e.key === 'ArrowDown') { e.preventDefault(); isOpen ? setKb(kbIdx + 1) : open(); }
-    else if (e.key === 'ArrowUp')   { e.preventDefault(); isOpen ? setKb(kbIdx - 1) : open(); }
-    else if (e.key === 'Escape')    { close(); }
-    if (e.key==='Enter'||e.key===' ') { e.preventDefault(); if(!isOpen) open(); else if(kbIdx>=0) pick(els[kbIdx].textContent,els[kbIdx].dataset.val); else close(); }
-    else if (e.key==='ArrowDown') { e.preventDefault(); isOpen ? setKb(kbIdx+1) : open(); }
-    else if (e.key==='ArrowUp')   { e.preventDefault(); isOpen ? setKb(kbIdx-1) : open(); }
-    else if (e.key==='Escape')    { close(); }
-});
-
-  wrapper._reset = () => {
-    trigger.textContent = placeholder || 'Select';
-    trigger.classList.remove('has-value');
-    close();
-  };
+  wrapper._open  = open;
+  wrapper._close = close;
   wrapper._reset = () => { trigger.textContent = placeholder||'Select'; trigger.classList.remove('has-value'); close(); };
 }
 
-// ─── MODEL DROPDOWN (with tooltip) ───────────────────────────────────────────
 function buildModelDropdown() {
-  const hidden    = document.getElementById('model');
-  const colorTrig = document.getElementById('trig_color');
-  const drop      = document.getElementById('drop_model');
-
-  const items = Object.keys(bikeData).map(name => ({ label: name, value: name }));
-
-  buildCustomDrop('wrap_model', 'trig_model', 'drop_model', items, (name) => {
-    hidden.value = name;
-    buildColorDrop('wrap_color', 'trig_color', 'drop_color', 'color', name);
-    setTimeout(() => {
-      colorTrig.focus();
-      document.getElementById('wrap_color').querySelector('.cst').click();
-    }, 50);
   const items = Object.keys(bikeData).map(n => ({ label:n, value:n }));
   buildCustomDrop('wrap_model','trig_model','drop_model', items, name => {
     document.getElementById('model').value = name;
     buildColorDrop('wrap_color','trig_color','drop_color','color', name);
-    setTimeout(() => { document.getElementById('trig_color').focus(); document.getElementById('wrap_color').querySelector('.cst').click(); }, 50);
-}, 'Select Model');
-
-  drop.querySelectorAll('.di').forEach(item => {
+    // Use stored _open ref instead of simulating a click (avoids closeAllDropdowns race)
+    setTimeout(() => {
+      document.getElementById('trig_color').focus();
+      document.getElementById('wrap_color')._open && document.getElementById('wrap_color')._open();
+    }, 60);
+  }, 'Select Model');
   document.querySelectorAll('#drop_model .di').forEach(item => {
-const name = item.textContent;
-item.addEventListener('mouseenter', e => showTooltip(e, name));
-item.addEventListener('mousemove',  e => positionTooltip(e));
-@@ -1992,99 +1224,67 @@ <h3>Date &amp; Time</h3>
+    const name = item.textContent;
+    item.addEventListener('mouseenter', e => showTooltip(e, name));
+    item.addEventListener('mousemove',  e => positionTooltip(e));
+    item.addEventListener('mouseleave', hideTooltip);
+  });
+}
+
 function buildColorDrop(wrapperId, triggerId, dropId, hiddenId, modelName) {
-const hidden = document.getElementById(hiddenId);
-const colors = bikeData[modelName] || {};
-  const items  = Object.entries(colors).map(([c, price]) => ({
-    label: price != null ? `${c} — ₹${price}` : `${c} — Price TBA`,
-    value: c
-  }));
-  buildCustomDrop(wrapperId, triggerId, dropId, items, (val) => {
-    hidden.value = val;
-  }, 'Select Color');
+  const hidden = document.getElementById(hiddenId);
+  const colors = bikeData[modelName] || {};
   const items  = Object.entries(colors).map(([c,price]) => ({ label: price!=null?`${c} — ₹${price}`:`${c} — Price TBA`, value:c }));
   buildCustomDrop(wrapperId, triggerId, dropId, items, val => { hidden.value = val; }, 'Select Color');
 }
 
 function buildPaymentDrop() {
-  const hidden  = document.getElementById('paymentMode');
-  const options = ['Cash','Finance','Both','Will decide later','NA'];
-  const items   = options.map(o => ({ label: o, value: o }));
-  buildCustomDrop('wrap_payment', 'trig_payment', 'drop_payment', items, (val) => {
-    hidden.value = val;
-  }, 'Select Payment Mode');
   const items = ['Cash','Finance','Both','Will decide later','NA'].map(o => ({ label:o, value:o }));
   buildCustomDrop('wrap_payment','trig_payment','drop_payment', items, val => { document.getElementById('paymentMode').value = val; }, 'Select Payment Mode');
 }
 
 function buildSectionDrops(section) {
-  const modelHidden = document.getElementById(`${section}_model`);
-  const colorTrigId = `trig_${section}_color`;
-  const modelItems  = Object.keys(bikeData).map(n => ({ label: n, value: n }));
-
-  buildCustomDrop(`wrap_${section}_model`, `trig_${section}_model`, `drop_${section}_model`,
-    modelItems, (name) => {
-      modelHidden.value = name;
-      buildColorDrop(`wrap_${section}_color`, `trig_${section}_color`, `drop_${section}_color`,
-        `${section}_color`, name);
-      setTimeout(() => {
-        document.getElementById(colorTrigId).focus();
-        document.getElementById(`wrap_${section}_color`).querySelector('.cst').click();
-      }, 50);
-    }, 'Select Model');
   const modelItems = Object.keys(bikeData).map(n => ({ label:n, value:n }));
   buildCustomDrop(`wrap_${section}_model`,`trig_${section}_model`,`drop_${section}_model`, modelItems, name => {
     document.getElementById(`${section}_model`).value = name;
     buildColorDrop(`wrap_${section}_color`,`trig_${section}_color`,`drop_${section}_color`,`${section}_color`, name);
-    setTimeout(() => { document.getElementById(`trig_${section}_color`).focus(); document.getElementById(`wrap_${section}_color`).querySelector('.cst').click(); }, 50);
+    setTimeout(() => {
+      document.getElementById(`trig_${section}_color`).focus();
+      const w = document.getElementById(`wrap_${section}_color`);
+      if (w && w._open) w._open();
+    }, 60);
   }, 'Select Model');
 }
 
 function closeAllDropdowns() {
-  document.querySelectorAll('.csw.open').forEach(w => {
-    w.classList.remove('open');
-    const d = w.querySelector('.cdrop');
-    if (d) d.classList.remove('drop-up');
-  });
   document.querySelectorAll('.csw.open').forEach(w => { w.classList.remove('open'); const d=w.querySelector('.cdrop'); if(d) d.classList.remove('drop-up'); });
-hideTooltip();
+  hideTooltip();
 }
-
 document.addEventListener('click', closeAllDropdowns);
 
-// ─── ADVANCE TO NEXT FIELD ───────────────────────────────────────────────────
 function advanceToNext(el) {
-  const section = el.closest('[id$="Section"]') || el.closest('.box');
   const section = el.closest('[id$="Section"]') || el.closest('.box') || el.closest('.emi-config');
-if (!section) return;
-const fields = Array.from(section.querySelectorAll('input:not([type=hidden]), .cst'));
-  const idx    = fields.indexOf(el);
+  if (!section) return;
+  const fields = Array.from(section.querySelectorAll('input:not([type=hidden]), .cst'));
   const idx = fields.indexOf(el);
-if (idx > -1 && idx < fields.length - 1) fields[idx + 1].focus();
+  if (idx > -1 && idx < fields.length - 1) fields[idx + 1].focus();
 }
 
-// ─── INIT ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  buildModelDropdown();
-  buildPaymentDrop();
-  buildSectionDrops('b');
-  buildSectionDrops('p');
-
   buildModelDropdown(); buildPaymentDrop(); buildSectionDrops('b'); buildSectionDrops('p');
-document.addEventListener('keydown', e => {
-if (e.key !== 'Enter') return;
-const active = document.activeElement;
-if (active.classList.contains('cst')) return;
-    if (active.tagName === 'INPUT' && active.type !== 'hidden') {
-      e.preventDefault();
-      advanceToNext(active);
-    }
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const active = document.activeElement;
+    if (active.classList.contains('cst')) return;
     if (active.tagName==='INPUT' && active.type!=='hidden') { e.preventDefault(); advanceToNext(active); }
-});
+  });
 });
 
-// ─── MODE SWITCHER ───────────────────────────────────────────────────────────
 // ─── MODE SWITCHER ─────────────────────────────────────────────────────────
 let currentMode = 'default';
 function setMode(m) {
-currentMode = m;
-  ['default','booked','purchased'].forEach(s =>
-    document.getElementById(s+'Section').classList.add('hide'));
+  currentMode = m;
   ['default','booked','purchased'].forEach(s => document.getElementById(s+'Section').classList.add('hide'));
-document.getElementById(m+'Section').classList.remove('hide');
-closeAllDropdowns();
+  document.getElementById(m+'Section').classList.remove('hide');
+  closeAllDropdowns();
 }
 
-// ─── COPY ────────────────────────────────────────────────────────────────────
 // ─── COPY ──────────────────────────────────────────────────────────────────
 function copyData() {
-let text = '';
-if (currentMode === 'default') {
-text = [
-      keyEnquiry.value  && `Key enquiry / ${keyEnquiry.value}`,
-      buyingTime.value  && `, Buying time / ${buyingTime.value}`,
-      testRide.value    && `, Test ride date and time / ${testRide.value}`,
-      model.value       && `, Model / ${model.value}`,
-      color.value && color.value !== 'Select Color' && `, Color / ${color.value}`,
+  let text = '';
+  if (currentMode === 'default') {
+    text = [
       keyEnquiry.value   && `Key enquiry / ${keyEnquiry.value}`,
       buyingTime.value   && `, Buying time / ${buyingTime.value}`,
       testRide.value     && `, Test ride date and time / ${testRide.value}`,
       model.value        && `, Model / ${model.value}`,
       color.value && color.value!=='Select Color' && `, Color / ${color.value}`,
-altNumber.value    && `, Alternate number / ${altNumber.value}`,
-paymentMode.value  && `, Payment mode / ${paymentMode.value}`,
-CustomerName.value && `, Customer name / ${CustomerName.value}`,
-@@ -2120,380 +1320,495 @@ <h3>Date &amp; Time</h3>
-alert('Copied ✅');
+      altNumber.value    && `, Alternate number / ${altNumber.value}`,
+      paymentMode.value  && `, Payment mode / ${paymentMode.value}`,
+      CustomerName.value && `, Customer name / ${CustomerName.value}`,
+      lostReason.value   && `, Reason / ${lostReason.value}`
+    ].filter(Boolean).join('');
+  }
+  if (currentMode === 'booked') {
+    text = [
+      b_keyEnquiry.value    && `Key enquiry / ${b_keyEnquiry.value}`,
+      b_model.value         && `, Model / ${b_model.value}`,
+      b_bookingtime.value   && `, Booking date / ${b_bookingtime.value}`,
+      b_dealership.value    && `, Dealership / ${b_dealership.value}`,
+      b_BookingName.value   && `, Booking name / ${b_BookingName.value}`,
+      b_bookingnumber.value && `, Booking number / ${b_bookingnumber.value}`,
+      b_altNumber.value     && `, Alternate number / ${b_altNumber.value}`
+    ].filter(Boolean).join('');
+  }
+  if (currentMode === 'purchased') {
+    text = [
+      p_keyEnquiry.value         && `Key enquiry / ${p_keyEnquiry.value}`,
+      p_model.value              && `, Model / ${p_model.value}`,
+      p_Purchasedate.value       && `, Purchase date / ${p_Purchasedate.value}`,
+      p_Registrationnumber.value && `, Registration number / ${p_Registrationnumber.value}`,
+      p_dealership.value         && `, Dealership / ${p_dealership.value}`,
+      p_BookingName.value        && `, Booking name / ${p_BookingName.value}`,
+      p_bookingnumber.value      && `, Booking number / ${p_bookingnumber.value}`,
+      p_Chassisnumber.value      && `, Chassis number / ${p_Chassisnumber.value}`,
+      p_Enginenumber.value       && `, Engine number / ${p_Enginenumber.value}`,
+      p_altNumber.value          && `, Alternate number / ${p_altNumber.value}`
+    ].filter(Boolean).join('');
+  }
+  navigator.clipboard.writeText(text);
+  alert('Copied ✅');
 }
 
-// ─── RESET ───────────────────────────────────────────────────────────────────
 // ─── RESET ─────────────────────────────────────────────────────────────────
 function resetForm() {
-  const confirmReset = confirm('⚠️ Are you sure?\n\nAll entered data will be cleared.');
-  if (!confirmReset) return;
   if (!confirm('⚠️ Are you sure?\n\nAll entered data will be cleared.')) return;
-document.querySelectorAll('input').forEach(el => el.value = '');
-  const resets = [
-    ['trig_model',       'Select Model'],
-    ['trig_color',       'Select Color'],
-    ['trig_payment',     'Select Payment Mode'],
-    ['trig_b_model',     'Select Model'],
-    ['trig_b_color',     'Select Color'],
-    ['trig_p_model',     'Select Model'],
-    ['trig_p_color',     'Select Color'],
-  ];
-  resets.forEach(([id, placeholder]) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = placeholder;
-    el.classList.remove('has-value');
-  });
-  ['drop_color','drop_b_color','drop_p_color'].forEach(id => {
-    const d = document.getElementById(id);
-    if (d) d.innerHTML = '';
+  document.querySelectorAll('input').forEach(el => el.value = '');
   [['trig_model','Select Model'],['trig_color','Select Color'],['trig_payment','Select Payment Mode'],
    ['trig_b_model','Select Model'],['trig_b_color','Select Color'],
    ['trig_p_model','Select Model'],['trig_p_color','Select Color']].forEach(([id,ph]) => {
     const el = document.getElementById(id); if(!el) return;
     el.textContent = ph; el.classList.remove('has-value');
-});
+  });
   ['drop_color','drop_b_color','drop_p_color'].forEach(id => { const d=document.getElementById(id); if(d) d.innerHTML=''; });
-closeAllDropdowns();
+  closeAllDropdowns();
 }
 
-// ─── BACKGROUND CHANGER ───────────────────────────────────────────────────────
-(function () {
-  const hero       = document.getElementById('heroSection');
-  const fileInput  = document.getElementById('bgFileInput');
-  const uploadArea = document.getElementById('bgUploadArea');
-  const resetBtn   = document.getElementById('bgResetBtn');
-  const currentLbl = document.getElementById('bgCurrentLabel');
-  const toggleBtn  = document.getElementById('bgToggleBtn');
-  const card       = document.getElementById('bgChangerCard');
-
-  const DEFAULT_BG  = "url('himalayan-bg.jpg')";
-  const STORAGE_KEY = 'crm_bg_config';
-
-  toggleBtn.addEventListener('click', function () {
 // ─── BACKGROUND CHANGER (CRM only) ─────────────────────────────────────────
 (function(){
   const hero      = document.getElementById('heroSection');
@@ -3045,37 +1598,10 @@ closeAllDropdowns();
   const STORAGE_KEY='crm_bg_config';
 
   toggleBtn.addEventListener('click', function(){
-const isOpen = card.style.display !== 'none';
-card.style.display = isOpen ? 'none' : 'block';
-toggleBtn.setAttribute('aria-expanded', String(!isOpen));
-});
-
-  function applyDefault() {
-    hero.style.backgroundImage = DEFAULT_BG;
-    hero.style.backgroundColor = '';
-    currentLbl.textContent = 'Default (Himalayan)';
-    localStorage.removeItem(STORAGE_KEY);
-  }
-
-  function applyImage(dataUrl, name) {
-    hero.style.backgroundImage = `url('${dataUrl}')`;
-    hero.style.backgroundColor = '';
-    currentLbl.textContent = name || 'Custom image';
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ type: 'image', value: dataUrl, name: name }));
-  }
-
-  fileInput.addEventListener('change', function () {
-    const file = this.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function (e) { applyImage(e.target.result, file.name); };
-    reader.readAsDataURL(file);
-    this.value = '';
+    const isOpen = card.style.display !== 'none';
+    card.style.display = isOpen ? 'none' : 'block';
+    toggleBtn.setAttribute('aria-expanded', String(!isOpen));
   });
-
-  uploadArea.addEventListener('dragover', function (e) {
-    e.preventDefault();
-    this.style.borderColor = 'rgba(255,215,0,0.6)';
   function applyDefault() { hero.style.backgroundImage=DEFAULT_BG; currentLbl.textContent='Default (Himalayan)'; localStorage.removeItem(STORAGE_KEY); }
   function applyImage(dataUrl,name) { hero.style.backgroundImage=`url('${dataUrl}')`; currentLbl.textContent=name||'Custom image'; localStorage.setItem(STORAGE_KEY,JSON.stringify({type:'image',value:dataUrl,name})); }
 
@@ -3084,38 +1610,15 @@ toggleBtn.setAttribute('aria-expanded', String(!isOpen));
     const reader=new FileReader();
     reader.onload=e=>applyImage(e.target.result,file.name);
     reader.readAsDataURL(file); this.value='';
-});
-  uploadArea.addEventListener('dragleave', function () { this.style.borderColor = ''; });
-  uploadArea.addEventListener('drop', function (e) {
-    e.preventDefault();
-    this.style.borderColor = '';
-    const file = e.dataTransfer.files[0];
-    if (!file || !file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = function (ev) { applyImage(ev.target.result, file.name); };
-    reader.readAsDataURL(file);
+  });
   uploadArea.addEventListener('dragover', e=>{e.preventDefault();uploadArea.style.borderColor='rgba(255,215,0,0.6)';});
   uploadArea.addEventListener('dragleave', ()=>{uploadArea.style.borderColor='';});
   uploadArea.addEventListener('drop', e=>{
     e.preventDefault(); uploadArea.style.borderColor='';
     const file=e.dataTransfer.files[0]; if(!file||!file.type.startsWith('image/')) return;
     const reader=new FileReader(); reader.onload=ev=>applyImage(ev.target.result,file.name); reader.readAsDataURL(file);
-});
-
-resetBtn.addEventListener('click', applyDefault);
-
-  function restore() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const cfg = JSON.parse(saved);
-        if (cfg.type === 'image') { applyImage(cfg.value, cfg.name); return; }
-      } catch(e) {}
-    }
-    currentLbl.textContent = 'Default (Himalayan)';
-  }
-
-  restore();
+  });
+  resetBtn.addEventListener('click', applyDefault);
   (function restore(){
     const saved=localStorage.getItem(STORAGE_KEY);
     if(saved){ try{ const cfg=JSON.parse(saved); if(cfg.type==='image'){applyImage(cfg.value,cfg.name);return;} }catch(e){} }
@@ -3123,37 +1626,16 @@ resetBtn.addEventListener('click', applyDefault);
   })();
 })();
 
-// ─── FOOTER CLOCK + CALENDAR ─────────────────────────────────────────────────
 // ─── CLOCK ─────────────────────────────────────────────────────────────────
 (function(){
-  const monthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const monthsFull  = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const daysShort   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const dnames      = ['Mo','Tu','We','Th','Fr','Sa','Su'];
-
   const MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const MF=['January','February','March','April','May','June','July','August','September','October','November','December'];
   const DS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const DN=['Mo','Tu','We','Th','Fr','Sa','Su'];
-function pad(n){ return String(n).padStart(2,'0'); }
-
-  let calY = new Date().getFullYear();
-  let calM = new Date().getMonth();
-  const popup = document.getElementById('re-cal-popup');
-
+  function pad(n){ return String(n).padStart(2,'0'); }
   let calY=new Date().getFullYear(), calM=new Date().getMonth();
   const popup=document.getElementById('re-cal-popup');
-function tick(){
-    const n = new Date();
-    let h = n.getHours();
-    const ampm = h >= 12 ? 'PM' : 'AM';
-    h = h % 12 || 12;
-    document.getElementById('re-hh').textContent   = pad(h);
-    document.getElementById('re-mm').textContent   = pad(n.getMinutes());
-    document.getElementById('re-ss').textContent   = pad(n.getSeconds());
-    document.getElementById('re-ampm').textContent = ampm;
-    document.getElementById('re-date').textContent = n.getDate() + ' ' + monthsShort[n.getMonth()] + ' ' + n.getFullYear();
-    document.getElementById('re-day').textContent  = daysShort[n.getDay()];
+  function tick(){
     const n=new Date(); let h=n.getHours(); const ampm=h>=12?'PM':'AM'; h=h%12||12;
     document.getElementById('re-hh').textContent=pad(h);
     document.getElementById('re-mm').textContent=pad(n.getMinutes());
@@ -3161,37 +1643,9 @@ function tick(){
     document.getElementById('re-ampm').textContent=ampm;
     document.getElementById('re-date').textContent=n.getDate()+' '+MS[n.getMonth()]+' '+n.getFullYear();
     document.getElementById('re-day').textContent=DS[n.getDay()];
-}
-  tick();
-  setInterval(tick, 1000);
-
+  }
   tick(); setInterval(tick,1000);
-function buildCalendar(){
-    const grid = document.getElementById('re-cal-grid');
-    document.getElementById('re-cal-month').textContent = monthsFull[calM] + ' ' + calY;
-    grid.innerHTML = '';
-    dnames.forEach(d => {
-      const el = document.createElement('div');
-      el.className = 'cal-dname';
-      el.textContent = d;
-      grid.appendChild(el);
-    });
-    const jsFirstDay    = new Date(calY, calM, 1).getDay();
-    const mondayOffset  = (jsFirstDay + 6) % 7;
-    const total         = new Date(calY, calM + 1, 0).getDate();
-    const today         = new Date();
-    for (let i = 0; i < mondayOffset; i++) {
-      const el = document.createElement('div');
-      el.className = 'cal-cell empty';
-      el.textContent = '0';
-      grid.appendChild(el);
-    }
-    for (let d = 1; d <= total; d++) {
-      const el = document.createElement('div');
-      el.className = 'cal-cell';
-      el.textContent = d;
-      if (d === today.getDate() && calM === today.getMonth() && calY === today.getFullYear())
-        el.classList.add('today');
+  function buildCalendar(){
     const grid=document.getElementById('re-cal-grid');
     document.getElementById('re-cal-month').textContent=MF[calM]+' '+calY;
     grid.innerHTML='';
@@ -3203,9 +1657,9 @@ function buildCalendar(){
     for(let d=1;d<=total;d++){
       const el=document.createElement('div');el.className='cal-cell';el.textContent=d;
       if(d===today.getDate()&&calM===today.getMonth()&&calY===today.getFullYear()) el.classList.add('today');
-grid.appendChild(el);
-}
-}
+      grid.appendChild(el);
+    }
+  }
   document.getElementById('re-date').addEventListener('click',e=>{e.stopPropagation();const isOpen=popup.classList.contains('open');popup.classList.toggle('open',!isOpen);if(!isOpen){calY=new Date().getFullYear();calM=new Date().getMonth();buildCalendar();}});
   document.getElementById('re-cal-prev').addEventListener('click',e=>{e.stopPropagation();calM--;if(calM<0){calM=11;calY--;}buildCalendar();});
   document.getElementById('re-cal-next').addEventListener('click',e=>{e.stopPropagation();calM++;if(calM>11){calM=0;calY++;}buildCalendar();});
@@ -3213,20 +1667,10 @@ grid.appendChild(el);
   document.getElementById('re-clock-box').addEventListener('click',e=>e.stopPropagation());
 })();
 
-  document.getElementById('re-date').addEventListener('click', function(e){
-    e.stopPropagation();
-    const isOpen = popup.classList.contains('open');
-    popup.classList.toggle('open', !isOpen);
-    if (!isOpen){ calY = new Date().getFullYear(); calM = new Date().getMonth(); buildCalendar(); }
-  });
 // ─── FOOTER REVEAL ─────────────────────────────────────────────────────────
 const _footer=document.querySelector('.re-footer');
 new IntersectionObserver(([entry])=>{if(entry.isIntersecting)_footer.classList.add('visible');},{threshold:0.08}).observe(_footer);
 
-  document.getElementById('re-cal-prev').addEventListener('click', function(e){
-    e.stopPropagation();
-    calM--; if (calM < 0){ calM = 11; calY--; } buildCalendar();
-  });
 // ─── HAMBURGER ─────────────────────────────────────────────────────────────
 (function(){
   const btn=document.getElementById('hbgBtn'),panel=document.getElementById('hbgPanel'),overlay=document.getElementById('hbgOverlay'),closeBtn=document.getElementById('hbgClose');
@@ -3239,9 +1683,6 @@ new IntersectionObserver(([entry])=>{if(entry.isIntersecting)_footer.classList.a
   panel.addEventListener('click',e=>e.stopPropagation());
 })();
 
-  document.getElementById('re-cal-next').addEventListener('click', function(e){
-    e.stopPropagation();
-    calM++; if (calM > 11){ calM = 0; calY++; } buildCalendar();
 // ─── LOGOUT MODAL ──────────────────────────────────────────────────────────
 (function(){
   const backdrop=document.getElementById('logout-modal-backdrop');
@@ -3266,13 +1707,11 @@ new IntersectionObserver(([entry])=>{if(entry.isIntersecting)_footer.classList.a
       document.getElementById('hbgUserName').textContent='—';
       ['hbgBtn','hbgPanel','hbgOverlay'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('is-open');});
       document.body.style.overflow='';
-      setTimeout(()=>{if(entryInput)entryInput.focus();},100);
+      entryInput.focus();
     },280);
-});
+  });
 })();
 
-  document.addEventListener('click', function(){ popup.classList.remove('open'); });
-  document.getElementById('re-clock-box').addEventListener('click', function(e){ e.stopPropagation(); });
 // ─── ENTRY GATE ────────────────────────────────────────────────────────────
 function getGreeting(){ const h=new Date().getHours(),m=new Date().getMinutes(),t=h*60+m; return t<720?'Good Morning':t<990?'Good Afternoon':'Good Evening'; }
 function greetUser(name){
@@ -3285,43 +1724,24 @@ function greetUser(name){
 (function(){
   const gate=document.getElementById('entry-gate'),appRoot=document.getElementById('app-root');
   const nameInput=document.getElementById('entryName'),btn=document.getElementById('entryBtn'),errMsg=document.getElementById('entryError');
-  const saved=localStorage.getItem('crm_user_name');
-  if(saved&&saved.trim().length>0){ gate.classList.add('gate-hidden'); appRoot.classList.add('app-visible'); greetUser(saved.trim()); return; }
+
   function showError(msg){ errMsg.textContent=msg; errMsg.classList.add('visible'); nameInput.classList.add('has-error'); nameInput.style.animation='none'; requestAnimationFrame(()=>{nameInput.style.animation='entry-shake .38s ease';}); nameInput.focus(); }
   function clearError(){ errMsg.classList.remove('visible'); nameInput.classList.remove('has-error'); }
-  function submit(){ const val=nameInput.value.trim().replace(/\s+/g,' '); if(!val){showError('Please enter your name to continue.');return;} if(val.length<2){showError('Name must be at least 2 characters.');return;} localStorage.setItem('crm_user_name',val); clearError(); gate.classList.add('gate-hidden'); appRoot.classList.add('app-visible'); greetUser(val); }
+  function submit(){ const val=nameInput.value.trim().replace(/\s+/g,' '); if(!val){showError('Please enter your name to continue.');return;} if(val.length<2){showError('Name must be at least 2 characters.');return;} localStorage.setItem('crm_user_name',val); clearError(); gate.classList.add('gate-hidden'); appRoot.classList.add('app-visible'); greetUser(val); document.dispatchEvent(new CustomEvent('crm:logged-in')); }
+
+  // Always attach listeners so they work after logout too
   btn.addEventListener('click',submit);
   nameInput.addEventListener('keydown',e=>{if(e.key==='Enter')submit();});
   nameInput.addEventListener('input',()=>{if(nameInput.value.trim())clearError();});
-  window.addEventListener('load',()=>nameInput.focus());
+
+  const saved=localStorage.getItem('crm_user_name');
+  if(saved&&saved.trim().length>0){
+    gate.classList.add('gate-hidden'); appRoot.classList.add('app-visible'); greetUser(saved.trim());
+  } else {
+    window.addEventListener('load',()=>nameInput.focus());
+  }
 })();
 
-// ─── FOOTER SCROLL REVEAL ────────────────────────────────────────────────────
-const _footer = document.querySelector('.re-footer');
-const _footerObs = new IntersectionObserver(([entry]) => {
-  if (entry.isIntersecting) {
-    _footer.classList.add('visible');
-    _footerObs.disconnect();
-  }
-}, { threshold: 0.08 });
-_footerObs.observe(_footer);
-
-// ─── HAMBURGER MENU ──────────────────────────────────────────────────────────
-(function () {
-  const btn      = document.getElementById('hbgBtn');
-  const panel    = document.getElementById('hbgPanel');
-  const overlay  = document.getElementById('hbgOverlay');
-  const closeBtn = document.getElementById('hbgClose');
-
-  function openMenu() {
-    btn.classList.add('is-open');
-    panel.classList.add('is-open');
-    overlay.classList.add('is-open');
-    btn.setAttribute('aria-expanded', 'true');
-    panel.setAttribute('aria-hidden', 'false');
-    overlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
 // ─── SCROLL NAV DOTS + NAV TABS ────────────────────────────────────────────
 (function(){
   const SECTIONS = [
@@ -3340,23 +1760,12 @@ _footerObs.observe(_footer);
     });
   });
 
-  function closeMenu() {
-    btn.classList.remove('is-open');
-    panel.classList.remove('is-open');
-    overlay.classList.remove('is-open');
-    btn.setAttribute('aria-expanded', 'false');
-    panel.setAttribute('aria-hidden', 'true');
-    overlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
       document.getElementById(SECTIONS[i]?.id)?.scrollIntoView({ behavior:'smooth' });
     });
   });
 
-  function toggleMenu() {
-    btn.classList.contains('is-open') ? closeMenu() : openMenu();
   function updateActive() {
     const mid = window.scrollY + window.innerHeight * 0.38;
     let activeIdx = 0;
@@ -3369,24 +1778,12 @@ _footerObs.observe(_footer);
       const tab = btn.dataset.tab;
       btn.classList.toggle('active', SECTIONS[activeIdx]?.tab === tab);
     });
-}
+  }
 
-  btn.addEventListener('click', function (e) { e.stopPropagation(); toggleMenu(); });
-  overlay.addEventListener('click', closeMenu);
-  closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closeMenu(); });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && btn.classList.contains('is-open')) closeMenu();
-  });
-  panel.addEventListener('click', function (e) { e.stopPropagation(); });
   window.addEventListener('scroll', updateActive, { passive:true });
   updateActive();
 })();
 
-// ─── LOGOUT MODAL ────────────────────────────────────────────────────────────
-(function () {
-  const backdrop   = document.getElementById('logout-modal-backdrop');
-  const cancelBtn  = document.getElementById('lmCancel');
-  const confirmBtn = document.getElementById('lmConfirm');
 // ─── SECTION REVEAL ────────────────────────────────────────────────────────
 (function(){
   const obs = new IntersectionObserver(entries => {
@@ -3397,17 +1794,6 @@ _footerObs.observe(_footer);
   document.querySelectorAll('.reveal-el').forEach(el => obs.observe(el));
 })();
 
-  window.logoutModal = {
-    open: function () {
-      backdrop.classList.add('lm-open');
-      backdrop.setAttribute('aria-hidden', 'false');
-      confirmBtn.focus();
-    },
-    close: function () {
-      backdrop.classList.remove('lm-open');
-      backdrop.setAttribute('aria-hidden', 'true');
-    }
-  };
 // ─── EMI MODEL PICKER ──────────────────────────────────────────────────────
 (function(){
   function fmtINR(n) {
@@ -3415,18 +1801,8 @@ _footerObs.observe(_footer);
   }
   function getCC(name) { const m = name.match(/(\d+)/); return m ? m[1] : '0'; }
 
-  cancelBtn.addEventListener('click', function () { window.logoutModal.close(); });
-  backdrop.addEventListener('click', function (e) {
-    if (e.target === backdrop) window.logoutModal.close();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && backdrop.classList.contains('lm-open')) window.logoutModal.close();
-  });
   let selectedModel = null, currentFilter = 'all';
 
-  confirmBtn.addEventListener('click', function () {
-    localStorage.removeItem('crm_user_name');
-    window.logoutModal.close();
   function buildModelGrid() {
     const grid = document.getElementById('emiModelGrid');
     grid.innerHTML = '';
@@ -3444,18 +1820,10 @@ _footerObs.observe(_footer);
         <div class="emc-price">from ${fmtINR(minPrice)}</div>
       `;
       card.addEventListener('click', () => selectModel(name));
-      card.addEventListener('mouseenter', e => showTooltip(e, name));
-      card.addEventListener('mousemove',  e => positionTooltip(e));
-      card.addEventListener('mouseleave', hideTooltip);
       grid.appendChild(card);
     });
   }
 
-    const appRoot    = document.getElementById('app-root');
-    const gate       = document.getElementById('entry-gate');
-    const entryInput = document.getElementById('entryName');
-    const errMsg     = document.getElementById('entryError');
-    const nameEl     = document.getElementById('hbgUserName');
   function selectModel(name) {
     selectedModel = name;
     document.querySelectorAll('.emi-model-card').forEach(c => c.classList.toggle('selected', c.dataset.model === name));
@@ -3467,63 +1835,26 @@ _footerObs.observe(_footer);
 
     // Header
     document.getElementById('edpModelName').textContent = name;
-    document.getElementById('edpTags').innerHTML =
-      (info.about || []).map(t => `<span class="edp-tag">${t}</span>`).join('');
-
-    // Specs
-    document.getElementById('edpSpecs').innerHTML = `
-      <div class="edp-spec">
-        <div class="edp-spec-label">Engine</div>
-        <div class="edp-spec-val">${info.usp || '—'}</div>
-      </div>
-      <div class="edp-spec">
-        <div class="edp-spec-label">Mileage</div>
-        <div class="edp-spec-val">${info.mileage || '—'}</div>
-      </div>
-    `;
-
-    // Variants
-    document.getElementById('edpVariantGrid').innerHTML =
-      Object.entries(colors).map(([color, price]) => `
-        <div class="edp-variant-card">
-          <span class="edp-vc-name">${color}</span>
-          <span class="edp-vc-price">${price != null ? fmtINR(price) : 'TBA'}</span>
-        </div>
-      `).join('');
 
     // ── EMI Plans ────────────────────────────────────────────────────────
     const emiContainer = document.getElementById('edpEmiGrid');
     const tenures = Object.keys(rates).map(Number);
 
     if (tenures.length > 0) {
-      // Info banner explaining how to read the cards
-      const banner = `
-        <div class="edp-emi-banner">
-          <div class="edp-emi-banner-icon">ℹ️</div>
-          <div class="edp-emi-banner-text">
-            These are <strong>RE Finance rates per ₹1 lakh of loan amount.</strong>
-            For example, if you borrow ₹2 lakhs on a 36-month plan, your monthly EMI will be
-            <strong>₹3,319 × 2 = ₹6,638/month</strong> for 3 years.
-          </div>
-        </div>
+      emiContainer.innerHTML = `
         <div class="edp-emi-grid">
           ${tenures.map(months => {
             const rate = rates[months];
-            const totalPerLakh = rate * months;
-            const interestPerLakh = totalPerLakh - 100000;
             return `
               <div class="edp-emi-card">
                 <div class="edp-emi-tenure">${months} Months</div>
                 <div class="edp-emi-amount">${fmtINR(rate)}</div>
-                <div class="edp-emi-mo">per month</div>
-                <div class="edp-emi-perlakh">per ₹1 lakh loan</div>
-                <div class="edp-emi-total">Total payback: ${fmtINR(totalPerLakh)}<br>Interest: ${fmtINR(interestPerLakh)} per lakh</div>
+                <div class="edp-emi-mo">/month per ₹1L</div>
               </div>
             `;
           }).join('')}
         </div>
       `;
-      emiContainer.innerHTML = banner;
     } else {
       emiContainer.innerHTML = `
         <div class="edp-emi-grid">
@@ -3536,7 +1867,6 @@ _footerObs.observe(_footer);
       `;
     }
 
-    appRoot.classList.remove('app-visible');
     // Show with animation
     panel.style.display = 'block';
     panel.style.animation = 'none';
@@ -3544,22 +1874,6 @@ _footerObs.observe(_footer);
     setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 80);
   }
 
-    setTimeout(function () {
-      gate.classList.remove('gate-hidden');
-      if (entryInput) { entryInput.value = ''; entryInput.classList.remove('has-error'); }
-      if (errMsg)     errMsg.classList.remove('visible');
-      if (nameEl)     nameEl.textContent = '—';
-
-      const hbgBtn     = document.getElementById('hbgBtn');
-      const hbgPanel   = document.getElementById('hbgPanel');
-      const hbgOverlay = document.getElementById('hbgOverlay');
-      if (hbgBtn)     hbgBtn.classList.remove('is-open');
-      if (hbgPanel)   hbgPanel.classList.remove('is-open');
-      if (hbgOverlay) hbgOverlay.classList.remove('is-open');
-      document.body.style.overflow = '';
-
-      setTimeout(function () { if (entryInput) entryInput.focus(); }, 100);
-    }, 280);
   // Filter pills
   document.querySelectorAll('.efp').forEach(pill => {
     pill.addEventListener('click', () => {
@@ -3567,36 +1881,11 @@ _footerObs.observe(_footer);
       document.querySelectorAll('.efp').forEach(p => p.classList.toggle('active', p === pill));
       buildModelGrid();
     });
-});
+  });
 
   buildModelGrid();
 })();
 
-// ─── ENTRY GATE ──────────────────────────────────────────────────────────────
-function getGreeting() {
-  const h = new Date().getHours();
-  const m = new Date().getMinutes();
-  const totalMins = h * 60 + m;
-  if (totalMins < 720)  return 'Good Morning';
-  if (totalMins < 990)  return 'Good Afternoon';
-  return 'Good Evening';
-}
-
-function greetUser(name) {
-  const nameEl    = document.getElementById('hbgUserName');
-  const logoutBtn = document.getElementById('hbgLogoutBtn');
-
-  if (nameEl) nameEl.textContent = name;
-  const greetLine = document.getElementById('hbgGreetingLine');
-  if (greetLine) greetLine.textContent = getGreeting() + ', ' + name;
-
-  if (logoutBtn) {
-    const fresh = logoutBtn.cloneNode(true);
-    logoutBtn.parentNode.replaceChild(fresh, logoutBtn);
-    fresh.addEventListener('click', function (e) {
-      e.stopPropagation();
-      window.logoutModal.open();
-    });
 // ─── NOTES (RIDER'S JOURNAL) ───────────────────────────────────────────────
 (function(){
   const NOTES_KEY = 'crm_rider_notes';
@@ -3658,23 +1947,8 @@ function greetUser(name) {
     }).join('');
     grid.querySelectorAll('.edit-note-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();openEditor(btn.dataset.id);}));
     grid.querySelectorAll('.delete-note-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();deleteNote(btn.dataset.id);}));
-}
-}
+  }
 
-(function () {
-  const gate      = document.getElementById('entry-gate');
-  const appRoot   = document.getElementById('app-root');
-  const nameInput = document.getElementById('entryName');
-  const btn       = document.getElementById('entryBtn');
-  const errMsg    = document.getElementById('entryError');
-
-  // ── Restore session ──
-  const saved = localStorage.getItem('crm_user_name');
-  if (saved && saved.trim().length > 0) {
-    gate.classList.add('gate-hidden');
-    appRoot.classList.add('app-visible');
-    greetUser(saved.trim());
-    return;
   function openEditor(noteId) {
     editingId=noteId||null; selTags=[];
     const titleEl=document.getElementById('nemTitleInput'), bodyEl=document.getElementById('nemBody');
@@ -3690,25 +1964,15 @@ function greetUser(name) {
     document.getElementById('noteEditorBackdrop').setAttribute('aria-hidden','false');
     document.body.style.overflow='hidden';
     setTimeout(()=>titleEl.focus(),100);
-}
+  }
 
-  function showError(msg) {
-    errMsg.textContent = msg;
-    errMsg.classList.add('visible');
-    nameInput.classList.add('has-error');
-    nameInput.style.animation = 'none';
-    requestAnimationFrame(() => { nameInput.style.animation = 'entry-shake 0.38s ease'; });
-    nameInput.focus();
   function closeEditor() {
     document.getElementById('noteEditorBackdrop').classList.remove('ned-open');
     document.getElementById('noteEditorBackdrop').setAttribute('aria-hidden','true');
     document.body.style.overflow='';
     editingId=null; selTags=[];
-}
+  }
 
-  function clearError() {
-    errMsg.classList.remove('visible');
-    nameInput.classList.remove('has-error');
   function saveNote() {
     const title=(document.getElementById('nemTitleInput').value||'').trim();
     const body =(document.getElementById('nemBody').value||'').trim();
@@ -3717,34 +1981,20 @@ function greetUser(name) {
     if(editingId){ notes=notes.map(n=>n.id===editingId?{...n,title,body,tags:[...selTags],updatedAt:now}:n); }
     else { notes.push({id:genId(),title,body,tags:[...selTags],createdAt:now,updatedAt:now}); }
     saveAll(notes); renderNotes(); closeEditor();
-}
+  }
 
-  function enterApp(name) {
-    localStorage.setItem('crm_user_name', name);
-    clearError();
-    gate.classList.add('gate-hidden');
-    appRoot.classList.add('app-visible');
-    greetUser(name);
   function deleteNote(id) {
     if(!confirm('Delete this note?')) return;
     saveAll(loadNotes().filter(n=>n.id!==id)); renderNotes();
-}
+  }
 
-  function submit() {
-    const val = nameInput.value.trim().replace(/\s+/g, ' ');
-    if (!val)           { showError('Please enter your name to continue.'); return; }
-    if (val.length < 2) { showError('Name must be at least 2 characters.'); return; }
-    enterApp(val);
   function updateCharCount() {
     const len=(document.getElementById('nemBody').value||'').length;
     const cc=document.getElementById('nemCharCount');
     cc.textContent=len+' / 1000';
     cc.style.color=len>900?'#FF7F7F':'rgba(255,255,255,0.2)';
-}
+  }
 
-  btn.addEventListener('click', submit);
-  nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
-  nameInput.addEventListener('input', () => { if (nameInput.value.trim()) clearError(); });
   document.querySelectorAll('.nem-tag').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const tag=btn.dataset.tag;
@@ -3766,18 +2016,12 @@ function greetUser(name) {
     if((e.ctrlKey||e.metaKey)&&e.key==='Enter') saveNote();
   });
 
-  window.addEventListener('load', () => { nameInput.focus(); });
   renderNotes();
 })();
 </script>
 
 <style>
 @keyframes entry-shake {
-  0%,100% { transform: translateX(0); }
-  20%      { transform: translateX(-6px); }
-  40%      { transform: translateX(6px); }
-  60%      { transform: translateX(-4px); }
-  80%      { transform: translateX(4px); }
   0%,100%{ transform:translateX(0); }
   20%{ transform:translateX(-6px); }
   40%{ transform:translateX(6px); }
@@ -3785,4 +2029,344 @@ function greetUser(name) {
   80%{ transform:translateX(4px); }
 }
 </style>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     COOKIE CONSENT BANNER + LEGAL MODALS  (added: Jan 2026)
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- Floating bottom banner -->
+<div class="cc-banner" id="ccBanner" role="dialog" aria-live="polite" aria-label="Cookie consent" data-testid="cookie-banner">
+  <div class="cc-banner-head">
+    <div class="cc-banner-icon" aria-hidden="true">🍪</div>
+    <div class="cc-banner-title">We value your privacy</div>
+  </div>
+  <p class="cc-banner-text">
+    Advait CRM uses cookies and <strong>localStorage</strong> to remember your name, EMI inputs and notes — all on your device. Nothing is sent to a server.
+    <button type="button" data-cc-open="cookies" style="background:none;border:0;padding:0;color:var(--cc-accent);font:inherit;cursor:pointer;text-decoration:none;font-weight:500;" data-testid="banner-learn-more">Learn more</button>
+  </p>
+  <div class="cc-banner-actions">
+    <button type="button" class="cc-btn cc-btn-secondary" id="ccManageBtn" data-testid="cookie-manage-btn">Manage Preferences</button>
+    <button type="button" class="cc-btn cc-btn-primary" id="ccAllowAllBtn" data-testid="cookie-allow-all-btn">Allow All</button>
+  </div>
+</div>
+
+<!-- Preferences modal -->
+<div class="cc-overlay" id="ccPrefsOverlay" role="dialog" aria-modal="true" aria-labelledby="ccPrefsTitle" data-testid="cookie-prefs-overlay">
+  <div class="cc-modal">
+    <div class="cc-modal-head">
+      <div class="cc-modal-titles">
+        <h3 id="ccPrefsTitle">Cookie Preferences</h3>
+        <p>Choose what we may store on your device. You can change this any time.</p>
+      </div>
+      <button class="cc-modal-close" data-cc-close aria-label="Close" data-testid="cookie-prefs-close">✕</button>
+    </div>
+    <div class="cc-modal-body">
+      <div class="cc-pref">
+        <div class="cc-pref-info">
+          <h4>Essential<span class="cc-pref-badge">Always On</span></h4>
+          <p>Required to run the app — saves your name, session and core preferences locally. Cannot be turned off.</p>
+        </div>
+        <label class="cc-toggle" aria-label="Essential cookies (always on)">
+          <input type="checkbox" checked disabled data-testid="cc-toggle-essential">
+          <span class="cc-toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="cc-pref">
+        <div class="cc-pref-info">
+          <h4>Analytics</h4>
+          <p>Anonymous usage stats to help us understand which features are useful. Off by default.</p>
+        </div>
+        <label class="cc-toggle" aria-label="Analytics cookies">
+          <input type="checkbox" id="ccTglAnalytics" data-testid="cc-toggle-analytics">
+          <span class="cc-toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="cc-pref">
+        <div class="cc-pref-info">
+          <h4>Preferences</h4>
+          <p>Remembers UI choices like selected bike, EMI inputs and theme so you don't have to re-enter them.</p>
+        </div>
+        <label class="cc-toggle" aria-label="Preference cookies">
+          <input type="checkbox" id="ccTglPrefs" data-testid="cc-toggle-prefs">
+          <span class="cc-toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="cc-modal-foot">
+      <button type="button" class="cc-btn cc-btn-secondary" id="ccRejectAllBtn" data-testid="cookie-reject-all-btn">Reject Non-Essential</button>
+      <button type="button" class="cc-btn cc-btn-primary" id="ccSavePrefsBtn" data-testid="cookie-save-prefs-btn">Save Preferences</button>
+    </div>
+  </div>
+</div>
+
+<!-- Legal pages modal (Terms / Privacy / Cookie Policy) -->
+<div class="cc-overlay" id="ccLegalOverlay" role="dialog" aria-modal="true" aria-labelledby="ccLegalTitle" data-testid="legal-overlay">
+  <div class="cc-modal">
+    <div class="cc-modal-head">
+      <div class="cc-modal-titles">
+        <h3 id="ccLegalTitle">Terms &amp; Conditions</h3>
+        <p id="ccLegalSubtitle">Please read carefully before using the app.</p>
+      </div>
+      <button class="cc-modal-close" data-cc-close aria-label="Close" data-testid="legal-close">✕</button>
+    </div>
+    <div class="cc-modal-body">
+      <div class="cc-legal-body" id="ccLegalContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   STORAGE HELPERS — reusable wrappers around localStorage
+   Stores everything as JSON so values keep their types.
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+  const NS = "advait_re_crm:";
+
+  window.setData = function(key, value){
+    try{
+      localStorage.setItem(NS + key, JSON.stringify({ v: value, t: Date.now() }));
+      return true;
+    }catch(e){ console.warn("setData failed:", e); return false; }
+  };
+  window.getData = function(key, fallback){
+    try{
+      const raw = localStorage.getItem(NS + key);
+      if(raw === null) return (fallback === undefined ? null : fallback);
+      const parsed = JSON.parse(raw);
+      return (parsed && "v" in parsed) ? parsed.v : (fallback === undefined ? null : fallback);
+    }catch(e){ return (fallback === undefined ? null : fallback); }
+  };
+  window.removeData = function(key){ try{ localStorage.removeItem(NS + key); }catch(e){} };
+
+  /* Convenience wrappers asked for in the spec */
+  window.AdvaitStore = {
+    setSelectedBike: (b) => setData("selectedBike", b),
+    getSelectedBike: () => getData("selectedBike"),
+    setEmiInputs:   (o) => setData("emiInputs", o),
+    getEmiInputs:   () => getData("emiInputs", {}),
+    setUserPrefs:   (o) => setData("userPrefs", o),
+    getUserPrefs:   () => getData("userPrefs", {}),
+  };
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   COOKIE CONSENT  (Apple-style)
+   • localStorage key: "advait_cookie_consent_v1"
+   • Banner shown only if no consent recorded.
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+  const CONSENT_KEY = "advait_cookie_consent_v1";
+  const banner   = document.getElementById("ccBanner");
+  const prefsOv  = document.getElementById("ccPrefsOverlay");
+  const legalOv  = document.getElementById("ccLegalOverlay");
+  const tglA     = document.getElementById("ccTglAnalytics");
+  const tglP     = document.getElementById("ccTglPrefs");
+
+  function readConsent(){
+    try{ return JSON.parse(localStorage.getItem(CONSENT_KEY)); }catch(e){ return null; }
+  }
+  function writeConsent(obj){
+    const payload = Object.assign({ essential:true, analytics:false, preferences:false, ts:Date.now(), v:1 }, obj || {});
+    try{ localStorage.setItem(CONSENT_KEY, JSON.stringify(payload)); }catch(e){}
+    document.dispatchEvent(new CustomEvent("cookieconsent:change", { detail: payload }));
+    return payload;
+  }
+  function showBanner(){ banner.classList.add("cc-visible"); banner.setAttribute("aria-hidden","false"); }
+  function hideBanner(){ banner.classList.remove("cc-visible"); banner.setAttribute("aria-hidden","true"); }
+  function openOverlay(el){ el.classList.add("cc-open"); document.body.style.overflow="hidden"; }
+  function closeOverlay(el){ el.classList.remove("cc-open"); document.body.style.overflow=""; }
+
+  /* — Banner buttons — */
+  document.getElementById("ccAllowAllBtn").addEventListener("click", () => {
+    writeConsent({ essential:true, analytics:true, preferences:true });
+    hideBanner();
+  });
+  document.getElementById("ccManageBtn").addEventListener("click", () => {
+    const c = readConsent() || {};
+    tglA.checked = !!c.analytics;
+    tglP.checked = !!c.preferences;
+    openOverlay(prefsOv);
+  });
+
+  /* — Preferences modal — */
+  document.getElementById("ccSavePrefsBtn").addEventListener("click", () => {
+    writeConsent({ essential:true, analytics:tglA.checked, preferences:tglP.checked });
+    closeOverlay(prefsOv);
+    hideBanner();
+  });
+  document.getElementById("ccRejectAllBtn").addEventListener("click", () => {
+    tglA.checked = false; tglP.checked = false;
+    writeConsent({ essential:true, analytics:false, preferences:false });
+    closeOverlay(prefsOv);
+    hideBanner();
+  });
+
+  /* — Generic close handlers — */
+  document.querySelectorAll("[data-cc-close]").forEach(b => b.addEventListener("click", e => {
+    closeOverlay(e.target.closest(".cc-overlay"));
+  }));
+  [prefsOv, legalOv].forEach(ov => ov.addEventListener("click", e => {
+    if(e.target === ov) closeOverlay(ov);
+  }));
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape"){
+      if(prefsOv.classList.contains("cc-open")) closeOverlay(prefsOv);
+      if(legalOv.classList.contains("cc-open")) closeOverlay(legalOv);
+    }
+  });
+
+  /* — Legal page opener (terms / privacy / cookies / prefs) — */
+  document.querySelectorAll("[data-cc-open]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const kind = btn.getAttribute("data-cc-open");
+      if(kind === "prefs"){
+        const c = readConsent() || {};
+        tglA.checked = !!c.analytics;
+        tglP.checked = !!c.preferences;
+        openOverlay(prefsOv);
+        return;
+      }
+      const page = LEGAL_PAGES[kind];
+      if(!page) return;
+      document.getElementById("ccLegalTitle").textContent = page.title;
+      document.getElementById("ccLegalSubtitle").textContent = page.subtitle;
+      document.getElementById("ccLegalContent").innerHTML = page.html;
+      openOverlay(legalOv);
+    });
+  });
+
+  /* — Show banner only if no consent yet — */
+  if(!readConsent()){
+    // Only show after the entry gate is gone (i.e. user is already logged in),
+    // otherwise delay until login completes and listen for the custom event.
+    const alreadyLoggedIn = !!localStorage.getItem('crm_user_name');
+    if(alreadyLoggedIn){
+      setTimeout(showBanner, 900);
+    } else {
+      document.addEventListener('crm:logged-in', function handler(){
+        document.removeEventListener('crm:logged-in', handler);
+        setTimeout(showBanner, 600);
+      });
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   LEGAL PAGE CONTENT  (Apple-style: clear, minimal, professional)
+   ═══════════════════════════════════════════════════════════════ */
+const LEGAL_PAGES = {
+  terms: {
+    title: "Terms & Conditions",
+    subtitle: "Last updated: January 2026",
+    html: `
+      <h4>1. Acceptance of Terms</h4>
+      <p>By using the <strong>Advait Royal Enfield CRM</strong> ("the App"), you agree to these Terms. If you do not agree, please discontinue use.</p>
+
+      <h4>2. About the App</h4>
+      <p>The App is a free, frontend-only tool provided by <strong>Advait</strong> to help riders and dealership staff organise enquiries, calculate EMIs, and keep personal notes. Everything runs in your browser and is stored on your device.</p>
+
+      <h4>3. EMI Calculator Disclaimer</h4>
+      <div class="cc-disclaimer">
+        <strong>Important:</strong> EMI figures shown in this app are <strong>indicative estimates only</strong>, calculated from publicly listed prices and standard interest assumptions. They are <strong>not</strong> a financial offer, loan approval, or quote from Royal Enfield, any NBFC or bank. Actual EMI, interest rate, processing fee, down-payment and on-road price depend on your profile, dealership and current finance partner terms. Always confirm final figures with an authorised Royal Enfield dealer before booking.
+      </div>
+
+      <h4>4. No Financial Liability</h4>
+      <p>Advait, the developer of this App, accepts <strong>no liability</strong> — financial or otherwise — for any decision taken based on information shown here. The App is provided "as is", without warranty of any kind. You are solely responsible for verifying prices, EMI plans, model availability and any other financial commitment with an authorised source.</p>
+
+      <h4>5. Trademarks</h4>
+      <p>"Royal Enfield" and all related model names, logos, colour names and product imagery references are trademarks of <strong>Eicher Motors Ltd.</strong> This App is an independent productivity tool and is <strong>not</strong> affiliated with, endorsed by, or officially connected to Royal Enfield or Eicher Motors.</p>
+
+      <h4>6. Acceptable Use</h4>
+      <ul>
+        <li>Do not use the App for unlawful, fraudulent or misleading purposes.</li>
+        <li>Do not attempt to reverse-engineer, redistribute or repackage the App without permission.</li>
+        <li>Customer data you enter is your responsibility — handle it in line with applicable privacy laws.</li>
+      </ul>
+
+      <h4>7. Changes</h4>
+      <p>We may update these Terms occasionally to reflect new features or legal requirements. Continued use after an update means you accept the revised Terms.</p>
+
+      <h4>8. Contact</h4>
+      <p>Questions about these Terms? Reach out to Advait via the contact links in the footer.</p>
+
+      <div class="cc-meta">© 2026 Advait · Royal Enfield CRM</div>
+    `
+  },
+
+  privacy: {
+    title: "Privacy Policy",
+    subtitle: "Your data stays on your device.",
+    html: `
+      <h4>The Short Version</h4>
+      <p>Advait Royal Enfield CRM is a <strong>frontend-only app</strong>. There is no server, no account, no tracking pixel. Everything you type is saved in your browser's <strong>localStorage</strong> and never leaves your device unless <em>you</em> explicitly share it (e.g. by copying text out).</p>
+
+      <h4>1. What We Store Locally</h4>
+      <ul>
+        <li><strong>Your name</strong> — entered on the welcome gate, used only to personalise the UI.</li>
+        <li><strong>Enquiry / booking / purchase fields</strong> — saved on your device so you can copy them later.</li>
+        <li><strong>EMI inputs &amp; selected bike</strong> — remembered to skip re-entry.</li>
+        <li><strong>Personal notes</strong> — your Rider's Journal entries.</li>
+        <li><strong>Cookie consent choices</strong> — under the key <code>advait_cookie_consent_v1</code>.</li>
+      </ul>
+
+      <h4>2. What We Do <em>Not</em> Collect</h4>
+      <ul>
+        <li>No personal data is transmitted to Advait or any third party.</li>
+        <li>No analytics SDKs, ad networks, or session-replay tools are loaded by default.</li>
+        <li>No accounts, no passwords, no email tracking.</li>
+      </ul>
+
+      <h4>3. Cookies &amp; LocalStorage</h4>
+      <p>The App uses browser <strong>localStorage</strong> — not traditional HTTP cookies — to store your data. You control this via <em>Cookie Preferences</em> in the footer. See our <strong>Cookie Policy</strong> for the full breakdown.</p>
+
+      <h4>4. Your Control</h4>
+      <p>You can erase everything at any time by clearing your browser's site data, or by clicking <strong>Log Out</strong>, which removes your saved name. Reinstalling or switching browsers will also reset all stored data.</p>
+
+      <h4>5. Children</h4>
+      <p>The App is not directed at children under 13. Anyone entering customer information must ensure they have lawful authority to do so under applicable data-protection laws.</p>
+
+      <h4>6. Changes to This Policy</h4>
+      <p>If we add any feature that changes how data is handled (e.g. an optional cloud sync), this policy will be updated and you will see a fresh consent banner.</p>
+
+      <h4>7. Contact</h4>
+      <p>For privacy questions, reach out to <strong>Advait</strong> via the links in the footer.</p>
+
+      <div class="cc-meta">Last updated: January 2026 · © Advait</div>
+    `
+  },
+
+  cookies: {
+    title: "Cookie Policy",
+    subtitle: "How we use localStorage in this app.",
+    html: `
+      <h4>What are "cookies" in this app?</h4>
+      <p>Advait Royal Enfield CRM does not set traditional HTTP cookies. Instead it uses your browser's <strong>localStorage</strong>, which behaves similarly but is fully local — nothing is transmitted to any server.</p>
+
+      <h4>Categories</h4>
+
+      <h4>1. Essential <span class="cc-pref-badge">Always On</span></h4>
+      <p>Required for the app to work. Stores your name, current section, and the entry session flag. Without this you would have to re-enter your name on every page load.</p>
+
+      <h4>2. Analytics <em>(off by default)</em></h4>
+      <p>If enabled, anonymous usage counts could be stored locally (e.g. "EMI calculator opened 12 times") so future versions can highlight your most-used tools. No identifying data and nothing leaves your device.</p>
+
+      <h4>3. Preferences <em>(off by default)</em></h4>
+      <p>If enabled, the app remembers selected bike, EMI inputs and similar UI choices, so you don't have to re-pick them next time.</p>
+
+      <h4>Managing Your Choice</h4>
+      <p>Open <strong>Cookie Preferences</strong> in the footer at any time to change your settings. You can also clear all stored data via your browser's site-data settings.</p>
+
+      <h4>Retention</h4>
+      <p>LocalStorage entries persist until you clear them or change browser. There is no automatic expiry.</p>
+
+      <div class="cc-meta">Last updated: January 2026 · © Advait</div>
+    `
+  }
+};
+</script>
+
 </body>
+</html>
