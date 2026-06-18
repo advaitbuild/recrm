@@ -5,18 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ═══════════════════════════════════════
-     CACHE & PERFORMANCE META
-     ▶ HTML itself is not cached (always latest)
-     ▶ Static assets versioned via ?v=1.0.0
-     ▶ To force users onto a new build, bump APP_VERSION in window.APP_VERSION below
-     ═══════════════════════════════════════ -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+
+
 <meta name="theme-color" content="#0a0a0a">
 <meta name="description" content="Royal Enfield CRM by Advait — manage enquiries, EMI plans & rider notes locally on your device.">
-<script>window.APP_VERSION = "1.0.0";</script>
+
 
 <style>
 /* ── RESET ── */
@@ -27,8 +20,7 @@ html { scroll-behavior:smooth; }
 /* Fix stacking: entry gate and its siblings must never be buried under cookie UI */
 #entry-gate        { z-index:500000 !important; }
 #logout-modal-backdrop { z-index:490000 !important; }
-.cc-banner         { z-index:300000 !important; }
-.cc-overlay        { z-index:310000 !important; }
+
 
 /* ═══════════════════════════════════════
    FIXED GLOBAL HEADER
@@ -2030,47 +2022,7 @@ function greetUser(name){
 }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════
-     COOKIE CONSENT BANNER + LEGAL MODALS  (added: Jan 2026)
-     ═══════════════════════════════════════════════════════════════ -->
 
-<!-- Floating bottom banner -->
-<div class="cc-banner" id="ccBanner" role="dialog" aria-live="polite" aria-label="Cookie consent" data-testid="cookie-banner">
-  <div class="cc-banner-head">
-    <div class="cc-banner-icon" aria-hidden="true">🍪</div>
-    <div class="cc-banner-title">We value your privacy</div>
-  </div>
-  <p class="cc-banner-text">
-    Advait CRM uses cookies and <strong>localStorage</strong> to remember your name, EMI inputs and notes — all on your device. Nothing is sent to a server.
-    <button type="button" data-cc-open="cookies" style="background:none;border:0;padding:0;color:var(--cc-accent);font:inherit;cursor:pointer;text-decoration:none;font-weight:500;" data-testid="banner-learn-more">Learn more</button>
-  </p>
-  <div class="cc-banner-actions">
-    <button type="button" class="cc-btn cc-btn-secondary" id="ccManageBtn" data-testid="cookie-manage-btn">Manage Preferences</button>
-    <button type="button" class="cc-btn cc-btn-primary" id="ccAllowAllBtn" data-testid="cookie-allow-all-btn">Allow All</button>
-  </div>
-</div>
-
-<!-- Preferences modal -->
-<div class="cc-overlay" id="ccPrefsOverlay" role="dialog" aria-modal="true" aria-labelledby="ccPrefsTitle" data-testid="cookie-prefs-overlay">
-  <div class="cc-modal">
-    <div class="cc-modal-head">
-      <div class="cc-modal-titles">
-        <h3 id="ccPrefsTitle">Cookie Preferences</h3>
-        <p>Choose what we may store on your device. You can change this any time.</p>
-      </div>
-      <button class="cc-modal-close" data-cc-close aria-label="Close" data-testid="cookie-prefs-close">✕</button>
-    </div>
-    <div class="cc-modal-body">
-      <div class="cc-pref">
-        <div class="cc-pref-info">
-          <h4>Essential<span class="cc-pref-badge">Always On</span></h4>
-          <p>Required to run the app — saves your name, session and core preferences locally. Cannot be turned off.</p>
-        </div>
-        <label class="cc-toggle" aria-label="Essential cookies (always on)">
-          <input type="checkbox" checked disabled data-testid="cc-toggle-essential">
-          <span class="cc-toggle-slider"></span>
-        </label>
-      </div>
 
       <div class="cc-pref">
         <div class="cc-pref-info">
@@ -2101,21 +2053,7 @@ function greetUser(name){
   </div>
 </div>
 
-<!-- Legal pages modal (Terms / Privacy / Cookie Policy) -->
-<div class="cc-overlay" id="ccLegalOverlay" role="dialog" aria-modal="true" aria-labelledby="ccLegalTitle" data-testid="legal-overlay">
-  <div class="cc-modal">
-    <div class="cc-modal-head">
-      <div class="cc-modal-titles">
-        <h3 id="ccLegalTitle">Terms &amp; Conditions</h3>
-        <p id="ccLegalSubtitle">Please read carefully before using the app.</p>
-      </div>
-      <button class="cc-modal-close" data-cc-close aria-label="Close" data-testid="legal-close">✕</button>
-    </div>
-    <div class="cc-modal-body">
-      <div class="cc-legal-body" id="ccLegalContent"></div>
-    </div>
-  </div>
-</div>
+
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
