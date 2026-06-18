@@ -4,11 +4,31 @@
 <title>Royal Enfield CRM - Offline Ready</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ═══════════════════════════════════════
+     CACHE & PERFORMANCE META
+     ▶ HTML itself is not cached (always latest)
+     ▶ Static assets versioned via ?v=1.0.0
+     ▶ To force users onto a new build, bump APP_VERSION in window.APP_VERSION below
+     ═══════════════════════════════════════ -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Royal Enfield CRM by Advait — manage enquiries, EMI plans & rider notes locally on your device.">
+<script>window.APP_VERSION = "1.0.0";</script>
+
 <style>
 /* ── RESET ── */
 body { margin:0; padding:0; font-family:'Segoe UI',sans-serif; }
 * { position:relative; }
 html { scroll-behavior:smooth; }
+
+/* Fix stacking: entry gate and its siblings must never be buried under cookie UI */
+#entry-gate        { z-index:500000 !important; }
+#logout-modal-backdrop { z-index:490000 !important; }
+.cc-banner         { z-index:300000 !important; }
+.cc-overlay        { z-index:310000 !important; }
 
 /* ═══════════════════════════════════════
    FIXED GLOBAL HEADER
@@ -334,26 +354,19 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 }
 .edp-emi-card {
   background:rgba(229,53,23,0.05); border:1px solid rgba(229,53,23,0.14);
-  border-radius:14px; padding:18px 14px; text-align:center;
+  border-radius:14px; padding:20px 14px; text-align:center;
   transition:background .2s,border-color .2s,transform .2s;
 }
 .edp-emi-card:hover { background:rgba(229,53,23,0.09); border-color:rgba(229,53,23,0.25); transform:translateY(-2px); }
 .edp-emi-tenure {
-  font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
-  color:rgba(229,53,23,0.65); margin-bottom:8px;
+  font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(255,120,90,0.95); margin-bottom:10px;
 }
 .edp-emi-amount {
-  font-size:clamp(18px,2.5vw,24px); font-weight:700; color:#FFD700;
-  font-variant-numeric:tabular-nums; line-height:1; margin-bottom:4px;
+  font-size:clamp(20px,2.5vw,26px); font-weight:700; color:#FFD700;
+  font-variant-numeric:tabular-nums; line-height:1; margin-bottom:6px;
 }
-.edp-emi-mo { font-size:10px; color:rgba(255,255,255,0.28); margin-bottom:2px; }
-.edp-emi-perlakh {
-  font-size:10px; color:rgba(255,215,0,0.38); margin-top:8px; padding-top:8px;
-  border-top:1px solid rgba(255,255,255,0.06); line-height:1.5;
-}
-.edp-emi-total {
-  font-size:10px; color:rgba(255,255,255,0.18); margin-top:4px; line-height:1.4;
-}
+.edp-emi-mo { font-size:10px; color:rgba(255,255,255,0.35); }
 
 /* Plans coming soon */
 .edp-emi-soon {
@@ -366,8 +379,41 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .edp-emi-soon-sub  { font-size:12px; color:rgba(255,255,255,0.18); line-height:1.6; }
 
 /* ═══════════════════════════════════════
-   NOTES SECTION
+   SINGLE NOTE
 ═══════════════════════════════════════ */
+.single-note-wrap {
+  background:rgba(255,255,255,0.025); border:1px solid rgba(255,215,0,0.12);
+  border-radius:18px; overflow:hidden; position:relative; z-index:2;
+  max-width:780px;
+}
+.single-note-textarea {
+  width:100%; min-height:320px; padding:24px 28px; box-sizing:border-box;
+  background:transparent; border:none; outline:none; resize:none;
+  color:rgba(255,255,255,0.78); font-size:15px; line-height:1.8;
+  font-family:'Segoe UI',sans-serif; letter-spacing:0.2px;
+}
+.single-note-textarea::placeholder { color:rgba(255,255,255,0.2); }
+.single-note-textarea:disabled { color:rgba(255,255,255,0.65); cursor:default; }
+.single-note-footer {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 22px; border-top:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.02);
+}
+.single-note-saved { font-size:11px; color:rgba(255,215,0,0.5); letter-spacing:0.3px; }
+.single-note-btn {
+  padding:8px 20px; border-radius:9px; border:none; font-size:13px;
+  font-weight:600; cursor:pointer; transition:all .18s; letter-spacing:0.3px;
+}
+.single-note-btn.save {
+  background:linear-gradient(135deg,#FFD700,#e6b800); color:#111;
+  box-shadow:0 4px 14px rgba(255,215,0,0.2);
+}
+.single-note-btn.save:hover { filter:brightness(1.08); transform:translateY(-1px); }
+.single-note-btn.edit {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.6);
+}
+.single-note-btn.edit:hover { background:rgba(255,255,255,0.1); color:#fff; }
 .notes-section {
   min-height:100vh; background-color:#060606;
   background-image:
@@ -576,8 +622,10 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .cal-cell { font-size:11px; color:rgba(255,255,255,0.38); text-align:center; padding:5px 2px; border-radius:4px; cursor:default; }
 .cal-cell.today { background:rgba(255,215,0,0.15); color:#FFD700; font-weight:600; }
 .cal-cell.empty { opacity:0; pointer-events:none; }
-.re-footer-bar { border-top:1px solid rgba(255,255,255,0.06); text-align:center; padding:14px 16px; color:rgba(255,255,255,0.22); font-size:11px; letter-spacing:0.4px; }
+.re-footer-bar { border-top:1px solid rgba(255,255,255,0.06); text-align:center; padding:10px 16px; color:rgba(255,255,255,0.22); font-size:11px; letter-spacing:0.4px; line-height:1.5; }
 .re-footer-bar span { color:rgba(255,215,0,0.4); }
+.re-footer-legal-btn { background:none; border:0; cursor:pointer; color:rgba(255,255,255,0.38); font:inherit; font-size:11px; letter-spacing:0.4px; padding:0 2px; transition:color .18s; }
+.re-footer-legal-btn:hover { color:#fff; }
 @media(max-width:860px){ .re-footer-inner{ grid-template-columns:repeat(2,1fr); padding:32px 24px 24px; } }
 @media(max-width:480px){ .re-footer-inner{ grid-template-columns:1fr; } }
 
@@ -697,6 +745,222 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 
 #app-root { opacity:0; transition:opacity .5s ease .1s; }
 #app-root.app-visible { opacity:1; }
+
+/* ═══════════════════════════════════════════════════════════════
+   COOKIE CONSENT + LEGAL  (Apple-style glassmorphism)
+   • Font stack: SF Pro / system
+   • Radius: 18-20px · Soft shadows · Cubic-bezier iOS easing
+═══════════════════════════════════════════════════════════════ */
+:root{
+  --cc-font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --cc-ease:cubic-bezier(.22,1,.36,1);
+  --cc-ease-soft:cubic-bezier(.4,0,.2,1);
+  --cc-accent:#E53517;
+  --cc-accent-soft:rgba(229,53,23,.14);
+  --cc-text:#0a0a0a;
+  --cc-text-soft:#3a3a3c;
+  --cc-text-muted:#8e8e93;
+  --cc-divider:rgba(60,60,67,.12);
+  --cc-card:rgba(255,255,255,.78);
+  --cc-card-border:rgba(255,255,255,.55);
+  --cc-shadow:0 18px 50px rgba(0,0,0,.18), 0 6px 18px rgba(0,0,0,.08);
+}
+
+/* ─── Floating Cookie Banner (bottom-center) ─── */
+.cc-banner{
+  position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(140%);
+  width:min(540px, calc(100vw - 32px));
+  background:var(--cc-card);
+  -webkit-backdrop-filter:saturate(180%) blur(28px);
+  backdrop-filter:saturate(180%) blur(28px);
+  border:1px solid var(--cc-card-border);
+  border-radius:22px;
+  padding:22px 22px 18px;
+  box-shadow:var(--cc-shadow);
+  font-family:var(--cc-font);
+  color:var(--cc-text);
+  z-index:99998;
+  opacity:0;
+  transition:transform .65s var(--cc-ease), opacity .5s var(--cc-ease);
+  pointer-events:none;
+}
+.cc-banner.cc-visible{ transform:translateX(-50%) translateY(0); opacity:1; pointer-events:auto; }
+.cc-banner-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.cc-banner-icon{
+  width:34px; height:34px; border-radius:11px;
+  background:linear-gradient(135deg,#fff,#f2f2f7);
+  border:1px solid var(--cc-divider);
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; flex-shrink:0;
+}
+.cc-banner-title{ font-size:15.5px; font-weight:600; letter-spacing:-.01em; }
+.cc-banner-text{
+  font-size:13px; line-height:1.5; color:var(--cc-text-soft);
+  margin:0 0 16px;
+}
+.cc-banner-text a{ color:var(--cc-accent); text-decoration:none; font-weight:500; }
+.cc-banner-text a:hover{ text-decoration:underline; }
+.cc-banner-actions{ display:flex; gap:10px; }
+.cc-btn{
+  flex:1; appearance:none; border:0; cursor:pointer;
+  font-family:var(--cc-font); font-size:13.5px; font-weight:600; letter-spacing:-.005em;
+  padding:11px 14px; border-radius:13px;
+  transition:transform .25s var(--cc-ease-soft), background .25s var(--cc-ease-soft), box-shadow .25s var(--cc-ease-soft);
+}
+.cc-btn:active{ transform:scale(.97); }
+.cc-btn-primary{
+  background:var(--cc-text); color:#fff;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+.cc-btn-primary:hover{ background:#1c1c1e; }
+.cc-btn-secondary{
+  background:rgba(120,120,128,.12); color:var(--cc-text);
+}
+.cc-btn-secondary:hover{ background:rgba(120,120,128,.18); }
+
+/* ─── Modal overlay (preferences + legal) ─── */
+.cc-overlay{
+  position:fixed; inset:0; z-index:99999;
+  background:rgba(0,0,0,.32);
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+  opacity:0; visibility:hidden;
+  transition:opacity .45s var(--cc-ease), visibility .45s var(--cc-ease);
+}
+.cc-overlay.cc-open{ opacity:1; visibility:visible; }
+.cc-modal{
+  width:min(480px, 100%);
+  max-height:min(86vh, 720px);
+  background:rgba(252,252,253,.92);
+  -webkit-backdrop-filter:saturate(180%) blur(40px);
+  backdrop-filter:saturate(180%) blur(40px);
+  border:1px solid rgba(255,255,255,.6);
+  border-radius:22px;
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+  font-family:var(--cc-font); color:var(--cc-text);
+  display:flex; flex-direction:column; overflow:hidden;
+  transform:translateY(24px) scale(.96); opacity:0;
+  transition:transform .55s var(--cc-ease), opacity .4s var(--cc-ease);
+}
+.cc-overlay.cc-open .cc-modal{ transform:translateY(0) scale(1); opacity:1; }
+.cc-modal-head{
+  padding:22px 24px 14px;
+  display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+  border-bottom:1px solid var(--cc-divider);
+}
+.cc-modal-titles h3{
+  margin:0 0 4px; font-size:19px; font-weight:700; letter-spacing:-.02em;
+}
+.cc-modal-titles p{
+  margin:0; font-size:12.5px; color:var(--cc-text-muted); line-height:1.45;
+}
+.cc-modal-close{
+  width:30px; height:30px; border-radius:50%; border:0; cursor:pointer;
+  background:rgba(120,120,128,.16); color:var(--cc-text-soft);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; flex-shrink:0;
+  transition:background .2s var(--cc-ease-soft), transform .2s var(--cc-ease-soft);
+}
+.cc-modal-close:hover{ background:rgba(120,120,128,.26); transform:rotate(90deg); }
+.cc-modal-body{
+  padding:8px 8px 8px; overflow-y:auto; flex:1;
+}
+.cc-modal-body::-webkit-scrollbar{ width:6px; }
+.cc-modal-body::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.15); border-radius:6px; }
+
+/* Preference rows */
+.cc-pref{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+  padding:16px;
+  margin:6px 8px;
+  border-radius:14px;
+  background:rgba(255,255,255,.55);
+  border:1px solid var(--cc-divider);
+  transition:background .2s var(--cc-ease-soft);
+}
+.cc-pref:hover{ background:rgba(255,255,255,.85); }
+.cc-pref-info h4{
+  margin:0 0 4px; font-size:14.5px; font-weight:600; letter-spacing:-.01em;
+}
+.cc-pref-info p{
+  margin:0; font-size:12px; color:var(--cc-text-muted); line-height:1.5;
+}
+.cc-pref-badge{
+  display:inline-block; margin-left:6px; font-size:9.5px; font-weight:700;
+  background:var(--cc-accent-soft); color:var(--cc-accent);
+  padding:2px 7px; border-radius:6px; vertical-align:middle; letter-spacing:.04em;
+}
+
+/* iOS-style toggle */
+.cc-toggle{ position:relative; flex-shrink:0; }
+.cc-toggle input{ position:absolute; opacity:0; width:0; height:0; }
+.cc-toggle-slider{
+  display:block; width:44px; height:26px; border-radius:14px;
+  background:rgba(120,120,128,.32);
+  transition:background .3s var(--cc-ease-soft);
+  cursor:pointer; position:relative;
+}
+.cc-toggle-slider::after{
+  content:""; position:absolute; top:2px; left:2px;
+  width:22px; height:22px; border-radius:50%;
+  background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.18), 0 0 0 .5px rgba(0,0,0,.04);
+  transition:transform .3s var(--cc-ease);
+}
+.cc-toggle input:checked + .cc-toggle-slider{ background:#34c759; }
+.cc-toggle input:checked + .cc-toggle-slider::after{ transform:translateX(18px); }
+.cc-toggle input:disabled + .cc-toggle-slider{ opacity:.55; cursor:not-allowed; }
+.cc-toggle input:disabled:checked + .cc-toggle-slider{ background:#a7a7ac; }
+
+.cc-modal-foot{
+  padding:14px 16px 18px;
+  border-top:1px solid var(--cc-divider);
+  display:flex; gap:10px;
+  background:rgba(255,255,255,.4);
+}
+.cc-modal-foot .cc-btn{ padding:12px 14px; font-size:14px; border-radius:14px; }
+
+/* ─── Legal Pages Content ─── */
+.cc-legal-body{ padding:22px 24px 24px; }
+.cc-legal-body h4{
+  font-size:14.5px; font-weight:700; letter-spacing:-.01em;
+  margin:22px 0 8px; color:var(--cc-text);
+}
+.cc-legal-body h4:first-child{ margin-top:4px; }
+.cc-legal-body p, .cc-legal-body li{
+  font-size:13.5px; line-height:1.65; color:var(--cc-text-soft); margin:0 0 10px;
+}
+.cc-legal-body ul{ padding-left:18px; margin:0 0 12px; }
+.cc-legal-body .cc-disclaimer{
+  margin:14px 0; padding:14px 16px;
+  background:linear-gradient(135deg, rgba(229,53,23,.08), rgba(229,53,23,.04));
+  border:1px solid rgba(229,53,23,.18);
+  border-radius:14px;
+  font-size:13px; color:#7a1d0b; line-height:1.55;
+}
+.cc-legal-body .cc-disclaimer strong{ color:var(--cc-accent); }
+.cc-meta{
+  font-size:11px; color:var(--cc-text-muted); letter-spacing:.02em;
+  margin-top:18px; padding-top:14px; border-top:1px solid var(--cc-divider);
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 520px){
+  .cc-banner{ bottom:14px; padding:18px 18px 16px; border-radius:20px; }
+  .cc-banner-actions{ flex-direction:column; }
+  .cc-btn{ width:100%; }
+  .cc-modal{ border-radius:20px; max-height:90vh; }
+  .cc-modal-head{ padding:18px 18px 12px; }
+  .cc-modal-titles h3{ font-size:18px; }
+  .cc-pref{ padding:14px; margin:6px; }
+  .cc-modal-foot{ flex-direction:column-reverse; padding:12px 14px 16px; }
+  .cc-legal-body{ padding:18px 20px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .cc-banner, .cc-overlay, .cc-modal, .cc-toggle-slider, .cc-toggle-slider::after{
+    transition-duration:.01ms !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -810,9 +1074,8 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
         <button class="bg-reset-btn" id="bgResetBtn">↩ Reset to Default</button>
         <div class="bg-current-label" id="bgCurrentLabel"></div>
       </div>
-      <div class="hbg-section-note">EMI &amp; Journal sections have their own <span>Royal Enfield themed</span> backgrounds that change as you scroll.</div>
     </div>
-  </div>
+  </div><!-- end hbg-body -->
   <div class="hbg-footer" id="hbgFooter">
     <div class="hbg-user-row">
       <div class="hbg-user-info">
@@ -951,16 +1214,7 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 
     <div class="emi-detail-panel" id="emiDetailPanel" style="display:none">
       <div class="edp-top">
-        <div>
-          <div class="edp-model-name" id="edpModelName"></div>
-          <div class="edp-tags" id="edpTags"></div>
-        </div>
-        <div class="edp-specs" id="edpSpecs"></div>
-      </div>
-
-      <div class="edp-block">
-        <div class="edp-block-title">Variants &amp; Ex-showroom Prices</div>
-        <div class="edp-variant-grid" id="edpVariantGrid"></div>
+        <div class="edp-model-name" id="edpModelName"></div>
       </div>
 
       <div class="edp-block">
@@ -978,48 +1232,21 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
       <div>
         <div class="section-eyebrow reveal-el">Personal Notes</div>
         <h2 class="section-title reveal-el" data-delay="1">Rider's <span>Journal</span></h2>
-        <p class="section-sub reveal-el" data-delay="2" style="margin-bottom:0">Track customer calls, follow-ups, bookings &amp; service reminders</p>
-      </div>
-      <div class="notes-header-right reveal-el" data-delay="2">
-        <span class="notes-count-badge" id="notesCountBadge">0 notes</span>
-        <button class="add-note-btn" id="addNoteBtn"><span class="nb-plus">+</span> New Note</button>
       </div>
     </div>
-    <div class="notes-grid" id="notesGrid"></div>
-    <div class="notes-empty" id="notesEmpty">
-      <div class="ne-icon">📓</div>
-      <div class="ne-text">Your journal is empty</div>
-      <div class="ne-sub">Tap "New Note" to start writing</div>
+
+    <div class="single-note-wrap reveal-el" data-delay="2">
+      <textarea id="singleNoteBody" class="single-note-textarea" placeholder="Write anything — customer calls, follow-ups, reminders…"></textarea>
+      <div class="single-note-footer">
+        <span class="single-note-saved" id="singleNoteSaved"></span>
+        <div style="display:flex;gap:10px;">
+          <button class="single-note-btn edit" id="singleNoteEdit" style="display:none">✎ Edit</button>
+          <button class="single-note-btn save" id="singleNoteSave">Save</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- ===== NOTE EDITOR MODAL ===== -->
-<div class="note-editor-backdrop" id="noteEditorBackdrop" aria-hidden="true">
-  <div class="note-editor-modal" id="noteEditorModal" role="dialog" aria-modal="true">
-    <div class="nem-header">
-      <span class="nem-title-lbl" id="nemTitleLbl">New Note</span>
-      <button class="nem-close" id="nemClose" aria-label="Close">✕</button>
-    </div>
-    <input type="text" class="nem-title-input" id="nemTitleInput" placeholder="Note title…" maxlength="80" autocomplete="off">
-    <div class="nem-tags-row" id="nemTags">
-      <button class="nem-tag" data-tag="Customer">Customer</button>
-      <button class="nem-tag" data-tag="Follow-up">Follow-up</button>
-      <button class="nem-tag" data-tag="Service">Service</button>
-      <button class="nem-tag" data-tag="Booking">Booking</button>
-      <button class="nem-tag" data-tag="Delivery">Delivery</button>
-      <button class="nem-tag" data-tag="Personal">Personal</button>
-    </div>
-    <textarea class="nem-body" id="nemBody" placeholder="Write your note here… (Ctrl+Enter to save)" maxlength="1000"></textarea>
-    <div class="nem-footer">
-      <span class="nem-char-count" id="nemCharCount">0 / 1000</span>
-      <div class="nem-actions">
-        <button class="nem-btn-cancel" id="nemCancel">Cancel</button>
-        <button class="nem-btn-save" id="nemSave">Save Note</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ===== FOOTER ===== -->
 <footer class="re-footer">
@@ -1071,7 +1298,16 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
       </div>
     </div>
   </div>
-  <div class="re-footer-bar">© 2026 <span>Advait</span>. All Rights Reserved. &nbsp;·&nbsp; Royal Enfield CRM</div>
+  <div class="re-footer-bar">
+    <div>© 2026 <span>Advait</span>. All Rights Reserved. &nbsp;·&nbsp; Royal Enfield CRM</div>
+    <div style="margin-top:4px;">
+      <button type="button" class="re-footer-legal-btn" data-cc-open="terms">Terms &amp; Conditions</button>
+      <span style="opacity:.3">&nbsp;·&nbsp;</span>
+      <button type="button" class="re-footer-legal-btn" data-cc-open="privacy">Privacy Policy</button>
+      <span style="opacity:.3">&nbsp;·&nbsp;</span>
+      <button type="button" class="re-footer-legal-btn" data-cc-open="prefs">Cookie Preferences</button>
+    </div>
+  </div>
 </footer>
 
 </div><!-- end #app-root -->
@@ -1195,14 +1431,27 @@ function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placehol
     trigger.textContent = label; trigger.classList.add('has-value');
     close(); onSelect(value); setTimeout(() => advanceToNext(trigger), 0);
   }
-  trigger.addEventListener('click', e => { e.stopPropagation(); wrapper.classList.contains('open') ? close() : open(); });
-  trigger.addEventListener('keydown', e => {
-    const isOpen = wrapper.classList.contains('open');
-    if (e.key==='Enter'||e.key===' ') { e.preventDefault(); if(!isOpen) open(); else if(kbIdx>=0) pick(els[kbIdx].textContent,els[kbIdx].dataset.val); else close(); }
-    else if (e.key==='ArrowDown') { e.preventDefault(); isOpen ? setKb(kbIdx+1) : open(); }
-    else if (e.key==='ArrowUp')   { e.preventDefault(); isOpen ? setKb(kbIdx-1) : open(); }
-    else if (e.key==='Escape')    { close(); }
-  });
+
+  // Only attach click/keydown listeners ONCE per wrapper — prevent duplicate listeners on rebuild
+  if (!wrapper._listenersAttached) {
+    wrapper._listenersAttached = true;
+    trigger.addEventListener('click', e => { e.stopPropagation(); wrapper.classList.contains('open') ? close() : open(); });
+    trigger.addEventListener('keydown', e => {
+      const isOpen = wrapper.classList.contains('open');
+      if (e.key==='Enter'||e.key===' ') { e.preventDefault(); if(!isOpen) open(); else if(kbIdx>=0) pick(els[kbIdx].textContent,els[kbIdx].dataset.val); else close(); }
+      else if (e.key==='ArrowDown') { e.preventDefault(); isOpen ? setKb(kbIdx+1) : open(); }
+      else if (e.key==='ArrowUp')   { e.preventDefault(); isOpen ? setKb(kbIdx-1) : open(); }
+      else if (e.key==='Escape')    { close(); }
+    });
+  } else {
+    // Re-attach open/close/pick to use the fresh els array via wrapper stored refs
+    wrapper._open  = open;
+    wrapper._close = close;
+    wrapper._pick  = pick;
+  }
+
+  wrapper._open  = open;
+  wrapper._close = close;
   wrapper._reset = () => { trigger.textContent = placeholder||'Select'; trigger.classList.remove('has-value'); close(); };
 }
 
@@ -1211,7 +1460,11 @@ function buildModelDropdown() {
   buildCustomDrop('wrap_model','trig_model','drop_model', items, name => {
     document.getElementById('model').value = name;
     buildColorDrop('wrap_color','trig_color','drop_color','color', name);
-    setTimeout(() => { document.getElementById('trig_color').focus(); document.getElementById('wrap_color').querySelector('.cst').click(); }, 50);
+    // Use stored _open ref instead of simulating a click (avoids closeAllDropdowns race)
+    setTimeout(() => {
+      document.getElementById('trig_color').focus();
+      document.getElementById('wrap_color')._open && document.getElementById('wrap_color')._open();
+    }, 60);
   }, 'Select Model');
   document.querySelectorAll('#drop_model .di').forEach(item => {
     const name = item.textContent;
@@ -1238,7 +1491,11 @@ function buildSectionDrops(section) {
   buildCustomDrop(`wrap_${section}_model`,`trig_${section}_model`,`drop_${section}_model`, modelItems, name => {
     document.getElementById(`${section}_model`).value = name;
     buildColorDrop(`wrap_${section}_color`,`trig_${section}_color`,`drop_${section}_color`,`${section}_color`, name);
-    setTimeout(() => { document.getElementById(`trig_${section}_color`).focus(); document.getElementById(`wrap_${section}_color`).querySelector('.cst').click(); }, 50);
+    setTimeout(() => {
+      document.getElementById(`trig_${section}_color`).focus();
+      const w = document.getElementById(`wrap_${section}_color`);
+      if (w && w._open) w._open();
+    }, 60);
   }, 'Select Model');
 }
 
@@ -1456,7 +1713,7 @@ new IntersectionObserver(([entry])=>{if(entry.isIntersecting)_footer.classList.a
       document.getElementById('hbgUserName').textContent='—';
       ['hbgBtn','hbgPanel','hbgOverlay'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('is-open');});
       document.body.style.overflow='';
-      setTimeout(()=>{if(entryInput)entryInput.focus();},100);
+      entryInput.focus();
     },280);
   });
 })();
@@ -1473,15 +1730,22 @@ function greetUser(name){
 (function(){
   const gate=document.getElementById('entry-gate'),appRoot=document.getElementById('app-root');
   const nameInput=document.getElementById('entryName'),btn=document.getElementById('entryBtn'),errMsg=document.getElementById('entryError');
-  const saved=localStorage.getItem('crm_user_name');
-  if(saved&&saved.trim().length>0){ gate.classList.add('gate-hidden'); appRoot.classList.add('app-visible'); greetUser(saved.trim()); return; }
+
   function showError(msg){ errMsg.textContent=msg; errMsg.classList.add('visible'); nameInput.classList.add('has-error'); nameInput.style.animation='none'; requestAnimationFrame(()=>{nameInput.style.animation='entry-shake .38s ease';}); nameInput.focus(); }
   function clearError(){ errMsg.classList.remove('visible'); nameInput.classList.remove('has-error'); }
-  function submit(){ const val=nameInput.value.trim().replace(/\s+/g,' '); if(!val){showError('Please enter your name to continue.');return;} if(val.length<2){showError('Name must be at least 2 characters.');return;} localStorage.setItem('crm_user_name',val); clearError(); gate.classList.add('gate-hidden'); appRoot.classList.add('app-visible'); greetUser(val); }
+  function submit(){ const val=nameInput.value.trim().replace(/\s+/g,' '); if(!val){showError('Please enter your name to continue.');return;} if(val.length<2){showError('Name must be at least 2 characters.');return;} localStorage.setItem('crm_user_name',val); clearError(); gate.classList.add('gate-hidden'); appRoot.classList.add('app-visible'); greetUser(val); document.dispatchEvent(new CustomEvent('crm:logged-in')); }
+
+  // Always attach listeners so they work after logout too
   btn.addEventListener('click',submit);
   nameInput.addEventListener('keydown',e=>{if(e.key==='Enter')submit();});
   nameInput.addEventListener('input',()=>{if(nameInput.value.trim())clearError();});
-  window.addEventListener('load',()=>nameInput.focus());
+
+  const saved=localStorage.getItem('crm_user_name');
+  if(saved&&saved.trim().length>0){
+    gate.classList.add('gate-hidden'); appRoot.classList.add('app-visible'); greetUser(saved.trim());
+  } else {
+    window.addEventListener('load',()=>nameInput.focus());
+  }
 })();
 
 // ─── SCROLL NAV DOTS + NAV TABS ────────────────────────────────────────────
@@ -1562,9 +1826,6 @@ function greetUser(name){
         <div class="emc-price">from ${fmtINR(minPrice)}</div>
       `;
       card.addEventListener('click', () => selectModel(name));
-      card.addEventListener('mouseenter', e => showTooltip(e, name));
-      card.addEventListener('mousemove',  e => positionTooltip(e));
-      card.addEventListener('mouseleave', hideTooltip);
       grid.appendChild(card);
     });
   }
@@ -1580,63 +1841,26 @@ function greetUser(name){
 
     // Header
     document.getElementById('edpModelName').textContent = name;
-    document.getElementById('edpTags').innerHTML =
-      (info.about || []).map(t => `<span class="edp-tag">${t}</span>`).join('');
-
-    // Specs
-    document.getElementById('edpSpecs').innerHTML = `
-      <div class="edp-spec">
-        <div class="edp-spec-label">Engine</div>
-        <div class="edp-spec-val">${info.usp || '—'}</div>
-      </div>
-      <div class="edp-spec">
-        <div class="edp-spec-label">Mileage</div>
-        <div class="edp-spec-val">${info.mileage || '—'}</div>
-      </div>
-    `;
-
-    // Variants
-    document.getElementById('edpVariantGrid').innerHTML =
-      Object.entries(colors).map(([color, price]) => `
-        <div class="edp-variant-card">
-          <span class="edp-vc-name">${color}</span>
-          <span class="edp-vc-price">${price != null ? fmtINR(price) : 'TBA'}</span>
-        </div>
-      `).join('');
 
     // ── EMI Plans ────────────────────────────────────────────────────────
     const emiContainer = document.getElementById('edpEmiGrid');
     const tenures = Object.keys(rates).map(Number);
 
     if (tenures.length > 0) {
-      // Info banner explaining how to read the cards
-      const banner = `
-        <div class="edp-emi-banner">
-          <div class="edp-emi-banner-icon">ℹ️</div>
-          <div class="edp-emi-banner-text">
-            These are <strong>RE Finance rates per ₹1 lakh of loan amount.</strong>
-            For example, if you borrow ₹2 lakhs on a 36-month plan, your monthly EMI will be
-            <strong>₹3,319 × 2 = ₹6,638/month</strong> for 3 years.
-          </div>
-        </div>
+      emiContainer.innerHTML = `
         <div class="edp-emi-grid">
           ${tenures.map(months => {
             const rate = rates[months];
-            const totalPerLakh = rate * months;
-            const interestPerLakh = totalPerLakh - 100000;
             return `
               <div class="edp-emi-card">
                 <div class="edp-emi-tenure">${months} Months</div>
                 <div class="edp-emi-amount">${fmtINR(rate)}</div>
-                <div class="edp-emi-mo">per month</div>
-                <div class="edp-emi-perlakh">per ₹1 lakh loan</div>
-                <div class="edp-emi-total">Total payback: ${fmtINR(totalPerLakh)}<br>Interest: ${fmtINR(interestPerLakh)} per lakh</div>
+                <div class="edp-emi-mo">/month per ₹1L</div>
               </div>
             `;
           }).join('')}
         </div>
       `;
-      emiContainer.innerHTML = banner;
     } else {
       emiContainer.innerHTML = `
         <div class="edp-emi-grid">
@@ -1668,137 +1892,46 @@ function greetUser(name){
   buildModelGrid();
 })();
 
-// ─── NOTES (RIDER'S JOURNAL) ───────────────────────────────────────────────
+// ─── SINGLE NOTE ───────────────────────────────────────────────────────────
 (function(){
-  const NOTES_KEY = 'crm_rider_notes';
-  let editingId = null, selTags = [];
+  const KEY = 'crm_single_note';
+  const textarea = document.getElementById('singleNoteBody');
+  const saveBtn  = document.getElementById('singleNoteSave');
+  const editBtn  = document.getElementById('singleNoteEdit');
+  const savedLbl = document.getElementById('singleNoteSaved');
 
-  const TAG_COLORS = {
-    'Customer':  { bg:'rgba(74,144,217,0.12)',  bd:'rgba(74,144,217,0.35)',  c:'rgba(115,174,245,0.9)' },
-    'Follow-up': { bg:'rgba(229,112,32,0.12)',  bd:'rgba(229,112,32,0.35)',  c:'rgba(245,150,80,0.9)'  },
-    'Service':   { bg:'rgba(81,215,137,0.12)',  bd:'rgba(81,215,137,0.35)',  c:'rgba(100,220,150,0.9)' },
-    'Booking':   { bg:'rgba(155,89,182,0.12)',  bd:'rgba(155,89,182,0.35)',  c:'rgba(185,130,220,0.9)' },
-    'Delivery':  { bg:'rgba(26,188,156,0.12)',  bd:'rgba(26,188,156,0.35)',  c:'rgba(70,210,180,0.9)'  },
-    'Personal':  { bg:'rgba(255,215,0,0.10)',   bd:'rgba(255,215,0,0.35)',   c:'rgba(255,215,0,0.9)'   },
-  };
-
-  function loadNotes() { try{ return JSON.parse(localStorage.getItem(NOTES_KEY))||[]; }catch{ return []; } }
-  function saveAll(arr) { localStorage.setItem(NOTES_KEY,JSON.stringify(arr)); }
-  function genId() { return 'n_'+Date.now()+'_'+Math.random().toString(36).slice(2,7); }
-
-  function timeAgo(ts) {
-    const d=Date.now()-ts, s=Math.floor(d/1000);
-    if(s<60) return 'Just now';
-    const m=Math.floor(s/60); if(m<60) return m+'m ago';
-    const h=Math.floor(m/60); if(h<24) return h+'h ago';
-    const dy=Math.floor(h/24); if(dy<30) return dy+'d ago';
-    return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+  function setReadonly(val) {
+    textarea.disabled = val;
+    saveBtn.style.display = val ? 'none' : 'inline-block';
+    editBtn.style.display  = val ? 'inline-block' : 'none';
   }
 
-  function tagChip(tag) {
-    const c=TAG_COLORS[tag]||{bg:'rgba(255,255,255,0.06)',bd:'rgba(255,255,255,0.12)',c:'rgba(255,255,255,0.55)'};
-    return `<span class="note-tag-chip" style="background:${c.bg};border:1px solid ${c.bd};color:${c.c}">${tag}</span>`;
-  }
-
-  function renderNotes() {
-    const notes=loadNotes().sort((a,b)=>b.updatedAt-a.updatedAt);
-    const grid=document.getElementById('notesGrid');
-    const empty=document.getElementById('notesEmpty');
-    const badge=document.getElementById('notesCountBadge');
-    badge.textContent=notes.length+(notes.length===1?' note':' notes');
-    if(!notes.length){ grid.innerHTML=''; empty.style.display='flex'; return; }
-    empty.style.display='none';
-    grid.innerHTML=notes.map(note=>{
-      const preview=(note.body||'').length>140?note.body.slice(0,140)+'…':(note.body||'');
-      const t0=note.tags&&note.tags[0];
-      const bd=t0&&TAG_COLORS[t0]?TAG_COLORS[t0].bd:'rgba(255,215,0,0.3)';
-      return `
-        <div class="note-card" data-id="${note.id}" style="border-left-color:${bd}">
-          <div class="nc-top">
-            <div class="nc-tags">${(note.tags||[]).map(tagChip).join('')}</div>
-            <div class="nc-actions">
-              <button class="nc-btn edit-note-btn"   data-id="${note.id}" title="Edit">✎</button>
-              <button class="nc-btn delete-note-btn" data-id="${note.id}" title="Delete">🗑</button>
-            </div>
-          </div>
-          <div class="nc-title">${note.title||'Untitled'}</div>
-          <div class="nc-body">${preview?preview.replace(/\n/g,'<br>'):'<span style="opacity:.28">No content</span>'}</div>
-          <div class="nc-footer"><span class="nc-time">Updated ${timeAgo(note.updatedAt)}</span></div>
-        </div>
-      `;
-    }).join('');
-    grid.querySelectorAll('.edit-note-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();openEditor(btn.dataset.id);}));
-    grid.querySelectorAll('.delete-note-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();deleteNote(btn.dataset.id);}));
-  }
-
-  function openEditor(noteId) {
-    editingId=noteId||null; selTags=[];
-    const titleEl=document.getElementById('nemTitleInput'), bodyEl=document.getElementById('nemBody');
-    if(noteId){
-      const n=loadNotes().find(x=>x.id===noteId);
-      if(n){ titleEl.value=n.title||''; bodyEl.value=n.body||''; selTags=[...(n.tags||[])]; document.getElementById('nemTitleLbl').textContent='Edit Note'; }
+  function load() {
+    const saved = localStorage.getItem(KEY);
+    if (saved) {
+      textarea.value = saved;
+      savedLbl.textContent = 'Saved locally';
+      setReadonly(true);
     } else {
-      titleEl.value=''; bodyEl.value=''; document.getElementById('nemTitleLbl').textContent='New Note';
+      setReadonly(false);
     }
-    document.querySelectorAll('.nem-tag').forEach(btn=>btn.classList.toggle('selected',selTags.includes(btn.dataset.tag)));
-    updateCharCount();
-    document.getElementById('noteEditorBackdrop').classList.add('ned-open');
-    document.getElementById('noteEditorBackdrop').setAttribute('aria-hidden','false');
-    document.body.style.overflow='hidden';
-    setTimeout(()=>titleEl.focus(),100);
   }
 
-  function closeEditor() {
-    document.getElementById('noteEditorBackdrop').classList.remove('ned-open');
-    document.getElementById('noteEditorBackdrop').setAttribute('aria-hidden','true');
-    document.body.style.overflow='';
-    editingId=null; selTags=[];
-  }
-
-  function saveNote() {
-    const title=(document.getElementById('nemTitleInput').value||'').trim();
-    const body =(document.getElementById('nemBody').value||'').trim();
-    if(!title&&!body){ alert('Add a title or content first.'); return; }
-    let notes=loadNotes(); const now=Date.now();
-    if(editingId){ notes=notes.map(n=>n.id===editingId?{...n,title,body,tags:[...selTags],updatedAt:now}:n); }
-    else { notes.push({id:genId(),title,body,tags:[...selTags],createdAt:now,updatedAt:now}); }
-    saveAll(notes); renderNotes(); closeEditor();
-  }
-
-  function deleteNote(id) {
-    if(!confirm('Delete this note?')) return;
-    saveAll(loadNotes().filter(n=>n.id!==id)); renderNotes();
-  }
-
-  function updateCharCount() {
-    const len=(document.getElementById('nemBody').value||'').length;
-    const cc=document.getElementById('nemCharCount');
-    cc.textContent=len+' / 1000';
-    cc.style.color=len>900?'#FF7F7F':'rgba(255,255,255,0.2)';
-  }
-
-  document.querySelectorAll('.nem-tag').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const tag=btn.dataset.tag;
-      if(selTags.includes(tag)){ selTags=selTags.filter(t=>t!==tag); btn.classList.remove('selected'); }
-      else { selTags.push(tag); btn.classList.add('selected'); }
-    });
+  saveBtn.addEventListener('click', () => {
+    const val = textarea.value.trim();
+    if (!val) return;
+    localStorage.setItem(KEY, textarea.value);
+    savedLbl.textContent = 'Saved locally ✓';
+    setReadonly(true);
   });
 
-  document.getElementById('addNoteBtn').addEventListener('click',()=>openEditor(null));
-  document.getElementById('nemClose').addEventListener('click',closeEditor);
-  document.getElementById('nemCancel').addEventListener('click',closeEditor);
-  document.getElementById('nemSave').addEventListener('click',saveNote);
-  document.getElementById('nemBody').addEventListener('input',updateCharCount);
-  document.getElementById('noteEditorBackdrop').addEventListener('click',e=>{if(e.target===document.getElementById('noteEditorBackdrop'))closeEditor();});
-  document.addEventListener('keydown',e=>{
-    const bd=document.getElementById('noteEditorBackdrop');
-    if(!bd.classList.contains('ned-open')) return;
-    if(e.key==='Escape') closeEditor();
-    if((e.ctrlKey||e.metaKey)&&e.key==='Enter') saveNote();
+  editBtn.addEventListener('click', () => {
+    setReadonly(false);
+    savedLbl.textContent = '';
+    textarea.focus();
   });
 
-  renderNotes();
+  load();
 })();
 </script>
 
@@ -1811,5 +1944,344 @@ function greetUser(name){
   80%{ transform:translateX(4px); }
 }
 </style>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     COOKIE CONSENT BANNER + LEGAL MODALS  (added: Jan 2026)
+     ═══════════════════════════════════════════════════════════════ -->
+
+<!-- Floating bottom banner -->
+<div class="cc-banner" id="ccBanner" role="dialog" aria-live="polite" aria-label="Cookie consent" data-testid="cookie-banner">
+  <div class="cc-banner-head">
+    <div class="cc-banner-icon" aria-hidden="true">🍪</div>
+    <div class="cc-banner-title">We value your privacy</div>
+  </div>
+  <p class="cc-banner-text">
+    Advait CRM uses cookies and <strong>localStorage</strong> to remember your name, EMI inputs and notes — all on your device. Nothing is sent to a server.
+    <button type="button" data-cc-open="cookies" style="background:none;border:0;padding:0;color:var(--cc-accent);font:inherit;cursor:pointer;text-decoration:none;font-weight:500;" data-testid="banner-learn-more">Learn more</button>
+  </p>
+  <div class="cc-banner-actions">
+    <button type="button" class="cc-btn cc-btn-secondary" id="ccManageBtn" data-testid="cookie-manage-btn">Manage Preferences</button>
+    <button type="button" class="cc-btn cc-btn-primary" id="ccAllowAllBtn" data-testid="cookie-allow-all-btn">Allow All</button>
+  </div>
+</div>
+
+<!-- Preferences modal -->
+<div class="cc-overlay" id="ccPrefsOverlay" role="dialog" aria-modal="true" aria-labelledby="ccPrefsTitle" data-testid="cookie-prefs-overlay">
+  <div class="cc-modal">
+    <div class="cc-modal-head">
+      <div class="cc-modal-titles">
+        <h3 id="ccPrefsTitle">Cookie Preferences</h3>
+        <p>Choose what we may store on your device. You can change this any time.</p>
+      </div>
+      <button class="cc-modal-close" data-cc-close aria-label="Close" data-testid="cookie-prefs-close">✕</button>
+    </div>
+    <div class="cc-modal-body">
+      <div class="cc-pref">
+        <div class="cc-pref-info">
+          <h4>Essential<span class="cc-pref-badge">Always On</span></h4>
+          <p>Required to run the app — saves your name, session and core preferences locally. Cannot be turned off.</p>
+        </div>
+        <label class="cc-toggle" aria-label="Essential cookies (always on)">
+          <input type="checkbox" checked disabled data-testid="cc-toggle-essential">
+          <span class="cc-toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="cc-pref">
+        <div class="cc-pref-info">
+          <h4>Analytics</h4>
+          <p>Anonymous usage stats to help us understand which features are useful. Off by default.</p>
+        </div>
+        <label class="cc-toggle" aria-label="Analytics cookies">
+          <input type="checkbox" id="ccTglAnalytics" data-testid="cc-toggle-analytics">
+          <span class="cc-toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="cc-pref">
+        <div class="cc-pref-info">
+          <h4>Preferences</h4>
+          <p>Remembers UI choices like selected bike, EMI inputs and theme so you don't have to re-enter them.</p>
+        </div>
+        <label class="cc-toggle" aria-label="Preference cookies">
+          <input type="checkbox" id="ccTglPrefs" data-testid="cc-toggle-prefs">
+          <span class="cc-toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+    <div class="cc-modal-foot">
+      <button type="button" class="cc-btn cc-btn-secondary" id="ccRejectAllBtn" data-testid="cookie-reject-all-btn">Reject Non-Essential</button>
+      <button type="button" class="cc-btn cc-btn-primary" id="ccSavePrefsBtn" data-testid="cookie-save-prefs-btn">Save Preferences</button>
+    </div>
+  </div>
+</div>
+
+<!-- Legal pages modal (Terms / Privacy / Cookie Policy) -->
+<div class="cc-overlay" id="ccLegalOverlay" role="dialog" aria-modal="true" aria-labelledby="ccLegalTitle" data-testid="legal-overlay">
+  <div class="cc-modal">
+    <div class="cc-modal-head">
+      <div class="cc-modal-titles">
+        <h3 id="ccLegalTitle">Terms &amp; Conditions</h3>
+        <p id="ccLegalSubtitle">Please read carefully before using the app.</p>
+      </div>
+      <button class="cc-modal-close" data-cc-close aria-label="Close" data-testid="legal-close">✕</button>
+    </div>
+    <div class="cc-modal-body">
+      <div class="cc-legal-body" id="ccLegalContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   STORAGE HELPERS — reusable wrappers around localStorage
+   Stores everything as JSON so values keep their types.
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+  const NS = "advait_re_crm:";
+
+  window.setData = function(key, value){
+    try{
+      localStorage.setItem(NS + key, JSON.stringify({ v: value, t: Date.now() }));
+      return true;
+    }catch(e){ console.warn("setData failed:", e); return false; }
+  };
+  window.getData = function(key, fallback){
+    try{
+      const raw = localStorage.getItem(NS + key);
+      if(raw === null) return (fallback === undefined ? null : fallback);
+      const parsed = JSON.parse(raw);
+      return (parsed && "v" in parsed) ? parsed.v : (fallback === undefined ? null : fallback);
+    }catch(e){ return (fallback === undefined ? null : fallback); }
+  };
+  window.removeData = function(key){ try{ localStorage.removeItem(NS + key); }catch(e){} };
+
+  /* Convenience wrappers asked for in the spec */
+  window.AdvaitStore = {
+    setSelectedBike: (b) => setData("selectedBike", b),
+    getSelectedBike: () => getData("selectedBike"),
+    setEmiInputs:   (o) => setData("emiInputs", o),
+    getEmiInputs:   () => getData("emiInputs", {}),
+    setUserPrefs:   (o) => setData("userPrefs", o),
+    getUserPrefs:   () => getData("userPrefs", {}),
+  };
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   COOKIE CONSENT  (Apple-style)
+   • localStorage key: "advait_cookie_consent_v1"
+   • Banner shown only if no consent recorded.
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+  const CONSENT_KEY = "advait_cookie_consent_v1";
+  const banner   = document.getElementById("ccBanner");
+  const prefsOv  = document.getElementById("ccPrefsOverlay");
+  const legalOv  = document.getElementById("ccLegalOverlay");
+  const tglA     = document.getElementById("ccTglAnalytics");
+  const tglP     = document.getElementById("ccTglPrefs");
+
+  function readConsent(){
+    try{ return JSON.parse(localStorage.getItem(CONSENT_KEY)); }catch(e){ return null; }
+  }
+  function writeConsent(obj){
+    const payload = Object.assign({ essential:true, analytics:false, preferences:false, ts:Date.now(), v:1 }, obj || {});
+    try{ localStorage.setItem(CONSENT_KEY, JSON.stringify(payload)); }catch(e){}
+    document.dispatchEvent(new CustomEvent("cookieconsent:change", { detail: payload }));
+    return payload;
+  }
+  function showBanner(){ banner.classList.add("cc-visible"); banner.setAttribute("aria-hidden","false"); }
+  function hideBanner(){ banner.classList.remove("cc-visible"); banner.setAttribute("aria-hidden","true"); }
+  function openOverlay(el){ el.classList.add("cc-open"); document.body.style.overflow="hidden"; }
+  function closeOverlay(el){ el.classList.remove("cc-open"); document.body.style.overflow=""; }
+
+  /* — Banner buttons — */
+  document.getElementById("ccAllowAllBtn").addEventListener("click", () => {
+    writeConsent({ essential:true, analytics:true, preferences:true });
+    hideBanner();
+  });
+  document.getElementById("ccManageBtn").addEventListener("click", () => {
+    const c = readConsent() || {};
+    tglA.checked = !!c.analytics;
+    tglP.checked = !!c.preferences;
+    openOverlay(prefsOv);
+  });
+
+  /* — Preferences modal — */
+  document.getElementById("ccSavePrefsBtn").addEventListener("click", () => {
+    writeConsent({ essential:true, analytics:tglA.checked, preferences:tglP.checked });
+    closeOverlay(prefsOv);
+    hideBanner();
+  });
+  document.getElementById("ccRejectAllBtn").addEventListener("click", () => {
+    tglA.checked = false; tglP.checked = false;
+    writeConsent({ essential:true, analytics:false, preferences:false });
+    closeOverlay(prefsOv);
+    hideBanner();
+  });
+
+  /* — Generic close handlers — */
+  document.querySelectorAll("[data-cc-close]").forEach(b => b.addEventListener("click", e => {
+    closeOverlay(e.target.closest(".cc-overlay"));
+  }));
+  [prefsOv, legalOv].forEach(ov => ov.addEventListener("click", e => {
+    if(e.target === ov) closeOverlay(ov);
+  }));
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape"){
+      if(prefsOv.classList.contains("cc-open")) closeOverlay(prefsOv);
+      if(legalOv.classList.contains("cc-open")) closeOverlay(legalOv);
+    }
+  });
+
+  /* — Legal page opener (terms / privacy / cookies / prefs) — */
+  document.querySelectorAll("[data-cc-open]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const kind = btn.getAttribute("data-cc-open");
+      if(kind === "prefs"){
+        const c = readConsent() || {};
+        tglA.checked = !!c.analytics;
+        tglP.checked = !!c.preferences;
+        openOverlay(prefsOv);
+        return;
+      }
+      const page = LEGAL_PAGES[kind];
+      if(!page) return;
+      document.getElementById("ccLegalTitle").textContent = page.title;
+      document.getElementById("ccLegalSubtitle").textContent = page.subtitle;
+      document.getElementById("ccLegalContent").innerHTML = page.html;
+      openOverlay(legalOv);
+    });
+  });
+
+  /* — Show banner only if no consent yet — */
+  if(!readConsent()){
+    // Only show after the entry gate is gone (i.e. user is already logged in),
+    // otherwise delay until login completes and listen for the custom event.
+    const alreadyLoggedIn = !!localStorage.getItem('crm_user_name');
+    if(alreadyLoggedIn){
+      setTimeout(showBanner, 900);
+    } else {
+      document.addEventListener('crm:logged-in', function handler(){
+        document.removeEventListener('crm:logged-in', handler);
+        setTimeout(showBanner, 600);
+      });
+    }
+  }
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   LEGAL PAGE CONTENT  (Apple-style: clear, minimal, professional)
+   ═══════════════════════════════════════════════════════════════ */
+const LEGAL_PAGES = {
+  terms: {
+    title: "Terms & Conditions",
+    subtitle: "Last updated: January 2026",
+    html: `
+      <h4>1. Acceptance of Terms</h4>
+      <p>By using the <strong>Advait Royal Enfield CRM</strong> ("the App"), you agree to these Terms. If you do not agree, please discontinue use.</p>
+
+      <h4>2. About the App</h4>
+      <p>The App is a free, frontend-only tool provided by <strong>Advait</strong> to help riders and dealership staff organise enquiries, calculate EMIs, and keep personal notes. Everything runs in your browser and is stored on your device.</p>
+
+      <h4>3. EMI Calculator Disclaimer</h4>
+      <div class="cc-disclaimer">
+        <strong>Important:</strong> EMI figures shown in this app are <strong>indicative estimates only</strong>, calculated from publicly listed prices and standard interest assumptions. They are <strong>not</strong> a financial offer, loan approval, or quote from Royal Enfield, any NBFC or bank. Actual EMI, interest rate, processing fee, down-payment and on-road price depend on your profile, dealership and current finance partner terms. Always confirm final figures with an authorised Royal Enfield dealer before booking.
+      </div>
+
+      <h4>4. No Financial Liability</h4>
+      <p>Advait, the developer of this App, accepts <strong>no liability</strong> — financial or otherwise — for any decision taken based on information shown here. The App is provided "as is", without warranty of any kind. You are solely responsible for verifying prices, EMI plans, model availability and any other financial commitment with an authorised source.</p>
+
+      <h4>5. Trademarks</h4>
+      <p>"Royal Enfield" and all related model names, logos, colour names and product imagery references are trademarks of <strong>Eicher Motors Ltd.</strong> This App is an independent productivity tool and is <strong>not</strong> affiliated with, endorsed by, or officially connected to Royal Enfield or Eicher Motors.</p>
+
+      <h4>6. Acceptable Use</h4>
+      <ul>
+        <li>Do not use the App for unlawful, fraudulent or misleading purposes.</li>
+        <li>Do not attempt to reverse-engineer, redistribute or repackage the App without permission.</li>
+        <li>Customer data you enter is your responsibility — handle it in line with applicable privacy laws.</li>
+      </ul>
+
+      <h4>7. Changes</h4>
+      <p>We may update these Terms occasionally to reflect new features or legal requirements. Continued use after an update means you accept the revised Terms.</p>
+
+      <h4>8. Contact</h4>
+      <p>Questions about these Terms? Reach out to Advait via the contact links in the footer.</p>
+
+      <div class="cc-meta">© 2026 Advait · Royal Enfield CRM</div>
+    `
+  },
+
+  privacy: {
+    title: "Privacy Policy",
+    subtitle: "Your data stays on your device.",
+    html: `
+      <h4>The Short Version</h4>
+      <p>Advait Royal Enfield CRM is a <strong>frontend-only app</strong>. There is no server, no account, no tracking pixel. Everything you type is saved in your browser's <strong>localStorage</strong> and never leaves your device unless <em>you</em> explicitly share it (e.g. by copying text out).</p>
+
+      <h4>1. What We Store Locally</h4>
+      <ul>
+        <li><strong>Your name</strong> — entered on the welcome gate, used only to personalise the UI.</li>
+        <li><strong>Enquiry / booking / purchase fields</strong> — saved on your device so you can copy them later.</li>
+        <li><strong>EMI inputs &amp; selected bike</strong> — remembered to skip re-entry.</li>
+        <li><strong>Personal notes</strong> — your Rider's Journal entries.</li>
+        <li><strong>Cookie consent choices</strong> — under the key <code>advait_cookie_consent_v1</code>.</li>
+      </ul>
+
+      <h4>2. What We Do <em>Not</em> Collect</h4>
+      <ul>
+        <li>No personal data is transmitted to Advait or any third party.</li>
+        <li>No analytics SDKs, ad networks, or session-replay tools are loaded by default.</li>
+        <li>No accounts, no passwords, no email tracking.</li>
+      </ul>
+
+      <h4>3. Cookies &amp; LocalStorage</h4>
+      <p>The App uses browser <strong>localStorage</strong> — not traditional HTTP cookies — to store your data. You control this via <em>Cookie Preferences</em> in the footer. See our <strong>Cookie Policy</strong> for the full breakdown.</p>
+
+      <h4>4. Your Control</h4>
+      <p>You can erase everything at any time by clearing your browser's site data, or by clicking <strong>Log Out</strong>, which removes your saved name. Reinstalling or switching browsers will also reset all stored data.</p>
+
+      <h4>5. Children</h4>
+      <p>The App is not directed at children under 13. Anyone entering customer information must ensure they have lawful authority to do so under applicable data-protection laws.</p>
+
+      <h4>6. Changes to This Policy</h4>
+      <p>If we add any feature that changes how data is handled (e.g. an optional cloud sync), this policy will be updated and you will see a fresh consent banner.</p>
+
+      <h4>7. Contact</h4>
+      <p>For privacy questions, reach out to <strong>Advait</strong> via the links in the footer.</p>
+
+      <div class="cc-meta">Last updated: January 2026 · © Advait</div>
+    `
+  },
+
+  cookies: {
+    title: "Cookie Policy",
+    subtitle: "How we use localStorage in this app.",
+    html: `
+      <h4>What are "cookies" in this app?</h4>
+      <p>Advait Royal Enfield CRM does not set traditional HTTP cookies. Instead it uses your browser's <strong>localStorage</strong>, which behaves similarly but is fully local — nothing is transmitted to any server.</p>
+
+      <h4>Categories</h4>
+
+      <h4>1. Essential <span class="cc-pref-badge">Always On</span></h4>
+      <p>Required for the app to work. Stores your name, current section, and the entry session flag. Without this you would have to re-enter your name on every page load.</p>
+
+      <h4>2. Analytics <em>(off by default)</em></h4>
+      <p>If enabled, anonymous usage counts could be stored locally (e.g. "EMI calculator opened 12 times") so future versions can highlight your most-used tools. No identifying data and nothing leaves your device.</p>
+
+      <h4>3. Preferences <em>(off by default)</em></h4>
+      <p>If enabled, the app remembers selected bike, EMI inputs and similar UI choices, so you don't have to re-pick them next time.</p>
+
+      <h4>Managing Your Choice</h4>
+      <p>Open <strong>Cookie Preferences</strong> in the footer at any time to change your settings. You can also clear all stored data via your browser's site-data settings.</p>
+
+      <h4>Retention</h4>
+      <p>LocalStorage entries persist until you clear them or change browser. There is no automatic expiry.</p>
+
+      <div class="cc-meta">Last updated: January 2026 · © Advait</div>
+    `
+  }
+};
+</script>
+
 </body>
 </html>
