@@ -139,6 +139,16 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .resetBtn{ width:49%; background:#FF7F7F; color:white; z-index:1; }
 .hide    { display:none; }
 
+/* ── WORD/CHAR LIMIT WARNING ── */
+.word-limit-banner {
+  display:none; margin-top:10px; padding:10px 14px; border-radius:8px;
+  background:rgba(255,127,127,0.12); border:1px solid rgba(255,127,127,0.45);
+  color:#FF7F7F; font-size:12.5px; font-weight:600; text-align:center;
+  letter-spacing:0.2px; position:relative; z-index:1; box-sizing:border-box;
+}
+.word-limit-banner.show { display:block; animation:wlbIn .25s ease; }
+@keyframes wlbIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+
 /* ── CUSTOM DROPDOWN ── */
 .csw { margin:8px 0; z-index:1; }
 .csw.open { z-index:10000; }
@@ -981,6 +991,7 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
       <button class="copyBtn"  onclick="copyData()">Copy</button>
       <button class="resetBtn" onclick="resetForm()">Reset</button>
     </div>
+    <div class="word-limit-banner" id="wordLimitWarning" role="alert">⚠ Your word count has reached the limit, reduce the count</div>
   </div>
 </div>
 
@@ -1297,6 +1308,7 @@ function buildCustomDrop(wrapperId, triggerId, dropId, items, onSelect, placehol
   function pick(label, value) {
     trigger.textContent = label; trigger.classList.add('has-value');
     close(); onSelect(value); setTimeout(() => advanceToNext(trigger), 0);
+    if (typeof checkWordLimit === 'function') checkWordLimit();
   }
 
   // Only attach click/keydown listeners ONCE per wrapper — prevent duplicate listeners on rebuild
@@ -1397,13 +1409,47 @@ function setMode(m) {
   ['default','booked','purchased'].forEach(s => document.getElementById(s+'Section').classList.add('hide'));
   document.getElementById(m+'Section').classList.remove('hide');
   closeAllDropdowns();
+  checkWordLimit();
 }
 
-// ─── COPY ──────────────────────────────────────────────────────────────────
-function copyData() {
-  let text = '';
-  if (currentMode === 'default') {
-    text = [
+// ─── WORD/CHARACTER LIMIT ──────────────────────────────────────────────────
+// Counts every token split by whitespace (so '/', ',' and label words like
+// "Key", "enquiry" all count) plus a raw character-length check. Whichever
+// metric hits the limit first triggers the warning. No count is ever shown
+// to the user — only the warning message.
+const WORD_LIMIT = 250;
+function countWords(str) {
+  if (!str) return 0;
+  const trimmed = str.trim();
+  return trimmed ? trimmed.split(/\s+/).length : 0;
+}
+function isOverWordLimit(str) {
+  return countWords(str) >= WORD_LIMIT || (str ? str.length : 0) >= WORD_LIMIT;
+}
+function setWordLimitWarning(visible) {
+  const el = document.getElementById('wordLimitWarning');
+  if (el) el.classList.toggle('show', !!visible);
+}
+function checkWordLimit() {
+  const over = isOverWordLimit(buildText(currentMode));
+  setWordLimitWarning(over);
+  return over;
+}
+function attachWordLimitListeners() {
+  ['defaultSection','bookedSection','purchasedSection'].forEach(secId => {
+    const sec = document.getElementById(secId);
+    if (!sec) return;
+    sec.querySelectorAll('input:not([type=hidden])').forEach(inp => {
+      inp.addEventListener('input', checkWordLimit);
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', attachWordLimitListeners);
+
+// ─── BUILD TEXT (shared by Copy + limit check) ─────────────────────────────
+function buildText(mode) {
+  if (mode === 'default') {
+    return [
       keyEnquiry.value   && `Key enquiry / ${keyEnquiry.value}`,
       buyingTime.value   && `, Buying time / ${buyingTime.value}`,
       testRide.value     && `, Test ride date and time / ${testRide.value}`,
@@ -1415,8 +1461,8 @@ function copyData() {
       lostReason.value   && `, Reason / ${lostReason.value}`
     ].filter(Boolean).join('');
   }
-  if (currentMode === 'booked') {
-    text = [
+  if (mode === 'booked') {
+    return [
       b_keyEnquiry.value    && `Key enquiry / ${b_keyEnquiry.value}`,
       b_model.value         && `, Model / ${b_model.value}`,
       b_bookingtime.value   && `, Booking date / ${b_bookingtime.value}`,
@@ -1426,8 +1472,8 @@ function copyData() {
       b_altNumber.value     && `, Alternate number / ${b_altNumber.value}`
     ].filter(Boolean).join('');
   }
-  if (currentMode === 'purchased') {
-    text = [
+  if (mode === 'purchased') {
+    return [
       p_keyEnquiry.value         && `Key enquiry / ${p_keyEnquiry.value}`,
       p_model.value              && `, Model / ${p_model.value}`,
       p_Purchasedate.value       && `, Purchase date / ${p_Purchasedate.value}`,
@@ -1440,6 +1486,13 @@ function copyData() {
       p_altNumber.value          && `, Alternate number / ${p_altNumber.value}`
     ].filter(Boolean).join('');
   }
+  return '';
+}
+
+// ─── COPY ──────────────────────────────────────────────────────────────────
+function copyData() {
+  const text = buildText(currentMode);
+  if (isOverWordLimit(text)) { setWordLimitWarning(true); return; }
   navigator.clipboard.writeText(text);
   alert('Copied ✅');
 }
@@ -1456,6 +1509,7 @@ function resetForm() {
   });
   ['drop_color','drop_b_color','drop_p_color'].forEach(id => { const d=document.getElementById(id); if(d) d.innerHTML=''; });
   closeAllDropdowns();
+  setWordLimitWarning(false);
 }
 
 // ─── BACKGROUND CHANGER + AUTO THEME ────────────────────────────────────────
