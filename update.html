@@ -16,6 +16,9 @@
 <meta http-equiv="Expires" content="0">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="description" content="Royal Enfield CRM by Advait — manage enquiries, EMI plans & rider notes locally on your device.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 <script>window.APP_VERSION = "1.0.0";</script>
 
 <style>
@@ -624,6 +627,146 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .nem-btn-save:hover { filter:brightness(1.08); transform:translateY(-1px); box-shadow:0 6px 20px rgba(255,215,0,0.35); }
 
 /* ═══════════════════════════════════════
+   GALLERY SECTION (segment banners)
+═══════════════════════════════════════ */
+.gallery-section {
+  min-height:100vh; background-color:#070707;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 8% 10%, rgba(229,53,23,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 95% 90%, rgba(255,215,0,0.05) 0%, transparent 60%);
+  position:relative; overflow:hidden;
+}
+.gallery-filter-pills { display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 26px; position:relative; z-index:2; }
+.gallery-grid {
+  display:flex; flex-direction:column; gap:14px; position:relative; z-index:2;
+}
+.gseg-banner {
+  position:relative; height:clamp(150px,24vw,230px); border-radius:18px; overflow:hidden;
+  background:#0a0a0a; border:1px solid rgba(255,255,255,0.07); cursor:pointer;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+  display:flex; align-items:center;
+}
+.gseg-banner:hover { border-color:rgba(255,215,0,0.28); transform:translateY(-3px); box-shadow:0 14px 36px rgba(0,0,0,0.45); }
+.gseg-banner.gseg-hidden { display:none; }
+.gseg-bgtext {
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  font-family:'Anton',Impact,'Segoe UI',sans-serif;
+  font-size:clamp(50px,10vw,124px); font-weight:400; letter-spacing:3px;
+  white-space:nowrap; color:transparent;
+  text-transform:uppercase; pointer-events:none; user-select:none;
+  background:linear-gradient(180deg,rgba(255,255,255,0.13),rgba(255,255,255,0.03));
+  -webkit-background-clip:text; background-clip:text;
+}
+.gseg-fade {
+  position:absolute; inset:0;
+  background:linear-gradient(90deg,rgba(7,7,7,0.05) 0%,rgba(7,7,7,0.55) 55%,rgba(7,7,7,0.92) 100%);
+  pointer-events:none;
+}
+.gseg-bike-wrap {
+  position:absolute; right:2%; bottom:0; height:78%; width:46%; max-width:480px;
+  display:flex; align-items:flex-end; justify-content:center; pointer-events:none;
+}
+.gseg-bike-svg { width:100%; height:100%; filter:drop-shadow(0 10px 18px rgba(0,0,0,0.55)); }
+.gseg-content {
+  position:relative; z-index:2; padding:0 0 0 clamp(20px,4vw,42px); width:54%; box-sizing:border-box;
+}
+.gseg-eyebrow { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(229,53,23,0.8); margin-bottom:8px; }
+.gseg-name { font-size:clamp(20px,2.6vw,30px); font-weight:700; color:#FFD700; margin-bottom:10px; letter-spacing:0.3px; }
+.gseg-models { display:flex; flex-wrap:wrap; gap:6px; }
+.gseg-model-chip {
+  font-size:10.5px; font-weight:600; color:rgba(255,255,255,0.55);
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09);
+  padding:4px 10px; border-radius:6px; letter-spacing:0.2px; transition:color .18s,border-color .18s,background .18s;
+}
+.gseg-banner:hover .gseg-model-chip { border-color:rgba(255,215,0,0.18); }
+.gseg-model-chip:hover { color:#FFD700; background:rgba(255,215,0,0.08); border-color:rgba(255,215,0,0.3); }
+@media(max-width:680px){
+  .gseg-content { width:62%; }
+  .gseg-bike-wrap { width:56%; right:-4%; }
+  .gseg-bgtext { font-size:clamp(34px,12vw,60px); }
+}
+
+/* ── Individual bike cards (below segment banners) ── */
+.gbike-subhead {
+  display:flex; align-items:center; gap:10px; margin:46px 0 20px; position:relative; z-index:2;
+}
+.gbike-subhead-line { height:1px; flex:0 0 24px; background:rgba(255,215,0,0.3); }
+.gbike-subhead-text { font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,0.32); }
+
+.gbike-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:14px; position:relative; z-index:2;
+}
+@media(max-width:480px){ .gbike-grid{ grid-template-columns:repeat(2,1fr); } }
+
+.gbike-card {
+  background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);
+  border-radius:16px; overflow:hidden; cursor:pointer;
+  transition:transform .22s,border-color .22s,box-shadow .22s,background .22s;
+  display:flex; flex-direction:column;
+}
+.gbike-card:hover {
+  transform:translateY(-4px); border-color:rgba(255,215,0,0.3);
+  box-shadow:0 12px 30px rgba(0,0,0,0.4); background:rgba(255,255,255,0.045);
+}
+.gbike-thumb {
+  height:108px; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(ellipse at center,rgba(229,53,23,0.08),rgba(0,0,0,0.2));
+  border-bottom:1px solid rgba(255,255,255,0.05); position:relative;
+}
+.gbike-thumb svg { width:78%; height:78%; opacity:0.85; }
+.gbike-thumb-badge {
+  position:absolute; top:8px; right:8px; font-size:8.5px; font-weight:700;
+  letter-spacing:1px; text-transform:uppercase; color:rgba(229,53,23,0.8);
+  background:rgba(229,53,23,0.1); border:1px solid rgba(229,53,23,0.2);
+  padding:2px 6px; border-radius:4px;
+}
+.gbike-info { padding:11px 13px 13px; }
+.gbike-name { font-size:13px; font-weight:700; color:rgba(255,255,255,0.82); margin-bottom:3px; line-height:1.3; }
+.gbike-price { font-size:11px; color:rgba(255,215,0,0.55); font-variant-numeric:tabular-nums; }
+
+/* ── Bike detail modal ── */
+.gbike-modal-backdrop {
+  position:fixed; inset:0; z-index:400000; background:rgba(0,0,0,0);
+  backdrop-filter:blur(0px); display:flex; align-items:center; justify-content:center;
+  padding:20px; box-sizing:border-box; pointer-events:none;
+  transition:background .3s ease,backdrop-filter .3s ease;
+}
+.gbike-modal-backdrop.gbm-open { background:rgba(0,0,0,0.7); backdrop-filter:blur(10px); pointer-events:all; }
+.gbike-modal {
+  width:min(100%,520px); background:#0f0f0f; border:1px solid rgba(255,215,0,0.14);
+  border-radius:20px; box-shadow:0 28px 70px rgba(0,0,0,0.85); overflow:hidden;
+  opacity:0; transform:translateY(24px) scale(0.96);
+  transition:opacity .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1);
+}
+.gbike-modal-backdrop.gbm-open .gbike-modal { opacity:1; transform:translateY(0) scale(1); }
+.gbm-hero {
+  height:200px; display:flex; align-items:center; justify-content:center; position:relative;
+  background:radial-gradient(ellipse at center,rgba(229,53,23,0.12),rgba(0,0,0,0.3));
+  border-bottom:1px solid rgba(255,215,0,0.08);
+}
+.gbm-hero svg { width:72%; height:72%; }
+.gbm-close {
+  position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:8px;
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.5);
+  cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center;
+  transition:background .15s,color .15s; padding:0;
+}
+.gbm-close:hover { background:rgba(255,127,127,0.12); color:#FF7F7F; border-color:rgba(255,127,127,0.3); }
+.gbm-body { padding:22px 26px 26px; }
+.gbm-name { font-size:21px; font-weight:700; color:#FFD700; margin-bottom:6px; }
+.gbm-seg { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(229,53,23,0.75); margin-bottom:16px; }
+.gbm-row { display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:13px; }
+.gbm-row span:first-child { color:rgba(255,255,255,0.35); }
+.gbm-row span:last-child { color:rgba(255,255,255,0.75); font-weight:600; }
+.gbm-imgs-note {
+  margin-top:18px; padding:14px 16px; border-radius:10px;
+  background:rgba(255,215,0,0.04); border:1px dashed rgba(255,215,0,0.18);
+  font-size:12px; color:rgba(255,255,255,0.4); text-align:center; line-height:1.6;
+}
+.gbm-imgs-note strong { color:rgba(255,215,0,0.6); }
+
+/* ═══════════════════════════════════════
    PREMIUM FOOTER
 ═══════════════════════════════════════ */
 .re-footer {
@@ -866,6 +1009,10 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
       <span class="gh-nav-icon">📝</span>
       <span class="gh-nav-label">Notes</span>
     </button>
+    <button class="gh-nav-item" data-tab="gallery">
+      <span class="gh-nav-icon">🏍️</span>
+      <span class="gh-nav-label">Gallery</span>
+    </button>
   </nav>
   <div class="gh-right">
     <button class="hbg-btn" id="hbgBtn" aria-label="Open menu" aria-expanded="false" aria-controls="hbgPanel">
@@ -925,6 +1072,7 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
   <div class="sn-dot active" data-section="heroSection" title="CRM"></div>
   <div class="sn-dot" data-section="emiSection" title="EMI"></div>
   <div class="sn-dot" data-section="notesSection" title="Notes"></div>
+  <div class="sn-dot" data-section="gallerySection" title="Gallery"></div>
 </div>
 
 <!-- ===== HERO / CRM SECTION ===== -->
@@ -1054,6 +1202,7 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 </section>
 
 <!-- ===== NOTES SECTION ===== -->
+
 <section class="notes-section" id="notesSection">
   <div class="notes-deco-wrap" aria-hidden="true">
     <svg class="notes-deco-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -1133,6 +1282,26 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
   </div>
 </section>
 
+<!-- ===== GALLERY SECTION ===== -->
+<section class="gallery-section" id="gallerySection">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal-el">Explore The Range</div>
+    <h2 class="section-title reveal-el" data-delay="1">Bike <span>Gallery</span></h2>
+
+    <div class="gallery-filter-pills reveal-el" data-delay="2" id="galleryFilterPills">
+      <button class="efp active" data-gfilter="all">All Segments</button>
+      <button class="efp" data-gfilter="Roadster">Roadster</button>
+      <button class="efp" data-gfilter="Heritage">Heritage</button>
+      <button class="efp" data-gfilter="Cruiser">Cruiser</button>
+      <button class="efp" data-gfilter="Adventure">Adventure</button>
+      <button class="efp" data-gfilter="Pure Sport">Pure Sport</button>
+      <button class="efp" data-gfilter="Electric">Electric</button>
+    </div>
+
+    <div class="gallery-grid reveal-el" data-delay="3" id="galleryGrid"></div>
+  </div>
+</section>
+
 <!-- ===== FOOTER ===== -->
 <footer class="re-footer">
   <div class="re-footer-inner">
@@ -1189,6 +1358,23 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 </footer>
 
 </div><!-- end #app-root -->
+
+<!-- ===== BIKE DETAIL MODAL ===== -->
+<div class="gbike-modal-backdrop" id="gbikeModalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="gbike-modal">
+    <div class="gbm-hero" id="gbmHero">
+      <button class="gbm-close" id="gbmClose" aria-label="Close">✕</button>
+    </div>
+    <div class="gbm-body">
+      <div class="gbm-name" id="gbmName"></div>
+      <div class="gbm-seg" id="gbmSeg"></div>
+      <div class="gbm-row"><span>Starting Price</span><span id="gbmPrice"></span></div>
+      <div class="gbm-row"><span>Mileage</span><span id="gbmMileage"></span></div>
+      <div class="gbm-row"><span>Engine</span><span id="gbmEngine"></span></div>
+      <div class="gbm-imgs-note">📷 <strong>Images coming soon</strong> — actual model photos will be added here later.</div>
+    </div>
+  </div>
+</div>
 
 <script>
 // ─── BIKE DATA ─────────────────────────────────────────────────────────────
@@ -1800,13 +1986,14 @@ function greetUser(name){
   const SECTIONS = [
     { id:'heroSection',  tab:null },
     { id:'emiSection',   tab:'emi' },
-    { id:'notesSection', tab:'notes' }
+    { id:'notesSection', tab:'notes' },
+    { id:'gallerySection', tab:'gallery' }
   ];
   const dots    = Array.from(document.querySelectorAll('.sn-dot'));
   const navBtns = document.querySelectorAll('.gh-nav-item[data-tab]');
 
   navBtns.forEach(btn => {
-    if (btn.dataset.tab === 'emi' || btn.dataset.tab === 'notes') btn.classList.remove('coming-soon');
+    if (btn.dataset.tab === 'emi' || btn.dataset.tab === 'notes' || btn.dataset.tab === 'gallery') btn.classList.remove('coming-soon');
     btn.addEventListener('click', () => {
       const match = SECTIONS.find(s => s.tab === btn.dataset.tab);
       if (match) document.getElementById(match.id)?.scrollIntoView({ behavior:'smooth' });
@@ -1946,6 +2133,240 @@ function greetUser(name){
   });
 
   buildModelGrid();
+})();
+
+// ─── GALLERY (segment banners) ─────────────────────────────────────────────
+(function(){
+  const W = 'rgba(255,215,0,0.55)';     // line stroke
+  const Wd= 'rgba(255,215,0,0.18)';     // soft fill
+
+  // Reusable wheel
+  function wheel(cx,cy,r){
+    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${W}" stroke-width="2.6"/>
+            <circle cx="${cx}" cy="${cy}" r="${r*0.42}" fill="none" stroke="${W}" stroke-width="1.4" opacity="0.55"/>
+            <circle cx="${cx}" cy="${cy}" r="2.4" fill="${W}"/>`;
+  }
+  const svgOpen = `<svg class="gseg-bike-svg" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" fill="none">`;
+  const svgClose= `</svg>`;
+
+  const segArt = {
+    'Roadster': svgOpen + `
+      ${wheel(40,118,26)} ${wheel(206,118,26)}
+      <path d="M40 118 L88 86 L150 84 L172 92 L206 118" stroke="${W}" stroke-width="2.6"/>
+      <path d="M88 86 L96 56 L132 50" stroke="${W}" stroke-width="2.6"/>
+      <path d="M132 50 L116 44" stroke="${W}" stroke-width="2.6"/>
+      <path d="M150 84 L160 118" stroke="${W}" stroke-width="2.6"/>
+      <ellipse cx="118" cy="78" rx="26" ry="9" fill="${Wd}" stroke="${W}" stroke-width="1.6"/>
+      <path d="M70 100 Q90 84 116 88" stroke="${W}" stroke-width="2"/>
+    ` + svgClose,
+
+    'Heritage': svgOpen + `
+      ${wheel(42,120,27)} ${wheel(204,120,27)}
+      <path d="M42 120 Q34 96 56 90 L42 120" fill="none" stroke="${W}" stroke-width="1.8" opacity="0.65"/>
+      <path d="M204 120 Q212 96 190 90 L204 120" fill="none" stroke="${W}" stroke-width="1.8" opacity="0.65"/>
+      <path d="M42 120 L86 92 L146 90 L168 100 L204 120" stroke="${W}" stroke-width="2.6"/>
+      <path d="M86 92 L92 60 L120 54" stroke="${W}" stroke-width="2.6"/>
+      <circle cx="124" cy="52" r="8" fill="none" stroke="${W}" stroke-width="1.8"/>
+      <ellipse cx="118" cy="82" rx="24" ry="9" fill="${Wd}" stroke="${W}" stroke-width="1.6"/>
+      <circle cx="100" cy="86" r="4" fill="none" stroke="${W}" stroke-width="1.5"/>
+      <path d="M168 100 Q188 96 198 86 Q204 80 196 76" stroke="${W}" stroke-width="2.2"/>
+    ` + svgClose,
+
+    'Cruiser': svgOpen + `
+      ${wheel(26,122,24)} ${wheel(228,122,24)}
+      <path d="M26 122 L70 100 L150 98 L182 106 L228 122" stroke="${W}" stroke-width="2.6"/>
+      <path d="M70 100 L78 64 L100 58" stroke="${W}" stroke-width="2.6"/>
+      <path d="M70 100 Q56 78 66 60" stroke="${W}" stroke-width="2"/>
+      <ellipse cx="120" cy="92" rx="28" ry="8" fill="${Wd}" stroke="${W}" stroke-width="1.6"/>
+      <path d="M150 98 Q168 92 176 100" stroke="${W}" stroke-width="2"/>
+      <path d="M182 106 L196 122 L210 122" stroke="${W}" stroke-width="2.2"/>
+      <path d="M118 84 Q140 78 152 86" stroke="${W}" stroke-width="1.6" opacity="0.6"/>
+    ` + svgClose,
+
+    'Adventure': svgOpen + `
+      ${wheel(44,114,30)} ${wheel(204,120,24)}
+      <path d="M44 114 L40 78 L36 70" stroke="${W}" stroke-width="2.4"/>
+      <path d="M44 114 L88 92 L150 88 L172 96 L204 120" stroke="${W}" stroke-width="2.6"/>
+      <path d="M88 92 L96 54 L118 44" stroke="${W}" stroke-width="2.6"/>
+      <path d="M30 86 L52 64 L60 50" stroke="${W}" stroke-width="2.2"/>
+      <path d="M118 44 L132 40" stroke="${W}" stroke-width="2.2"/>
+      <ellipse cx="120" cy="80" rx="22" ry="8" fill="${Wd}" stroke="${W}" stroke-width="1.6"/>
+      <path d="M150 88 Q170 86 180 100 L190 120" stroke="${W}" stroke-width="2.2"/>
+    ` + svgClose,
+
+    'Pure Sport': svgOpen + `
+      ${wheel(40,120,25)} ${wheel(206,120,25)}
+      <path d="M40 120 L90 96 L148 96 L172 104 L206 120" stroke="${W}" stroke-width="2.6"/>
+      <path d="M90 96 L98 66 L84 56" stroke="${W}" stroke-width="2.6"/>
+      <path d="M84 56 L70 52" stroke="${W}" stroke-width="2.2"/>
+      <path d="M148 96 Q166 86 176 90 Q184 92 180 100" stroke="${W}" stroke-width="2.2"/>
+      <ellipse cx="118" cy="90" rx="24" ry="7" fill="${Wd}" stroke="${W}" stroke-width="1.6"/>
+      <path d="M68 100 Q88 80 116 86" stroke="${W}" stroke-width="2"/>
+    ` + svgClose,
+
+    'Electric': svgOpen + `
+      ${wheel(42,118,26)} ${wheel(204,118,26)}
+      <path d="M42 118 L86 90 L148 88 L170 96 L204 118" stroke="${W}" stroke-width="2.6"/>
+      <path d="M86 90 L94 58 L122 52" stroke="${W}" stroke-width="2.6"/>
+      <rect x="100" y="92" width="40" height="18" rx="4" fill="${Wd}" stroke="${W}" stroke-width="1.8"/>
+      <circle cx="120" cy="101" r="3" fill="${W}"/>
+      <ellipse cx="116" cy="76" rx="22" ry="7" fill="${Wd}" stroke="${W}" stroke-width="1.6"/>
+      <path d="M148 88 Q164 84 172 92" stroke="${W}" stroke-width="2"/>
+      <path d="M60 96 l6 6 m-2 -10 l6 6" stroke="${W}" stroke-width="1.6" opacity="0.7"/>
+    ` + svgClose
+  };
+
+  // ── Per-bike unique art (so every individual model looks different,
+  //    not just a copy of its segment banner art) ──────────────────────
+  function hashStr(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))>>>0; } return h; }
+  function pick(arr, n){ return arr[n % arr.length]; }
+
+  function bikeArtFor(name, seg){
+    const h = hashStr(name);
+    const headlight = pick(['round','faired','twin'], h);
+    const seatStyle = pick(['flat','hump','sprung'], h >> 2);
+    const barStyle  = pick(['upright','flat','clipon'], h >> 4);
+    const exhaust   = pick(['upswept','straight','twin'], h >> 6);
+    const frontBig  = (seg === 'Adventure') || (h >> 8) % 5 === 0;
+    const windscreen= (seg === 'Cruiser' || seg === 'Adventure') ? (h >> 10) % 2 === 0 : (h >> 10) % 6 === 0;
+
+    const fr = frontBig ? 28 : 25, rr = 25;
+    const fx = 42, fy = 120 - (frontBig ? 2 : 0), rx = 206, ry = 120;
+
+    let html = svgOpen;
+    html += wheel(fx, fy, fr) + wheel(rx, ry, rr);
+    html += `<path d="M${fx} ${fy} L88 92 L150 90 L172 100 L${rx} ${ry}" stroke="${W}" stroke-width="2.6"/>`;
+
+    // front fork + bars
+    if (barStyle === 'upright') {
+      html += `<path d="M88 92 L96 58 L120 48" stroke="${W}" stroke-width="2.6"/>`;
+    } else if (barStyle === 'flat') {
+      html += `<path d="M88 92 L96 60 L116 56" stroke="${W}" stroke-width="2.6"/><path d="M116 56 L130 54" stroke="${W}" stroke-width="2.2"/>`;
+    } else {
+      html += `<path d="M88 92 L96 64 L86 56" stroke="${W}" stroke-width="2.6"/><path d="M86 56 L72 52" stroke="${W}" stroke-width="2.2"/>`;
+    }
+
+    // headlight
+    if (headlight === 'round') {
+      html += `<circle cx="124" cy="50" r="7" fill="none" stroke="${W}" stroke-width="1.8"/>`;
+    } else if (headlight === 'faired') {
+      html += `<ellipse cx="124" cy="50" rx="9" ry="6" fill="${Wd}" stroke="${W}" stroke-width="1.6"/>`;
+    } else {
+      html += `<circle cx="120" cy="50" r="4.5" fill="none" stroke="${W}" stroke-width="1.6"/><circle cx="130" cy="50" r="4.5" fill="none" stroke="${W}" stroke-width="1.6"/>`;
+    }
+
+    // seat / tank
+    html += `<ellipse cx="118" cy="84" rx="25" ry="8.5" fill="${Wd}" stroke="${W}" stroke-width="1.6"/>`;
+    if (seatStyle === 'hump') {
+      html += `<path d="M150 84 Q160 76 168 80" stroke="${W}" stroke-width="2"/>`;
+    } else if (seatStyle === 'sprung') {
+      html += `<circle cx="104" cy="88" r="3.6" fill="none" stroke="${W}" stroke-width="1.4"/>`;
+    }
+
+    // exhaust
+    if (exhaust === 'upswept') {
+      html += `<path d="M172 100 Q190 96 198 86 Q204 80 196 76" stroke="${W}" stroke-width="2.2"/>`;
+    } else if (exhaust === 'twin') {
+      html += `<path d="M172 100 L196 108" stroke="${W}" stroke-width="2.2"/><path d="M172 104 L196 114" stroke="${W}" stroke-width="2.2" opacity="0.7"/>`;
+    } else {
+      html += `<path d="M172 100 L200 102" stroke="${W}" stroke-width="2.2"/>`;
+    }
+
+    if (windscreen) {
+      html += `<path d="M${fx+18} ${fy-22} Q${fx+30} ${fy-46} ${fx+50} ${fy-40}" stroke="${W}" stroke-width="1.6" opacity="0.55"/>`;
+    }
+
+    html += svgClose;
+    return html;
+  }
+
+  // name → segment mapping (drives chips + filter)
+  const segMap = {
+    'Roadster':   ['Hunter 350','Guerrilla 450','Interceptor 650','Shotgun 650'],
+    'Heritage':   ['Bullet 350','Classic 350','Classic 650','Bullet 650','Goan Classic 350'],
+    'Cruiser':    ['Meteor 350','Super Meteor 650'],
+    'Adventure':  ['Himalayan 450','Scram 440','Bear 650'],
+    'Pure Sport': ['Continental GT 650'],
+    'Electric':   ['Flying Flea C6','Flying Flea S6']
+  };
+
+  let gFilter = 'all';
+
+  function modelSegment(name){
+    for (const seg in segMap) if (segMap[seg].includes(name)) return seg;
+    return 'Roadster';
+  }
+  function fmtINR(n){ return '₹' + new Intl.NumberFormat('en-IN',{maximumFractionDigits:0}).format(n); }
+
+  function allModelNames(){
+    const allModels = Object.keys(bikeData || {});
+    const electricOnly = segMap['Electric'].filter(m => !allModels.includes(m));
+    return [...allModels, ...electricOnly];
+  }
+
+  function buildGallery(){
+    const grid = document.getElementById('galleryGrid');
+    grid.innerHTML = '';
+    allModelNames().forEach(name => {
+      const seg = modelSegment(name);
+      const colors = (bikeData || {})[name] || {};
+      const prices = Object.values(colors).filter(p => p != null);
+      const minPrice = prices.length ? Math.min(...prices) : null;
+
+      const banner = document.createElement('div');
+      banner.className = 'gseg-banner' + (gFilter !== 'all' && gFilter !== seg ? ' gseg-hidden' : '');
+      banner.dataset.seg = seg;
+      banner.innerHTML = `
+        <div class="gseg-bgtext">${seg}</div>
+        <div class="gseg-bike-wrap">${bikeArtFor(name, seg)}</div>
+        <div class="gseg-fade"></div>
+        <div class="gseg-content">
+          <div class="gseg-eyebrow">Royal Enfield</div>
+          <div class="gseg-name">${name}</div>
+          <div class="gseg-models">
+            <span class="gseg-model-chip">${minPrice ? 'From ' + fmtINR(minPrice) : 'Price TBA'}</span>
+          </div>
+        </div>
+      `;
+      banner.addEventListener('click', () => openBikeModal(name, seg, minPrice));
+      grid.appendChild(banner);
+    });
+  }
+
+  document.querySelectorAll('#galleryFilterPills .efp').forEach(pill => {
+    pill.addEventListener('click', () => {
+      gFilter = pill.dataset.gfilter;
+      document.querySelectorAll('#galleryFilterPills .efp').forEach(p => p.classList.toggle('active', p === pill));
+      document.querySelectorAll('.gseg-banner').forEach(b => {
+        b.classList.toggle('gseg-hidden', gFilter !== 'all' && b.dataset.seg !== gFilter);
+      });
+    });
+  });
+
+  buildGallery();
+
+  function openBikeModal(name, seg, minPrice){
+    const info = (bikeInfo || {})[name] || {};
+    document.getElementById('gbmHero').innerHTML = `<button class="gbm-close" id="gbmClose" aria-label="Close">✕</button>` + bikeArtFor(name, seg);
+    document.getElementById('gbmName').textContent = name;
+    document.getElementById('gbmSeg').textContent = seg + ' Segment';
+    document.getElementById('gbmPrice').textContent = minPrice ? fmtINR(minPrice) : 'TBA';
+    document.getElementById('gbmMileage').textContent = info.mileage || '—';
+    document.getElementById('gbmEngine').textContent = info.usp || '—';
+    document.getElementById('gbmHero').querySelector('.gbm-close').addEventListener('click', e => { e.stopPropagation(); closeBikeModal(); });
+    const backdrop = document.getElementById('gbikeModalBackdrop');
+    backdrop.classList.add('gbm-open'); backdrop.setAttribute('aria-hidden','false');
+  }
+  function closeBikeModal(){
+    const backdrop = document.getElementById('gbikeModalBackdrop');
+    backdrop.classList.remove('gbm-open'); backdrop.setAttribute('aria-hidden','true');
+  }
+  document.getElementById('gbikeModalBackdrop').addEventListener('click', e => {
+    if (e.target.id === 'gbikeModalBackdrop') closeBikeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.getElementById('gbikeModalBackdrop').classList.contains('gbm-open')) closeBikeModal();
+  });
 })();
 
 // ─── SINGLE NOTE ───────────────────────────────────────────────────────────
