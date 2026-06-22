@@ -842,11 +842,11 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .gallery-filter-pills { display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 26px; position:relative; z-index:2; }
 /* ── Gallery model card (photo grid) ── */
 .gallery-grid {
-  display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-  gap:18px; position:relative; z-index:2;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:16px; position:relative; z-index:2;
 }
-@media(max-width:640px){ .gallery-grid{ grid-template-columns:1fr 1fr; gap:10px; } }
-@media(max-width:380px){ .gallery-grid{ grid-template-columns:1fr; } }
+@media(max-width:900px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); gap:12px; } }
+@media(max-width:500px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); gap:8px; } }
 
 .gseg-banner {
   background:#ffffff; border:1px solid rgba(20,16,12,0.08); border-radius:18px;
@@ -867,8 +867,9 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
   display:flex; align-items:center; justify-content:center;
 }
 .gseg-photo-grid .gph-item img {
-  width:100%; height:100%; object-fit:cover;
+  width:100%; height:100%; object-fit:contain;
   transition:transform .35s ease; display:block;
+  padding:4px; box-sizing:border-box;
 }
 .gseg-banner:hover .gph-item img { transform:scale(1.06); }
 /* Single image spanning full width when only 1 photo */
@@ -887,22 +888,22 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 
 /* Card info footer */
 .gseg-card-info {
-  padding:14px 16px 16px; display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px 14px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center; gap:3px;
 }
 .gseg-card-left {}
-.gseg-eyebrow { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(229,53,23,0.75); margin-bottom:4px; }
-.gseg-name { font-size:16px; font-weight:700; color:#9a7600; letter-spacing:0.2px; }
-.gseg-card-right { text-align:right; }
-.gseg-price-label { font-size:9px; color:rgba(20,16,12,0.38); text-transform:uppercase; letter-spacing:1.5px; }
-.gseg-price-val { font-size:13px; font-weight:700; color:rgba(20,16,12,0.65); margin-top:2px; }
-.gseg-color-count { font-size:10px; color:rgba(20,16,12,0.35); margin-top:3px; }
+.gseg-eyebrow { display:none; }
+.gseg-name { font-size:15px; font-weight:800; color:#9a7600; letter-spacing:0.3px; line-height:1.2; }
+.gseg-card-right { display:none; }
+.gseg-price-label { display:none; }
+.gseg-price-val { display:none; }
+.gseg-color-count { font-size:10px; color:rgba(20,16,12,0.38); }
 
 /* Dark mode for new cards */
 body.dark-mode .gseg-banner { background:rgba(255,255,255,0.04) !important; border-color:rgba(255,255,255,0.08) !important; }
 body.dark-mode .gseg-photo-placeholder { background:linear-gradient(135deg,rgba(229,53,23,0.08),rgba(201,151,0,0.06)) !important; }
 body.dark-mode .gseg-name { color:#FFD700 !important; }
-body.dark-mode .gseg-price-val { color:rgba(255,255,255,0.75) !important; }
-body.dark-mode .gseg-price-label, body.dark-mode .gseg-color-count { color:rgba(255,255,255,0.3) !important; }
+body.dark-mode .gseg-color-count { color:rgba(255,255,255,0.3) !important; }
 body.dark-mode .gseg-photo-grid { background:rgba(255,255,255,0.04) !important; }
 
 /* ── Individual bike cards (below segment banners) ── */
@@ -974,19 +975,15 @@ body.dark-mode .gseg-photo-grid { background:rgba(255,255,255,0.04) !important; 
 .gbm-header {
   position:absolute; top:0; left:0; right:0; z-index:10;
   padding:18px 24px;
-  display:flex; align-items:flex-start; justify-content:space-between;
-  /* subtle gradient so text is readable over dark bg */
+  display:flex; align-items:center; justify-content:center;
   background:linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%);
   backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
 }
-.gbm-header-left {}
 .gbm-name {
-  font-size:22px; font-weight:700; color:#9a7600;
-  text-shadow:0 1px 8px rgba(255,255,255,0.6); margin-bottom:3px;
-}
-.gbm-seg {
-  font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
-  color:rgba(20,16,12,0.55); text-shadow:none;
+  flex:1; text-align:center;
+  font-size:24px; font-weight:800; color:#9a7600;
+  text-shadow:0 1px 8px rgba(255,255,255,0.6);
+  letter-spacing:0.3px;
 }
 .gbm-close {
   width:40px; height:40px; border-radius:12px; flex-shrink:0;
@@ -1811,10 +1808,7 @@ body.dark-mode .theme-toggle-section { border-top-color:rgba(255,255,255,0.06) !
 <div class="gbike-modal-backdrop" id="gbikeModalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="gbike-modal">
     <div class="gbm-header">
-      <div class="gbm-header-left">
-        <div class="gbm-name" id="gbmName"></div>
-        <div class="gbm-seg" id="gbmSeg"></div>
-      </div>
+      <div class="gbm-name" id="gbmName"></div>
       <button class="gbm-close" id="gbmClose" aria-label="Close">✕</button>
     </div>
     <div class="gbm-body">
@@ -2982,7 +2976,6 @@ function greetUser(name){
 
   function openBikeModal(name, seg, minPrice){
     document.getElementById('gbmName').textContent = name;
-    document.getElementById('gbmSeg').textContent = seg;
 
     const grid = document.getElementById('gbmPhotoGrid');
     const footer = document.getElementById('gbmFooter');
