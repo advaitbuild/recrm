@@ -849,62 +849,74 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 @media(max-width:500px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); gap:8px; } }
 
 .gseg-banner {
-  background:#ffffff; border:1px solid rgba(20,16,12,0.08); border-radius:18px;
+  background:#ffffff; border:1px solid rgba(20,16,12,0.07); border-radius:16px;
   overflow:hidden; cursor:pointer;
-  transition:border-color .25s,transform .25s,box-shadow .25s;
+  transition:border-color .25s, transform .22s, box-shadow .25s;
   display:flex; flex-direction:column;
 }
-.gseg-banner:hover { border-color:rgba(255,215,0,0.35); transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,0.5); }
+.gseg-banner:hover { border-color:rgba(154,118,0,0.3); transform:translateY(-5px); box-shadow:0 12px 36px rgba(0,0,0,0.13); }
 .gseg-banner.gseg-hidden { display:none; }
 
-/* 2×2 photo grid inside the card */
-.gseg-photo-grid {
-  display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
-  gap:2px; background:rgba(20,16,12,0.06); aspect-ratio:2/1.3; overflow:hidden;
+/* Single hero photo */
+.gseg-photo-wrap {
+  position:relative; aspect-ratio:3/2; overflow:hidden;
+  background:#f5f2ec;
 }
-.gseg-photo-grid .gph-item {
-  overflow:hidden; background:rgba(20,16,12,0.04);
-  display:flex; align-items:center; justify-content:center;
-}
-.gseg-photo-grid .gph-item img {
+.gseg-photo-wrap img {
   width:100%; height:100%; object-fit:contain;
-  transition:transform .35s ease; display:block;
-  padding:4px; box-sizing:border-box;
+  padding:12px; box-sizing:border-box;
+  transition:transform .4s ease; display:block;
 }
-.gseg-banner:hover .gph-item img { transform:scale(1.06); }
-/* Single image spanning full width when only 1 photo */
-.gseg-photo-grid.gph-count-1 { grid-template-columns:1fr; grid-template-rows:1fr; }
-/* 2 images side by side */
-.gseg-photo-grid.gph-count-2 { grid-template-rows:1fr; }
-/* 3 images: top row 2 cols, bottom 1 col spanning */
-.gseg-photo-grid.gph-count-3 .gph-item:nth-child(3) { grid-column:1/-1; }
+.gseg-banner:hover .gseg-photo-wrap img { transform:scale(1.06); }
+.gseg-photo-wrap .gseg-img-hover {
+  position:absolute; inset:0; opacity:0;
+  transition:opacity .4s ease;
+  padding:12px; box-sizing:border-box;
+  object-fit:contain; width:100%; height:100%;
+}
+.gseg-banner:hover .gseg-img-hover { opacity:1; }
+
+/* colour dot strip */
+.gseg-dot-strip {
+  position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+  display:flex; gap:4px; align-items:center;
+}
+.gseg-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:rgba(20,16,12,0.18); border:1px solid rgba(20,16,12,0.12);
+  transition:background .2s;
+}
+.gseg-dot.active { background:#9a7600; border-color:#9a7600; transform:scale(1.3); }
 
 /* No image placeholder */
 .gseg-photo-placeholder {
-  aspect-ratio:2/1.3; background:linear-gradient(135deg,rgba(229,53,23,0.06),rgba(201,151,0,0.08));
+  aspect-ratio:3/2; background:linear-gradient(135deg,rgba(229,53,23,0.06),rgba(201,151,0,0.08));
   display:flex; align-items:center; justify-content:center;
   font-size:32px; color:rgba(20,16,12,0.18);
 }
 
 /* Card info footer */
 .gseg-card-info {
-  padding:12px 14px 14px; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; text-align:center; gap:3px;
+  padding:11px 14px 13px; display:flex; flex-direction:column;
+  align-items:center; text-align:center; gap:2px;
+  border-top:1px solid rgba(20,16,12,0.06);
 }
 .gseg-card-left {}
 .gseg-eyebrow { display:none; }
-.gseg-name { font-size:15px; font-weight:800; color:#9a7600; letter-spacing:0.3px; line-height:1.2; }
+.gseg-name { font-size:15px; font-weight:800; color:#9a7600; letter-spacing:0.2px; line-height:1.2; }
 .gseg-card-right { display:none; }
 .gseg-price-label { display:none; }
 .gseg-price-val { display:none; }
-.gseg-color-count { font-size:10px; color:rgba(20,16,12,0.38); }
+.gseg-color-count { font-size:10px; color:rgba(20,16,12,0.32); letter-spacing:0.3px; }
 
 /* Dark mode for new cards */
-body.dark-mode .gseg-banner { background:rgba(255,255,255,0.04) !important; border-color:rgba(255,255,255,0.08) !important; }
+body.dark-mode .gseg-banner { background:rgba(255,255,255,0.04) !important; border-color:rgba(255,255,255,0.07) !important; }
+body.dark-mode .gseg-banner:hover { border-color:rgba(255,215,0,0.25) !important; box-shadow:0 12px 36px rgba(0,0,0,0.4) !important; }
+body.dark-mode .gseg-photo-wrap { background:rgba(255,255,255,0.04) !important; }
 body.dark-mode .gseg-photo-placeholder { background:linear-gradient(135deg,rgba(229,53,23,0.08),rgba(201,151,0,0.06)) !important; }
 body.dark-mode .gseg-name { color:#FFD700 !important; }
-body.dark-mode .gseg-color-count { color:rgba(255,255,255,0.3) !important; }
-body.dark-mode .gseg-photo-grid { background:rgba(255,255,255,0.04) !important; }
+body.dark-mode .gseg-card-info { border-top-color:rgba(255,255,255,0.06) !important; }
+body.dark-mode .gseg-color-count { color:rgba(255,255,255,0.28) !important; }
 
 /* ── Individual bike cards (below segment banners) ── */
 .gbike-subhead {
@@ -2940,18 +2952,19 @@ function greetUser(name){
       card.className = 'gseg-banner' + (gFilter !== 'all' && gFilter !== seg ? ' gseg-hidden' : '');
       card.dataset.seg = seg;
 
-      // Build 2×2 photo grid (up to 4 images)
+      // Single hero photo + hover second + dot strip
       let photoHtml = '';
       if (imgs.length > 0) {
-        const shown = imgs.slice(0, 4);
-        const countClass = shown.length <= 4 ? `gph-count-${Math.min(shown.length,4)}` : '';
-        photoHtml = `<div class="gseg-photo-grid ${countClass}">`;
-        shown.forEach(({ color, src }) => {
-          photoHtml += `<div class="gph-item"><img src="${src}" alt="${name} ${color}" loading="lazy" onerror="this.parentElement.style.background='rgba(20,16,12,0.06)';this.style.display='none'"></div>`;
-        });
-        photoHtml += `</div>`;
+        const first  = imgs[0];
+        const second = imgs[1] || null;
+        const dots   = imgs.slice(0, 6).map((_, i) =>
+          `<div class="gseg-dot${i===0?' active':''}"></div>`).join('');
+        photoHtml = `<div class="gseg-photo-wrap">
+          <img src="${first.src}" alt="${name} ${first.color}" loading="lazy">
+          ${second ? `<img class="gseg-img-hover" src="${second.src}" alt="${name} ${second.color}" loading="lazy">` : ''}
+          <div class="gseg-dot-strip">${dots}</div>
+        </div>`;
       } else {
-        // No images yet — show segment-art placeholder
         photoHtml = `<div class="gseg-photo-placeholder">${bikeArtFor(name, seg)}</div>`;
       }
 
