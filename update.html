@@ -94,7 +94,13 @@ body.dark-mode .gh-nav-item { color:rgba(255,255,255,0.68) !important; border-co
 body.dark-mode .gh-nav-item:hover { color:#fff !important; background:rgba(255,255,255,0.07) !important; border-color:rgba(255,255,255,0.12) !important; }
 body.dark-mode .gh-nav-item.active { color:#FFD700 !important; background:rgba(255,215,0,0.09) !important; border-color:rgba(255,215,0,0.22) !important; }
 /* Sections */
-body.dark-mode .hero-section { background-color:#050505 !important; }
+body.dark-mode .hero-section {
+  background-color:#050505 !important;
+  background-image:
+    linear-gradient(135deg,rgba(0,0,0,0.45),rgba(5,5,5,0.45)),
+    var(--bg-image, url('himalayan-bg.jpg')) !important;
+  background-size:cover !important; background-position:center !important;
+}
 body.dark-mode .emi-section { background-color:#060606 !important; }
 body.dark-mode .notes-section { background-color:#060606 !important; }
 body.dark-mode .gallery-section { background-color:#070707 !important; }
@@ -105,10 +111,10 @@ body.dark-mode .section-eyebrow { color:rgba(255,215,0,0.65) !important; }
 body.dark-mode .section-eyebrow::before { background:rgba(255,215,0,0.55) !important; }
 body.dark-mode .section-desc, body.dark-mode p { color:rgba(255,255,255,0.55) !important; }
 /* CRM Box */
-body.dark-mode .box { background:rgba(255,255,255,0.04) !important; border-color:rgba(255,255,255,0.10) !important; box-shadow:0 10px 30px rgba(0,0,0,0.45) !important; }
-body.dark-mode input, body.dark-mode select { background:rgba(255,255,255,0.08) !important; color:rgba(255,255,255,0.88) !important; }
+body.dark-mode .box { background:rgba(0,0,0,0.28) !important; backdrop-filter:blur(24px) saturate(0.9) !important; -webkit-backdrop-filter:blur(24px) saturate(0.9) !important; border-color:rgba(255,255,255,0.12) !important; box-shadow:0 10px 40px rgba(0,0,0,0.4) !important; }
+body.dark-mode input, body.dark-mode select { background:rgba(255,255,255,0.07) !important; color:rgba(255,255,255,0.88) !important; }
 body.dark-mode input::placeholder { color:rgba(255,255,255,0.32) !important; }
-body.dark-mode .cst { color:rgba(255,255,255,0.32) !important; }
+body.dark-mode .cst { color:rgba(255,255,255,0.32) !important; background:rgba(255,255,255,0.07) !important; }
 body.dark-mode .cst.has-value { color:rgba(255,255,255,0.88) !important; }
 body.dark-mode .topBtn { background:rgba(255,255,255,0.08) !important; color:rgba(255,255,255,0.72) !important; border-color:rgba(255,255,255,0.14) !important; }
 body.dark-mode .di { background:#1c1c1c !important; color:rgba(255,255,255,0.85) !important; }
@@ -182,6 +188,12 @@ body.dark-mode .hbg-section-note { color:rgba(255,255,255,0.28) !important; }
 body.dark-mode .hbg-section-note span { color:rgba(255,215,0,0.42) !important; }
 body.dark-mode .hbg-user-name { color:rgba(255,215,0,0.72) !important; }
 body.dark-mode .hbg-user-icon { color:rgba(255,215,0,0.42) !important; }
+body.dark-mode .hbg-greeting-line { color:rgba(255,255,255,0.85) !important; }
+body.dark-mode .hbg-user-label { color:rgba(255,255,255,0.38) !important; }
+body.dark-mode .hbg-close { background:rgba(255,255,255,0.07) !important; border-color:rgba(255,255,255,0.12) !important; color:rgba(255,255,255,0.65) !important; }
+body.dark-mode .hbg-close:hover { background:rgba(255,215,0,0.1) !important; border-color:rgba(255,215,0,0.3) !important; color:#FFD700 !important; }
+body.dark-mode .hbg-section-note { color:rgba(255,255,255,0.28) !important; background:rgba(255,215,0,0.03) !important; border-color:rgba(255,215,0,0.08) !important; }
+body.dark-mode .hbg-section-note span { color:rgba(255,215,0,0.45) !important; }
 /* Tooltip */
 body.dark-mode #crm-tooltip { background:rgba(12,10,8,0.97) !important; border-color:rgba(255,215,0,0.14) !important; box-shadow:0 8px 28px rgba(0,0,0,0.7) !important; }
 body.dark-mode .cdrop { background:#1a1714 !important; border-color:rgba(255,255,255,0.09) !important; box-shadow:0 8px 28px rgba(0,0,0,0.7) !important; }
@@ -201,6 +213,13 @@ body.dark-mode .entry-field-label { color:rgba(255,215,0,0.5) !important; }
 body.dark-mode .entry-brand-badge { color:rgba(255,215,0,0.55) !important; }
 body.dark-mode .entry-note { color:rgba(255,255,255,0.28) !important; }
 body.dark-mode .entry-note strong { color:rgba(255,215,0,0.38) !important; }
+body.dark-mode .entry-heading { color:rgba(255,255,255,0.92) !important; }
+body.dark-mode .entry-heading strong { color:#FFD700 !important; }
+body.dark-mode .entry-sub { color:rgba(255,255,255,0.38) !important; }
+body.dark-mode .entry-divider-text { color:rgba(255,255,255,0.2) !important; }
+body.dark-mode .entry-input { background:rgba(255,255,255,0.07) !important; border-color:rgba(255,255,255,0.12) !important; color:rgba(255,255,255,0.88) !important; }
+body.dark-mode .entry-input::placeholder { color:rgba(255,255,255,0.28) !important; }
+body.dark-mode .entry-input:focus { background:rgba(255,255,255,0.1) !important; border-color:rgba(255,215,0,0.45) !important; }
 /* Scrollbars */
 body.dark-mode * { scrollbar-color:#444 transparent; }
 body.dark-mode ::-webkit-scrollbar-thumb { background:#444 !important; }
@@ -242,8 +261,8 @@ body.dark-mode .sn-dot.active { background:#FFD700 !important; border-color:#FFD
   padding-top:calc(58px + clamp(10px,2vw,20px));
   background-color:#faf7f0;
   background-image:
-    linear-gradient(135deg,rgba(255,255,255,0.5),rgba(250,247,240,0.5)),
-    var(--bg-image, none);
+    linear-gradient(135deg,rgba(255,255,255,0.18),rgba(250,247,240,0.18)),
+    var(--bg-image, url('himalayan-bg.jpg'));
   background-size:cover; background-position:center; background-repeat:no-repeat;
   display:flex; flex-direction:column; justify-content:center; box-sizing:border-box;
   transition:background-color .4s ease; overflow:hidden;
@@ -272,8 +291,9 @@ body.dark-mode .sn-dot.active { background:#FFD700 !important; border-color:#FFD
 @media(max-width:480px){ .hero-section::after{ font-size:9px; letter-spacing:3px; } }
 .box {
   width:min(90vw,500px); margin:auto; padding:clamp(16px,2vw,25px);
-  background:#ffffff; backdrop-filter:blur(8px); border-radius:15px;
-  border:1px solid rgba(0,0,0,0.08); box-shadow:0 10px 30px rgba(20,15,10,0.10);
+  background:rgba(255,255,255,0.28); backdrop-filter:blur(24px) saturate(1.3); -webkit-backdrop-filter:blur(24px) saturate(1.3);
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,0.5); box-shadow:0 10px 40px rgba(20,15,10,0.15);
   transition:width .2s ease,padding .2s ease; overflow:hidden; z-index:2;
 }
 .box::before {
@@ -283,7 +303,7 @@ body.dark-mode .sn-dot.active { background:#FFD700 !important; border-color:#FFD
 h2 { text-align:center; color:#9a7600; margin-bottom:20px; font-size:clamp(22px,2vw,30px); }
 input,select {
   width:100%; padding:10px; margin:8px 0; border-radius:8px; border:none;
-  background:rgba(20,16,12,0.1); color:#1a1714; transition:all .2s ease;
+  background:rgba(255,255,255,0.3); color:#1a1714; transition:all .2s ease;
   height:clamp(38px,4vw,42px); font-size:clamp(13px,1vw,15px); box-sizing:border-box;
 }
 select { padding-right:30px; appearance:none;
@@ -311,7 +331,7 @@ button { padding:10px; margin:6px 0; cursor:pointer; border:none; border-radius:
 .csw { margin:8px 0; z-index:1; }
 .csw.open { z-index:10000; }
 .cst {
-  width:100%; height:clamp(38px,4vw,42px); padding:0 36px 0 10px; background:rgba(20,16,12,0.1);
+  width:100%; height:clamp(38px,4vw,42px); padding:0 36px 0 10px; background:rgba(255,255,255,0.3);
   border-radius:8px; color:#8a8174; font-size:15px; cursor:pointer;
   display:flex; align-items:center; box-sizing:border-box;
   transition:box-shadow .2s,transform .2s; user-select:none;
@@ -966,8 +986,8 @@ body.dark-mode .gseg-color-count { color:rgba(255,255,255,0.28) !important; }
   display:flex; flex-direction:column;
 }
 .gbike-modal-backdrop.gbm-open {
-  background:rgba(255,255,255,0.15); backdrop-filter:blur(28px) saturate(1.4);
-  -webkit-backdrop-filter:blur(28px) saturate(1.4);
+  background:rgba(240,232,210,0.55); backdrop-filter:blur(40px) saturate(1.2) brightness(1.1);
+  -webkit-backdrop-filter:blur(40px) saturate(1.2) brightness(1.1);
   pointer-events:all;
 }
 
@@ -993,9 +1013,10 @@ body.dark-mode .gseg-color-count { color:rgba(255,255,255,0.28) !important; }
 }
 .gbm-name {
   flex:1; text-align:center;
-  font-size:24px; font-weight:800; color:#9a7600;
-  text-shadow:0 1px 8px rgba(255,255,255,0.6);
-  letter-spacing:0.3px;
+  font-size:22px; font-weight:900; color:#7a5c00;
+  font-family:'Georgia','Times New Roman',serif;
+  letter-spacing:0.5px;
+  text-shadow:0 1px 0 rgba(255,255,255,0.8);
 }
 .gbm-close {
   width:40px; height:40px; border-radius:12px; flex-shrink:0;
@@ -1010,10 +1031,11 @@ body.dark-mode .gseg-color-count { color:rgba(255,255,255,0.28) !important; }
 /* Scrollable body — full height, padded so header/footer don't overlap */
 .gbm-body {
   flex:1; overflow-y:auto; overflow-x:hidden;
-  padding:90px 28px 100px;
+  padding:76px 32px 80px;
   scroll-behavior:smooth;
-  scrollbar-width:thin; scrollbar-color:rgba(255,215,0,0.3) transparent;
+  scrollbar-width:thin; scrollbar-color:rgba(154,118,0,0.3) transparent;
   overscroll-behavior:contain;
+  background:transparent;
 }
 .gbm-body::-webkit-scrollbar { width:5px; }
 .gbm-body::-webkit-scrollbar-thumb { background:rgba(255,215,0,0.3); border-radius:4px; }
@@ -1036,37 +1058,38 @@ body.dark-mode .gseg-color-count { color:rgba(255,255,255,0.28) !important; }
 /* 2×2 photo grid — 4 images fill the visible viewport */
 .gbm-photo-grid {
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
 }
-@media(min-width:900px){
-  .gbm-photo-grid { grid-template-columns:1fr 1fr 1fr; }
+@media(max-width:700px){
+  .gbm-photo-grid { grid-template-columns:1fr 1fr; gap:12px; }
 }
-@media(max-width:500px){
+@media(max-width:400px){
   .gbm-photo-grid { grid-template-columns:1fr; }
-  .gbm-body { padding:80px 12px 90px; }
 }
 
 .gbm-photo-item {
-  border-radius:0; overflow:visible;
-  background:transparent; border:none;
+  border-radius:12px; overflow:hidden;
+  background:rgba(255,255,255,0.6);
+  border:1px solid rgba(255,255,255,0.75);
+  backdrop-filter:blur(8px);
   display:flex; flex-direction:column; align-items:center;
-  transition:transform .22s;
+  transition:transform .2s, box-shadow .2s;
   cursor:pointer;
 }
-.gbm-photo-item:hover { transform:scale(1.03); }
+.gbm-photo-item:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(0,0,0,0.14); }
 .gbm-photo-item img {
-  width:100%; aspect-ratio:4/3; object-fit:contain;
-  display:block; background:transparent; border-radius:8px;
+  width:100%; aspect-ratio:3/2; object-fit:contain;
+  display:block; padding:12px; box-sizing:border-box;
 }
 .gbm-photo-label {
-  margin-top:6px; padding:0 4px 2px;
+  width:100%; padding:6px 8px 8px;
   font-size:11px; font-weight:700;
-  color:rgba(255,255,255,0.85); text-align:center;
-  letter-spacing:0.4px; white-space:normal; line-height:1.3;
-  word-break:break-word;
-  background:transparent; flex-shrink:0;
-  text-shadow:0 1px 6px rgba(0,0,0,0.9);
+  color:rgba(20,16,12,0.72); text-align:center;
+  letter-spacing:0.3px; line-height:1.2;
+  background:rgba(255,255,255,0.55);
+  border-top:1px solid rgba(20,16,12,0.06);
+  flex-shrink:0;
 }
 .gbm-no-photos {
   grid-column:1/-1; padding:80px 20px; text-align:center;
@@ -1075,13 +1098,14 @@ body.dark-mode .gseg-color-count { color:rgba(255,255,255,0.28) !important; }
 }
 
 /* Dark mode — deepen the blur overlay */
-body.dark-mode .gbike-modal-backdrop.gbm-open { background:rgba(0,0,0,0.55) !important; backdrop-filter:blur(28px) saturate(0.8) !important; -webkit-backdrop-filter:blur(28px) saturate(0.8) !important; }
+body.dark-mode .gbike-modal-backdrop.gbm-open { background:rgba(10,8,6,0.65) !important; backdrop-filter:blur(40px) saturate(0.7) brightness(0.85) !important; -webkit-backdrop-filter:blur(40px) saturate(0.7) brightness(0.85) !important; }
 body.dark-mode .gbm-header { background:linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%) !important; }
 body.dark-mode .gbm-footer { background:linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 100%) !important; }
 body.dark-mode .gbm-name { color:#FFD700 !important; text-shadow:0 2px 12px rgba(0,0,0,0.7) !important; }
 body.dark-mode .gbm-seg { color:rgba(255,255,255,0.45) !important; }
 body.dark-mode .gbm-close { background:rgba(255,255,255,0.1) !important; border-color:rgba(255,255,255,0.18) !important; color:rgba(255,255,255,0.8) !important; }
-body.dark-mode .gbm-photo-label { color:rgba(255,255,255,0.8) !important; text-shadow:0 1px 6px rgba(0,0,0,0.9) !important; }
+body.dark-mode .gbm-photo-item { background:rgba(30,24,16,0.6) !important; border-color:rgba(255,255,255,0.1) !important; }
+body.dark-mode .gbm-photo-label { color:rgba(255,255,255,0.8) !important; background:rgba(20,14,6,0.5) !important; border-top-color:rgba(255,255,255,0.07) !important; }
 
 /* ═══════════════════════════════════════
    PREMIUM FOOTER
@@ -1310,15 +1334,15 @@ body.dark-mode .theme-toggle-section { border-top-color:rgba(255,255,255,0.06) !
 .entry-brand { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:32px; }
 .entry-brand-line { height:1px; flex:1; background:linear-gradient(to right,transparent,rgba(255,215,0,0.25)); }
 .entry-brand-line.right { background:linear-gradient(to left,transparent,rgba(255,215,0,0.25)); }
-.entry-brand-badge { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(154,118,0,0.6); white-space:nowrap; }
-.entry-heading { text-align:center; color:#1a1714; font-size:clamp(22px,4vw,30px); font-weight:300; letter-spacing:0.5px; margin:0 0 6px; line-height:1.25; }
-.entry-heading strong { color:#9a7600; font-weight:700; }
-.entry-sub { text-align:center; font-size:13px; color:rgba(20,16,12,0.38); margin:0 0 32px; }
+.entry-brand-badge { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,215,0,0.65); white-space:nowrap; }
+.entry-heading { text-align:center; color:rgba(255,255,255,0.92); font-size:clamp(22px,4vw,30px); font-weight:300; letter-spacing:0.5px; margin:0 0 6px; line-height:1.25; }
+.entry-heading strong { color:#FFD700; font-weight:700; }
+.entry-sub { text-align:center; font-size:13px; color:rgba(255,255,255,0.45); margin:0 0 32px; }
 .entry-field-wrap { position:relative; margin-bottom:4px; }
-.entry-field-label { display:block; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(154,118,0,0.5); margin-bottom:8px; padding-left:2px; }
-.entry-input { width:100%; height:48px; padding:0 16px; background:rgba(20,16,12,0.07); border:1px solid rgba(20,16,12,0.1); border-radius:12px; color:#1a1714; font-size:15px; font-family:'Segoe UI',sans-serif; box-sizing:border-box; outline:none; margin:0!important; transition:border-color .22s,box-shadow .22s,background .22s!important; transform:none!important; }
-.entry-input::placeholder { color:rgba(20,16,12,0.28); }
-.entry-input:focus { border-color:rgba(255,215,0,0.5)!important; background:rgba(20,16,12,0.1)!important; box-shadow:0 0 0 3px rgba(255,215,0,0.1)!important; transform:none!important; }
+.entry-field-label { display:block; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(255,215,0,0.6); margin-bottom:8px; padding-left:2px; }
+.entry-input { width:100%; height:48px; padding:0 16px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); border-radius:12px; color:rgba(255,255,255,0.92); font-size:15px; font-family:'Segoe UI',sans-serif; box-sizing:border-box; outline:none; margin:0!important; transition:border-color .22s,box-shadow .22s,background .22s!important; transform:none!important; }
+.entry-input::placeholder { color:rgba(255,255,255,0.32); }
+.entry-input:focus { border-color:rgba(255,215,0,0.55)!important; background:rgba(255,255,255,0.14)!important; box-shadow:0 0 0 3px rgba(255,215,0,0.12)!important; transform:none!important; }
 .entry-input.has-error { border-color:rgba(255,127,127,0.6)!important; }
 .entry-error { font-size:12px; color:#FF7F7F; margin:7px 0 0 2px; min-height:18px; display:block; opacity:0; transform:translateY(-4px); transition:opacity .2s,transform .2s; }
 .entry-error.visible { opacity:1; transform:translateY(0); }
@@ -1331,9 +1355,9 @@ body.dark-mode .theme-toggle-section { border-top-color:rgba(255,255,255,0.06) !
 .entry-btn:hover .entry-btn-arrow { transform:translateX(4px); }
 .entry-divider { display:flex; align-items:center; gap:12px; margin:26px 0 18px; }
 .entry-divider-line { flex:1; height:1px; background:rgba(20,16,12,0.07); }
-.entry-divider-text { font-size:10px; color:rgba(20,16,12,0.2); letter-spacing:1px; text-transform:uppercase; white-space:nowrap; }
-.entry-note { text-align:center; font-size:11.5px; color:rgba(20,16,12,0.22); line-height:1.6; }
-.entry-note strong { color:rgba(154,118,0,0.4); font-weight:600; }
+.entry-divider-text { font-size:10px; color:rgba(255,255,255,0.28); letter-spacing:1px; text-transform:uppercase; white-space:nowrap; }
+.entry-note { text-align:center; font-size:11.5px; color:rgba(255,255,255,0.28); line-height:1.6; }
+.entry-note strong { color:rgba(255,215,0,0.45); font-weight:600; }
 
 #app-root { opacity:0; transition:opacity .5s ease .1s; }
 #app-root.app-visible { opacity:1; }
@@ -1371,6 +1395,74 @@ body.dark-mode .theme-toggle-section { border-top-color:rgba(255,255,255,0.06) !
   from { opacity:0; transform:scale(0.88); }
   to   { opacity:1; transform:scale(1); }
 }
+
+/* ══════════════════════════════════════════
+   DARK MODE — COMPREHENSIVE TEXT FIX
+   All elements that had invisible dark text
+══════════════════════════════════════════ */
+
+/* Gallery card sub-elements */
+body.dark-mode .gseg-card-info { border-top-color:rgba(255,255,255,0.07) !important; }
+body.dark-mode .gbike-name { color:rgba(255,255,255,0.88) !important; }
+body.dark-mode .gbike-price { color:rgba(255,215,0,0.55) !important; }
+body.dark-mode .gbike-seg { color:rgba(229,100,50,0.7) !important; }
+body.dark-mode .gbike-subhead-text { color:rgba(255,255,255,0.35) !important; }
+body.dark-mode .gbike-subhead { border-bottom-color:rgba(255,255,255,0.07) !important; }
+
+/* Section subtitles / descriptions */
+body.dark-mode .section-sub { color:rgba(255,255,255,0.38) !important; }
+body.dark-mode p { color:rgba(255,255,255,0.55) !important; }
+
+/* EDP (bike detail panel) */
+body.dark-mode .edp-tag { color:rgba(255,255,255,0.55) !important; background:rgba(255,255,255,0.06) !important; border-color:rgba(255,255,255,0.1) !important; }
+body.dark-mode .edp-spec-label { color:rgba(255,255,255,0.3) !important; }
+body.dark-mode .edp-spec-val { color:rgba(255,255,255,0.82) !important; }
+body.dark-mode .edp-block-title { color:rgba(255,255,255,0.28) !important; }
+body.dark-mode .edp-vc-name { color:rgba(255,255,255,0.6) !important; }
+body.dark-mode .edp-vc-price { color:rgba(255,215,0,0.75) !important; }
+body.dark-mode .edp-emi-banner-text { color:rgba(255,255,255,0.55) !important; }
+body.dark-mode .edp-emi-mo { color:rgba(255,255,255,0.4) !important; }
+body.dark-mode .edp-emi-soon-text { color:rgba(255,255,255,0.38) !important; }
+body.dark-mode .edp-emi-soon-sub { color:rgba(255,255,255,0.22) !important; }
+
+/* Filter pills / segment pills */
+body.dark-mode .efp { color:rgba(255,255,255,0.55) !important; background:rgba(255,255,255,0.06) !important; border-color:rgba(255,255,255,0.1) !important; }
+body.dark-mode .efp:hover, body.dark-mode .efp.active { color:#FFD700 !important; background:rgba(255,215,0,0.1) !important; border-color:rgba(255,215,0,0.3) !important; }
+
+/* Notification center */
+body.dark-mode .nc-title { color:rgba(255,255,255,0.88) !important; }
+body.dark-mode .nc-body { color:rgba(255,255,255,0.5) !important; }
+body.dark-mode .nc-time { color:rgba(255,255,255,0.28) !important; }
+body.dark-mode .nc-btn { color:rgba(255,255,255,0.4) !important; border-color:rgba(255,255,255,0.1) !important; }
+body.dark-mode .nc-btn:hover { color:#FFD700 !important; border-color:rgba(255,215,0,0.3) !important; }
+
+/* Logout modal */
+body.dark-mode .lm-msg { color:rgba(255,255,255,0.55) !important; }
+body.dark-mode .lm-btn-cancel { color:rgba(255,255,255,0.65) !important; border-color:rgba(255,255,255,0.12) !important; }
+body.dark-mode .lm-btn-cancel:hover { color:#fff !important; border-color:rgba(255,255,255,0.3) !important; }
+
+/* Modal close button */
+body.dark-mode .gbm-close { background:rgba(255,255,255,0.1) !important; border-color:rgba(255,255,255,0.18) !important; color:rgba(255,255,255,0.8) !important; }
+
+/* Global header nav */
+body.dark-mode .gh-nav-item { color:rgba(255,255,255,0.72) !important; }
+body.dark-mode .gh-nav-item:hover, body.dark-mode .gh-nav-item.active { color:#FFD700 !important; }
+
+/* Modal name in dark mode */
+body.dark-mode .gbm-name { color:#FFD700 !important; text-shadow:0 1px 0 rgba(0,0,0,0.5) !important; font-family:'Georgia','Times New Roman',serif !important; }
+
+/* Frosted photo cards in dark mode */
+body.dark-mode .gbm-photo-item { background:rgba(20,16,10,0.55) !important; border-color:rgba(255,255,255,0.1) !important; }
+body.dark-mode .gbm-photo-label { color:rgba(255,255,255,0.82) !important; background:rgba(10,8,4,0.5) !important; border-top-color:rgba(255,255,255,0.08) !important; }
+
+/* Dot strip on gallery cards */
+body.dark-mode .gseg-dot { background:rgba(255,255,255,0.2) !important; border-color:rgba(255,255,255,0.12) !important; }
+body.dark-mode .gseg-dot.active { background:#FFD700 !important; border-color:#FFD700 !important; }
+
+/* Photo wrap bg on dark */
+body.dark-mode .gseg-photo-wrap { background:rgba(255,255,255,0.04) !important; }
+
+
 </style>
 </head>
 <body>
@@ -1542,7 +1634,7 @@ body.dark-mode .theme-toggle-section { border-top-color:rgba(255,255,255,0.06) !
 
   <div class="box">
     <h2>Royal Enfield CRM</h2>
-    <button class="topBtn" onclick="setMode('default')">TRR / BRTL1 / INT2M</button>
+    <button class="topBtn" onclick="setMode('default')">TRR / BKR / L1</button>
     <button class="topBtn" onclick="setMode('booked')">Booked</button>
     <button class="topBtn" onclick="setMode('purchased')">Purchased</button>
 
@@ -1568,11 +1660,14 @@ body.dark-mode .theme-toggle-section { border-top-color:rgba(255,255,255,0.06) !
       <div class="csw" id="wrap_b_model"><div class="cst" id="trig_b_model" tabindex="0">Select Model</div><div class="cdrop" id="drop_b_model"></div></div>
       <input type="hidden" id="b_color">
       <div class="csw" id="wrap_b_color"><div class="cst" id="trig_b_color" tabindex="0">Select Color</div><div class="cdrop" id="drop_b_color"></div></div>
-      <input id="b_bookingtime"   placeholder="Booking date">
-      <input id="b_dealership"    placeholder="Dealership">
-      <input id="b_BookingName"   placeholder="Booking Name">
-      <input id="b_bookingnumber" placeholder="Booking Number">
-      <input id="b_altNumber"     placeholder="Alternate Number">
+      <input id="b_bookingtime"        placeholder="Booking date">
+      <input id="b_Registrationnumber" value="Registration number" readonly style="opacity:0.55;cursor:not-allowed;">
+      <input id="b_dealership"         placeholder="Dealership">
+      <input id="b_BookingName"        placeholder="Booking Name">
+      <input id="b_bookingnumber"      placeholder="Booking Number">
+      <input id="b_Chassisnumber"      value="Chassis number" readonly style="opacity:0.55;cursor:not-allowed;">
+      <input id="b_Enginenumber"       value="Engine number" readonly style="opacity:0.55;cursor:not-allowed;">
+      <input id="b_altNumber"          placeholder="Alternate Number">
     </div>
 
     <div id="purchasedSection" class="hide">
@@ -1752,7 +1847,6 @@ body.dark-mode .theme-toggle-section { border-top-color:rgba(255,255,255,0.06) !
       <button class="efp" data-gfilter="Cruiser">Cruiser</button>
       <button class="efp" data-gfilter="Adventure">Adventure</button>
       <button class="efp" data-gfilter="Pure Sport">Pure Sport</button>
-      <button class="efp" data-gfilter="Electric">Electric</button>
     </div>
 
     <div class="gallery-grid reveal-el" data-delay="3" id="galleryGrid"></div>
@@ -1766,7 +1860,7 @@ body.dark-mode .theme-toggle-section { border-top-color:rgba(255,255,255,0.06) !
       <h3>Made By</h3>
       <p class="brand-name">Advait</p>
       <a href="#" rel="noopener"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>Portfolio</a>
-      <a href="https://github.com/advaitbuild" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>GitHub</a>
+      <a href="https://github.com/priyanshsharma8" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>GitHub</a>
       <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
     </div>
     <div class="re-footer-col">
@@ -2001,7 +2095,7 @@ function buildColorDrop(wrapperId, triggerId, dropId, hiddenId, modelName) {
 }
 
 function buildPaymentDrop() {
-  const items = ['Cash','Finance','Both','Will decide later','Not Applicable'].map(o => ({ label:o, value:o }));
+  const items = ['Cash','Finance','Both','Not Informed','Not Applicable'].map(o => ({ label:o, value:o }));
   buildCustomDrop('wrap_payment','trig_payment','drop_payment', items, val => { document.getElementById('paymentMode').value = val; }, 'Select Payment Mode');
 }
 
@@ -2105,17 +2199,22 @@ function buildText(mode) {
     return [
       b_keyEnquiry.value    && `Key enquiry / ${b_keyEnquiry.value}`,
       b_model.value         && `, Model / ${b_model.value}`,
+      b_color.value && b_color.value!=='Select Color' && `, Color / ${b_color.value}`,
       b_bookingtime.value   && `, Booking date / ${b_bookingtime.value}`,
+      `, Registration number / Not Applicable`,
       b_dealership.value    && `, Dealership / ${b_dealership.value}`,
       b_BookingName.value   && `, Booking name / ${b_BookingName.value}`,
       b_bookingnumber.value && `, Booking number / ${b_bookingnumber.value}`,
+      `, Chassis number / Not Applicable`,
+      `, Engine number / Not Applicable`,
       b_altNumber.value     && `, Alternate number / ${b_altNumber.value}`
     ].filter(Boolean).join('');
   }
   if (mode === 'purchased') {
     return [
-      p_keyEnquiry.value         && `Key enquiry / ${p_keyEnquiry.value}`,
+     p_keyEnquiry.value         && `Key enquiry / ${p_keyEnquiry.value}`,
       p_model.value              && `, Model / ${p_model.value}`,
+      p_color.value && p_color.value!=='Select Color' && `, Color / ${p_color.value}`,
       p_Purchasedate.value       && `, Purchase date / ${p_Purchasedate.value}`,
       p_Registrationnumber.value && `, Registration number / ${p_Registrationnumber.value}`,
       p_dealership.value         && `, Dealership / ${p_dealership.value}`,
@@ -2140,7 +2239,7 @@ function copyData() {
 // ─── RESET ─────────────────────────────────────────────────────────────────
 function resetForm() {
   if (!confirm('⚠️ Are you sure?\n\nAll entered data will be cleared.')) return;
-  document.querySelectorAll('input').forEach(el => el.value = '');
+  document.querySelectorAll('input').forEach(el => { if (!el.hasAttribute('readonly')) el.value = ''; });
   [['trig_model','Select Model'],['trig_color','Select Color'],['trig_payment','Select Payment Mode'],
    ['trig_b_model','Select Model'],['trig_b_color','Select Color'],
    ['trig_p_model','Select Model'],['trig_p_color','Select Color']].forEach(([id,ph]) => {
@@ -2161,7 +2260,7 @@ function resetForm() {
   const currentLbl= document.getElementById('bgCurrentLabel');
   const toggleBtn = document.getElementById('bgToggleBtn');
   const card      = document.getElementById('bgChangerCard');
-  const DEFAULT_BG= '';
+  const DEFAULT_BG= "url('himalayan-bg.jpg')";
   const STORAGE_KEY='crm_bg_config';
 
   toggleBtn.addEventListener('click', function(){
@@ -2283,7 +2382,8 @@ function resetForm() {
   }
 
   function applyDefault() {
-    hero.style.backgroundImage = DEFAULT_BG; hero.style.removeProperty('background-image');
+    hero.style.removeProperty('background-image');
+    document.documentElement.style.removeProperty('--bg-image');
     currentLbl.textContent = 'Default (Himalayan)';
     localStorage.removeItem(STORAGE_KEY);
     resetTheme();
@@ -2291,6 +2391,7 @@ function resetForm() {
 
   function applyImage(dataUrl, name) {
     hero.style.backgroundImage = `url('${dataUrl}')`;
+    document.documentElement.style.setProperty('--bg-image', `url('${dataUrl}')`);
     currentLbl.textContent = name || 'Custom image';
     localStorage.setItem(STORAGE_KEY, JSON.stringify({type:'image', value:dataUrl, name}));
     extractColors(dataUrl, applyTheme);
@@ -2315,7 +2416,10 @@ function resetForm() {
   (function restore(){
     const saved=localStorage.getItem(STORAGE_KEY);
     if(saved){ try{ const cfg=JSON.parse(saved); if(cfg.type==='image'){applyImage(cfg.value,cfg.name);return;} }catch(e){} }
-    currentLbl.textContent='Default (Himalayan)';
+    // No saved bg — clear any inline style so CSS default (himalayan-bg.jpg) shows
+    hero.style.removeProperty('background-image');
+    document.documentElement.style.removeProperty('--bg-image');
+    currentLbl.textContent = 'Default (Himalayan)';
   })();
 })();
 
@@ -2793,7 +2897,7 @@ function greetUser(name){
     'Cruiser':    ['Meteor 350','Super Meteor 650'],
     'Adventure':  ['Himalayan 450','Scram 440','Bear 650'],
     'Pure Sport': ['Continental GT 650'],
-    'Electric':   []
+
   };
 
   let gFilter = 'all';
@@ -2805,125 +2909,123 @@ function greetUser(name){
   function fmtINR(n){ return '₹' + new Intl.NumberFormat('en-IN',{maximumFractionDigits:0}).format(n); }
 
   function allModelNames(){
-    const allModels = Object.keys(bikeData || {});
-    const electricOnly = segMap['Electric'].filter(m => !allModels.includes(m));
-    return [...allModels, ...electricOnly];
+    return Object.keys(bikeData || {});
   }
 
   const bikeImages = {
-    "Bear 650": {
-      "Boardwalk White": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bear650/bear650boardwalkwhite.jpg",
-      "Golden Shadow": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bear650/bear650goldenshadow.jpg",
-      "Petrol Green": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bear650/bear650petrolgreen.jpg",
-      "Two Fournine": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bear650/bear650twofournine.jpg",
-      "Wild Honey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bear650/bear650wildhoney.jpg"
+    "Hunter 350": {
+      "Dapper Grey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350dappergrey.jpg",
+      "Factory Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350factoryblack.jpg",
+      "Graphite Grey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350graphitegrey.jpg",
+      "London Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350londonred.jpg",
+      "Moonshot White": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350moonshotwhite.jpg",
+      "Mumbai Yellow": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350mumbaiyellow.jpg",
+      "Rebel Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350rebelblue.jpg",
+      "Rio White": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350riowhite.jpg",
+      "Tarmac Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350tarmacblack.jpg",
+      "Tokyo Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/hunter350/hunter350tokyoblack.jpg"
     },
     "Bullet 350": {
-      "Battalion Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bullet350/bullet350battalionblack.jpg",
-      "Black Gold": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bullet350/bullet350blackgold.jpg",
-      "Maroon": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bullet350/bullet350maroon.jpg",
-      "Military Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bullet350/bullet350militaryblack.jpg",
-      "Standard Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bullet350/bullet350standardblack.jpg"
-    },
-    "Bullet 650": {
-      "Battleship Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bullet650/bullet650battleshipblue.jpg",
-      "Cannon Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/bullet650/bullet650cannonblack.jpg"
+      "Battalion Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bullet350/bullet350battalionblack.jpg",
+      "Black Gold": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bullet350/bullet350blackgold.jpg",
+      "Maroon": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bullet350/bullet350maroon.jpg",
+      "Military Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bullet350/bullet350militaryblack.jpg",
+      "Standard Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bullet350/bullet350standardblack.jpg"
     },
     "Classic 350": {
-      "Commando Sand": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic350/classic350commandosand.jpg",
-      "Emerald": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic350/classic350emerald.jpg",
-      "Gun Grey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic350/classic350gungrey.jpg",
-      "Madras Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic350/classic350madrasred.jpg",
-      "Medallion Bronze": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic350/classic350medallionbronze.jpg",
-      "Redditch Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic350/classic350redditchred.jpg",
-      "Stealth Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic350/classic350stealthblack.jpg"
-    },
-    "Classic 650": {
-      "Black Chrome": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic650/classic650blackchrome.jpg",
-      "Bruntingthorpe Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic650/classic650bruntingthorpeblue.jpg",
-      "Teal": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic650/classic650teal.jpg",
-      "Vallam Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/classic650/classic650vallamred.jpg"
-    },
-    "Continental GT 650": {
-      "Apex Grey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/continentalgt650/continentalgt650apexgrey.jpg",
-      "British Racing Green": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/continentalgt650/continentalgt650britishracingg.jpg",
-      "Mr Clean": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/continentalgt650/continentalgt650mrclean.jpg",
-      "Rocker Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/continentalgt650/continentalgt650rockerred.jpg",
-      "Slipstream Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/continentalgt650/continentalgt650slipstreamblu.jpg"
-    },
-    "Goan Classic 350": {
-      "Purple Haze": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/goanclassic350/goanclassic350purplehaze.jpg",
-      "Rave Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/goanclassic350/goanclassic350ravered.jpg",
-      "Shack Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/goanclassic350/goanclassic350shackblack.jpg",
-      "Tripteal": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/goanclassic350/goanclassic350tripteal.jpg"
-    },
-    "Guerrilla 450": {
-      "Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/guerrilla450/guerrilla450black.jpg",
-      "Brava Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/guerrilla450/guerrilla450bravablue.jpg",
-      "Green": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/guerrilla450/guerrilla450green.jpg",
-      "Peix Bronze": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/guerrilla450/guerrilla450peixbronze.jpg",
-      "Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/guerrilla450/guerrilla450red.jpg",
-      "Shadow Wash": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/guerrilla450/guerrilla450shadowwash.jpg",
-      "Smoke Silver": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/guerrilla450/guerrilla450smokesilver.jpg",
-      "Twilight Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/guerrilla450/guerrilla450twilightblue.jpg"
-    },
-    "Himalayan 450": {
-      "Hanle Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/himalayan450/himalayan450hanleblack.jpg",
-      "Kamet White": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/himalayan450/himalayan450kametwhite.jpg",
-      "Kaza Brown": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/himalayan450/himalayan450kazabrown.jpg",
-      "Mana Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/himalayan450/himalayan450manablack.jpg",
-      "Slate Himalayan Salt": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/himalayan450/himalayan450saltehimalayansal.jpg",
-      "Slate Poppy Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/himalayan450/himalayan450slatepoppyblue.jpg"
-    },
-    "Hunter 350": {
-      "Dapper Grey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350dappergrey.jpg",
-      "Factory Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350factoryblack.jpg",
-      "Graphite Grey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350graphitegrey.jpg",
-      "London Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350londonred.jpg",
-      "Moonshot White": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350moonshotwhite.jpg",
-      "Mumbai Yellow": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350mumbaiyellow.jpg",
-      "Rebel Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350rebelblue.jpg",
-      "Rio White": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350riowhite.jpg",
-      "Tarmac Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350tarmacblack.jpg",
-      "Tokyo Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/hunter350/hunter350tokyoblack.jpg"
-    },
-    "Interceptor 650": {
-      "Barcelona Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/interceptor650/interceptor650barcelonablue.jpg",
-      "Black Ray": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/interceptor650/interceptor650blackray.jpg",
-      "Cali Green": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/interceptor650/interceptor650caligreen.jpg",
-      "Canyon Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/interceptor650/interceptor650canyonred.jpg",
-      "Mark 2": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/interceptor650/interceptor650mark2.jpg",
-      "Sunset Strip": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/interceptor650/interceptor650sunsetstrip.jpg"
+      "Commando Sand": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic350/classic350commandosand.jpg",
+      "Emerald": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic350/classic350emerald.jpg",
+      "Gun Grey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic350/classic350gungrey.jpg",
+      "Madras Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic350/classic350madrasred.jpg",
+      "Medallion Bronze": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic350/classic350medallionbronze.jpg",
+      "Redditch Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic350/classic350redditchred.jpg",
+      "Stealth Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic350/classic350stealthblack.jpg"
     },
     "Meteor 350": {
-      "Aurora Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/meteor350/meteor350aurorared.jpg",
-      "Aurora Retro Green": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/meteor350/meteor350auroraretrogreen.jpg",
-      "Fireball Grey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/meteor350/meteor350fireballgrey.jpg",
-      "Fireball Orange": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/meteor350/meteor350fireballorange.jpg",
-      "Stellar Marine Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/meteor350/meteor350stellarmarineblue.jpg",
-      "Stellar Matt Grey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/meteor350/meteor350stellarmattgrey.jpg",
-      "Supernova Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/meteor350/meteor350supernovablack.jpg"
+      "Aurora Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/meteor350/meteor350aurorared.jpg",
+      "Aurora Retro Green": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/meteor350/meteor350auroraretrogreen.jpg",
+      "Fireball Grey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/meteor350/meteor350fireballgrey.jpg",
+      "Fireball Orange": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/meteor350/meteor350fireballorange.jpg",
+      "Stellar Marine Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/meteor350/meteor350stellarmarineblue.jpg",
+      "Stellar Matt Grey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/meteor350/meteor350stellarmattgrey.jpg",
+      "Supernova Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/meteor350/meteor350supernovablack.jpg"
+    },
+    "Goan Classic 350": {
+      "Purple Haze": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/goanclassic350/goanclassic350purplehaze.jpg",
+      "Rave Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/goanclassic350/goanclassic350ravered.jpg",
+      "Shack Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/goanclassic350/goanclassic350shackblack.jpg",
+      "Tripteal": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/goanclassic350/goanclassic350tripteal.jpg"
     },
     "Scram 440": {
-      "Force Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/scram440/scram440forceblue.jpg",
-      "Force Grey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/scram440/scram440forcegrey.jpg",
-      "Force Teal": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/scram440/scram440forceteal.jpg",
-      "Trail Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/scram440/scram440trailblue.jpg",
-      "Trail Green": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/scram440/scram440trailgreen.jpg"
+      "Force Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/scram440/scram440forceblue.jpg",
+      "Force Grey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/scram440/scram440forcegrey.jpg",
+      "Force Teal": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/scram440/scram440forceteal.jpg",
+      "Trail Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/scram440/scram440trailblue.jpg",
+      "Trail Green": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/scram440/scram440trailgreen.jpg"
     },
-    "Shotgun 650": {
-      "Green Drill": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/shotgun650/shotgun650greendrill.jpg",
-      "Plasma Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/shotgun650/shotgun650plasmablue.jpg",
-      "Sheet Metal Grey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/shotgun650/shotgun650sheetmetalgrey.jpg",
-      "Stencil White": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/shotgun650/shotgun650stencilwhilte.jpg"
+    "Guerrilla 450": {
+      "Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/guerrilla450/guerrilla450black.jpg",
+      "Brava Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/guerrilla450/guerrilla450bravablue.jpg",
+      "Green": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/guerrilla450/guerrilla450green.jpg",
+      "Peix Bronze": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/guerrilla450/guerrilla450peixbronze.jpg",
+      "Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/guerrilla450/guerrilla450red.jpg",
+      "Shadow Wash": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/guerrilla450/guerrilla450shadowash.jpg",
+      "Smoke Silver": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/guerrilla450/guerrilla450smokesilver.jpg",
+      "Twilight Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/guerrilla450/guerrilla450twilightblue.jpg"
+    },
+    "Himalayan 450": {
+      "Hanle Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/himalayan450/himalayan450hanleblack.jpg",
+      "Kamet White": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/himalayan450/himalayan450kametwhite.jpg",
+      "Kaza Brown": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/himalayan450/himalayan450kazabrown.jpg",
+      "Mana Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/himalayan450/himalayan450manablack.jpg",
+      "Slate Himalayan Salt": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/himalayan450/himalayan450saltehimalayansalt.jpg",
+      "Slate Poppy Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/himalayan450/himalayan450slatepoppyblue.jpg"
+    },
+    "Bullet 650": {
+      "Battleship Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bullet650/bullet650battleshipblue.jpg",
+      "Cannon Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bullet650/bullet650cannonblack.jpg"
+    },
+    "Classic 650": {
+      "Black Chrome": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic650/classic650blackchrome.jpg",
+      "Bruntingthorpe Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic650/classic650bruntingthorpeblue.jpg",
+      "Teal": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic650/classic650teal.jpg",
+      "Vallam Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/classic650/classic650vallamred.jpg"
+    },
+    "Continental GT 650": {
+      "Apex Grey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/continentalgt650/continentalgt650apexgrey.jpg",
+      "British Racing Green": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/continentalgt650/continentalgt650britishracinggreen.jpg",
+      "Mr Clean": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/continentalgt650/continentalgt650mrclean.jpg",
+      "Rocker Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/continentalgt650/continentalgt650rockerred.jpg",
+      "Slipstream Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/continentalgt650/continentalgt650slipstreamblue.jpg"
+    },
+    "Interceptor 650": {
+      "Barcelona Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/interceptor650/interceptor650barcelonablue.jpg",
+      "Black Ray": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/interceptor650/interceptor650blackray.jpg",
+      "Cali Green": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/interceptor650/interceptor650caligreen.jpg",
+      "Canyon Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/interceptor650/interceptor650canyonred.jpg",
+      "Mark 2": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/interceptor650/interceptor650mark2.jpg",
+      "Sunset Strip": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/interceptor650/interceptor650sunsetstrip.jpg"
     },
     "Super Meteor 650": {
-      "Astral Black": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/supermeteor650/supermeteor650astralblack.jpg",
-      "Astral Green": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/supermeteor650/supermeteor650astralgreen.jpg",
-      "Celestial Blue": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/supermeteor650/supermeteor650celestialblue.jpg",
-      "Celestial Red": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/supermeteor650/supermeteor650celestialred.jpg",
-      "Interstellar Grey": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/supermeteor650/supermeteor650interstellargrey.jpg",
-      "Interstellar Green": "https://raw.githubusercontent.com/advaitbuild/recrm/main/images/supermeteor650/supermeteor650interstellargreen.jpg"
+      "Astral Black": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/supermeteor650/supermeteor650astralblack.jpg",
+      "Astral Green": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/supermeteor650/supermeteor650astralgreen.jpg",
+      "Celestial Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/supermeteor650/supermeteor650celestialblue.jpg",
+      "Celestial Red": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/supermeteor650/supermeteor650celestialred.jpg",
+      "Interstellar Grey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/supermeteor650/supermeteor650interstellargrey.jpg",
+      "Interstellar Green": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/supermeteor650/supermeteor650interstellargreen.jpg"
+    },
+    "Shotgun 650": {
+      "Green Drill": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/shotgun650/shotgun650greendrill.jpg",
+      "Plasma Blue": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/shotgun650/shotgun650plasmablue.jpg",
+      "Sheet Metal Grey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/shotgun650/shotgun650sheetmetalgrey.jpg",
+      "Stencil White": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/shotgun650/shotgun650stencilwhilte.jpg"
+    },
+    "Bear 650": {
+      "Boardwalk White": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bear650/bear650boardwalkwhite.jpg",
+      "Golden Shadow": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bear650/bear650goldenshadow.jpg",
+      "Petrol Green": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bear650/bear650petrolgreen.jpg",
+      "Two Fournine": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bear650/bear650twofournine.jpg",
+      "Wild Honey": "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/bear650/bear650wildhoney.jpg"
     }
   };
 
@@ -3061,7 +3163,12 @@ function greetUser(name){
     if (e.target.id === 'gbikeModalBackdrop') closeBikeModal();
   });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && document.getElementById('gbikeModalBackdrop').classList.contains('gbm-open')) closeBikeModal();
+    if (e.key === 'Escape' && document.getElementById('gbikeModalBackdrop').classList.contains('gbm-open')) {
+      // Only close modal if lightbox is NOT open (lightbox handles its own ESC first)
+      const lb = document.getElementById('gbmLightbox');
+      if (lb && lb.classList.contains('open')) return;
+      closeBikeModal();
+    }
   });
 })();
 
@@ -3145,7 +3252,10 @@ document.addEventListener('DOMContentLoaded', function() {
   lbClose.addEventListener('click', closeLightbox);
   lb.addEventListener('click', function(e) { if (e.target === lb) closeLightbox(); });
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && lb.classList.contains('open')) closeLightbox();
+    if (e.key === 'Escape' && lb.classList.contains('open')) {
+      e.stopImmediatePropagation();
+      closeLightbox();
+    }
   });
   document.addEventListener('dblclick', function(e) {
     var item = e.target.closest('.gbm-photo-item');
