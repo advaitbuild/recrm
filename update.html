@@ -1690,7 +1690,7 @@ body.dark-mode .gseg-photo-wrap { background:rgba(255,255,255,0.04) !important; 
       <button class="copyBtn"  onclick="copyData()">Copy</button>
       <button class="resetBtn" onclick="resetForm()">Reset</button>
     </div>
-    <div class="word-limit-banner" id="wordLimitWarning" role="alert">⚠ Your word count has reached the limit, reduce the count</div>
+   <div class="word-limit-banner" id="wordLimitWarning" role="alert" style="display:none!important;"></div>
   </div>
 </div>
 
@@ -2158,7 +2158,7 @@ function countWords(str) {
   return trimmed ? trimmed.split(/\s+/).length : 0;
 }
 function isOverWordLimit(str) {
-  return countWords(str) >= WORD_LIMIT || (str ? str.length : 0) >= WORD_LIMIT;
+  return false;
 }
 function setWordLimitWarning(visible) {
   const el = document.getElementById('wordLimitWarning');
