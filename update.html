@@ -1463,6 +1463,61 @@ body.dark-mode .gseg-dot.active { background:#FFD700 !important; border-color:#F
 body.dark-mode .gseg-photo-wrap { background:rgba(255,255,255,0.04) !important; }
 
 
+
+/* ═══ RIGHT-SIDE SPEC PANEL (added) ═══ */
+#bike-spec-panel{position:fixed;top:74px;right:18px;width:360px;max-height:calc(100vh - 96px);z-index:160000;overflow-y:auto;pointer-events:none;
+  opacity:0;transform:translateX(24px) scale(.98);transition:opacity .26s cubic-bezier(.22,1,.36,1),transform .26s cubic-bezier(.22,1,.36,1);
+  scrollbar-width:thin;scrollbar-color:#cfc6b3 transparent;}
+#bike-spec-panel::-webkit-scrollbar{width:5px;}
+#bike-spec-panel::-webkit-scrollbar-thumb{background:#cfc6b3;border-radius:4px;}
+#bike-spec-panel.bsp-open{opacity:1;transform:translateX(0) scale(1);}
+@media(max-width:1040px){#bike-spec-panel{top:auto;bottom:14px;right:12px;left:12px;width:auto;max-height:66vh;transform:translateY(24px);}#bike-spec-panel.bsp-open{transform:translateY(0);}}
+/* ═══ SPEC CARD (shared by common + variant) ═══ */
+.bsc{position:relative;border-radius:18px;overflow:hidden;background:rgba(255,255,255,0.62);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);
+  border:1px solid rgba(255,255,255,0.6);box-shadow:0 18px 50px rgba(20,15,10,0.22);}
+.bsc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;z-index:2;background:linear-gradient(90deg,#E53517,#FFD700);}
+.bsc-photo{position:relative;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#faf7f0,#efe9dc);}
+.bsc-photo img{width:100%;height:100%;object-fit:contain;padding:10px;box-sizing:border-box;}
+.bsc-noimg{font-size:46px;opacity:.3;}
+.bsc-seg{position:absolute;left:12px;bottom:10px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9a7600;
+  background:rgba(255,255,255,0.85);border:1px solid rgba(255,215,0,0.3);padding:3px 9px;border-radius:5px;backdrop-filter:blur(6px);}
+.bsc-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:14px 18px 2px;}
+.bsc-name{font-size:19px;font-weight:800;color:#9a7600;line-height:1.2;}
+.bsc-price{font-size:12.5px;font-weight:700;color:rgba(229,53,23,0.85);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.bsc-strip{padding:6px 18px 0;font-size:10.5px;color:rgba(20,16,12,0.4);letter-spacing:.2px;}
+.bsc-color{display:flex;align-items:center;gap:7px;padding:8px 18px 2px;font-size:13px;font-weight:700;color:rgba(20,16,12,0.7);}
+.bsc-color-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,#E53517,#FFD700);flex-shrink:0;}
+.bsc-tags-label,.bsc-block-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(20,16,12,0.32);}
+.bsc-tags-label{padding:10px 18px 0;}
+.bsc-block-lbl{padding:12px 18px 0;display:flex;align-items:center;gap:8px;}
+.bsc-block-lbl::before{content:'';width:14px;height:1.5px;background:rgba(229,53,23,0.5);border-radius:2px;}
+.bsc-tags{display:flex;flex-wrap:wrap;gap:5px;padding:6px 18px 8px;}
+.bsc-tag{font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:rgba(20,16,12,0.5);
+  background:rgba(20,16,12,0.05);border:1px solid rgba(20,16,12,0.1);padding:3px 8px;border-radius:5px;}
+.bsc-specs{padding:4px 18px 10px;}
+.bsc-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid rgba(20,16,12,0.06);}
+.bsc-row:last-child{border-bottom:none;}
+.bsc-lbl{font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(20,16,12,0.32);flex-shrink:0;padding-top:1px;white-space:nowrap;}
+.bsc-val{font-size:12px;font-weight:600;color:rgba(20,16,12,0.78);text-align:right;line-height:1.45;}
+.bsc-note{margin:6px 18px 12px;padding:8px 11px;font-size:10.5px;line-height:1.5;color:rgba(154,118,0,0.9);background:rgba(255,215,0,0.07);border:1px solid rgba(255,215,0,0.2);border-radius:8px;}
+.bsc-note-soft{color:rgba(20,16,12,0.5);background:rgba(20,16,12,0.03);border-color:rgba(20,16,12,0.08);}
+.bsc-foot{padding:9px 18px 14px;font-size:9.5px;letter-spacing:.3px;text-align:center;color:rgba(20,16,12,0.3);border-top:1px solid rgba(20,16,12,0.05);}
+/* ═══ DARK MODE (uses existing body.dark-mode) ═══ */
+body.dark-mode .bsc{background:rgba(15,13,11,0.85) !important;border-color:rgba(255,255,255,0.1) !important;box-shadow:0 18px 50px rgba(0,0,0,0.6) !important;}
+body.dark-mode .bsc-photo{background:linear-gradient(135deg,#0d0d0d,#161310) !important;}
+body.dark-mode .bsc-name{color:#FFD700 !important;}
+body.dark-mode .bsc-price{color:rgba(255,150,120,0.9) !important;}
+body.dark-mode .bsc-strip{color:rgba(255,255,255,0.4) !important;}
+body.dark-mode .bsc-color{color:rgba(255,255,255,0.75) !important;}
+body.dark-mode .bsc-seg{color:#FFD700 !important;background:rgba(0,0,0,0.55) !important;border-color:rgba(255,215,0,0.25) !important;}
+body.dark-mode .bsc-tags-label,body.dark-mode .bsc-block-lbl{color:rgba(255,255,255,0.35) !important;}
+body.dark-mode .bsc-tag{color:rgba(255,255,255,0.55) !important;background:rgba(255,255,255,0.06) !important;border-color:rgba(255,255,255,0.1) !important;}
+body.dark-mode .bsc-row{border-bottom-color:rgba(255,255,255,0.07) !important;}
+body.dark-mode .bsc-lbl{color:rgba(255,255,255,0.35) !important;}
+body.dark-mode .bsc-val{color:rgba(255,255,255,0.82) !important;}
+body.dark-mode .bsc-note{color:rgba(255,215,0,0.8) !important;background:rgba(255,215,0,0.06) !important;border-color:rgba(255,215,0,0.18) !important;}
+body.dark-mode .bsc-note-soft{color:rgba(255,255,255,0.5) !important;background:rgba(255,255,255,0.04) !important;border-color:rgba(255,255,255,0.08) !important;}
+body.dark-mode .bsc-foot{color:rgba(255,255,255,0.28) !important;border-top-color:rgba(255,255,255,0.06) !important;}
 </style>
 </head>
 <body>
@@ -1908,6 +1963,8 @@ body.dark-mode .gseg-photo-wrap { background:rgba(255,255,255,0.04) !important; 
   </div>
 </footer>
 
+<div id="bike-spec-panel" aria-hidden="true"></div>
+
 </div><!-- end #app-root -->
 
 <!-- ===== BIKE DETAIL FULL-SCREEN OVERLAY ===== -->
@@ -1984,6 +2041,261 @@ const perLakhRates = {
 };
 
 // ─── TOOLTIP ───────────────────────────────────────────────────────────────
+// ═══ TWO-TIER BIKE SPEC PANELS (common on model hover · variant on colour hover) ═══
+// Reuses the page's existing bikeData & bikeInfo. Self-contained; exposes helpers on window.
+(function(){
+const _IMG = "https://raw.githubusercontent.com/priyanshsharma8/relmsdata/main/images/";
+const bikeHeroImage = {
+  "Hunter 350":_IMG+"hunter350/hunter350londonred.jpg","Bullet 350":_IMG+"bullet350/bullet350blackgold.jpg",
+  "Classic 350":_IMG+"classic350/classic350emerald.jpg","Meteor 350":_IMG+"meteor350/meteor350aurorared.jpg",
+  "Goan Classic 350":_IMG+"goanclassic350/goanclassic350ravered.jpg","Scram 440":_IMG+"scram440/scram440forceteal.jpg",
+  "Himalayan 450":_IMG+"himalayan450/himalayan450kazabrown.jpg","Guerrilla 450":_IMG+"guerrilla450/guerrilla450bravablue.jpg",
+  "Shotgun 650":_IMG+"shotgun650/shotgun650plasmablue.jpg","Interceptor 650":_IMG+"interceptor650/interceptor650canyonred.jpg",
+  "Continental GT 650":_IMG+"continentalgt650/continentalgt650rockerred.jpg","Classic 650":_IMG+"classic650/classic650blackchrome.jpg",
+  "Bear 650":_IMG+"bear650/bear650petrolgreen.jpg","Super Meteor 650":_IMG+"supermeteor650/supermeteor650celestialblue.jpg",
+  "Bullet 650":""
+};
+
+/* per-colour images (your gallery map) — used for the variant card photo */
+const specImages = {
+  "Hunter 350":{"Dapper Grey":_IMG+"hunter350/hunter350dappergrey.jpg","Factory Black":_IMG+"hunter350/hunter350factoryblack.jpg","Graphite Grey":_IMG+"hunter350/hunter350graphitegrey.jpg","London Red":_IMG+"hunter350/hunter350londonred.jpg","Moonshot White":_IMG+"hunter350/hunter350moonshotwhite.jpg","Mumbai Yellow":_IMG+"hunter350/hunter350mumbaiyellow.jpg","Rebel Blue":_IMG+"hunter350/hunter350rebelblue.jpg","Rio White":_IMG+"hunter350/hunter350riowhite.jpg","Tarmac Black":_IMG+"hunter350/hunter350tarmacblack.jpg","Tokyo Black":_IMG+"hunter350/hunter350tokyoblack.jpg"},
+  "Bullet 350":{"Battalion Black":_IMG+"bullet350/bullet350battalionblack.jpg","Black Gold":_IMG+"bullet350/bullet350blackgold.jpg","Maroon":_IMG+"bullet350/bullet350maroon.jpg","Military Black":_IMG+"bullet350/bullet350militaryblack.jpg","Standard Black":_IMG+"bullet350/bullet350standardblack.jpg"},
+  "Classic 350":{"Commando Sand":_IMG+"classic350/classic350commandosand.jpg","Emerald":_IMG+"classic350/classic350emerald.jpg","Gun Grey":_IMG+"classic350/classic350gungrey.jpg","Madras Red":_IMG+"classic350/classic350madrasred.jpg","Medallion Bronze":_IMG+"classic350/classic350medallionbronze.jpg","Redditch Red":_IMG+"classic350/classic350redditchred.jpg","Stealth Black":_IMG+"classic350/classic350stealthblack.jpg"},
+  "Meteor 350":{"Aurora Red":_IMG+"meteor350/meteor350aurorared.jpg","Aurora Retro Green":_IMG+"meteor350/meteor350auroraretrogreen.jpg","Fireball Grey":_IMG+"meteor350/meteor350fireballgrey.jpg","Fireball Orange":_IMG+"meteor350/meteor350fireballorange.jpg","Stellar Marine Blue":_IMG+"meteor350/meteor350stellarmarineblue.jpg","Stellar Matt Grey":_IMG+"meteor350/meteor350stellarmattgrey.jpg","Supernova Black":_IMG+"meteor350/meteor350supernovablack.jpg"},
+  "Goan Classic 350":{"Purple Haze":_IMG+"goanclassic350/goanclassic350purplehaze.jpg","Rave Red":_IMG+"goanclassic350/goanclassic350ravered.jpg","Shack Black":_IMG+"goanclassic350/goanclassic350shackblack.jpg","Tripteal":_IMG+"goanclassic350/goanclassic350tripteal.jpg"},
+  "Scram 440":{"Force Blue":_IMG+"scram440/scram440forceblue.jpg","Force Grey":_IMG+"scram440/scram440forcegrey.jpg","Force Teal":_IMG+"scram440/scram440forceteal.jpg","Trail Blue":_IMG+"scram440/scram440trailblue.jpg","Trail Green":_IMG+"scram440/scram440trailgreen.jpg"},
+  "Guerrilla 450":{"Black":_IMG+"guerrilla450/guerrilla450black.jpg","Brava Blue":_IMG+"guerrilla450/guerrilla450bravablue.jpg","Green":_IMG+"guerrilla450/guerrilla450green.jpg","Peix Bronze":_IMG+"guerrilla450/guerrilla450peixbronze.jpg","Red":_IMG+"guerrilla450/guerrilla450red.jpg","Shadow Wash":_IMG+"guerrilla450/guerrilla450shadowash.jpg","Smoke Silver":_IMG+"guerrilla450/guerrilla450smokesilver.jpg","Twilight Blue":_IMG+"guerrilla450/guerrilla450twilightblue.jpg"},
+  "Himalayan 450":{"Hanle Black":_IMG+"himalayan450/himalayan450hanleblack.jpg","Kamet White":_IMG+"himalayan450/himalayan450kametwhite.jpg","Kaza Brown":_IMG+"himalayan450/himalayan450kazabrown.jpg","Mana Black":_IMG+"himalayan450/himalayan450manablack.jpg","Slate Himalayan Salt":_IMG+"himalayan450/himalayan450saltehimalayansalt.jpg","Slate Poppy Blue":_IMG+"himalayan450/himalayan450slatepoppyblue.jpg"},
+  "Bullet 650":{"Battleship Blue":_IMG+"bullet650/bullet650battleshipblue.jpg","Cannon Black":_IMG+"bullet650/bullet650cannonblack.jpg"},
+  "Classic 650":{"Black Chrome":_IMG+"classic650/classic650blackchrome.jpg","Bruntingthorpe Blue":_IMG+"classic650/classic650bruntingthorpeblue.jpg","Teal":_IMG+"classic650/classic650teal.jpg","Vallam Red":_IMG+"classic650/classic650vallamred.jpg"},
+  "Continental GT 650":{"Apex Grey":_IMG+"continentalgt650/continentalgt650apexgrey.jpg","British Racing Green":_IMG+"continentalgt650/continentalgt650britishracinggreen.jpg","Mr Clean":_IMG+"continentalgt650/continentalgt650mrclean.jpg","Rocker Red":_IMG+"continentalgt650/continentalgt650rockerred.jpg","Slipstream Blue":_IMG+"continentalgt650/continentalgt650slipstreamblue.jpg"},
+  "Interceptor 650":{"Barcelona Blue":_IMG+"interceptor650/interceptor650barcelonablue.jpg","Black Ray":_IMG+"interceptor650/interceptor650blackray.jpg","Cali Green":_IMG+"interceptor650/interceptor650caligreen.jpg","Canyon Red":_IMG+"interceptor650/interceptor650canyonred.jpg","Mark 2":_IMG+"interceptor650/interceptor650mark2.jpg","Sunset Strip":_IMG+"interceptor650/interceptor650sunsetstrip.jpg"},
+  "Super Meteor 650":{"Astral Black":_IMG+"supermeteor650/supermeteor650astralblack.jpg","Astral Green":_IMG+"supermeteor650/supermeteor650astralgreen.jpg","Celestial Blue":_IMG+"supermeteor650/supermeteor650celestialblue.jpg","Celestial Red":_IMG+"supermeteor650/supermeteor650celestialred.jpg","Interstellar Grey":_IMG+"supermeteor650/supermeteor650interstellargrey.jpg","Interstellar Green":_IMG+"supermeteor650/supermeteor650interstellargreen.jpg"},
+  "Shotgun 650":{"Green Drill":_IMG+"shotgun650/shotgun650greendrill.jpg","Plasma Blue":_IMG+"shotgun650/shotgun650plasmablue.jpg","Sheet Metal Grey":_IMG+"shotgun650/shotgun650sheetmetalgrey.jpg","Stencil White":_IMG+"shotgun650/shotgun650stencilwhilte.jpg"},
+  "Bear 650":{"Boardwalk White":_IMG+"bear650/bear650boardwalkwhite.jpg","Golden Shadow":_IMG+"bear650/bear650goldenshadow.jpg","Petrol Green":_IMG+"bear650/bear650petrolgreen.jpg","Two Fournine":_IMG+"bear650/bear650twofournine.jpg","Wild Honey":_IMG+"bear650/bear650wildhoney.jpg"}
+};
+
+/* COMMON specs — identical across every variant of a model */
+const bikeSpecs = {
+  "Hunter 350":{seg:"Roadster",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed",mileage:"36.2 km/l (ARAI)",topSpeed:"~114 km/h",fuelTank:"13 L",seatHeight:"790 mm",weight:"177–181 kg (kerb)",gc:"150 mm",wheelbase:"1370 mm",susp:"Telescopic fork / twin shocks"},
+  "Bullet 350":{seg:"Heritage",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"37 km/l",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"805 mm",weight:"195 kg (kerb)",gc:"160 mm",wheelbase:"1390 mm",susp:"Telescopic fork / twin shocks"},
+  "Classic 350":{seg:"Heritage",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"35 km/l",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"805 mm",weight:"195 kg (kerb)",gc:"170 mm",wheelbase:"1390 mm",susp:"Telescopic fork / twin shocks"},
+  "Meteor 350":{seg:"Cruiser",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"36 km/l (ARAI ~41.9)",topSpeed:"~110 km/h",fuelTank:"15 L",seatHeight:"765 mm",weight:"191 kg (kerb)",gc:"170 mm",wheelbase:"1400 mm",susp:"41mm fork / twin-tube shocks (6-step)"},
+  "Goan Classic 350":{seg:"Heritage Bobber",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"36.2 km/l (ARAI)",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"750 mm",weight:"197 kg (kerb)",gc:"170 mm",wheelbase:"1400 mm",susp:"41mm fork / twin emulsion shocks"},
+  "Scram 440":{seg:"Adventure Crossover",engine:"443cc · 1-cyl · Air-cooled SOHC (LS440)",power:"25.4 bhp @ 6250 rpm",torque:"34 Nm @ 4000 rpm",gearbox:"6-speed",mileage:"29.5 km/l (ARAI)",topSpeed:"~130 km/h",fuelTank:"15 L",seatHeight:"795 mm",weight:"196 kg (kerb)",gc:"200 mm",wheelbase:"1460 mm",susp:"Telescopic (190mm) / monoshock (180mm)"},
+  "Himalayan 450":{seg:"Adventure Tourer",engine:"452cc · 1-cyl · Liquid-cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"30 km/l",topSpeed:"~150 km/h",fuelTank:"17 L",seatHeight:"825 mm (adj. 805–845)",weight:"196 kg (kerb)",gc:"230 mm",wheelbase:"1510 mm",susp:"43mm USD fork (200mm) / monoshock (200mm)"},
+  "Guerrilla 450":{seg:"Roadster",engine:"452cc · 1-cyl · Liquid-cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"29.5 km/l",topSpeed:"~140 km/h",fuelTank:"11 L",seatHeight:"780 mm",weight:"185 kg (kerb)",gc:"169 mm",wheelbase:"1440 mm",susp:"43mm fork (140mm) / monoshock (150mm)"},
+  "Interceptor 650":{seg:"Roadster",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5150 rpm",gearbox:"6-speed · slipper clutch",mileage:"25 km/l",topSpeed:"~170 km/h",fuelTank:"13.7 L",seatHeight:"804 mm",weight:"218 kg (kerb)",gc:"174 mm",wheelbase:"1398 mm",susp:"Telescopic fork / twin shocks (preload adj.)"},
+  "Continental GT 650":{seg:"Café Racer",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5150 rpm",gearbox:"6-speed · slipper clutch",mileage:"27 km/l",topSpeed:"~170 km/h",fuelTank:"12.5 L",seatHeight:"804 mm",weight:"214 kg (kerb)",gc:"174 mm",wheelbase:"1400 mm",susp:"Telescopic fork / twin shocks (preload adj.)"},
+  "Super Meteor 650":{seg:"Cruiser",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"25 km/l",topSpeed:"~170 km/h",fuelTank:"15.7 L",seatHeight:"740 mm",weight:"241 kg (kerb)",gc:"135 mm",wheelbase:"1500 mm",susp:"41mm USD fork / twin shocks (preload adj.)"},
+  "Shotgun 650":{seg:"Roadster Bobber",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"23 km/l",topSpeed:"~160 km/h",fuelTank:"13.8 L",seatHeight:"795 mm",weight:"240 kg (kerb)",gc:"140 mm",wheelbase:"1465 mm",susp:"43mm USD fork / monoshock"},
+  "Bear 650":{seg:"Scrambler",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"56.5 Nm @ 5150 rpm",gearbox:"6-speed",mileage:"22 km/l",topSpeed:"~160 km/h",fuelTank:"13.7 L",seatHeight:"830 mm",weight:"216 kg (kerb)",gc:"~155 mm",wheelbase:"1460 mm",susp:"43mm USD fork / monoshock"},
+  "Classic 650":{seg:"Heritage Cruiser",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"21.5 km/l",topSpeed:"~160 km/h",fuelTank:"14.8 L",seatHeight:"800 mm",weight:"243 kg (kerb)",gc:"154 mm",wheelbase:"1475 mm",susp:"Telescopic fork / twin shocks"},
+  "Bullet 650":{seg:"Heritage",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"~25 km/l (est.)",topSpeed:"~160 km/h",fuelTank:"14.8 L",seatHeight:"~800 mm",weight:"~243 kg (kerb)",gc:"—",wheelbase:"—",susp:"Telescopic fork / twin shocks",note:"Newest 650 — some figures provisional pending full release."}
+};
+
+/* VARIANT hardware. base = standard kit; tiers[price] overrides it.
+   cosmetic:true → trims differ only by paint/finish (hardware = base for all). */
+const variantHW = {
+  "Hunter 350":{
+    base:{wheels:"Alloy",tyres:'110/70-17 F · 140/70-17 R · tubeless',brakes:"300mm Disc F · 270mm Disc R",abs:"Dual-channel",lights:"LED",extras:"Slipper clutch · USB-C · Tripper nav"},
+    tiers:{
+      137640:{trim:"Base · Factory",wheels:"Spoke",tyres:'100/80-17 F · 120/80-17 R · tube',brakes:"300mm Disc F · 153mm Drum R",abs:"Single-channel",lights:"Halogen",extras:"Basic console · no slipper clutch"},
+      149900:{trim:"Base Premium",wheels:"Alloy",tyres:"Tubeless",brakes:"Disc F · Disc R",abs:"Single-channel",lights:"Halogen",extras:"—"},
+      165133:{trim:"Mid · Dapper"},
+      169804:{trim:"Top · Rebel"}
+    }
+  },
+  "Bullet 350":{
+    base:{wheels:"Spoke",tyres:'19" F · 19" R · tube',brakes:"Disc F · Disc R",abs:"Dual-channel",lights:"Halogen",extras:"USB port · semi-digital console"},
+    tiers:{
+      164423:{trim:"Base · Military",brakes:"Disc F · Drum R",abs:"Single-channel"},
+      166650:{trim:"Battalion",brakes:"Disc F · Drum R",abs:"Single-channel"},
+      190312:{trim:"Standard"},
+      208012:{trim:"Top · Black Gold"}
+    }
+  },
+  "Classic 350":{
+    base:{wheels:"Spoke (alloy optional)",tyres:'19" F · 18" R · tube',brakes:"Disc F · Disc R",abs:"Dual-channel",lights:"LED",extras:"USB port · Tripper on top colours"},
+    tiers:{
+      185854:{trim:"Base · Redditch",wheels:"Spoke",abs:"Single-channel",lights:"Halogen",extras:"USB port"}
+    }
+  },
+  "Scram 440":{
+    base:{wheels:"Alloy",tyres:'19" F · 17" R · tubeless · dual-purpose',brakes:"Disc F · Disc R",abs:"Dual-channel",lights:"LED",extras:"6-speed · top-box mount"},
+    tiers:{
+      223131:{trim:"Trail",wheels:"Spoke",tyres:'19" F · 17" R · tube · dual-purpose'},
+      230641:{trim:"Force"}
+    }
+  },
+  "Meteor 350":{cosmetic:true,note:"Trims differ by single/dual-tone paint & graphics.",
+    base:{wheels:"Alloy",tyres:'100/90-19 F · 140/70-17 R · tubeless',brakes:"300mm Disc F · 270mm Disc R",abs:"Dual-channel",lights:"Halogen",extras:"Tripper nav · USB"}},
+  "Goan Classic 350":{cosmetic:true,note:"Single-tone vs dual-tone paint.",
+    base:{wheels:"Tubeless spoke",tyres:'19" F · 16" R · tubeless',brakes:"Disc F · Disc R",abs:"Dual-channel",lights:"LED",extras:"Tripper nav · mid-ape bar"}},
+  "Himalayan 450":{cosmetic:true,note:"Trims differ by paint; Mana/Hanle Black are premium finishes.",
+    base:{wheels:"Spoke · tubeless",tyres:"90/90-21 F · 140/80-17 R",brakes:"320mm Disc F · 270mm Disc R",abs:"Switchable dual-channel",lights:"LED",extras:'4" TFT · Tripper · ride modes'}},
+  "Guerrilla 450":{cosmetic:true,note:'Analogue (base) uses analogue-digital pod; Dash/Flash add Tripper Dash 4" TFT.',
+    base:{wheels:"Alloy",tyres:"120/70-17 F · 160/60-17 R",brakes:"310mm Disc F · 270mm Disc R",abs:"Dual-channel",lights:"LED",extras:"Console varies by trim"}},
+  "Interceptor 650":{cosmetic:true,note:"Blacked-out / Mark trims get alloy wheels + tubeless tyres.",
+    base:{wheels:"Spoke (alloy on blacked-out)",tyres:"100/90-18 F · 130/70-18 R",brakes:"320mm Disc F · 240mm Disc R",abs:"Dual-channel",lights:"Halogen",extras:"Slipper clutch"}},
+  "Continental GT 650":{cosmetic:true,note:"Blacked-out trims get alloy wheels + tubeless tyres.",
+    base:{wheels:"Spoke (alloy on blacked-out)",tyres:"100/90-18 F · 130/70-18 R",brakes:"320mm Disc F · 240mm Disc R",abs:"Dual-channel",lights:"Halogen",extras:"Slipper clutch · clip-on bars"}},
+  "Super Meteor 650":{cosmetic:true,note:"Astral / Interstellar / Celestial trims differ by paint & finish.",
+    base:{wheels:"Alloy",tyres:'100/90-19 F · 150/80-16 R · tubeless',brakes:"320mm Disc F · 300mm Disc R",abs:"Dual-channel",lights:"LED",extras:"Tripper nav"}},
+  "Shotgun 650":{cosmetic:true,note:"Trims differ by paint & finish.",
+    base:{wheels:"Alloy",tyres:'100/90-18 F · 150/70-17 R · tubeless',brakes:"320mm Disc F · 300mm Disc R",abs:"Dual-channel",lights:"LED",extras:"Tripper nav"}},
+  "Bear 650":{cosmetic:true,note:"Differs by paint; Two Four Nine is the premium scheme.",
+    base:{wheels:"Spoke",tyres:"100/90-19 F · 140/80-17 R",brakes:"320mm Disc F · 270mm Disc R",abs:"Dual-channel",lights:"All-LED",extras:'Tripper Dash 4" TFT'}},
+  "Classic 650":{cosmetic:true,note:"Black Chrome is the premium chrome finish.",
+    base:{wheels:"Spoke · tube",tyres:"100/90-19 F · 140/70-18 R",brakes:"320mm Disc F · 300mm Disc R",abs:"Dual-channel",lights:"LED",extras:"Tripper nav · USB"}},
+  "Bullet 650":{cosmetic:true,note:"Newest 650 — variant hardware provisional.",
+    base:{wheels:"Spoke · tube",tyres:'19" F · 18" R',brakes:"Disc F · Disc R",abs:"Dual-channel",lights:"LED",extras:"—"}}
+};
+
+/* ── helpers ── */
+function fmtINR(n){ return '₹' + new Intl.NumberFormat('en-IN',{maximumFractionDigits:0}).format(n); }
+function ccOf(name){ return (name.match(/(\d+)/)||[])[1] || ''; }
+
+function _norm(s){ return String(s).toLowerCase().replace(/[^a-z0-9]/g,''); }
+function getColorImage(name, color){
+  const m = specImages[name]; if(!m) return '';
+  if(m[color]) return m[color];
+  const want = _norm(color);
+  for(const k in m){ if(_norm(k)===want) return m[k]; }
+  // loose contains match (handles "Standard Maroon" → "Maroon", etc.)
+  for(const k in m){ const nk=_norm(k); if(nk.includes(want)||want.includes(nk)) return m[k]; }
+  return '';
+}
+
+// Group colours by price → one variant per distinct price. Ascending (base → top).
+function getVariants(name){
+  const colors = bikeData[name] || {};
+  const cfg = variantHW[name] || {};
+  const base = cfg.base || {};
+  const byPrice = {};
+  Object.entries(colors).forEach(([c,p]) => { (byPrice[p] = byPrice[p] || []).push(c); });
+  const prices = Object.keys(byPrice).map(Number).sort((a,b)=>a-b);
+  const n = prices.length;
+  return prices.map((price,i) => {
+    const tierCfg = (cfg.tiers && cfg.tiers[price]) || {};
+    const hw = Object.assign({}, base, tierCfg);
+    let trim = tierCfg.trim;
+    if(!trim){
+      if(n===1) trim='Single variant';
+      else if(i===0) trim='Base';
+      else if(i===n-1) trim='Top';
+      else trim='Mid'+(n>3?' '+i:'');
+    }
+    return { price, colors: byPrice[price], trim, hw, cosmetic: !!cfg.cosmetic, note: cfg.note };
+  });
+}
+
+function _sharedRows(s){
+  return [
+    ['Engine',s.engine],['Max Power',s.power],['Max Torque',s.torque],['Gearbox',s.gearbox],
+    ['Mileage',s.mileage],['Top Speed',s.topSpeed],['Fuel Tank',s.fuelTank],['Seat Height',s.seatHeight],
+    ['Kerb Weight',s.weight],['Ground Clearance',s.gc],['Wheelbase',s.wheelbase],['Suspension',s.susp]
+  ].filter(r=>r[1]).map(r=>`<div class="bsc-row"><span class="bsc-lbl">${r[0]}</span><span class="bsc-val">${r[1]}</span></div>`).join('');
+}
+function _tagsHTML(name){
+  const t = ((bikeInfo[name]||{}).about)||[];
+  return t.length ? `<div class="bsc-tags-label">Riding Purpose</div><div class="bsc-tags">${t.map(x=>`<span class="bsc-tag">${x}</span>`).join('')}</div>` : '';
+}
+
+/* ── COMMON CARD (bike-level, shared specs only) ── */
+function buildCommonCardHTML(name){
+  const s = bikeSpecs[name] || {};
+  const img = bikeHeroImage[name] || '';
+  const variants = getVariants(name);
+  const prices = Object.values(bikeData[name]||{}).filter(p=>p!=null);
+  const minP = prices.length?Math.min(...prices):null, maxP = prices.length?Math.max(...prices):null;
+  const priceTxt = minP!=null ? (minP===maxP?fmtINR(minP):fmtINR(minP)+' – '+fmtINR(maxP)) : 'Price TBA';
+  const photo = img ? `<img src="${img}" alt="${name}" loading="lazy">` : `<div class="bsc-noimg">🏍️</div>`;
+  const note = s.note ? `<div class="bsc-note">ⓘ ${s.note}</div>` : '';
+  const colorCount = Object.keys(bikeData[name]||{}).length;
+  return `
+    <div class="bsc">
+      <div class="bsc-photo">${photo}<div class="bsc-seg">${s.seg||''}${ccOf(name)?` · ${ccOf(name)}cc`:''}</div></div>
+      <div class="bsc-head"><div class="bsc-name">${name}</div><div class="bsc-price">${priceTxt}</div></div>
+      <div class="bsc-strip">${colorCount} colour${colorCount!==1?'s':''} · ${variants.length} trim${variants.length!==1?'s':''} — hover a colour for variant details</div>
+      ${_tagsHTML(name)}
+      <div class="bsc-specs">${_sharedRows(s)}</div>
+      ${note}
+      <div class="bsc-foot">Specs sourced from Royal Enfield · indicative ex-showroom</div>
+    </div>`;
+}
+
+/* ── VARIANT CARD (colour-level, full details) ── */
+function buildVariantCardHTML(name, colorOrPrice){
+  const s = bikeSpecs[name] || {};
+  const variants = getVariants(name);
+  let v, color = null;
+  if(typeof colorOrPrice === 'number'){
+    v = variants.find(x => x.price === colorOrPrice);
+  } else {
+    color = colorOrPrice;
+    const price = (bikeData[name]||{})[color];
+    v = variants.find(x => x.price === price);
+  }
+  if(!v) v = variants[0];
+  const repColor = color || v.colors[0];
+  const img = getColorImage(name, repColor) || bikeHeroImage[name] || '';
+  const photo = img ? `<img src="${img}" alt="${name} ${repColor}" loading="lazy">` : `<div class="bsc-noimg">🏍️</div>`;
+
+  const hwRows = [
+    ['Wheels',v.hw.wheels],['Tyres',v.hw.tyres],['Brakes',v.hw.brakes],
+    ['ABS',v.hw.abs],['Lighting',v.hw.lights],['Features',v.hw.extras]
+  ].filter(r=>r[1] && r[1]!=='—').map(r=>`<div class="bsc-row"><span class="bsc-lbl">${r[0]}</span><span class="bsc-val">${r[1]}</span></div>`).join('');
+
+  const colorsLine = color
+    ? `<span class="bsc-color-dot"></span>${color}`
+    : v.colors.join(' · ');
+  const cosmeticBanner = v.cosmetic ? `<div class="bsc-note bsc-note-soft">Mechanically identical across variants — differs by paint & finish.</div>` : '';
+  const noteHTML = v.note ? `<div class="bsc-note">ⓘ ${v.note}</div>` : (s.note?`<div class="bsc-note">ⓘ ${s.note}</div>`:'');
+
+  return `
+    <div class="bsc">
+      <div class="bsc-photo">${photo}<div class="bsc-seg">${v.trim}</div></div>
+      <div class="bsc-head"><div class="bsc-name">${name}</div><div class="bsc-price">${fmtINR(v.price)}</div></div>
+      <div class="bsc-color">${colorsLine}</div>
+      ${_tagsHTML(name)}
+      <div class="bsc-block-lbl">Variant Hardware</div>
+      <div class="bsc-specs">${hwRows}</div>
+      ${cosmeticBanner}
+      <div class="bsc-block-lbl">Common Specs</div>
+      <div class="bsc-specs">${_sharedRows(s)}</div>
+      ${noteHTML}
+      <div class="bsc-foot">Variant ${fmtINR(v.price)} · specs sourced from Royal Enfield</div>
+    </div>`;
+}
+
+  function showSpecPanel(html){ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.innerHTML=html; p.classList.add('bsp-open'); p.setAttribute('aria-hidden','false'); }
+  function hideSpecPanel(){ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }
+  function attachCommonHover(dropId){
+    const drop=document.getElementById(dropId); if(!drop)return;
+    drop.querySelectorAll('.di').forEach(item=>{
+      const name=item.textContent;
+      item.addEventListener('mouseenter',()=>showSpecPanel(buildCommonCardHTML(name)));
+      item.addEventListener('mouseleave',hideSpecPanel);
+    });
+  }
+  function attachVariantHover(dropId, modelName){
+    const drop=document.getElementById(dropId); if(!drop)return;
+    drop.querySelectorAll('.di').forEach(item=>{
+      const color=item.dataset.val;
+      item.addEventListener('mouseenter',()=>showSpecPanel(buildVariantCardHTML(modelName,color)));
+      item.addEventListener('mouseleave',hideSpecPanel);
+    });
+  }
+  window.buildCommonCardHTML=buildCommonCardHTML;
+  window.buildVariantCardHTML=buildVariantCardHTML;
+  window.getVariants=getVariants;
+  window.showSpecPanel=showSpecPanel;
+  window.hideSpecPanel=hideSpecPanel;
+  window.attachCommonHover=attachCommonHover;
+  window.attachVariantHover=attachVariantHover;
+})();
+
 const tooltip   = document.getElementById('crm-tooltip');
 const ttName    = document.getElementById('tt-name');
 const ttTags    = document.getElementById('tt-tags');
@@ -2079,12 +2391,7 @@ function buildModelDropdown() {
       document.getElementById('wrap_color')._open && document.getElementById('wrap_color')._open();
     }, 60);
   }, 'Select Model');
-  document.querySelectorAll('#drop_model .di').forEach(item => {
-    const name = item.textContent;
-    item.addEventListener('mouseenter', e => showTooltip(e, name));
-    item.addEventListener('mousemove',  e => positionTooltip(e));
-    item.addEventListener('mouseleave', hideTooltip);
-  });
+  attachCommonHover('drop_model');
 }
 
 function buildColorDrop(wrapperId, triggerId, dropId, hiddenId, modelName) {
@@ -2092,6 +2399,7 @@ function buildColorDrop(wrapperId, triggerId, dropId, hiddenId, modelName) {
   const colors = bikeData[modelName] || {};
   const items  = Object.entries(colors).map(([c,price]) => ({ label: price!=null?`${c} — ₹${price}`:`${c} — Price TBA`, value:c }));
   buildCustomDrop(wrapperId, triggerId, dropId, items, val => { hidden.value = val; }, 'Select Color');
+  attachVariantHover(dropId, modelName);
 }
 
 function buildPaymentDrop() {
@@ -2110,11 +2418,13 @@ function buildSectionDrops(section) {
       if (w && w._open) w._open();
     }, 60);
   }, 'Select Model');
+  attachCommonHover('drop_' + section + '_model');
 }
 
 function closeAllDropdowns() {
   document.querySelectorAll('.csw.open').forEach(w => { w.classList.remove('open'); const d=w.querySelector('.cdrop'); if(d) d.classList.remove('drop-up'); });
   hideTooltip();
+  if (typeof hideSpecPanel === 'function') hideSpecPanel();
 }
 document.addEventListener('click', closeAllDropdowns);
 
