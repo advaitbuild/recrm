@@ -1464,14 +1464,22 @@ body.dark-mode .gseg-photo-wrap { background:rgba(255,255,255,0.04) !important; 
 
 
 
-/* ═══ RIGHT-SIDE SPEC PANEL (added) ═══ */
-#bike-spec-panel{position:fixed;top:74px;right:18px;width:360px;max-height:calc(100vh - 96px);z-index:160000;overflow-y:auto;pointer-events:none;
-opacity:0;transform:translateX(24px) scale(.98);transition:opacity .26s cubic-bezier(.22,1,.36,1),transform .26s cubic-bezier(.22,1,.36,1);
-scrollbar-width:thin;scrollbar-color:#cfc6b3 transparent;}
-#bike-spec-panel::-webkit-scrollbar{width:5px;}
-#bike-spec-panel::-webkit-scrollbar-thumb{background:#cfc6b3;border-radius:4px;}
-#bike-spec-panel.bsp-open{opacity:1;transform:translateX(0) scale(1);}
-@media(max-width:1040px){#bike-spec-panel{top:auto;bottom:14px;right:12px;left:12px;width:auto;max-height:66vh;transform:translateY(24px);}#bike-spec-panel.bsp-open{transform:translateY(0);}}
+/* ═══ CRM + SPEC CARD — ek hi row, same height, group centered ═══ */
+.crm-stage{display:flex;align-items:stretch;justify-content:center;gap:24px;width:100%;margin:auto;box-sizing:border-box;z-index:2;}
+.crm-stage .box{margin:0;flex:0 0 auto;}
+.spec-spacer{flex:0 0 360px;align-self:stretch;pointer-events:none;}
+#bike-spec-panel{flex:0 0 360px;align-self:stretch;position:relative;min-height:0;opacity:0;pointer-events:none;transition:opacity .26s cubic-bezier(.22,1,.36,1);}
+#bike-spec-panel.bsp-open{opacity:1;pointer-events:auto;}
+#bike-spec-panel .bsc{position:absolute;inset:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#cfc6b3 transparent;}
+#bike-spec-panel .bsc::-webkit-scrollbar{width:5px;}
+#bike-spec-panel .bsc::-webkit-scrollbar-thumb{background:#cfc6b3;border-radius:4px;}
+@media(max-width:1280px){
+  .crm-stage{flex-direction:column;align-items:center;}
+  .spec-spacer{display:none;}
+  #bike-spec-panel{flex:0 0 auto;width:min(90vw,500px);align-self:center;}
+  #bike-spec-panel:not(.bsp-open){display:none;}
+  #bike-spec-panel .bsc{position:relative;inset:auto;max-height:72vh;}
+}
 /* ═══ SPEC CARD (shared by common + variant) ═══ */
 .bsc{position:relative;border-radius:18px;overflow:hidden;background:rgba(255,255,255,0.62);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);
 border:1px solid rgba(255,255,255,0.6);box-shadow:0 18px 50px rgba(20,15,10,0.22);}
@@ -1651,7 +1659,6 @@ body.dark-mode .cmp-empty{color:rgba(255,255,255,0.4) !important;}
 <span class="gh-nav-icon">💰</span>
 <span class="gh-nav-label">EMI</span>
 </button>
-    <button class="gh-nav-item coming-soon" data-tab="compare">
     <button class="gh-nav-item" data-tab="compare">
 <span class="gh-nav-icon">⚖️</span>
 <span class="gh-nav-label">Compare</span>
@@ -1751,6 +1758,8 @@ Logout
 <div class="tt-row"><span class="tt-lbl">Mileage</span><span class="tt-val" id="tt-mileage"></span></div>
 </div>
 
+<div class="crm-stage">
+<div class="spec-spacer" aria-hidden="true"></div>
 <div class="box">
 <h2>Royal Enfield CRM</h2>
 <button class="topBtn" onclick="setMode('default')">TRR / BKR / L1</button>
@@ -1811,6 +1820,8 @@ Logout
 </div>
 <div class="word-limit-banner" id="wordLimitWarning" role="alert" style="display:none!important;"></div>
 </div>
+<div id="bike-spec-panel" aria-hidden="true"></div>
+</div><!-- end .crm-stage -->
 </div>
 
 <!-- ===== EMI SECTION ===== -->
@@ -2043,8 +2054,6 @@ fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="9" stroke-linecap="rou
 <div>© 2026 <span>Advait</span>. All Rights Reserved. &nbsp;·&nbsp; Royal Enfield CRM</div>
 </div>
 </footer>
-
-<div id="bike-spec-panel" aria-hidden="true"></div>
 
 </div><!-- end #app-root -->
 
@@ -2350,8 +2359,11 @@ return `
    </div>`;
 }
 
-function showSpecPanel(html){ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.innerHTML=html; p.classList.add('bsp-open'); p.setAttribute('aria-hidden','false'); }
-function hideSpecPanel(){ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }
+let _specHideT, _pinnedSpecHTML=null;
+function showSpecPanel(html){ clearTimeout(_specHideT); const p=document.getElementById('bike-spec-panel'); if(!p)return; p.innerHTML=html; p.classList.add('bsp-open'); p.setAttribute('aria-hidden','false'); }
+function pinSpecPanel(html){ _pinnedSpecHTML=html; showSpecPanel(html); }
+function unpinSpecPanel(){ _pinnedSpecHTML=null; clearTimeout(_specHideT); const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }
+function hideSpecPanel(){ clearTimeout(_specHideT); if(_pinnedSpecHTML){ showSpecPanel(_pinnedSpecHTML); return; } _specHideT=setTimeout(()=>{ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }, 120); }
 function attachCommonHover(dropId){
 const drop=document.getElementById(dropId); if(!drop)return;
 drop.querySelectorAll('.di').forEach(item=>{
@@ -2377,6 +2389,8 @@ window.getVariants=getVariants;
   window.fmtINR=fmtINR;
   window.bikeHeroImage=bikeHeroImage;
 window.showSpecPanel=showSpecPanel;
+window.pinSpecPanel=pinSpecPanel;
+window.unpinSpecPanel=unpinSpecPanel;
 window.hideSpecPanel=hideSpecPanel;
 window.attachCommonHover=attachCommonHover;
 window.attachVariantHover=attachVariantHover;
@@ -2470,6 +2484,8 @@ function buildModelDropdown() {
 const items = Object.keys(bikeData).map(n => ({ label:n, value:n }));
 buildCustomDrop('wrap_model','trig_model','drop_model', items, name => {
 document.getElementById('model').value = name;
+document.getElementById('color').value = '';
+if(window.pinSpecPanel&&window.buildCommonCardHTML) window.pinSpecPanel(window.buildCommonCardHTML(name));
 buildColorDrop('wrap_color','trig_color','drop_color','color', name);
 // Use stored _open ref instead of simulating a click (avoids closeAllDropdowns race)
 setTimeout(() => {
@@ -2484,7 +2500,7 @@ function buildColorDrop(wrapperId, triggerId, dropId, hiddenId, modelName) {
 const hidden = document.getElementById(hiddenId);
 const colors = bikeData[modelName] || {};
 const items  = Object.entries(colors).map(([c,price]) => ({ label: price!=null?`${c} — ₹${price}`:`${c} — Price TBA`, value:c }));
-buildCustomDrop(wrapperId, triggerId, dropId, items, val => { hidden.value = val; }, 'Select Color');
+buildCustomDrop(wrapperId, triggerId, dropId, items, val => { hidden.value = val; if(window.pinSpecPanel&&window.buildVariantCardHTML) window.pinSpecPanel(window.buildVariantCardHTML(modelName,val)); }, 'Select Color');
 attachVariantHover(dropId, modelName);
 }
 
@@ -2497,6 +2513,8 @@ function buildSectionDrops(section) {
 const modelItems = Object.keys(bikeData).map(n => ({ label:n, value:n }));
 buildCustomDrop(`wrap_${section}_model`,`trig_${section}_model`,`drop_${section}_model`, modelItems, name => {
 document.getElementById(`${section}_model`).value = name;
+document.getElementById(`${section}_color`).value = '';
+if(window.pinSpecPanel&&window.buildCommonCardHTML) window.pinSpecPanel(window.buildCommonCardHTML(name));
 buildColorDrop(`wrap_${section}_color`,`trig_${section}_color`,`drop_${section}_color`,`${section}_color`, name);
 setTimeout(() => {
 document.getElementById(`trig_${section}_color`).focus();
@@ -2643,6 +2661,7 @@ const el = document.getElementById(id); if(!el) return;
 el.textContent = ph; el.classList.remove('has-value');
 });
 ['drop_color','drop_b_color','drop_p_color'].forEach(id => { const d=document.getElementById(id); if(d) d.innerHTML=''; });
+if(window.unpinSpecPanel) window.unpinSpecPanel();
 closeAllDropdowns();
 setWordLimitWarning(false);
 }
