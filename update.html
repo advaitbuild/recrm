@@ -1464,22 +1464,38 @@ body.dark-mode .gseg-photo-wrap { background:rgba(255,255,255,0.04) !important; 
 
 
 
-/* ═══ CRM + SPEC CARD — ek hi row, same height, group centered ═══ */
-.crm-stage{display:flex;align-items:stretch;justify-content:center;gap:24px;width:100%;margin:auto;box-sizing:border-box;z-index:2;}
+/* ═══ CRM + SPEC CARD — idle: CRM bilkul center; active: dono group-center, animated slide ═══ */
+.crm-stage{display:flex;align-items:stretch;justify-content:center;width:100%;margin:auto;box-sizing:border-box;z-index:2;}
 .crm-stage .box{margin:0;flex:0 0 auto;}
-.spec-spacer{flex:0 0 360px;align-self:stretch;pointer-events:none;}
-#bike-spec-panel{flex:0 0 360px;align-self:stretch;position:relative;min-height:0;opacity:0;pointer-events:none;transition:opacity .26s cubic-bezier(.22,1,.36,1);}
-#bike-spec-panel.bsp-open{opacity:1;pointer-events:auto;}
+.spec-spacer{display:none;}
+#bike-spec-panel{flex:0 0 0;width:0;margin-left:0;align-self:stretch;position:relative;min-height:0;opacity:0;pointer-events:none;overflow:visible;
+transition:flex-basis .36s cubic-bezier(.22,1,.36,1),width .36s cubic-bezier(.22,1,.36,1),margin-left .36s cubic-bezier(.22,1,.36,1),opacity .3s ease;}
+.crm-stage.stage-wide #bike-spec-panel{flex:0 0 360px;width:360px;margin-left:30px;pointer-events:auto;}
+#bike-spec-panel.bsp-open{opacity:1;}
 #bike-spec-panel .bsc{position:absolute;inset:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#cfc6b3 transparent;}
 #bike-spec-panel .bsc::-webkit-scrollbar{width:5px;}
 #bike-spec-panel .bsc::-webkit-scrollbar-thumb{background:#cfc6b3;border-radius:4px;}
 @media(max-width:1280px){
   .crm-stage{flex-direction:column;align-items:center;}
-  .spec-spacer{display:none;}
-  #bike-spec-panel{flex:0 0 auto;width:min(90vw,500px);align-self:center;}
+  #bike-spec-panel{flex:0 0 auto;width:min(90vw,500px);margin-left:0;align-self:center;}
+  .crm-stage.stage-wide #bike-spec-panel{width:min(90vw,500px);margin-left:0;margin-top:20px;}
   #bike-spec-panel:not(.bsp-open){display:none;}
   #bike-spec-panel .bsc{position:relative;inset:auto;max-height:72vh;}
 }
+/* ═══ Toast + custom confirm (preview-sandbox me native alert/confirm block hote hain) ═══ */
+#_reToast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(16px);background:rgba(20,20,20,.92);color:#fff;padding:12px 22px;border-radius:12px;font-weight:600;font-size:15px;letter-spacing:.2px;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;z-index:200000;transition:opacity .2s ease,transform .2s ease;}
+#_reToast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.re-confirm-ov{position:fixed;inset:0;background:rgba(0,0,0,.42);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:200001;opacity:0;transition:opacity .2s ease;padding:20px;}
+.re-confirm-ov.show{opacity:1;}
+.re-confirm-box{background:#fff;border-radius:18px;max-width:380px;width:100%;padding:24px 24px 18px;box-shadow:0 24px 70px rgba(0,0,0,.4);transform:scale(.96);transition:transform .2s cubic-bezier(.22,1,.36,1);}
+.re-confirm-ov.show .re-confirm-box{transform:scale(1);}
+.re-confirm-title{font-size:19px;font-weight:800;color:#1a1a1a;margin-bottom:8px;}
+.re-confirm-msg{font-size:14px;color:#555;line-height:1.5;margin-bottom:20px;white-space:pre-line;}
+.re-confirm-actions{display:flex;gap:12px;justify-content:flex-end;}
+.re-confirm-actions button{border:none;border-radius:10px;padding:10px 20px;font-weight:700;font-size:14px;cursor:pointer;transition:filter .15s;}
+.re-confirm-actions button:hover{filter:brightness(.95);}
+.re-confirm-cancel{background:#ececec;color:#333;}
+.re-confirm-ok{background:#E53517;color:#fff;}
 /* ═══ SPEC CARD (shared by common + variant) ═══ */
 .bsc{position:relative;border-radius:18px;overflow:hidden;background:rgba(255,255,255,0.62);backdrop-filter:blur(24px) saturate(1.3);-webkit-backdrop-filter:blur(24px) saturate(1.3);
 border:1px solid rgba(255,255,255,0.6);box-shadow:0 18px 50px rgba(20,15,10,0.22);}
@@ -2359,25 +2375,27 @@ return `
    </div>`;
 }
 
-let _specHideT, _pinnedSpecHTML=null;
+let _specHideT, _pinnedSpecHTML=null, _hoverActive=false, _wideT;
+function _applyWide(){ clearTimeout(_wideT); _wideT=setTimeout(()=>{ const st=document.querySelector('.crm-stage'); if(st) st.classList.toggle('stage-wide', _hoverActive || !!_pinnedSpecHTML); }, 0); }
 function showSpecPanel(html){ clearTimeout(_specHideT); const p=document.getElementById('bike-spec-panel'); if(!p)return; p.innerHTML=html; p.classList.add('bsp-open'); p.setAttribute('aria-hidden','false'); }
-function pinSpecPanel(html){ _pinnedSpecHTML=html; showSpecPanel(html); }
-function unpinSpecPanel(){ _pinnedSpecHTML=null; clearTimeout(_specHideT); const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }
-function hideSpecPanel(){ clearTimeout(_specHideT); if(_pinnedSpecHTML){ showSpecPanel(_pinnedSpecHTML); return; } _specHideT=setTimeout(()=>{ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }, 120); }
+function hoverSpecCard(html){ _hoverActive=true; _applyWide(); showSpecPanel(html); }
+function pinSpecPanel(html){ _pinnedSpecHTML=html; _applyWide(); showSpecPanel(html); }
+function unpinSpecPanel(){ _pinnedSpecHTML=null; _hoverActive=false; _applyWide(); clearTimeout(_specHideT); const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }
+function hideSpecPanel(){ _hoverActive=false; clearTimeout(_specHideT); if(_pinnedSpecHTML){ showSpecPanel(_pinnedSpecHTML); _applyWide(); return; } _applyWide(); _specHideT=setTimeout(()=>{ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }, 120); }
 function attachCommonHover(dropId){
 const drop=document.getElementById(dropId); if(!drop)return;
+{ const _w=drop.closest('.csw'); if(_w) _w._hasCard=true; }
 drop.querySelectorAll('.di').forEach(item=>{
 const name=item.textContent;
-item.addEventListener('mouseenter',()=>showSpecPanel(buildCommonCardHTML(name)));
-item.addEventListener('mouseleave',hideSpecPanel);
+item.addEventListener('mouseenter',()=>hoverSpecCard(buildCommonCardHTML(name)));
 });
 }
 function attachVariantHover(dropId, modelName){
 const drop=document.getElementById(dropId); if(!drop)return;
+{ const _w=drop.closest('.csw'); if(_w) _w._hasCard=true; }
 drop.querySelectorAll('.di').forEach(item=>{
 const color=item.dataset.val;
-item.addEventListener('mouseenter',()=>showSpecPanel(buildVariantCardHTML(modelName,color)));
-item.addEventListener('mouseleave',hideSpecPanel);
+item.addEventListener('mouseenter',()=>hoverSpecCard(buildVariantCardHTML(modelName,color)));
 });
 }
 window.buildCommonCardHTML=buildCommonCardHTML;
@@ -2391,6 +2409,7 @@ window.getVariants=getVariants;
 window.showSpecPanel=showSpecPanel;
 window.pinSpecPanel=pinSpecPanel;
 window.unpinSpecPanel=unpinSpecPanel;
+window.hoverSpecCard=hoverSpecCard;
 window.hideSpecPanel=hideSpecPanel;
 window.attachCommonHover=attachCommonHover;
 window.attachVariantHover=attachVariantHover;
@@ -2450,7 +2469,7 @@ drop.classList.toggle('drop-up', window.innerHeight - r.bottom < dh + 8 && r.top
 });
 setKb(0);
 }
-function close() { wrapper.classList.remove('open'); drop.classList.remove('drop-up'); clearKb(); }
+function close() { wrapper.classList.remove('open'); drop.classList.remove('drop-up'); clearKb(); if(wrapper._hasCard && typeof hideSpecPanel==='function') hideSpecPanel(); }
 function pick(label, value) {
 trigger.textContent = label; trigger.classList.add('has-value');
 close(); onSelect(value); setTimeout(() => advanceToNext(trigger), 0);
@@ -2646,13 +2665,37 @@ return '';
 function copyData() {
 const text = buildText(currentMode);
 if (isOverWordLimit(text)) { setWordLimitWarning(true); return; }
-navigator.clipboard.writeText(text);
-alert('Copied ✅');
+copyToClipboard(text);
+showToast('Copied ✅');
+}
+function copyToClipboard(text){
+  try{ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).catch(()=>fallbackCopy(text)); } else { fallbackCopy(text); } }catch(e){ fallbackCopy(text); }
+}
+function fallbackCopy(text){
+  try{ const ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.top='-1000px'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select(); try{ta.setSelectionRange(0, text.length);}catch(e){} document.execCommand('copy'); document.body.removeChild(ta); }catch(e){}
+}
+function showToast(msg){
+  let t=document.getElementById('_reToast'); if(!t){ t=document.createElement('div'); t.id='_reToast'; document.body.appendChild(t); }
+  t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'), 1600);
+}
+function showConfirm(title, msg, onYes){
+  const old=document.getElementById('_reConfirm'); if(old) old.remove();
+  const ov=document.createElement('div'); ov.id='_reConfirm'; ov.className='re-confirm-ov';
+  ov.innerHTML='<div class="re-confirm-box"><div class="re-confirm-title"></div><div class="re-confirm-msg"></div><div class="re-confirm-actions"><button class="re-confirm-cancel">Cancel</button><button class="re-confirm-ok">Reset</button></div></div>';
+  ov.querySelector('.re-confirm-title').textContent=title;
+  ov.querySelector('.re-confirm-msg').textContent=msg;
+  document.body.appendChild(ov); requestAnimationFrame(()=>ov.classList.add('show'));
+  const closeOv=()=>{ ov.classList.remove('show'); setTimeout(()=>ov.remove(),200); };
+  ov.querySelector('.re-confirm-cancel').addEventListener('click', e=>{ e.stopPropagation(); closeOv(); });
+  ov.querySelector('.re-confirm-ok').addEventListener('click', e=>{ e.stopPropagation(); closeOv(); if(onYes) onYes(); });
+  ov.addEventListener('click', e=>{ if(e.target===ov) closeOv(); });
 }
 
 // ─── RESET ─────────────────────────────────────────────────────────────────
 function resetForm() {
-if (!confirm('⚠️ Are you sure?\n\nAll entered data will be cleared.')) return;
+showConfirm('Reset everything?', 'All entered data will be cleared.', doResetForm);
+}
+function doResetForm() {
 document.querySelectorAll('input').forEach(el => { if (!el.hasAttribute('readonly')) el.value = ''; });
 [['trig_model','Select Model'],['trig_color','Select Color'],['trig_payment','Select Payment Mode'],
 ['trig_b_model','Select Model'],['trig_b_color','Select Color'],
