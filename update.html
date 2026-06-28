@@ -112,7 +112,7 @@ body.dark-mode .section-eyebrow::before { background:rgba(255,215,0,0.55) !impor
 body.dark-mode .section-desc, body.dark-mode p { color:rgba(255,255,255,0.55) !important; }
 /* CRM Box */
 body.dark-mode .box { background:rgba(0,0,0,0.28) !important; backdrop-filter:blur(24px) saturate(0.9) !important; -webkit-backdrop-filter:blur(24px) saturate(0.9) !important; border-color:rgba(255,255,255,0.12) !important; box-shadow:0 10px 40px rgba(0,0,0,0.4) !important; }
-body.dark-mode input, body.dark-mode select { background:rgba(255,255,255,0.07) !important; color:rgba(255,255,255,0.88) !important; }
+body.dark-mode input, body.dark-mode select { background-color:rgba(255,255,255,0.07) !important; color:rgba(255,255,255,0.88) !important; }
 body.dark-mode input::placeholder { color:rgba(255,255,255,0.32) !important; }
 body.dark-mode .cst { color:rgba(255,255,255,0.32) !important; background:rgba(255,255,255,0.07) !important; }
 body.dark-mode .cst.has-value { color:rgba(255,255,255,0.88) !important; }
@@ -1592,7 +1592,7 @@ body.dark-mode .cmp tr.diff td.val{color:#FFD700 !important;}
 body.dark-mode .cmp tr.grp td{background:rgba(255,255,255,0.04) !important;color:rgba(255,255,255,0.5) !important;}
 .cmp thead td{border-bottom:2px solid rgba(229,53,23,0.18);padding:0;}
 .cmp-itemhead{padding:14px 14px 12px;min-width:168px;}
-.cmp-itemhead .ph{width:100%;height:2400px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#faf7f0,#efe9dc);display:flex;align-items:center;justify-content:center;margin-bottom:9px;}
+.cmp-itemhead .ph{width:100%;height:240px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#faf7f0,#efe9dc);display:flex;align-items:center;justify-content:center;margin-bottom:9px;}
 body.dark-mode .cmp-itemhead .ph{background:linear-gradient(135deg,#0d0d0d,#161310) !important;}
 .cmp-itemhead .ph img{width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;}
 .cmp-itemhead .ph .noimg{font-size:30px;opacity:.3;}
@@ -2159,7 +2159,7 @@ const bikeHeroImage = {
 "Shotgun 650":_IMG+"shotgun650/shotgun650plasmablue.jpg","Interceptor 650":_IMG+"interceptor650/interceptor650canyonred.jpg",
 "Continental GT 650":_IMG+"continentalgt650/continentalgt650rockerred.jpg","Classic 650":_IMG+"classic650/classic650blackchrome.jpg",
 "Bear 650":_IMG+"bear650/bear650petrolgreen.jpg","Super Meteor 650":_IMG+"supermeteor650/supermeteor650celestialblue.jpg",
-"Bullet 650":""
+"Bullet 650":_IMG+"bullet650/bullet650cannonblack.jpg"
 };
 
 /* per-colour images (your gallery map) — used for the variant card photo */
@@ -2183,14 +2183,14 @@ const specImages = {
 
 /* COMMON specs — identical across every variant of a model */
 const bikeSpecs = {
-"Hunter 350":{seg:"Roadster",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed",mileage:"36.2 km/l (ARAI)",topSpeed:"~114 km/h",fuelTank:"13 L",seatHeight:"790 mm",weight:"177–181 kg (kerb)",gc:"150 mm",wheelbase:"1370 mm",susp:"Telescopic fork / twin shocks"},
-"Bullet 350":{seg:"Heritage",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"37 km/l",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"805 mm",weight:"195 kg (kerb)",gc:"160 mm",wheelbase:"1390 mm",susp:"Telescopic fork / twin shocks"},
-"Classic 350":{seg:"Heritage",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"35 km/l",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"805 mm",weight:"195 kg (kerb)",gc:"170 mm",wheelbase:"1390 mm",susp:"Telescopic fork / twin shocks"},
-"Meteor 350":{seg:"Cruiser",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"36 km/l (ARAI ~41.9)",topSpeed:"~110 km/h",fuelTank:"15 L",seatHeight:"765 mm",weight:"191 kg (kerb)",gc:"170 mm",wheelbase:"1400 mm",susp:"41mm fork / twin-tube shocks (6-step)"},
-"Goan Classic 350":{seg:"Heritage Bobber",engine:"349cc · 1-cyl · Air-Oil cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"36.2 km/l (ARAI)",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"750 mm",weight:"197 kg (kerb)",gc:"170 mm",wheelbase:"1400 mm",susp:"41mm fork / twin emulsion shocks"},
-"Scram 440":{seg:"Adventure Crossover",engine:"443cc · 1-cyl · Air-cooled SOHC (LS440)",power:"25.4 bhp @ 6250 rpm",torque:"34 Nm @ 4000 rpm",gearbox:"6-speed",mileage:"29.5 km/l (ARAI)",topSpeed:"~130 km/h",fuelTank:"15 L",seatHeight:"795 mm",weight:"196 kg (kerb)",gc:"200 mm",wheelbase:"1460 mm",susp:"Telescopic (190mm) / monoshock (180mm)"},
-"Himalayan 450":{seg:"Adventure Tourer",engine:"452cc · 1-cyl · Liquid-cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"30 km/l",topSpeed:"~150 km/h",fuelTank:"17 L",seatHeight:"825 mm (adj. 805–845)",weight:"196 kg (kerb)",gc:"230 mm",wheelbase:"1510 mm",susp:"43mm USD fork (200mm) / monoshock (200mm)"},
-"Guerrilla 450":{seg:"Roadster",engine:"452cc · 1-cyl · Liquid-cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"29.5 km/l",topSpeed:"~140 km/h",fuelTank:"11 L",seatHeight:"780 mm",weight:"185 kg (kerb)",gc:"169 mm",wheelbase:"1440 mm",susp:"43mm fork (140mm) / monoshock (150mm)"},
+"Hunter 350":{seg:"Roadster",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed",mileage:"36.2 km/l (ARAI)",topSpeed:"~114 km/h",fuelTank:"13 L",seatHeight:"790 mm",weight:"177–181 kg (kerb)",gc:"150 mm",wheelbase:"1370 mm",susp:"Telescopic fork / twin shocks"},
+"Bullet 350":{seg:"Heritage",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"37 km/l",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"805 mm",weight:"195 kg (kerb)",gc:"160 mm",wheelbase:"1390 mm",susp:"Telescopic fork / twin shocks"},
+"Classic 350":{seg:"Heritage",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"35 km/l",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"805 mm",weight:"195 kg (kerb)",gc:"170 mm",wheelbase:"1390 mm",susp:"Telescopic fork / twin shocks"},
+"Meteor 350":{seg:"Cruiser",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"36 km/l (ARAI ~41.9)",topSpeed:"~110 km/h",fuelTank:"15 L",seatHeight:"765 mm",weight:"191 kg (kerb)",gc:"170 mm",wheelbase:"1400 mm",susp:"41mm fork / twin-tube shocks (6-step)"},
+"Goan Classic 350":{seg:"Heritage Bobber",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"36.2 km/l (ARAI)",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"750 mm",weight:"197 kg (kerb)",gc:"170 mm",wheelbase:"1400 mm",susp:"41mm fork / twin emulsion shocks"},
+"Scram 440":{seg:"Adventure Crossover",engine:"443cc · 1-cyl · Air-Oil cooled SOHC (LS440)",power:"25.4 bhp @ 6250 rpm",torque:"34 Nm @ 4000 rpm",gearbox:"6-speed",mileage:"29.5 km/l (ARAI)",topSpeed:"~130 km/h",fuelTank:"15 L",seatHeight:"795 mm",weight:"196 kg (kerb)",gc:"200 mm",wheelbase:"1460 mm",susp:"Telescopic (190mm) / monoshock (180mm)"},
+"Himalayan 450":{seg:"Adventure Tourer",engine:"452cc · 1-cyl · Air-Oil cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"30 km/l",topSpeed:"~150 km/h",fuelTank:"17 L",seatHeight:"825 mm (adj. 805–845)",weight:"196 kg (kerb)",gc:"230 mm",wheelbase:"1510 mm",susp:"43mm USD fork (200mm) / monoshock (200mm)"},
+"Guerrilla 450":{seg:"Roadster",engine:"452cc · 1-cyl · Air-Oil cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"29.5 km/l",topSpeed:"~140 km/h",fuelTank:"11 L",seatHeight:"780 mm",weight:"185 kg (kerb)",gc:"169 mm",wheelbase:"1440 mm",susp:"43mm fork (140mm) / monoshock (150mm)"},
 "Interceptor 650":{seg:"Roadster",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5150 rpm",gearbox:"6-speed · slipper clutch",mileage:"25 km/l",topSpeed:"~170 km/h",fuelTank:"13.7 L",seatHeight:"804 mm",weight:"218 kg (kerb)",gc:"174 mm",wheelbase:"1398 mm",susp:"Telescopic fork / twin shocks (preload adj.)"},
 "Continental GT 650":{seg:"Café Racer",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5150 rpm",gearbox:"6-speed · slipper clutch",mileage:"27 km/l",topSpeed:"~170 km/h",fuelTank:"12.5 L",seatHeight:"804 mm",weight:"214 kg (kerb)",gc:"174 mm",wheelbase:"1400 mm",susp:"Telescopic fork / twin shocks (preload adj.)"},
 "Super Meteor 650":{seg:"Cruiser",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"25 km/l",topSpeed:"~170 km/h",fuelTank:"15.7 L",seatHeight:"740 mm",weight:"241 kg (kerb)",gc:"135 mm",wheelbase:"1500 mm",susp:"41mm USD fork / twin shocks (preload adj.)"},
