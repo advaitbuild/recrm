@@ -1771,6 +1771,8 @@ body.dark-mode .cmp-empty{color:rgba(255,255,255,0.4) !important;}
     <div class="tt-row"><span class="tt-lbl">Mileage</span><span class="tt-val" id="tt-mileage"></span></div>
   </div>
 
+  <div class="crm-stage">
+  <div class="spec-spacer" aria-hidden="true"></div>
   <div class="box">
     <h2>Royal Enfield CRM</h2>
     <button class="topBtn" onclick="setMode('default')">TRR / BKR / L1</button>
@@ -1831,7 +1833,10 @@ body.dark-mode .cmp-empty{color:rgba(255,255,255,0.4) !important;}
     </div>
    <div class="word-limit-banner" id="wordLimitWarning" role="alert" style="display:none!important;"></div>
   </div>
+  <div id="bike-spec-panel" aria-hidden="true"></div>
+  </div><!-- end .crm-stage -->
 </div>
+
 
 <!-- ===== EMI SECTION ===== -->
 <section class="emi-section" id="emiSection">
@@ -2064,7 +2069,6 @@ body.dark-mode .cmp-empty{color:rgba(255,255,255,0.4) !important;}
   </div>
 </footer>
 
-<div id="bike-spec-panel" aria-hidden="true"></div>
 
 </div><!-- end #app-root -->
 
@@ -2370,8 +2374,9 @@ function buildVariantCardHTML(name, colorOrPrice){
     </div>`;
 }
 
-  function showSpecPanel(html){ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.innerHTML=html; p.classList.add('bsp-open'); p.setAttribute('aria-hidden','false'); }
-  function hideSpecPanel(){ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }
+  let _specHideT;
+  function showSpecPanel(html){ clearTimeout(_specHideT); const p=document.getElementById('bike-spec-panel'); if(!p)return; p.innerHTML=html; p.classList.add('bsp-open'); p.setAttribute('aria-hidden','false'); }
+  function hideSpecPanel(){ clearTimeout(_specHideT); _specHideT=setTimeout(()=>{ const p=document.getElementById('bike-spec-panel'); if(!p)return; p.classList.remove('bsp-open'); p.setAttribute('aria-hidden','true'); }, 120); }
   function attachCommonHover(dropId){
     const drop=document.getElementById(dropId); if(!drop)return;
     drop.querySelectorAll('.di').forEach(item=>{
