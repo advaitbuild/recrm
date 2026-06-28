@@ -2007,9 +2007,15 @@ fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="9" stroke-linecap="rou
 <button class="efp active" data-gfilter="all">All Segments</button>
 <button class="efp" data-gfilter="Roadster">Roadster</button>
 <button class="efp" data-gfilter="Heritage">Heritage</button>
+<button class="efp" data-gfilter="Vintage">Vintage</button>
 <button class="efp" data-gfilter="Cruiser">Cruiser</button>
+<button class="efp" data-gfilter="Bobber">Bobber</button>
 <button class="efp" data-gfilter="Adventure">Adventure</button>
-<button class="efp" data-gfilter="Pure Sport">Pure Sport</button>
+<button class="efp" data-gfilter="Adventure Touring">Adventure Touring</button>
+<button class="efp" data-gfilter="Premium Roadster">Premium Roadster</button>
+<button class="efp" data-gfilter="Café Racer">Café Racer</button>
+<button class="efp" data-gfilter="Premium Tourer">Premium Tourer</button>
+<button class="efp" data-gfilter="Premium Heritage">Premium Heritage</button>
 </div>
 
 <div class="gallery-grid reveal-el" data-delay="3" id="galleryGrid"></div>
@@ -2185,19 +2191,19 @@ const specImages = {
 const bikeSpecs = {
 "Hunter 350":{seg:"Roadster",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed",mileage:"36.2 km/l (ARAI)",topSpeed:"~114 km/h",fuelTank:"13 L",seatHeight:"790 mm",weight:"177–181 kg (kerb)",gc:"150 mm",wheelbase:"1370 mm",susp:"Telescopic fork / twin shocks"},
 "Bullet 350":{seg:"Heritage",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"37 km/l",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"805 mm",weight:"195 kg (kerb)",gc:"160 mm",wheelbase:"1390 mm",susp:"Telescopic fork / twin shocks"},
-"Classic 350":{seg:"Heritage",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"35 km/l",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"805 mm",weight:"195 kg (kerb)",gc:"170 mm",wheelbase:"1390 mm",susp:"Telescopic fork / twin shocks"},
+"Classic 350":{seg:"Vintage",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"35 km/l",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"805 mm",weight:"195 kg (kerb)",gc:"170 mm",wheelbase:"1390 mm",susp:"Telescopic fork / twin shocks"},
 "Meteor 350":{seg:"Cruiser",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"36 km/l (ARAI ~41.9)",topSpeed:"~110 km/h",fuelTank:"15 L",seatHeight:"765 mm",weight:"191 kg (kerb)",gc:"170 mm",wheelbase:"1400 mm",susp:"41mm fork / twin-tube shocks (6-step)"},
-"Goan Classic 350":{seg:"Heritage Bobber",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"36.2 km/l (ARAI)",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"750 mm",weight:"197 kg (kerb)",gc:"170 mm",wheelbase:"1400 mm",susp:"41mm fork / twin emulsion shocks"},
-"Scram 440":{seg:"Adventure Crossover",engine:"443cc · 1-cyl · Air-Oil cooled SOHC (LS440)",power:"25.4 bhp @ 6250 rpm",torque:"34 Nm @ 4000 rpm",gearbox:"6-speed",mileage:"29.5 km/l (ARAI)",topSpeed:"~130 km/h",fuelTank:"15 L",seatHeight:"795 mm",weight:"196 kg (kerb)",gc:"200 mm",wheelbase:"1460 mm",susp:"Telescopic (190mm) / monoshock (180mm)"},
-"Himalayan 450":{seg:"Adventure Tourer",engine:"452cc · 1-cyl · Air-Oil cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"30 km/l",topSpeed:"~150 km/h",fuelTank:"17 L",seatHeight:"825 mm (adj. 805–845)",weight:"196 kg (kerb)",gc:"230 mm",wheelbase:"1510 mm",susp:"43mm USD fork (200mm) / monoshock (200mm)"},
-"Guerrilla 450":{seg:"Roadster",engine:"452cc · 1-cyl · Air-Oil cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"29.5 km/l",topSpeed:"~140 km/h",fuelTank:"11 L",seatHeight:"780 mm",weight:"185 kg (kerb)",gc:"169 mm",wheelbase:"1440 mm",susp:"43mm fork (140mm) / monoshock (150mm)"},
-"Interceptor 650":{seg:"Roadster",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5150 rpm",gearbox:"6-speed · slipper clutch",mileage:"25 km/l",topSpeed:"~170 km/h",fuelTank:"13.7 L",seatHeight:"804 mm",weight:"218 kg (kerb)",gc:"174 mm",wheelbase:"1398 mm",susp:"Telescopic fork / twin shocks (preload adj.)"},
+"Goan Classic 350":{seg:"Bobber",engine:"349cc · 1-cyl · Air-cooled SOHC",power:"20.2 bhp @ 6100 rpm",torque:"27 Nm @ 4000 rpm",gearbox:"5-speed · slipper clutch",mileage:"36.2 km/l (ARAI)",topSpeed:"~110 km/h",fuelTank:"13 L",seatHeight:"750 mm",weight:"197 kg (kerb)",gc:"170 mm",wheelbase:"1400 mm",susp:"41mm fork / twin emulsion shocks"},
+"Scram 440":{seg:"Adventure",engine:"443cc · 1-cyl · Air-Oil cooled SOHC (LS440)",power:"25.4 bhp @ 6250 rpm",torque:"34 Nm @ 4000 rpm",gearbox:"6-speed",mileage:"29.5 km/l (ARAI)",topSpeed:"~130 km/h",fuelTank:"15 L",seatHeight:"795 mm",weight:"196 kg (kerb)",gc:"200 mm",wheelbase:"1460 mm",susp:"Telescopic (190mm) / monoshock (180mm)"},
+"Himalayan 450":{seg:"Adventure Touring",engine:"452cc · 1-cyl · Air-Oil cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"30 km/l",topSpeed:"~150 km/h",fuelTank:"17 L",seatHeight:"825 mm (adj. 805–845)",weight:"196 kg (kerb)",gc:"230 mm",wheelbase:"1510 mm",susp:"43mm USD fork (200mm) / monoshock (200mm)"},
+"Guerrilla 450":{seg:"Premium Roadster",engine:"452cc · 1-cyl · Air-Oil cooled DOHC (Sherpa)",power:"39.5 bhp @ 8000 rpm",torque:"40 Nm @ 5500 rpm",gearbox:"6-speed · slip-assist",mileage:"29.5 km/l",topSpeed:"~140 km/h",fuelTank:"11 L",seatHeight:"780 mm",weight:"185 kg (kerb)",gc:"169 mm",wheelbase:"1440 mm",susp:"43mm fork (140mm) / monoshock (150mm)"},
+"Interceptor 650":{seg:"Premium Roadster",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5150 rpm",gearbox:"6-speed · slipper clutch",mileage:"25 km/l",topSpeed:"~170 km/h",fuelTank:"13.7 L",seatHeight:"804 mm",weight:"218 kg (kerb)",gc:"174 mm",wheelbase:"1398 mm",susp:"Telescopic fork / twin shocks (preload adj.)"},
 "Continental GT 650":{seg:"Café Racer",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5150 rpm",gearbox:"6-speed · slipper clutch",mileage:"27 km/l",topSpeed:"~170 km/h",fuelTank:"12.5 L",seatHeight:"804 mm",weight:"214 kg (kerb)",gc:"174 mm",wheelbase:"1400 mm",susp:"Telescopic fork / twin shocks (preload adj.)"},
 "Super Meteor 650":{seg:"Cruiser",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"25 km/l",topSpeed:"~170 km/h",fuelTank:"15.7 L",seatHeight:"740 mm",weight:"241 kg (kerb)",gc:"135 mm",wheelbase:"1500 mm",susp:"41mm USD fork / twin shocks (preload adj.)"},
-"Shotgun 650":{seg:"Roadster Bobber",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"23 km/l",topSpeed:"~160 km/h",fuelTank:"13.8 L",seatHeight:"795 mm",weight:"240 kg (kerb)",gc:"140 mm",wheelbase:"1465 mm",susp:"43mm USD fork / monoshock"},
-"Bear 650":{seg:"Scrambler",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"56.5 Nm @ 5150 rpm",gearbox:"6-speed",mileage:"22 km/l",topSpeed:"~160 km/h",fuelTank:"13.7 L",seatHeight:"830 mm",weight:"216 kg (kerb)",gc:"~155 mm",wheelbase:"1460 mm",susp:"43mm USD fork / monoshock"},
-"Classic 650":{seg:"Heritage Cruiser",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"21.5 km/l",topSpeed:"~160 km/h",fuelTank:"14.8 L",seatHeight:"800 mm",weight:"243 kg (kerb)",gc:"154 mm",wheelbase:"1475 mm",susp:"Telescopic fork / twin shocks"},
-"Bullet 650":{seg:"Heritage",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"~25 km/l (est.)",topSpeed:"~160 km/h",fuelTank:"14.8 L",seatHeight:"~800 mm",weight:"~243 kg (kerb)",gc:"—",wheelbase:"—",susp:"Telescopic fork / twin shocks",note:"Newest 650 — some figures provisional pending full release."}
+"Shotgun 650":{seg:"Premium Roadster",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"23 km/l",topSpeed:"~160 km/h",fuelTank:"13.8 L",seatHeight:"795 mm",weight:"240 kg (kerb)",gc:"140 mm",wheelbase:"1465 mm",susp:"43mm USD fork / monoshock"},
+"Bear 650":{seg:"Premium Roadster",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"56.5 Nm @ 5150 rpm",gearbox:"6-speed",mileage:"22 km/l",topSpeed:"~160 km/h",fuelTank:"13.7 L",seatHeight:"830 mm",weight:"216 kg (kerb)",gc:"~155 mm",wheelbase:"1460 mm",susp:"43mm USD fork / monoshock"},
+"Classic 650":{seg:"Premium Tourer",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"21.5 km/l",topSpeed:"~160 km/h",fuelTank:"14.8 L",seatHeight:"800 mm",weight:"243 kg (kerb)",gc:"154 mm",wheelbase:"1475 mm",susp:"Telescopic fork / twin shocks"},
+"Bullet 650":{seg:"Premium Heritage",engine:"648cc · Parallel-twin · Air-Oil cooled SOHC",power:"46.3 bhp @ 7250 rpm",torque:"52.3 Nm @ 5650 rpm",gearbox:"6-speed",mileage:"~25 km/l (est.)",topSpeed:"~160 km/h",fuelTank:"14.8 L",seatHeight:"~800 mm",weight:"~243 kg (kerb)",gc:"—",wheelbase:"—",susp:"Telescopic fork / twin shocks",note:"Newest 650 — some figures provisional pending full release."}
 };
 
 /* VARIANT hardware. base = standard kit; tiers[price] overrides it.
@@ -3297,8 +3303,8 @@ const headlight = pick(['round','faired','twin'], h);
 const seatStyle = pick(['flat','hump','sprung'], h >> 2);
 const barStyle  = pick(['upright','flat','clipon'], h >> 4);
 const exhaust   = pick(['upswept','straight','twin'], h >> 6);
-const frontBig  = (seg === 'Adventure') || (h >> 8) % 5 === 0;
-const windscreen= (seg === 'Cruiser' || seg === 'Adventure') ? (h >> 10) % 2 === 0 : (h >> 10) % 6 === 0;
+const frontBig  = (seg === 'Adventure' || seg === 'Adventure Touring') || (h >> 8) % 5 === 0;
+const windscreen= (seg === 'Cruiser' || seg === 'Adventure' || seg === 'Adventure Touring' || seg === 'Premium Tourer') ? (h >> 10) % 2 === 0 : (h >> 10) % 6 === 0;
 
 const fr = frontBig ? 28 : 25, rr = 25;
 const fx = 42, fy = 120 - (frontBig ? 2 : 0), rx = 206, ry = 120;
@@ -3352,11 +3358,17 @@ return html;
 
 // name → segment mapping (drives chips + filter)
 const segMap = {
-'Roadster':   ['Hunter 350','Guerrilla 450','Interceptor 650','Shotgun 650'],
-'Heritage':   ['Bullet 350','Classic 350','Classic 650','Bullet 650','Goan Classic 350'],
-'Cruiser':    ['Meteor 350','Super Meteor 650'],
-'Adventure':  ['Himalayan 450','Scram 440','Bear 650'],
-'Pure Sport': ['Continental GT 650'],
+'Roadster':          ['Hunter 350'],
+'Heritage':          ['Bullet 350'],
+'Vintage':           ['Classic 350'],
+'Cruiser':           ['Meteor 350','Super Meteor 650'],
+'Bobber':            ['Goan Classic 350'],
+'Adventure':         ['Scram 440'],
+'Adventure Touring': ['Himalayan 450'],
+'Premium Roadster':  ['Guerrilla 450','Shotgun 650','Interceptor 650','Bear 650'],
+'Café Racer':        ['Continental GT 650'],
+'Premium Tourer':    ['Classic 650'],
+'Premium Heritage':  ['Bullet 650'],
 
 };
 
