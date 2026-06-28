@@ -1518,6 +1518,68 @@ body.dark-mode .bsc-val{color:rgba(255,255,255,0.82) !important;}
 body.dark-mode .bsc-note{color:rgba(255,215,0,0.8) !important;background:rgba(255,215,0,0.06) !important;border-color:rgba(255,215,0,0.18) !important;}
 body.dark-mode .bsc-note-soft{color:rgba(255,255,255,0.5) !important;background:rgba(255,255,255,0.04) !important;border-color:rgba(255,255,255,0.08) !important;}
 body.dark-mode .bsc-foot{color:rgba(255,255,255,0.28) !important;border-top-color:rgba(255,255,255,0.06) !important;}
+
+/* ═══ COMPARE SECTION (added) ═══ */
+.compare-section{min-height:100vh;background-color:#faf7f0;
+  background-image:
+    radial-gradient(ellipse 55% 60% at 8% 10%,rgba(229,53,23,0.08) 0%,transparent 58%),
+    radial-gradient(ellipse 50% 55% at 94% 92%,rgba(201,151,0,0.09) 0%,transparent 58%);
+  position:relative;overflow:hidden;}
+body.dark-mode .compare-section{background-color:#060606 !important;}
+.cmp-controls{display:flex;gap:14px;flex-wrap:wrap;align-items:stretch;margin-bottom:14px;position:relative;z-index:2;}
+.cmp-slot{flex:1;min-width:230px;background:rgba(20,16,12,0.03);border:1px solid rgba(20,16,12,0.08);border-radius:14px;padding:14px;position:relative;}
+body.dark-mode .cmp-slot{background:rgba(255,255,255,0.04) !important;border-color:rgba(255,255,255,0.08) !important;}
+.cmp-slot::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0;background:linear-gradient(90deg,#E53517,#FFD700);}
+.cmp-slot-lbl{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(20,16,12,0.35);margin-bottom:10px;}
+body.dark-mode .cmp-slot-lbl{color:rgba(255,255,255,0.4) !important;}
+.cmp-slot select{width:100%;height:40px;border-radius:8px;border:1px solid rgba(20,16,12,0.12);background-color:rgba(255,255,255,0.7);color:#1a1714;font-size:13.5px;padding:0 30px 0 10px;margin:0 0 8px;cursor:pointer;appearance:none;box-sizing:border-box;
+  background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233a352c' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 10px center;background-size:15px;}
+.cmp-slot select:last-child{margin-bottom:0;}
+.cmp-slot select:focus{outline:none;box-shadow:0 0 0 2px rgba(255,215,0,0.35);transform:none;}
+body.dark-mode .cmp-slot select{background-color:rgba(255,255,255,0.08) !important;border-color:rgba(255,255,255,0.12) !important;color:#eee !important;}
+.cmp-rm{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:7px;border:1px solid rgba(255,127,127,0.3);background:rgba(255,127,127,0.1);color:#e0563c;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;margin:0;}
+.cmp-add{flex:0 0 auto;align-self:center;display:flex;align-items:center;gap:8px;padding:11px 18px;border-radius:12px;border:1.5px dashed rgba(154,118,0,0.4);background:rgba(255,215,0,0.06);color:#9a7600;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;height:auto;margin:0;}
+.cmp-add:hover{background:rgba(255,215,0,0.12);border-color:rgba(154,118,0,0.6);}
+.cmp-add:disabled{opacity:.4;cursor:not-allowed;}
+body.dark-mode .cmp-add{color:#FFD700 !important;}
+.cmp-tools{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:6px 0 18px;position:relative;z-index:2;}
+.cmp-legend{font-size:11.5px;color:rgba(20,16,12,0.42);display:flex;align-items:center;gap:7px;}
+body.dark-mode .cmp-legend{color:rgba(255,255,255,0.45) !important;}
+.cmp-legend i{width:22px;height:13px;border-radius:4px;background:rgba(255,215,0,0.22);border:1px solid rgba(255,215,0,0.5);display:inline-block;}
+.cmp-only{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:rgba(20,16,12,0.55);cursor:pointer;user-select:none;}
+body.dark-mode .cmp-only{color:rgba(255,255,255,0.6) !important;}
+.cmp-only input{width:15px;height:15px;accent-color:#E53517;cursor:pointer;margin:0;}
+.cmp-scroll{overflow-x:auto;border-radius:16px;border:1px solid rgba(20,16,12,0.08);background:rgba(255,255,255,0.55);box-shadow:0 16px 44px rgba(20,15,10,0.08);position:relative;z-index:2;}
+body.dark-mode .cmp-scroll{background:rgba(15,13,11,0.6) !important;border-color:rgba(255,255,255,0.08) !important;}
+table.cmp{border-collapse:collapse;width:100%;min-width:520px;}
+.cmp th,.cmp td{text-align:left;padding:11px 16px;font-size:12.5px;vertical-align:top;border-bottom:1px solid rgba(20,16,12,0.06);}
+body.dark-mode .cmp th,body.dark-mode .cmp td{border-bottom-color:rgba(255,255,255,0.07) !important;}
+.cmp .rowlbl{font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(20,16,12,0.4);white-space:nowrap;width:148px;position:sticky;left:0;background:rgba(250,247,240,0.97);}
+body.dark-mode .cmp .rowlbl{color:rgba(255,255,255,0.42) !important;background:rgba(12,10,9,0.97) !important;}
+.cmp td.val{color:rgba(20,16,12,0.8);font-weight:600;}
+body.dark-mode .cmp td.val{color:rgba(255,255,255,0.82) !important;}
+.cmp tr.diff{background:rgba(255,215,0,0.06);}
+.cmp tr.diff .rowlbl{background:rgba(250,244,224,0.97);color:#9a7600;}
+.cmp tr.diff td.val{color:#9a7600;font-weight:700;}
+body.dark-mode .cmp tr.diff{background:rgba(255,215,0,0.05) !important;}
+body.dark-mode .cmp tr.diff .rowlbl{background:rgba(20,17,8,0.97) !important;color:#FFD700 !important;}
+body.dark-mode .cmp tr.diff td.val{color:#FFD700 !important;}
+.cmp tr.grp td{background:rgba(20,16,12,0.035);font-size:9.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(20,16,12,0.45);padding:8px 16px;}
+body.dark-mode .cmp tr.grp td{background:rgba(255,255,255,0.04) !important;color:rgba(255,255,255,0.5) !important;}
+.cmp thead td{border-bottom:2px solid rgba(229,53,23,0.18);padding:0;}
+.cmp-itemhead{padding:14px 14px 12px;min-width:168px;}
+.cmp-itemhead .ph{width:100%;aspect-ratio:16/10;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#faf7f0,#efe9dc);display:flex;align-items:center;justify-content:center;margin-bottom:9px;}
+body.dark-mode .cmp-itemhead .ph{background:linear-gradient(135deg,#0d0d0d,#161310) !important;}
+.cmp-itemhead .ph img{width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;}
+.cmp-itemhead .ph .noimg{font-size:30px;opacity:.3;}
+.cmp-itemhead .nm{font-size:15px;font-weight:800;color:#9a7600;line-height:1.2;}
+body.dark-mode .cmp-itemhead .nm{color:#FFD700 !important;}
+.cmp-itemhead .tr{font-size:11px;font-weight:600;color:rgba(20,16,12,0.5);margin-top:2px;}
+body.dark-mode .cmp-itemhead .tr{color:rgba(255,255,255,0.55) !important;}
+.cmp-itemhead .pr{font-size:12.5px;font-weight:700;color:rgba(229,53,23,0.85);margin-top:4px;font-variant-numeric:tabular-nums;}
+body.dark-mode .cmp-itemhead .pr{color:rgba(255,150,120,0.9) !important;}
+.cmp-empty{padding:40px 20px;text-align:center;color:rgba(20,16,12,0.35);font-size:14px;}
+body.dark-mode .cmp-empty{color:rgba(255,255,255,0.4) !important;}
 </style>
 </head>
 <body>
@@ -1589,7 +1651,7 @@ body.dark-mode .bsc-foot{color:rgba(255,255,255,0.28) !important;border-top-colo
       <span class="gh-nav-icon">💰</span>
       <span class="gh-nav-label">EMI</span>
     </button>
-    <button class="gh-nav-item coming-soon" data-tab="compare">
+    <button class="gh-nav-item" data-tab="compare">
       <span class="gh-nav-icon">⚖️</span>
       <span class="gh-nav-label">Compare</span>
     </button>
@@ -1673,6 +1735,7 @@ body.dark-mode .bsc-foot{color:rgba(255,255,255,0.28) !important;border-top-colo
 <div class="scroll-nav" id="scrollNav" aria-hidden="true">
   <div class="sn-dot active" data-section="heroSection" title="CRM"></div>
   <div class="sn-dot" data-section="emiSection" title="EMI"></div>
+  <div class="sn-dot" data-section="compareSection" title="Compare"></div>
   <div class="sn-dot" data-section="notesSection" title="Notes"></div>
   <div class="sn-dot" data-section="gallerySection" title="Gallery"></div>
 </div>
@@ -1804,6 +1867,23 @@ body.dark-mode .bsc-foot{color:rgba(255,255,255,0.28) !important;border-top-colo
         <div id="edpEmiGrid"></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ===== COMPARE SECTION ===== -->
+<section class="compare-section" id="compareSection">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal-el">Side By Side</div>
+    <h2 class="section-title reveal-el" data-delay="1">Compare <span>Bikes &amp; Variants</span></h2>
+    <p class="section-sub reveal-el" data-delay="2">Pick a model + colour in each slot. Leave colour on <b>Common</b> to compare whole bikes, or choose a colour for an exact variant — mix freely. Add a third to compare 2-vs-3. Rows that differ are highlighted.</p>
+
+    <div class="cmp-controls reveal-el" data-delay="2" id="cmpSlots"></div>
+    <div class="cmp-tools reveal-el" data-delay="3">
+      <button class="cmp-add" id="cmpAddBtn">＋ Add third</button>
+      <label class="cmp-only"><input type="checkbox" id="cmpOnlyDiff"> Show only differences</label>
+      <span class="cmp-legend"><i></i> highlighted = differs</span>
+    </div>
+    <div class="cmp-scroll reveal-el" data-delay="3"><div id="cmpTableHost"></div></div>
   </div>
 </section>
 
@@ -2290,6 +2370,11 @@ function buildVariantCardHTML(name, colorOrPrice){
   window.buildCommonCardHTML=buildCommonCardHTML;
   window.buildVariantCardHTML=buildVariantCardHTML;
   window.getVariants=getVariants;
+  window.bikeSpecs=bikeSpecs;
+  window.variantHW=variantHW;
+  window.getColorImage=getColorImage;
+  window.fmtINR=fmtINR;
+  window.bikeHeroImage=bikeHeroImage;
   window.showSpecPanel=showSpecPanel;
   window.hideSpecPanel=hideSpecPanel;
   window.attachCommonHover=attachCommonHover;
@@ -2887,6 +2972,7 @@ function greetUser(name){
   const SECTIONS = [
     { id:'heroSection',  tab:null },
     { id:'emiSection',   tab:'emi' },
+    { id:'compareSection', tab:'compare' },
     { id:'notesSection', tab:'notes' },
     { id:'gallerySection', tab:'gallery' }
   ];
@@ -2894,7 +2980,7 @@ function greetUser(name){
   const navBtns = document.querySelectorAll('.gh-nav-item[data-tab]');
 
   navBtns.forEach(btn => {
-    if (btn.dataset.tab === 'emi' || btn.dataset.tab === 'notes' || btn.dataset.tab === 'gallery') btn.classList.remove('coming-soon');
+    if (btn.dataset.tab === 'emi' || btn.dataset.tab === 'compare' || btn.dataset.tab === 'notes' || btn.dataset.tab === 'gallery') btn.classList.remove('coming-soon');
     btn.addEventListener('click', () => {
       const match = SECTIONS.find(s => s.tab === btn.dataset.tab);
       if (match) document.getElementById(match.id)?.scrollIntoView({ behavior:'smooth' });
@@ -3535,6 +3621,102 @@ function greetUser(name){
 })();
 
 </script>
+
+<script>
+// ═══ COMPARE SECTION — bikes & variants side by side (reuses spec-panel data) ═══
+(function(){
+  const getVariants=window.getVariants, fmtINR=window.fmtINR, getColorImage=window.getColorImage,
+        bikeSpecs=window.bikeSpecs, bikeHeroImage=window.bikeHeroImage;
+  const host=document.getElementById('cmpSlots');
+  if(!host || !getVariants || !bikeSpecs) return;
+
+  function itemFields(model,color){
+    const s=bikeSpecs[model]||{};
+    const variants=getVariants(model);
+    let hw,trim,price,photo;
+    if(color){
+      const p=bikeData[model][color];
+      const v=variants.find(x=>x.price===p)||variants[0];
+      hw=v.hw; trim=color+' · '+v.trim; price=fmtINR(v.price);
+      photo=getColorImage(model,color)||bikeHeroImage[model]||'';
+    }else{
+      const ps=Object.values(bikeData[model]).filter(x=>x!=null);
+      const mn=Math.min(...ps),mx=Math.max(...ps);
+      price=mn===mx?fmtINR(mn):fmtINR(mn)+' – '+fmtINR(mx);
+      photo=bikeHeroImage[model]||'';
+      hw={wheels:'varies by trim',tyres:'varies by trim',brakes:'varies by trim',abs:'varies by trim',lights:'varies by trim',extras:'varies by trim'};
+    }
+    return { _photo:photo,_name:model,_trim:color?trim:'Common (all variants)',_price:price,
+      rows:{
+        'Segment':s.seg,'Riding Purpose':((bikeInfo[model]||{}).about||[]).join(', '),'Price':price,
+        'Engine':s.engine,'Max Power':s.power,'Max Torque':s.torque,'Gearbox':s.gearbox,'Mileage':s.mileage,'Top Speed':s.topSpeed,
+        'Fuel Tank':s.fuelTank,'Seat Height':s.seatHeight,'Kerb Weight':s.weight,'Ground Clearance':s.gc,'Wheelbase':s.wheelbase,'Suspension':s.susp,
+        'Wheels':hw.wheels,'Tyres':hw.tyres,'Brakes':hw.brakes,'ABS':hw.abs,'Lighting':hw.lights,'Features':hw.extras
+      } };
+  }
+  const GROUPS=[
+    ['Overview',['Segment','Riding Purpose','Price']],
+    ['Engine & Performance',['Engine','Max Power','Max Torque','Gearbox','Mileage','Top Speed']],
+    ['Dimensions & Capacity',['Fuel Tank','Seat Height','Kerb Weight','Ground Clearance','Wheelbase','Suspension']],
+    ['Variant Hardware',['Wheels','Tyres','Brakes','ABS','Lighting','Features']]
+  ];
+  const models=Object.keys(bikeData);
+  let slots=[{model:'Hunter 350',color:'London Red'},{model:'Hunter 350',color:'Factory Black'}];
+
+  function colorOptions(model,sel){
+    let h='<option value="">— Common (all variants) —</option>';
+    Object.entries(bikeData[model]).sort((a,b)=>a[1]-b[1]).forEach(([c,p])=>{
+      h+='<option value="'+c+'"'+(c===sel?' selected':'')+'>'+c+' · '+fmtINR(p)+'</option>';
+    });
+    return h;
+  }
+  function syncAdd(){ const b=document.getElementById('cmpAddBtn'); if(b) b.disabled=slots.length>=3; }
+  function renderSlots(){
+    host.innerHTML='';
+    slots.forEach((sl,i)=>{
+      const div=document.createElement('div'); div.className='cmp-slot';
+      div.innerHTML='<div class="cmp-slot-lbl">Slot '+(i+1)+'</div>'+
+        (i>=2?'<button class="cmp-rm" data-i="'+i+'" title="Remove">✕</button>':'')+
+        '<select class="cmp-m" data-i="'+i+'">'+models.map(m=>'<option'+(m===sl.model?' selected':'')+'>'+m+'</option>').join('')+'</select>'+
+        '<select class="cmp-c" data-i="'+i+'">'+colorOptions(sl.model,sl.color)+'</select>';
+      host.appendChild(div);
+    });
+    host.querySelectorAll('select.cmp-m').forEach(s=>s.addEventListener('change',e=>{const i=+e.target.dataset.i;slots[i].model=e.target.value;slots[i].color='';renderSlots();renderTable();}));
+    host.querySelectorAll('select.cmp-c').forEach(s=>s.addEventListener('change',e=>{const i=+e.target.dataset.i;slots[i].color=e.target.value;renderTable();}));
+    host.querySelectorAll('.cmp-rm').forEach(b=>b.addEventListener('click',e=>{slots.splice(+e.target.dataset.i,1);renderSlots();renderTable();}));
+    syncAdd();
+  }
+  function renderTable(){
+    const host2=document.getElementById('cmpTableHost'); if(!host2) return;
+    const onlyDiff=document.getElementById('cmpOnlyDiff').checked;
+    const items=slots.map(sl=>itemFields(sl.model,sl.color));
+    if(items.length<2){ host2.innerHTML='<div class="cmp-empty">Pick at least two slots to compare.</div>'; return; }
+    let h='<table class="cmp"><thead><tr><td class="rowlbl"></td>';
+    items.forEach(it=>{
+      const ph=it._photo?'<img src="'+it._photo+'" alt="'+it._name+'">':'<span class="noimg">🏍️</span>';
+      h+='<td><div class="cmp-itemhead"><div class="ph">'+ph+'</div><div class="nm">'+it._name+'</div><div class="tr">'+it._trim+'</div><div class="pr">'+it._price+'</div></div></td>';
+    });
+    h+='</tr></thead><tbody>';
+    GROUPS.forEach(([gname,keys])=>{
+      let rows='';
+      keys.forEach(k=>{
+        const vals=items.map(it=>it.rows[k]||'—');
+        const diff=new Set(vals).size>1;
+        if(onlyDiff&&!diff) return;
+        rows+='<tr class="'+(diff?'diff':'')+'"><td class="rowlbl">'+k+'</td>'+vals.map(v=>'<td class="val">'+v+'</td>').join('')+'</tr>';
+      });
+      if(rows) h+='<tr class="grp"><td class="rowlbl">'+gname+'</td>'+items.map(()=>'<td></td>').join('')+'</tr>'+rows;
+    });
+    h+='</tbody></table>';
+    host2.innerHTML=h;
+  }
+  const addBtn=document.getElementById('cmpAddBtn');
+  if(addBtn) addBtn.addEventListener('click',()=>{ if(slots.length<3){ slots.push({model:'Classic 350',color:''}); renderSlots(); renderTable(); } });
+  const od=document.getElementById('cmpOnlyDiff'); if(od) od.addEventListener('change',renderTable);
+  renderSlots(); renderTable();
+})();
+</script>
+
 
 <script>
 // ── Lightbox — separate script so DOM is guaranteed ready ──
